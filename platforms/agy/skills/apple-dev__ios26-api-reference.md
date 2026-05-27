@@ -8,7 +8,7 @@ description: Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart 
 > **Purpose:** Prevent bugs from hallucinated or outdated API signatures.
 > **Architecture:** 3-tier loading — only load what you need.
 > **Last verified:** 2026-04-08
-> **Context7 Integration:** Live API documentation lookup for latest signatures
+> **Context7 Integration (Optional):** Live API documentation lookup for latest signatures. If unavailable, rely on the static reference below.
 
 ---
 
@@ -57,9 +57,9 @@ Also available: `reference/crash-cheat-sheet.md` (universal rules) and `referenc
 
 ---
 
-## Step 3: Context7 Live Documentation Lookup
+## Step 3: Context7 Live Documentation Lookup (Optional)
 
-When static references are insufficient or you encounter unfamiliar APIs, **use Context7 MCP** to fetch the latest official documentation.
+When static references are insufficient or you encounter unfamiliar APIs, **use Context7 MCP** (if installed) to fetch the latest official documentation. If Context7 is not available, rely on the static references in this skill and flag uncertain APIs as "unverified".
 
 ### When to Query Context7
 
@@ -240,7 +240,7 @@ SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
 | Automated pattern validation | `apple-patterns-check` |
 | Design system + Liquid Glass | `ios-design` |
 | Build troubleshooting | `ios-build` |
-| Live API documentation | Context7 MCP (via `/setup`) |
+| Live API documentation | Context7 MCP (Optional — via `/setup`) |
 
 ---
 

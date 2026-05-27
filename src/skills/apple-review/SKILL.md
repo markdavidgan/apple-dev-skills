@@ -819,11 +819,11 @@ Write the unified report to `docs/reviews/YYYY-MM-DD-apple-review-[app].md`.
 
 ## Apple Documentation Verification
 
-**MANDATORY for Design and Engineering panels:**
+**RECOMMENDED for Design and Engineering panels:**
 
 When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple framework API:
 
-1. **Use Context7 MCP FIRST** for live API documentation — Query for official Apple framework docs when encountering unfamiliar APIs or verifying signatures. Context7 has the latest documentation and prevents hallucinations.
+1. **Use Context7 MCP FIRST** (if installed) for live API documentation — Query for official Apple framework docs when encountering unfamiliar APIs or verifying signatures. Context7 has the latest documentation and prevents hallucinations.
 2. Use `Grep` to verify actual API usage patterns in the codebase.
 3. Cross-reference Context7 findings with `ios26-api-reference` skill for crash prevention rules.
 4. When Context7 is unavailable and you're uncertain about an API, flag it as "unverified" rather than asserting correctness.

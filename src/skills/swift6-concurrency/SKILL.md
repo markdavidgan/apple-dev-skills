@@ -8,7 +8,7 @@ Handle Swift 6 concurrency issues. Swift 6 enforces strict data isolation by def
 > **Deep reference:** For 8 comprehensive crash scenarios with WRONG/RIGHT pairs, load `ios26-api-reference/essentials/swift6.md`.
 > For expert-level patterns (actor isolation, migration strategies), load `ios26-api-reference/guides/expert-swift6.md`.
 > For real-world community gotchas, load `ios26-api-reference/intel/community-swift6.md`.
-> **Live API verification:** Use Context7 MCP to query the latest Swift concurrency documentation for unfamiliar patterns or API signatures.
+> **Live API verification (Optional):** If Context7 MCP is installed, query it for the latest Swift concurrency documentation. Otherwise, use the static patterns in this skill and flag unfamiliar APIs as "unverified".
 
 ---
 

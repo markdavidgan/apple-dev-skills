@@ -179,12 +179,12 @@ prompt: |
   - essentials/avfoundation.md — if app uses audio
   - (load other essentials as needed per detected imports)
   
-  MANDATORY: Use Context7 MCP for live API documentation verification.
+  RECOMMENDED: Use Context7 MCP (if installed) for live API documentation verification.
   When encountering unfamiliar APIs or verifying signatures:
-  1. Query Context7 for official Apple framework documentation
+  1. Query Context7 for official Apple framework documentation (optional)
   2. Cross-reference with ios26-api-reference essentials
-  3. Flag any API usage that conflicts with Context7 documentation
-  4. Prioritize Context7 for API signatures, local essentials for crash prevention rules
+  3. Flag any API usage that conflicts with live documentation, or mark as "unverified" if Context7 is unavailable
+  4. Prioritize live docs for API signatures, local essentials for crash prevention rules
   
   Evaluate:
   1. Swift 6 & Concurrency
@@ -511,10 +511,10 @@ prompt: |
   ISSUE: {concurrency_issue}
   Location: {file:line}
   
-  MANDATORY: 
+  REQUIRED:
   1. Load ios26-api-reference/essentials/swift6.md before fixing
-  2. Use Context7 MCP to verify any unfamiliar concurrency API patterns
-  3. Cross-reference Context7 findings with local crash prevention rules
+  2. Use Context7 MCP to verify any unfamiliar concurrency API patterns (optional)
+  3. Cross-reference live findings with local crash prevention rules
   
   Common fixes:
   - Add @preconcurrency import for Apple frameworks
@@ -538,10 +538,10 @@ prompt: |
   ISSUE: {swifdata_issue}
   Location: {file:line}
   
-  MANDATORY:
+  REQUIRED:
   1. Load ios26-api-reference/essentials/swiftdata.md before fixing
-  2. Use Context7 MCP to verify SwiftData API signatures (ModelContext, Query, predicates)
-  3. Query Context7 for migration patterns if schema changes are needed
+  2. Use Context7 MCP to verify SwiftData API signatures (optional)
+  3. Query Context7 for migration patterns if schema changes are needed (optional)
   
   Common fixes:
   - Add default values to model properties
@@ -3053,11 +3053,11 @@ Write the unified report to `docs/reviews/YYYY-MM-DD-apple-review-[app].md`.
 
 ## Apple Documentation Verification
 
-**MANDATORY for Design and Engineering panels:**
+**RECOMMENDED for Design and Engineering panels:**
 
 When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple framework API:
 
-1. **Use Context7 MCP FIRST** for live API documentation — Query for official Apple framework docs when encountering unfamiliar APIs or verifying signatures. Context7 has the latest documentation and prevents hallucinations.
+1. **Use Context7 MCP FIRST** (if installed) for live API documentation — Query for official Apple framework docs when encountering unfamiliar APIs or verifying signatures. Context7 has the latest documentation and prevents hallucinations.
 2. Use `Grep` to verify actual API usage patterns in the codebase.
 3. Cross-reference Context7 findings with `ios26-api-reference` skill for crash prevention rules.
 4. When Context7 is unavailable and you're uncertain about an API, flag it as "unverified" rather than asserting correctness.
@@ -4395,14 +4395,18 @@ Task { @MainActor [weak self] in
 
 **Error:** `No profiles for 'com.example.app' were found`
 
-**Fix:** Use MCP tools to check and fix signing:
+**Fix:** Use ASC MCP tools to check and fix signing:
 
 ```bash
-# Check signing status
-# (Use xc_check_signing MCP tool with bundle ID and expected capabilities)
+# Check signing status against Developer Portal
+asc_check_signing --bundle-id com.example.app --capabilities push-notifications,app-groups
 
-# Fix with one-shot setup
-# (Use xc_setup_signing MCP tool with bundle identifiers)
+# List available certificates and profiles
+asc_list_certificates
+asc_list_profiles --type IOS_APP_DEVELOPMENT
+
+# Create a new certificate if needed
+asc_create_certificate --type DISTRIBUTION
 ```
 
 ### DerivedData Issues
@@ -4595,7 +4599,7 @@ settings:
 2. **Use `make validate`** as a pre-commit check
 3. **Regenerate project** after project.yml changes
 4. **Clear DerivedData** when builds behave strangely
-5. **Use MCP tools** for signing issues, not manual portal fixes
+5. **Use ASC MCP tools** (`asc_check_signing`, `asc_list_profiles`) for signing issues, not manual portal fixes
 6. **Test on device** periodically — simulators don't catch all issues
 
 ---
@@ -7336,7 +7340,7 @@ When adding a new feature:
 > **Purpose:** Prevent bugs from hallucinated or outdated API signatures.
 > **Architecture:** 3-tier loading — only load what you need.
 > **Last verified:** 2026-04-08
-> **Context7 Integration:** Live API documentation lookup for latest signatures
+> **Context7 Integration (Optional):** Live API documentation lookup for latest signatures. If unavailable, rely on the static reference below.
 
 ---
 
@@ -7385,9 +7389,9 @@ Also available: `reference/crash-cheat-sheet.md` (universal rules) and `referenc
 
 ---
 
-## Step 3: Context7 Live Documentation Lookup
+## Step 3: Context7 Live Documentation Lookup (Optional)
 
-When static references are insufficient or you encounter unfamiliar APIs, **use Context7 MCP** to fetch the latest official documentation.
+When static references are insufficient or you encounter unfamiliar APIs, **use Context7 MCP** (if installed) to fetch the latest official documentation. If Context7 is not available, rely on the static references in this skill and flag uncertain APIs as "unverified".
 
 ### When to Query Context7
 
@@ -7568,7 +7572,7 @@ SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
 | Automated pattern validation | `apple-patterns-check` |
 | Design system + Liquid Glass | `ios-design` |
 | Build troubleshooting | `ios-build` |
-| Live API documentation | Context7 MCP (via `/setup`) |
+| Live API documentation | Context7 MCP (Optional — via `/setup`) |
 
 ---
 
@@ -8029,7 +8033,7 @@ Handle Swift 6 concurrency issues. Swift 6 enforces strict data isolation by def
 > **Deep reference:** For 8 comprehensive crash scenarios with WRONG/RIGHT pairs, load `ios26-api-reference/essentials/swift6.md`.
 > For expert-level patterns (actor isolation, migration strategies), load `ios26-api-reference/guides/expert-swift6.md`.
 > For real-world community gotchas, load `ios26-api-reference/intel/community-swift6.md`.
-> **Live API verification:** Use Context7 MCP to query the latest Swift concurrency documentation for unfamiliar patterns or API signatures.
+> **Live API verification (Optional):** If Context7 MCP is installed, query it for the latest Swift concurrency documentation. Otherwise, use the static patterns in this skill and flag unfamiliar APIs as "unverified".
 
 ---
 

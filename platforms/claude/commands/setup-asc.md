@@ -81,7 +81,7 @@ For repo-level, create or update `.mcp.json`:
   "mcpServers": {
     "app-store-connect": {
       "command": "node",
-      "args": ["<path-to-plugin>/plugins/apple-dev/mcp/asc/dist/index.js"],
+      "args": ["<REPO_PATH>/src/mcp/asc/dist/index.js"],
       "env": {
         "ASC_KEY_ID": "<KEY_ID>",
         "ASC_ISSUER_ID": "<ISSUER_ID>",
@@ -103,7 +103,7 @@ Test the credentials by calling `asc_list_apps` (or equivalent direct API call).
 
 If the ASC MCP server hasn't been built yet:
 ```bash
-cd <aether-agent-plugins>/plugins/apple-dev/mcp/asc
+cd <REPO_PATH>/src/mcp/asc
 npm install
 npm run build
 ```

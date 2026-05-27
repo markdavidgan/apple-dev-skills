@@ -134,12 +134,12 @@ prompt: |
   - essentials/avfoundation.md — if app uses audio
   - (load other essentials as needed per detected imports)
   
-  MANDATORY: Use Context7 MCP for live API documentation verification.
+  RECOMMENDED: Use Context7 MCP (if installed) for live API documentation verification.
   When encountering unfamiliar APIs or verifying signatures:
-  1. Query Context7 for official Apple framework documentation
+  1. Query Context7 for official Apple framework documentation (optional)
   2. Cross-reference with ios26-api-reference essentials
-  3. Flag any API usage that conflicts with Context7 documentation
-  4. Prioritize Context7 for API signatures, local essentials for crash prevention rules
+  3. Flag any API usage that conflicts with live documentation, or mark as "unverified" if Context7 is unavailable
+  4. Prioritize live docs for API signatures, local essentials for crash prevention rules
   
   Evaluate:
   1. Swift 6 & Concurrency
@@ -466,10 +466,10 @@ prompt: |
   ISSUE: {concurrency_issue}
   Location: {file:line}
   
-  MANDATORY: 
+  REQUIRED:
   1. Load ios26-api-reference/essentials/swift6.md before fixing
-  2. Use Context7 MCP to verify any unfamiliar concurrency API patterns
-  3. Cross-reference Context7 findings with local crash prevention rules
+  2. Use Context7 MCP to verify any unfamiliar concurrency API patterns (optional)
+  3. Cross-reference live findings with local crash prevention rules
   
   Common fixes:
   - Add @preconcurrency import for Apple frameworks
@@ -493,10 +493,10 @@ prompt: |
   ISSUE: {swifdata_issue}
   Location: {file:line}
   
-  MANDATORY:
+  REQUIRED:
   1. Load ios26-api-reference/essentials/swiftdata.md before fixing
-  2. Use Context7 MCP to verify SwiftData API signatures (ModelContext, Query, predicates)
-  3. Query Context7 for migration patterns if schema changes are needed
+  2. Use Context7 MCP to verify SwiftData API signatures (optional)
+  3. Query Context7 for migration patterns if schema changes are needed (optional)
   
   Common fixes:
   - Add default values to model properties

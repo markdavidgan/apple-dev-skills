@@ -28,12 +28,16 @@
 | swift6-concurrency | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |  |
 | verify-against-spec | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. | `/verify-against-spec [spec-path] — Check implementation coverage against design spec` |
 
-## Agents (3)
+## Agents (7)
 
 | Agent | Model | Effort | Description |
 |-------|-------|--------|-------------|
+| architect | opus | high | Architecture and design decision agent. Use PROACTIVELY for complex architectural decisions, ADR creation, or system design tasks requiring deep reasoning. |
 | auditor | sonnet | medium | Deep codebase analyzer for architectural reviews, compliance audits, and comprehensive assessments. Use PROACTIVELY when evaluating architecture before major changes, auditing for Swift 6 compliance, identifying tech debt across modules, scoring code quality, or conducting engineering reviews that require systematic layer-by-layer analysis. |
 | build-agent | haiku | low | Build and compilation specialist for iOS/Swift projects. Use PROACTIVELY for build failures, compilation errors, or build system configuration tasks. |
+| code-reviewer | sonnet | medium | Code review specialist. Use PROACTIVELY after writing or modifying code for quality, security, and best practice verification. |
+| coder | sonnet | medium | General-purpose coding agent. Use for implementing features, fixing bugs, and writing tests. Can read, write, and edit code. |
+| explore | haiku | low | Fast codebase exploration agent. Use PROACTIVELY for searching, understanding code structure, or finding patterns without making changes. |
 | ios-code-reviewer | sonnet | low | Reviews iOS code changes against iOS 26 crash patterns, concurrency rules, and API correctness. Lighter than auditor — focused on changed files only. Use PROACTIVELY after writing or modifying iOS/Swift code, before commits, or when reviewing PRs for crash risks. |
 
 ## Commands (6)

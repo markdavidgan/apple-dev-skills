@@ -302,14 +302,18 @@ Task { @MainActor [weak self] in
 
 **Error:** `No profiles for 'com.example.app' were found`
 
-**Fix:** Use MCP tools to check and fix signing:
+**Fix:** Use ASC MCP tools to check and fix signing:
 
 ```bash
-# Check signing status
-# (Use xc_check_signing MCP tool with bundle ID and expected capabilities)
+# Check signing status against Developer Portal
+asc_check_signing --bundle-id com.example.app --capabilities push-notifications,app-groups
 
-# Fix with one-shot setup
-# (Use xc_setup_signing MCP tool with bundle identifiers)
+# List available certificates and profiles
+asc_list_certificates
+asc_list_profiles --type IOS_APP_DEVELOPMENT
+
+# Create a new certificate if needed
+asc_create_certificate --type DISTRIBUTION
 ```
 
 ### DerivedData Issues
@@ -502,7 +506,7 @@ settings:
 2. **Use `make validate`** as a pre-commit check
 3. **Regenerate project** after project.yml changes
 4. **Clear DerivedData** when builds behave strangely
-5. **Use MCP tools** for signing issues, not manual portal fixes
+5. **Use ASC MCP tools** (`asc_check_signing`, `asc_list_profiles`) for signing issues, not manual portal fixes
 6. **Test on device** periodically — simulators don't catch all issues
 
 ---

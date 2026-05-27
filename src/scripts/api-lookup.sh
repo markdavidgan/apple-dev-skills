@@ -64,7 +64,7 @@ fi
 
 # ─── Build response ───
 if [[ $MATCH_COUNT -eq 0 ]]; then
-  REPORT="No matches found for '\"$QUERY\"' in the iOS 26 API reference.\n\nSuggestions:\n- Try a broader term (e.g., 'Speech' instead of 'SpeechTranscriber')\n- Check the framework name (e.g., 'SwiftData', 'FoundationModels')\n- Use Context7 MCP for live documentation lookup"
+  REPORT="No matches found for '\"$QUERY\"' in the iOS 26 API reference.\n\nSuggestions:\n- Try a broader term (e.g., 'Speech' instead of 'SpeechTranscriber')\n- Check the framework name (e.g., 'SwiftData', 'FoundationModels')\n- Use Context7 MCP for live documentation lookup (optional)"
 else
   REPORT="Found $MATCH_COUNT match(es) for '\"$QUERY\"':\n$RESULTS\n\n---\n\n**Priority:** Essentials > Reference > Guides > Intel\n**Tip:** For live API signatures, also query Context7 MCP."
 fi

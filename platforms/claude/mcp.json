@@ -11,7 +11,7 @@
   "mcpServers": {
     "app-store-connect": {
       "command": "node",
-      "args": ["<REPO_PATH>/src/mcp/asc/dist/index.js"],
+      "args": ["<REPO_PATH>/apple-dev-skills/src/mcp/asc/dist/index.js"],
       "env": {
         "ASC_KEY_ID": "${ASC_KEY_ID}",
         "ASC_ISSUER_ID": "${ASC_ISSUER_ID}",
