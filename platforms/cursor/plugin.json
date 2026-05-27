@@ -1,0 +1,29 @@
+{
+  "name": "apple-dev-skills",
+  "displayName": "Apple Dev Skills",
+  "version": "0.1.0",
+  "description": "Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
+  "author": {
+    "name": "Mark David Gan",
+    "email": "mark@markdavidgan.com"
+  },
+  "repository": "https://github.com/markdavidgan/apple-dev-skills",
+  "license": "MIT",
+  "keywords": [
+    "ios",
+    "swift",
+    "swiftui",
+    "swiftdata",
+    "xcode",
+    "apple",
+    "accessibility",
+    "concurrency",
+    "design",
+    "app-store-connect",
+    "testflight",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "commands": "./commands/"
+}

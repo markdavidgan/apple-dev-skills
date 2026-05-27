@@ -1,0 +1,279 @@
+# Apple Dev Skills
+
+A comprehensive, multi-platform plugin set for Apple platform development. Covers Swift 6, SwiftUI, SwiftData, iOS 26+ APIs, design systems, accessibility, App Store Connect automation, testing, and advanced quality workflows.
+
+**Platforms:** Claude Code · Cursor · Kimi Code · Antigravity · Codex CLI · Agy
+
+---
+
+## What's Included
+
+### 19 Skills
+
+| Skill | Domain | Purpose |
+|-------|--------|---------|
+| `apple-cleanup` | Quality | Exhaustive engineering hardening pipeline (P0–P2 fix → optimize → TestFlight) |
+| `apple-patterns-check` | Quality | Fast mechanical validation of Swift 6, SwiftUI, SwiftData, entitlements, safety |
+| `apple-polish` | Design | Design & keynote-readiness review → fix → TestFlight |
+| `apple-review` | Quality | 4-panel review (Design + Engineering + Compliance + Keynote) |
+| `asc-build-check` | ASC | CI build status/debug via App Store Connect MCP tools |
+| `asc-submission` | ASC | App Store submission prep, metadata, TestFlight distribution |
+| `complete-feature` | Workflow | Feature completion validation with parallel subagents |
+| `ios-accessibility` | Design | VoiceOver, Dynamic Type, tap targets, semantic grouping audit |
+| `ios-asc` | ASC | App Store Connect MCP tools reference |
+| `ios-build` | Engineering | Build system patterns, XcodeGen, 4-layer validation, CI/CD |
+| `ios-design` | Design | SwiftUI design system, iOS 26 Liquid Glass, ADHD-friendly UX |
+| `ios-simulate` | Engineering | iOS Simulator workflows, screenshot automation, device management |
+| `ios-standards` | Engineering | Swift 6.0+ standards, strict concurrency, `@Observable`, `@MainActor` |
+| `ios-test` | Engineering | XCTest patterns, SwiftData in-memory testing, UI testing, perf budgets |
+| `ios26-api-reference` | Reference | 3-tier API reference preventing hallucinated APIs |
+| `merge-check` | Quality | Pre-merge quality gate with 4 parallel subagents |
+| `regression-test` | Quality | Bug-fix workflow: failing test → fix → sibling pattern check |
+| `swift6-concurrency` | Engineering | Swift 6 concurrency error patterns and fixes |
+| `verify-against-spec` | Workflow | Parallel spec coverage verification |
+
+### 3 Agents
+
+| Agent | Tier | Purpose |
+|-------|------|---------|
+| `build-agent` | Fast | iOS/Swift build troubleshooting |
+| `auditor` | Standard | Deep codebase analysis, architectural reviews |
+| `ios-code-reviewer` | Standard | Changed-files-only review against iOS 26 crash patterns |
+
+### 6 Commands
+
+| Command | Skill | Purpose |
+|---------|-------|---------|
+| `/apple-check` | `apple-patterns-check` | Fast pattern validation |
+| `/apple-cleanup` | `apple-cleanup` | Engineering hardening pipeline |
+| `/apple-polish` | `apple-polish` | Design polish pipeline |
+| `/apple-review` | `apple-review` | Full 4-panel review |
+| `/complete-feature` | `complete-feature` | Feature completion gate |
+| `/setup-asc` | — | ASC MCP server authentication setup |
+
+### MCP Server
+
+**App Store Connect MCP** (`mcp/asc/`) — 80+ tools for CI/builds, TestFlight, signing, provisioning, metadata, app submission, IAP, and screenshots.
+
+---
+
+## Installation
+
+### Quick Install (Recommended)
+
+```bash
+# Clone anywhere you want
+git clone https://github.com/markdavidgan/apple-dev-skills.git
+cd apple-dev-skills
+
+# Install for your platform
+./install.sh --platform claude       # Claude Code
+./install.sh --platform cursor       # Cursor
+./install.sh --platform kimi         # Kimi Code
+./install.sh --platform antigravity  # Antigravity
+./install.sh --platform codex        # Codex CLI
+./install.sh --platform agy          # Agy
+
+# Or install to all detected platforms
+./install.sh --platform all
+```
+
+### Per-Platform Details
+
+#### Claude Code
+
+**Marketplace:**
+```
+/plugin marketplace add markdavidgan/apple-dev-skills
+/plugin install apple-dev-skills
+```
+
+**Manual:**
+```bash
+./install.sh --platform claude
+```
+
+Installs to `~/.claude/skills/`, `~/.claude/agents/`, `~/.claude/commands/`.
+
+#### Cursor
+
+**Marketplace:** Import repo URL in Cursor → Plugins → Add Marketplace.
+
+**Manual:**
+```bash
+./install.sh --platform cursor
+```
+
+Installs to `~/.cursor/skills/`, `~/.cursor/agents/`, `~/.cursor/commands/`.
+
+#### Kimi Code
+
+```bash
+# From git (discovers plugin in subdirectory)
+kimi plugin install https://github.com/markdavidgan/apple-dev-skills
+
+# Or local
+./install.sh --platform kimi
+```
+
+Installs to `~/.kimi/plugins/apple-dev/`. Kimi discovers one `SKILL.md` + tools per plugin.
+
+#### Antigravity
+
+```bash
+./install.sh --platform antigravity
+```
+
+Installs skills to `~/.gemini/antigravity/skills/apple-dev/`.
+
+#### Codex CLI
+
+```bash
+./install.sh --platform codex
+```
+
+Installs skills to `~/.codex/skills/apple-dev/`.
+
+#### Agy
+
+```bash
+./install.sh --platform agy
+```
+
+Installs skills to `~/.agy/skills/apple-dev/`.
+
+### Local (Project-Scoped) Install
+
+Add `--local` to install into the current project directory (e.g., `.claude/`, `.cursor/`, `.kimi/`) instead of the global user directory:
+
+```bash
+./install.sh --platform claude --local
+```
+
+### MCP Server Setup
+
+The App Store Connect MCP server requires a one-time build:
+
+```bash
+cd src/mcp/asc
+npm install
+npm run build
+```
+
+Then configure auth (requires Apple Developer API key):
+
+```bash
+# Claude Code
+claude mcp add-json app-store-connect < src/mcp/asc/mcp.json
+
+# Or run the setup command
+/setup-asc
+```
+
+---
+
+## Updating
+
+```bash
+cd apple-dev-skills
+git pull
+./install.sh --platform <your-platform>
+```
+
+Symlink-based installs update instantly. Copied installs require re-running `./install.sh`.
+
+---
+
+## Repository Structure
+
+```
+apple-dev-skills/
+├── src/                    # Source of truth (canonical content)
+│   ├── skills/             # 19 skill directories
+│   ├── agents/             # 3 agent definitions
+│   ├── commands/           # 6 command definitions
+│   └── mcp/asc/            # App Store Connect MCP server
+├── platforms/              # Generated platform outputs
+│   ├── claude/             # Claude Code bundle
+│   ├── cursor/             # Cursor bundle
+│   ├── kimi/apple-dev/     # Kimi plugin (consolidated skill + tools)
+│   ├── antigravity/        # Antigravity skills
+│   ├── codex/              # Codex skills
+│   └── agy/                # Agy skills
+├── scripts/
+│   ├── build.js            # Build platform outputs from src/
+│   └── validate.js         # Validate skills before build
+├── install.sh              # Cross-platform installer
+└── docs/
+    ├── ARCHITECTURE.md
+    └── PLATFORM_COMPATIBILITY.md
+```
+
+---
+
+## Building from Source
+
+If you modify `src/`, regenerate platform outputs:
+
+```bash
+node scripts/build.js
+```
+
+Validate before building:
+
+```bash
+node scripts/validate.js
+```
+
+---
+
+## Platform Compatibility
+
+See [docs/PLATFORM_COMPATIBILITY.md](docs/PLATFORM_COMPATIBILITY.md) for the full feature matrix.
+
+| Feature | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
+|---------|--------|--------|------|-------------|-------|-----|
+| Skills (all 19) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
+| Agents | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| MCP Server | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |
+
+\* Kimi consolidates all skills into one master `SKILL.md` + executable tools.  
+\** MCP requires manual config; see docs.
+
+---
+
+## Versioning
+
+This repo uses **semantic versioning** from `package.json` as the single source of truth.
+
+```bash
+# Bump version and propagate to all platform manifests
+node scripts/bump-version.js patch   # 1.0.0 → 1.0.1
+node scripts/bump-version.js minor   # 1.0.0 → 1.1.0
+node scripts/bump-version.js major   # 1.0.0 → 2.0.0
+node scripts/bump-version.js 1.2.3   # set exact version
+
+# Rebuild all platform outputs with the new version
+node scripts/build.js
+
+# Regenerate the catalog
+node scripts/generate-catalog.js
+```
+
+Then commit, tag, and push:
+
+```bash
+git add .
+git commit -m "v1.0.1"
+git tag -a v1.0.1 -m "v1.0.1"
+git push && git push origin v1.0.1
+```
+
+CI runs automatically on every PR and push. Claude Marketplace, Cursor Marketplace, and Kimi plugin registry all read version from their respective `plugin.json` manifests, which are kept in sync by `scripts/build.js`.
+
+---
+
+## License
+
+MIT

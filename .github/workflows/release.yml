@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate and build
+        run: |
+          node scripts/validate.js
+          node scripts/build.js
+          node scripts/generate-catalog.js
+
+      - name: Create platform bundles
+        run: |
+          mkdir -p dist
+          zip -r dist/apple-dev-skills-claude.zip platforms/claude/ .claude-plugin/
+          zip -r dist/apple-dev-skills-cursor.zip platforms/cursor/ .cursor-plugin/
+          zip -r dist/apple-dev-skills-kimi.zip platforms/kimi/ .kimi-plugin/
+          zip -r dist/apple-dev-skills-antigravity.zip platforms/antigravity/
+          zip -r dist/apple-dev-skills-codex.zip platforms/codex/
+          zip -r dist/apple-dev-skills-agy.zip platforms/agy/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          generate_release_notes: true

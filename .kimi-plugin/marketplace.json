@@ -1,0 +1,18 @@
+{
+  "name": "apple-dev-skills",
+  "owner": {
+    "name": "Mark David Gan",
+    "email": "mark@markdavidgan.com"
+  },
+  "metadata": {
+    "description": "Apple platform development tools and knowledge for iOS, Swift, SwiftUI, and App Store Connect. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "apple-dev",
+      "source": "platforms/kimi/apple-dev",
+      "description": "Apple platform development skills (consolidated 19 skills), pattern-check tool, and iOS 26 API lookup tool for Kimi Code."
+    }
+  ]
+}

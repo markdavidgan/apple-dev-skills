@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "name": "App Store Connect",
+    "description": "Full App Store Connect API — CI/CD, TestFlight, submissions, IAP, and more (80+ tools)",
+    "requires_auth": true,
+    "auth_env": ["ASC_KEY_ID", "ASC_ISSUER_ID", "ASC_KEY_PATH"],
+    "setup_command": "setup-asc",
+    "docs_url": "https://developer.apple.com/documentation/appstoreconnectapi",
+    "notes": "Requires npm build before first use. Auth via App Store Connect API key (.p8 file)."
+  },
+  "mcpServers": {
+    "app-store-connect": {
+      "command": "node",
+      "args": ["<REPO_PATH>/src/mcp/asc/dist/index.js"],
+      "env": {
+        "ASC_KEY_ID": "${ASC_KEY_ID}",
+        "ASC_ISSUER_ID": "${ASC_ISSUER_ID}",
+        "ASC_KEY_PATH": "${ASC_KEY_PATH}"
+      }
+    }
+  }
+}

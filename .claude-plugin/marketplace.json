@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "apple-dev-skills",
+  "description": "Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
+  "owner": {
+    "name": "Mark David Gan",
+    "email": "mark@markdavidgan.com"
+  },
+  "plugins": [
+    {
+      "name": "apple-dev-skills",
+      "description": "Apple platform development skills (ios-standards, ios26-api-reference, ios-design, accessibility, concurrency, apple-review, ASC build checks, submission prep, verify-against-spec, complete-feature, merge-check, regression-test), App Store Connect MCP server, and build agent.",
+      "source": "./platforms/claude"
+    }
+  ]
+}

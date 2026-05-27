@@ -1,0 +1,31 @@
+{
+  "name": "apple-dev-skills",
+  "version": "0.1.0",
+  "description": "Apple platform development skills for Claude Code, Cursor, Kimi Code, Antigravity, Codex CLI, and Agy.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markdavidgan/apple-dev-skills.git"
+  },
+  "author": "Mark David Gan <mark@markdavidgan.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "build": "node scripts/build.js",
+    "test": "npm run validate && npm run build"
+  },
+  "keywords": [
+    "ios",
+    "swift",
+    "swiftui",
+    "swiftdata",
+    "xcode",
+    "apple",
+    "ai-skills",
+    "claude-code",
+    "cursor",
+    "kimi-code",
+    "antigravity",
+    "codex-cli"
+  ]
+}

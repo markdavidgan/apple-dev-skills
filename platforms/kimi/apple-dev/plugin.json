@@ -1,0 +1,67 @@
+{
+  "name": "apple-dev",
+  "version": "0.1.0",
+  "description": "Apple platform development tools and knowledge for iOS, Swift, SwiftUI, and App Store Connect. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
+  "author": {
+    "name": "Mark David Gan",
+    "email": "mark@markdavidgan.com"
+  },
+  "repository": "https://github.com/markdavidgan/apple-dev-skills",
+  "license": "MIT",
+  "keywords": [
+    "ios",
+    "swift",
+    "swiftui",
+    "swiftdata",
+    "xcode",
+    "apple",
+    "accessibility",
+    "concurrency",
+    "design",
+    "app-store-connect",
+    "testflight"
+  ],
+  "tools": [
+    {
+      "name": "pattern-check",
+      "description": "Run Apple patterns validation (Swift 6, SwiftUI, SwiftData, entitlements, safety checks) via grep/shell audit.",
+      "command": [
+        "bash",
+        "scripts/pattern-check.sh"
+      ],
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Project path to check (default: current directory)"
+          },
+          "strict": {
+            "type": "boolean",
+            "description": "Enable strict mode (fail on P1+)"
+          }
+        }
+      }
+    },
+    {
+      "name": "api-lookup",
+      "description": "Look up iOS 26 API signatures and anti-hallucination reference.",
+      "command": [
+        "bash",
+        "scripts/api-lookup.sh"
+      ],
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "API name, framework, or keyword to look up"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  ]
+}

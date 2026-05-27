@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs (generated, but we commit platforms/ for convenience)
+# If you prefer pure generated artifacts, uncomment:
+# platforms/
+# .claude-plugin/
+# .cursor-plugin/
+
+# Dist / release artifacts
+dist/
+*.zip
+
+# MCP server build output (source is in src/mcp/asc/src/, dist is built)
+src/mcp/asc/dist/
+src/mcp/asc/node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

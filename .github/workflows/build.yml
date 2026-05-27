@@ -1,0 +1,34 @@
+name: Build & Validate
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate sources
+        run: node scripts/validate.js
+
+      - name: Build platform outputs
+        run: node scripts/build.js
+
+      - name: Check for uncommitted changes
+        run: |
+          if [ -n "$(git status --short platforms/ .claude-plugin/ .cursor-plugin/ .kimi-plugin/ CATALOG.md)" ]; then
+            echo "❌ platforms/ or marketplace manifests are stale. Run 'node scripts/build.js' and commit the changes."
+            git status --short platforms/ .claude-plugin/ .cursor-plugin/ .kimi-plugin/ CATALOG.md
+            exit 1
+          fi
+          echo "✅ All platform outputs are up to date."
