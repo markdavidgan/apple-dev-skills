@@ -21,6 +21,10 @@ dist/
 src/mcp/asc/dist/
 src/mcp/asc/node_modules/
 
+# Claude / Cursor local skill install artifacts
+.claude/
+skills-lock.json
+
 # IDE
 .vscode/
 .idea/
