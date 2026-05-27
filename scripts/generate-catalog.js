@@ -113,7 +113,7 @@ function main() {
 
   md += `\n---\n\n`;
   md += `## Platform Compatibility\n\n`;
-  md += `See [PLATFORM_COMPATIBILITY.md](PLATFORM_COMPATIBILITY.md) for the full feature matrix.\n`;
+  md += `See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the full feature matrix.\n`;
 
   fs.writeFileSync(OUT, md);
   console.log(`Catalog generated: ${OUT}`);

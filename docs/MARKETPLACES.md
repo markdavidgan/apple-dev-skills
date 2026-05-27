@@ -95,4 +95,4 @@ This would enable:
 npx apple-dev-skills install --platform claude
 ```
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the CLI design.
+See [architecture.md](architecture.md) for the CLI design.

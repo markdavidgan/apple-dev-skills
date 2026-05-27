@@ -57,4 +57,4 @@
 
 ## Platform Compatibility
 
-See [PLATFORM_COMPATIBILITY.md](PLATFORM_COMPATIBILITY.md) for the full feature matrix.
+See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the full feature matrix.

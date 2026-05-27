@@ -205,8 +205,8 @@ apple-dev-skills/
 │   └── validate.js         # Validate skills before build
 ├── install.sh              # Cross-platform installer
 └── docs/
-    ├── ARCHITECTURE.md
-    └── PLATFORM_COMPATIBILITY.md
+    ├── architecture.md
+    └── platform-compatibility.md
 ```
 
 ---
@@ -229,7 +229,7 @@ node scripts/validate.js
 
 ## Platform Compatibility
 
-See [docs/PLATFORM_COMPATIBILITY.md](docs/PLATFORM_COMPATIBILITY.md) for the full feature matrix.
+See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the full feature matrix.
 
 | Feature | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |---------|--------|--------|------|-------------|-------|-----|

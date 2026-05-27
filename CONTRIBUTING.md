@@ -53,7 +53,7 @@ Thanks for your interest in contributing! This repo is a multi-platform skill se
 
 1. Add a builder function in `scripts/build.js`.
 2. Add install path in `install.sh`.
-3. Document in `PLATFORM_COMPATIBILITY.md` and `README.md`.
+3. Document in `docs/platform-compatibility.md` and `README.md`.
 4. Add CI step in `.github/workflows/build.yml` if needed.
 
 ---
