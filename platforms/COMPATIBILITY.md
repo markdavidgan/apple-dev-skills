@@ -7,9 +7,9 @@
 | app-brand-identity | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-store-pricing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
-| apple-cleanup | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| apple-cleanup | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| apple-polish | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| apple-polish | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

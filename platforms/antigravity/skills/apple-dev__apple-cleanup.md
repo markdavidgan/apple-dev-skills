@@ -113,187 +113,30 @@ No design reviews, no marketing narratives.
 
 Spawn 2 parallel subagents reading the entire app codebase.
 
-### Subagent 1: Engineering Review
+### Review Panels
 
-```yaml
-subagent_type: code-reviewer
-prompt: |
-  You are conducting an ENGINEERING REVIEW of {app_name} as a senior Apple
-  engineering lead. Evaluate architecture, code quality, Swift 6 compliance,
-  performance, and platform best practices.
-  
-  App path: [app-dir]/
-  Shared packages: [shared-package-dir]/ (if any)
-  
-  MANDATORY: Load ios26-api-reference essentials before analyzing.
-  Detect frameworks via import statements and load matching files:
-  - essentials/swift6.md — strict concurrency patterns
-  - essentials/swiftdata.md — model design, queries, migrations
-  - essentials/swiftui.md — @Observable patterns, previews
-  - essentials/speech.md — if app uses speech recognition
-  - essentials/avfoundation.md — if app uses audio
-  - (load other essentials as needed per detected imports)
-  
-  RECOMMENDED: Use Context7 MCP (if installed) for live API documentation verification.
-  When encountering unfamiliar APIs or verifying signatures:
-  1. Query Context7 for official Apple framework documentation (optional)
-  2. Cross-reference with ios26-api-reference essentials
-  3. Flag any API usage that conflicts with live documentation, or mark as "unverified" if Context7 is unavailable
-  4. Prioritize live docs for API signatures, local essentials for crash prevention rules
-  
-  Evaluate:
-  1. Swift 6 & Concurrency
-     - SWIFT_STRICT_CONCURRENCY: complete enabled
-     - @MainActor isolation on UI classes
-     - @preconcurrency imports for EventKit/HealthKit/Speech/AVFoundation
-     - Nonisolated deinit for MainActor classes (Apple confirmed crash fix)
-     - Task cancellation handling
-     - Sendable conformance
-     - No @Model objects crossing async boundaries
-  
-  2. SwiftData & Persistence
-     - Model design: relationships, cascade rules, default values
-     - Migration strategy: VersionedSchema usage
-     - Query efficiency: well-scoped fetches, no N+1 queries
-     - Data integrity: invariants enforced at model level
-     - Threading: proper context usage
-  
-  3. SwiftUI Patterns
-     - @Observable (iOS 17+) vs ObservableObject
-     - @State for selection (Observable list selection crash workaround)
-     - #Preview coverage for every view
-     - Theme token usage (no hardcoded colors/fonts)
-     - Sheet environment propagation (.modelContext())
-  
-  4. Performance & Resources
-     - Memory: retain cycles, [weak self] usage
-     - Launch time: deferred work
-     - Timer patterns: RunLoop.common on iOS, Task.sleep on watchOS
-     - Background tasks: well-behaved
-  
-  5. Error Handling & Resilience
-     - No force unwraps (try!, as!, !)
-     - No fatalError in production paths
-     - Graceful error handling at all boundaries
-     - State recovery from interrupted states
-  
-  6. Architecture & Structure
-     - MVVM separation: Views contain no business logic
-     - ViewModels are testable in isolation
-     - Service layer properly abstracted
-     - Dependencies flow correctly
-  
-  7. Testing
-     - Critical paths have test coverage
-     - Tests validate behavior, not implementation
-     - No shared state between tests
-  
-  Provide specific file:line references for every finding.
-  
-  OUTPUT FORMAT (markdown):
-  ## Engineering Review: {App}
-  
-  ### Scores (1-10)
-  | Dimension | Score | Notes |
-  |-----------|-------|-------|
-  | Swift 6 Compliance | X | ... |
-  | SwiftData Usage | X | ... |
-  | SwiftUI Patterns | X | ... |
-  | Performance | X | ... |
-  | Error Handling | X | ... |
-  | Architecture | X | ... |
-  | Test Coverage | X | ... |
-  | **Overall** | **X** | ... |
-  
-  ### Critical Issues (P0 - crash/bug risks)
-  - [ID: E-01] [Description] — [file:line] — [Fix]
-  
-  ### Improvements (P1 - quality/maintainability)
-  - [ID: E-10] [Description] — [file:line] — [Approach]
-  
-  ### Tech Debt (P2 - address soon)
-  - [ID: E-20] [Description] — [Impact]
-```
+Each panel is a self-contained subagent prompt kept in `references/` (progressive
+disclosure — load only what you dispatch). For each panel: read the reference
+file, fill in the app/package path placeholders, and dispatch the prompt verbatim
+as the listed subagent type. Spawn both in parallel reading the entire codebase.
 
-### Subagent 2: Compliance Review
+| Panel | Subagent type | Lens | Prompt |
+|-------|---------------|------|--------|
+| 1. Engineering | `code-reviewer` | Swift 6 concurrency, SwiftData, SwiftUI patterns, performance, error handling, architecture, tests | `references/panel-engineering.md` |
+| 2. Compliance | `explore` | App Store guidelines, privacy manifest, entitlements, binary/build, content/legal, IAP | `references/panel-compliance.md` |
 
-```yaml
-subagent_type: explore
-prompt: |
-  You are conducting an APP STORE COMPLIANCE REVIEW of {app_name} as an App 
-  Store Review team member. Find every rejection risk, guideline violation, 
-  or compliance gap.
-  
-  Check:
-  1. App Store Review Guidelines
-     - 4.0 Design: sufficient value, not a "thin" app
-     - 2.1 Performance: app completeness, no placeholder content
-     - 2.3 Accurate Metadata: screenshots match UI, description accurate
-     - 1.3 Kids Category: COPPA compliance if applicable
-     - 3.1 Payments: no external purchase links
-     - 4.2 Minimum Functionality: app does enough to justify existence
-  
-  2. Privacy & Data
-     - PrivacyInfo.xcprivacy: present and complete
-     - Required reason APIs: all used APIs declared
-     - Usage descriptions in Info.plist:
-       * Camera, Microphone, Speech — specific and honest descriptions
-       * Location, Health, Reminders — if applicable
-     * Data collection matches App Privacy label
-     * ATT prompt if any tracking occurs
-  
-  3. Entitlements & Capabilities
-     - Entitlements match code usage
-     - No entitlements declared but unused
-     - No capabilities used but not declared
-     - App Groups: consistent identifiers across targets
-     - Push notifications: registered if used
-  
-  4. Binary & Build
-     - No private API usage
-     - Minimum deployment target reasonable (iOS 26+)
-     - App icon: all required sizes present
-     - Launch screen present and not misleading
-  
-  5. Content & Legal
-     - Terms of Service / Privacy Policy linked
-     - Copyright notices present
-     - No "Lorem ipsum" placeholder content
-     - No competing platform references
-  
-  6. In-App Purchase (if applicable)
-     - Products configured correctly
-     - Restore purchases implemented
-     - Subscription management accessible
-     - Clear pricing display before purchase
-  
-  Files to read:
-  - Info.plist, *.entitlements, PrivacyInfo.xcprivacy
-  - project.yml (capabilities)
-  - All code touching protected APIs
-  
-  OUTPUT FORMAT (markdown):
-  ## Compliance Review: {App}
-  
-  ### Risk Level: [LOW / MEDIUM / HIGH / REJECTION LIKELY]
-  
-  ### Rejection Risks (P0 - will likely cause rejection)
-  - [ID: C-01] [Guideline #] [Description] — [file:line] — [Required fix]
-  
-  ### Warnings (P1 - may cause rejection)
-  - [ID: C-10] [Guideline #] [Description] — [Recommendation]
-  
-  ### Best Practices (P2 - recommended)
-  - [ID: C-20] [Description] — [Why it matters]
-  
-  ### Checklist
-  - [ ] Privacy manifest complete
-  - [ ] All usage descriptions present and specific
-  - [ ] Entitlements match code usage
-  - [ ] No placeholder content
-  - [ ] App icon complete
-  - [ ] Privacy policy linked
-```
+Both panel prompts enforce the same contract:
+
+- **API grounding** — the engineering panel loads `ios26-api-reference` essentials
+  for every detected framework and (optionally) cross-checks signatures against
+  Context7 live docs before flagging.
+- **Stable finding IDs** — Engineering `E-`, Compliance `C-` — carried into the
+  Phase 2 priority matrix.
+- **Priority buckets** — P0 (crash/bug or rejection risk) → P1 (quality / may
+  cause rejection) → P2 (tech debt / recommended).
+- **Mandatory structured output** — each prompt ends with a required output format
+  (scores table, bucketed findings, compliance checklist) so the orchestrator can
+  correlate results.
 
 ---
 
@@ -889,6 +732,50 @@ echo "✅ TestFlight Alpha Verification Complete"
 
 ---
 
+## Error Handling & Recovery
+
+These recoveries apply to the Phase 7 push — CI and TestFlight failures surface here.
+
+### If CI Build Fails
+
+```bash
+1. Capture CI errors: xc_get_issues
+2. Analyze failures — are they related to cleanup changes?
+3. If related:
+   a. Return to worktree
+   b. Dispatch fix subagent with error context
+   c. Re-verify locally
+   d. Amend commit and re-push
+4. If unrelated (infrastructure/signing):
+   a. Document in report
+   b. Escalate to /check-build skill
+   c. Manual intervention may be needed
+```
+
+### If TestFlight Distribution Fails
+
+```bash
+1. Check error with xc_get_build
+2. Common issues:
+   - Missing compliance info → Fix and re-push
+   - Signing issues → /check-build skill
+   - Export compliance → Add ITSAppUsesNonExemptEncryption = NO
+3. Re-trigger distribution after fix
+```
+
+### If Local Build Succeeds but CI Fails
+
+```bash
+1. Compare environments (local vs CI)
+2. Check for:
+   - Environment-specific code (#if DEBUG)
+   - Missing files not committed
+   - Xcode version differences
+3. Fix and re-push
+```
+
+---
+
 ## Phase 8: Final Report
 
 ```
@@ -971,48 +858,6 @@ NEXT STEPS
 ═══════════════════════════════════════════════════════════════════
   Status: APP HARDENED — ALPHA LIVE ON TESTFLIGHT
 ═══════════════════════════════════════════════════════════════════
-```
-
----
-
-## Error Handling & Recovery
-
-### If CI Build Fails
-
-```bash
-1. Capture CI errors: xc_get_issues
-2. Analyze failures — are they related to cleanup changes?
-3. If related:
-   a. Return to worktree
-   b. Dispatch fix subagent with error context
-   c. Re-verify locally
-   d. Amend commit and re-push
-4. If unrelated (infrastructure/signing):
-   a. Document in report
-   b. Escalate to /check-build skill
-   c. Manual intervention may be needed
-```
-
-### If TestFlight Distribution Fails
-
-```bash
-1. Check error with xc_get_build
-2. Common issues:
-   - Missing compliance info → Fix and re-push
-   - Signing issues → /check-build skill
-   - Export compliance → Add ITSAppUsesNonExemptEncryption = NO
-3. Re-trigger distribution after fix
-```
-
-### If Local Build Succeeds but CI Fails
-
-```bash
-1. Compare environments (local vs CI)
-2. Check for:
-   - Environment-specific code (#if DEBUG)
-   - Missing files not committed
-   - Xcode version differences
-3. Fix and re-push
 ```
 
 ---

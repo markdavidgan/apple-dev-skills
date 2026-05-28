@@ -1118,6 +1118,349 @@ Right: Legend at y=510, below the boundary, with viewBox extended.
 > "Draw the data flow from CloudKit to SwiftUI"
 > "Architecture diagram with drill-down for our watchOS extension"
 
+<!-- REFERENCE: apple-architecture-diagram/references/visual-patterns.md -->
+
+# Visual Patterns for Apple Architecture Diagrams
+
+Ready-to-copy SVG patterns for common Apple app architectures. Use as building blocks in `apple-architecture-diagram` skill.
+
+## Pattern 1: MVVM + @Observable (Standard)
+
+The bread and butter of modern SwiftUI apps. View → ViewModel → Service → Data.
+
+```svg
+<!-- View Layer -->
+<g id="mvvm-views">
+  <rect x="80" y="100" width="140" height="56" rx="12" fill="#1C1C1E" stroke="#5E5CE6" stroke-width="1.5"/>
+  <text x="150" y="125" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">TimerView</text>
+  <text x="150" y="142" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">SwiftUI.View</text>
+  
+  <rect x="80" y="180" width="140" height="56" rx="12" fill="#1C1C1E" stroke="#5E5CE6" stroke-width="1.5"/>
+  <text x="150" y="205" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">HistoryView</text>
+  <text x="150" y="222" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">SwiftUI.View</text>
+</g>
+
+<!-- ViewModel Layer -->
+<g id="mvvm-viewmodels">
+  <rect x="340" y="100" width="160" height="56" rx="12" fill="rgba(191,90,242,0.12)" stroke="#BF5AF2" stroke-width="1.5"/>
+  <text x="420" y="125" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">TimerViewModel</text>
+  <text x="420" y="142" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@Observable</text>
+  
+  <rect x="340" y="180" width="160" height="56" rx="12" fill="rgba(191,90,242,0.12)" stroke="#BF5AF2" stroke-width="1.5"/>
+  <text x="420" y="205" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">HistoryViewModel</text>
+  <text x="420" y="222" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@Observable</text>
+</g>
+
+<!-- Service Layer -->
+<g id="mvvm-services">
+  <rect x="620" y="100" width="160" height="56" rx="12" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1.5"/>
+  <text x="700" y="125" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">TimerService</text>
+  <text x="700" y="142" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">actor</text>
+  
+  <rect x="620" y="180" width="160" height="56" rx="12" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1.5"/>
+  <text x="700" y="205" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">NotificationService</text>
+  <text x="700" y="222" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@MainActor</text>
+</g>
+
+<!-- Data Layer -->
+<g id="mvvm-data">
+  <rect x="620" y="280" width="160" height="56" rx="12" fill="rgba(48,209,88,0.12)" stroke="#30D158" stroke-width="1.5"/>
+  <text x="700" y="305" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">SwiftData</text>
+  <text x="700" y="322" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@Model</text>
+  
+  <rect x="620" y="360" width="160" height="56" rx="12" fill="rgba(48,209,88,0.12)" stroke="#30D158" stroke-width="1.5"/>
+  <text x="700" y="385" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">UserDefaults</text>
+  <text x="700" y="402" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">Foundation</text>
+</g>
+
+<!-- Arrows: View → ViewModel -->
+<path d="M220,128 L340,128" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M220,208 L340,208" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Arrows: ViewModel → Service -->
+<path d="M500,128 L620,128" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M500,208 L620,208" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Arrows: Service → Data -->
+<path d="M700,156 L700,280" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+
+<!-- Boundaries -->
+<rect x="60" y="70" width="180" height="190" rx="16" fill="none" stroke="rgba(94,92,230,0.3)" stroke-width="1" stroke-dasharray="8,4"/>
+<text x="70" y="95" fill="#5E5CE6" font-size="11" font-weight="600">Presentation</text>
+
+<rect x="320" y="70" width="200" height="190" rx="16" fill="none" stroke="rgba(191,90,242,0.3)" stroke-width="1" stroke-dasharray="8,4"/>
+<text x="330" y="95" fill="#BF5AF2" font-size="11" font-weight="600">Domain</text>
+
+<rect x="600" y="70" width="200" height="370" rx="16" fill="none" stroke="rgba(255,159,10,0.3)" stroke-width="1" stroke-dasharray="8,4"/>
+<text x="610" y="95" fill="#FF9F0A" font-size="11" font-weight="600">Data &amp; Infrastructure</text>
+```
+
+## Pattern 2: Multi-Platform with Shared Services
+
+iPhone + Apple Watch + Vision Pro sharing a core service layer.
+
+```svg
+<!-- iPhone -->
+<g transform="translate(80, 80)">
+  <rect x="0" y="0" width="140" height="280" rx="24" fill="#0A0A0A" stroke="#38383A" stroke-width="2"/>
+  <rect x="42" y="10" width="56" height="20" rx="10" fill="#000"/>
+  <rect x="8" y="40" width="124" height="220" rx="10" fill="#1C1C1E"/>
+  <text x="70" y="235" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="10">iOS App</text>
+</g>
+
+<!-- Apple Watch -->
+<g transform="translate(280, 140)">
+  <rect x="0" y="0" width="100" height="120" rx="32" fill="#0A0A0A" stroke="#38383A" stroke-width="2"/>
+  <rect x="8" y="8" width="84" height="104" rx="24" fill="#1C1C1E"/>
+  <text x="50" y="110" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="9">watchOS</text>
+</g>
+
+<!-- Vision Pro -->
+<g transform="translate(260, 300)">
+  <rect x="0" y="0" width="140" height="90" rx="40" fill="#0A0A0A" stroke="#38383A" stroke-width="2"/>
+  <rect x="10" y="10" width="120" height="70" rx="30" fill="#1C1C1E"/>
+  <text x="70" y="80" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="9">visionOS</text>
+</g>
+
+<!-- Shared Services -->
+<rect x="480" y="120" width="180" height="200" rx="16" fill="none" stroke="rgba(255,159,10,0.4)" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="495" y="145" fill="#FF9F0A" font-size="12" font-weight="600">Shared Core</text>
+
+<rect x="500" y="160" width="140" height="40" rx="8" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1"/>
+<text x="570" y="185" text-anchor="middle" fill="#fff" font-size="11">SessionService</text>
+
+<rect x="500" y="210" width="140" height="40" rx="8" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1"/>
+<text x="570" y="235" text-anchor="middle" fill="#fff" font-size="11">SyncEngine</text>
+
+<rect x="500" y="260" width="140" height="40" rx="8" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1"/>
+<text x="570" y="285" text-anchor="middle" fill="#fff" font-size="11">HealthKitService</text>
+
+<!-- CloudKit -->
+<rect x="520" y="380" width="100" height="48" rx="8" fill="rgba(255,214,10,0.12)" stroke="#FFD60A" stroke-width="1"/>
+<text x="570" y="400" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">CloudKit</text>
+<text x="570" y="415" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9">Apple Service</text>
+
+<!-- Connections -->
+<path d="M220,220 L480,200" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M380,200 L480,200" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M330,345 L480,280" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M570,308 L570,380" stroke="rgba(255,214,10,0.4)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+```
+
+## Pattern 3: TCA (The Composable Architecture)
+
+Store-driven unidirectional data flow with Effects.
+
+```svg
+<!-- Store -->
+<rect x="400" y="100" width="160" height="60" rx="12" fill="rgba(10,132,255,0.15)" stroke="#0A84FF" stroke-width="2"/>
+<text x="480" y="130" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">StoreOf&lt;Feature&gt;</text>
+<text x="480" y="148" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">ComposableArchitecture</text>
+
+<!-- State -->
+<rect x="200" y="220" width="140" height="50" rx="10" fill="rgba(191,90,242,0.12)" stroke="#BF5AF2" stroke-width="1.5"/>
+<text x="270" y="245" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">Feature.State</text>
+<text x="270" y="260" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@ObservableState</text>
+
+<!-- Action -->
+<rect x="420" y="220" width="120" height="50" rx="10" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1.5"/>
+<text x="480" y="245" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">Feature.Action</text>
+<text x="480" y="260" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">enum</text>
+
+<!-- Reducer -->
+<rect x="620" y="220" width="140" height="50" rx="10" fill="rgba(255,69,58,0.12)" stroke="#FF453A" stroke-width="1.5"/>
+<text x="690" y="245" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">Feature</text>
+<text x="690" y="260" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">Reducer</text>
+
+<!-- Effect -->
+<rect x="620" y="320" width="140" height="50" rx="10" fill="rgba(48,209,88,0.12)" stroke="#30D158" stroke-width="1.5"/>
+<text x="690" y="345" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">Effect&lt;Action&gt;</text>
+<text x="690" y="360" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">async / Combine</text>
+
+<!-- View -->
+<rect x="200" y="100" width="120" height="50" rx="10" fill="rgba(94,92,230,0.12)" stroke="#5E5CE6" stroke-width="1.5"/>
+<text x="260" y="125" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">FeatureView</text>
+<text x="260" y="140" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">View</text>
+
+<!-- Arrows -->
+<!-- View sends Action to Store -->
+<path d="M320,125 L400,130" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="355" y="118" fill="rgba(255,255,255,0.4)" font-size="9">send(action)</text>
+
+<!-- Store holds State -->
+<path d="M450,160 L310,220" stroke="rgba(191,90,242,0.5)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+
+<!-- Store dispatches to Reducer -->
+<path d="M560,130 L660,220" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Reducer returns Effect -->
+<path d="M690,270 L690,320" stroke="rgba(48,209,88,0.5)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+
+<!-- Effect feeds back to Store -->
+<path d="M620,345 L520,160" stroke="rgba(48,209,88,0.4)" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+<text x="590" y="280" fill="rgba(48,209,88,0.7)" font-size="9">Effect output</text>
+
+<!-- State drives View -->
+<path d="M260,220 L260,150" stroke="rgba(94,92,230,0.5)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="230" y="185" fill="rgba(94,92,230,0.7)" font-size="9">@Bindable</text>
+```
+
+## Pattern 4: SwiftData Stack
+
+SwiftUI → @Query → ModelContext → @Model → Persistence.
+
+```svg
+<!-- SwiftUI View with @Query -->
+<rect x="100" y="100" width="160" height="60" rx="12" fill="rgba(94,92,230,0.12)" stroke="#5E5CE6" stroke-width="1.5"/>
+<text x="180" y="125" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">SessionListView</text>
+<text x="180" y="142" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@Query</text>
+
+<!-- ModelContext -->
+<rect x="340" y="100" width="160" height="60" rx="12" fill="rgba(191,90,242,0.12)" stroke="#BF5AF2" stroke-width="1.5"/>
+<text x="420" y="125" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">ModelContext</text>
+<text x="420" y="142" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">SwiftData</text>
+
+<!-- @Model -->
+<rect x="340" y="220" width="160" height="60" rx="12" fill="rgba(48,209,88,0.12)" stroke="#30D158" stroke-width="1.5"/>
+<text x="420" y="245" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">FocusSession</text>
+<text x="420" y="262" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">@Model</text>
+
+<!-- Persistence -->
+<rect x="340" y="360" width="160" height="50" rx="10" fill="rgba(100,210,255,0.12)" stroke="#64D2FF" stroke-width="1.5"/>
+<text x="420" y="380" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">SQLite</text>
+<text x="420" y="395" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">.sqlite</text>
+
+<!-- iCloud Sync -->
+<rect x="580" y="220" width="140" height="50" rx="10" fill="rgba(255,214,10,0.12)" stroke="#FFD60A" stroke-width="1.5"/>
+<text x="650" y="240" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">CloudKit</text>
+<text x="650" y="255" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">iCloud Sync</text>
+
+<!-- Arrows -->
+<path d="M260,130 L340,130" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="295" y="122" fill="rgba(255,255,255,0.4)" font-size="9">fetch</text>
+
+<path d="M420,160 L420,220" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="430" y="195" fill="rgba(255,255,255,0.4)" font-size="9">manages</text>
+
+<path d="M420,280 L420,360" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+<text x="430" y="325" fill="rgba(255,255,255,0.4)" font-size="9">persists</text>
+
+<path d="M500,245 L580,245" stroke="rgba(255,214,10,0.4)" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow)"/>
+<text x="535" y="238" fill="rgba(255,214,10,0.6)" font-size="9">sync</text>
+
+<!-- Annotation: automatic -->
+<rect x="100" y="200" width="180" height="32" rx="6" fill="rgba(120,120,128,0.24)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+<text x="190" y="220" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">ModelContext auto-injected via @Environment</text>
+```
+
+## Pattern 5: Widget + Live Activity Extension
+
+App + WidgetExtension + LiveActivity sharing timeline data.
+
+```svg
+<!-- App Group Container -->
+<rect x="300" y="60" width="380" height="420" rx="20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="10,5"/>
+<text x="320" y="90" fill="rgba(255,255,255,0.6)" font-size="12" font-weight="600">App Group Container</text>
+
+<!-- Main App -->
+<rect x="340" y="110" width="140" height="100" rx="12" fill="#0A0A0A" stroke="#38383A" stroke-width="2"/>
+<text x="410" y="140" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">Main App</text>
+<rect x="355" y="155" width="110" height="30" rx="6" fill="rgba(94,92,230,0.12)" stroke="#5E5CE6" stroke-width="1"/>
+<text x="410" y="174" text-anchor="middle" fill="#fff" font-size="10">TimerView</text>
+
+<!-- Widget Extension -->
+<rect x="340" y="240" width="140" height="100" rx="12" fill="#0A0A0A" stroke="#38383A" stroke-width="2"/>
+<text x="410" y="270" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">Widget</text>
+<rect x="355" y="285" width="110" height="30" rx="6" fill="rgba(48,209,88,0.12)" stroke="#30D158" stroke-width="1"/>
+<text x="410" y="304" text-anchor="middle" fill="#fff" font-size="10">TimerWidget</text>
+
+<!-- Live Activity -->
+<rect x="340" y="370" width="140" height="80" rx="12" fill="#0A0A0A" stroke="#38383A" stroke-width="2"/>
+<text x="410" y="400" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">Live Activity</text>
+<rect x="355" y="410" width="110" height="24" rx="6" fill="rgba(255,159,10,0.12)" stroke="#FF9F0A" stroke-width="1"/>
+<text x="410" y="426" text-anchor="middle" fill="#fff" font-size="10">ActivityWidget</text>
+
+<!-- Shared -->
+<rect x="530" y="180" width="120" height="160" rx="12" fill="rgba(100,210,255,0.08)" stroke="#64D2FF" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="590" y="205" text-anchor="middle" fill="#64D2FF" font-size="11" font-weight="600">Shared</text>
+<rect x="545" y="220" width="90" height="28" rx="6" fill="rgba(100,210,255,0.12)" stroke="#64D2FF" stroke-width="1"/>
+<text x="590" y="238" text-anchor="middle" fill="#fff" font-size="10">TimerEntry</text>
+<rect x="545" y="258" width="90" height="28" rx="6" fill="rgba(100,210,255,0.12)" stroke="#64D2FF" stroke-width="1"/>
+<text x="590" y="276" text-anchor="middle" fill="#fff" font-size="10">Provider</text>
+<rect x="545" y="296" width="90" height="28" rx="6" fill="rgba(100,210,255,0.12)" stroke="#64D2FF" stroke-width="1"/>
+<text x="590" y="314" text-anchor="middle" fill="#fff" font-size="10">AppIntent</text>
+
+<!-- AppIntents -->
+<rect x="80" y="200" width="120" height="60" rx="10" fill="rgba(255,214,10,0.12)" stroke="#FFD60A" stroke-width="1.5"/>
+<text x="140" y="225" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">App Intents</text>
+<text x="140" y="242" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="ui-monospace">Shortcuts</text>
+
+<!-- Connections -->
+<path d="M480,160 L530,240" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M480,290 L530,290" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M480,410 L530,330" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M200,230 L340,290" stroke="rgba(255,214,10,0.4)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+```
+
+## Pattern 6: Security / Keychain Flow
+
+Sensitive data boundary with Keychain, Biometry, and Secure Enclave.
+
+```svg
+<!-- User -->
+<circle cx="120" cy="140" r="30" fill="rgba(10,132,255,0.15)" stroke="#0A84FF" stroke-width="1.5"/>
+<text x="120" y="145" text-anchor="middle" fill="#fff" font-size="12" font-weight="500">User</text>
+
+<!-- App -->
+<rect x="240" y="100" width="140" height="80" rx="12" fill="rgba(94,92,230,0.12)" stroke="#5E5CE6" stroke-width="1.5"/>
+<text x="310" y="130" text-anchor="middle" fill="#fff" font-size="13" font-weight="500">App</text>
+<text x="310" y="148" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10">Presentation Layer</text>
+
+<!-- Security Boundary -->
+<rect x="460" y="60" width="220" height="200" rx="16" fill="none" stroke="rgba(255,69,58,0.4)" stroke-width="2" stroke-dasharray="6,4"/>
+<text x="475" y="85" fill="#FF453A" font-size="11" font-weight="600">Security Boundary</text>
+
+<!-- LocalAuthentication -->
+<rect x="480" y="100" width="180" height="50" rx="8" fill="rgba(255,69,58,0.12)" stroke="#FF453A" stroke-width="1"/>
+<text x="570" y="122" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">LocalAuthentication</text>
+<text x="570" y="138" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9">Face ID / Touch ID</text>
+
+<!-- Keychain -->
+<rect x="480" y="170" width="180" height="50" rx="8" fill="rgba(255,69,58,0.12)" stroke="#FF453A" stroke-width="1"/>
+<text x="570" y="192" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">Keychain Services</text>
+<text x="570" y="208" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9">kSecClassGenericPassword</text>
+
+<!-- Secure Enclave -->
+<rect x="740" y="135" width="160" height="50" rx="8" fill="rgba(255,55,95,0.12)" stroke="#FF375F" stroke-width="1.5"/>
+<text x="820" y="157" text-anchor="middle" fill="#fff" font-size="11" font-weight="500">Secure Enclave</text>
+<text x="820" y="173" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="9">Hardware-isolated</text>
+
+<!-- Arrows -->
+<path d="M150,140 L240,140" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M380,140 L460,125" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M570,150 L570,170" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrow)"/>
+<path d="M660,195 L740,160" stroke="rgba(255,69,58,0.4)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+
+<!-- Auth success annotation -->
+<rect x="200" y="200" width="180" height="28" rx="6" fill="rgba(120,120,128,0.24)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+<text x="290" y="218" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">Biometric match → decrypt key</text>
+```
+
+## Common Marker Definition
+
+Always include this in `<defs>`:
+
+```svg
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="rgba(255,255,255,0.4)"/>
+  </marker>
+  <marker id="arrow-dashed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="rgba(255,255,255,0.25)"/>
+  </marker>
+</defs>
+```
+
 <!-- END SKILL: apple-architecture-diagram -->
 
 ---
@@ -1235,187 +1578,30 @@ No design reviews, no marketing narratives.
 
 Spawn 2 parallel subagents reading the entire app codebase.
 
-### Subagent 1: Engineering Review
+### Review Panels
 
-```yaml
-subagent_type: code-reviewer
-prompt: |
-  You are conducting an ENGINEERING REVIEW of {app_name} as a senior Apple
-  engineering lead. Evaluate architecture, code quality, Swift 6 compliance,
-  performance, and platform best practices.
-  
-  App path: [app-dir]/
-  Shared packages: [shared-package-dir]/ (if any)
-  
-  MANDATORY: Load ios26-api-reference essentials before analyzing.
-  Detect frameworks via import statements and load matching files:
-  - essentials/swift6.md — strict concurrency patterns
-  - essentials/swiftdata.md — model design, queries, migrations
-  - essentials/swiftui.md — @Observable patterns, previews
-  - essentials/speech.md — if app uses speech recognition
-  - essentials/avfoundation.md — if app uses audio
-  - (load other essentials as needed per detected imports)
-  
-  RECOMMENDED: Use Context7 MCP (if installed) for live API documentation verification.
-  When encountering unfamiliar APIs or verifying signatures:
-  1. Query Context7 for official Apple framework documentation (optional)
-  2. Cross-reference with ios26-api-reference essentials
-  3. Flag any API usage that conflicts with live documentation, or mark as "unverified" if Context7 is unavailable
-  4. Prioritize live docs for API signatures, local essentials for crash prevention rules
-  
-  Evaluate:
-  1. Swift 6 & Concurrency
-     - SWIFT_STRICT_CONCURRENCY: complete enabled
-     - @MainActor isolation on UI classes
-     - @preconcurrency imports for EventKit/HealthKit/Speech/AVFoundation
-     - Nonisolated deinit for MainActor classes (Apple confirmed crash fix)
-     - Task cancellation handling
-     - Sendable conformance
-     - No @Model objects crossing async boundaries
-  
-  2. SwiftData & Persistence
-     - Model design: relationships, cascade rules, default values
-     - Migration strategy: VersionedSchema usage
-     - Query efficiency: well-scoped fetches, no N+1 queries
-     - Data integrity: invariants enforced at model level
-     - Threading: proper context usage
-  
-  3. SwiftUI Patterns
-     - @Observable (iOS 17+) vs ObservableObject
-     - @State for selection (Observable list selection crash workaround)
-     - #Preview coverage for every view
-     - Theme token usage (no hardcoded colors/fonts)
-     - Sheet environment propagation (.modelContext())
-  
-  4. Performance & Resources
-     - Memory: retain cycles, [weak self] usage
-     - Launch time: deferred work
-     - Timer patterns: RunLoop.common on iOS, Task.sleep on watchOS
-     - Background tasks: well-behaved
-  
-  5. Error Handling & Resilience
-     - No force unwraps (try!, as!, !)
-     - No fatalError in production paths
-     - Graceful error handling at all boundaries
-     - State recovery from interrupted states
-  
-  6. Architecture & Structure
-     - MVVM separation: Views contain no business logic
-     - ViewModels are testable in isolation
-     - Service layer properly abstracted
-     - Dependencies flow correctly
-  
-  7. Testing
-     - Critical paths have test coverage
-     - Tests validate behavior, not implementation
-     - No shared state between tests
-  
-  Provide specific file:line references for every finding.
-  
-  OUTPUT FORMAT (markdown):
-  ## Engineering Review: {App}
-  
-  ### Scores (1-10)
-  | Dimension | Score | Notes |
-  |-----------|-------|-------|
-  | Swift 6 Compliance | X | ... |
-  | SwiftData Usage | X | ... |
-  | SwiftUI Patterns | X | ... |
-  | Performance | X | ... |
-  | Error Handling | X | ... |
-  | Architecture | X | ... |
-  | Test Coverage | X | ... |
-  | **Overall** | **X** | ... |
-  
-  ### Critical Issues (P0 - crash/bug risks)
-  - [ID: E-01] [Description] — [file:line] — [Fix]
-  
-  ### Improvements (P1 - quality/maintainability)
-  - [ID: E-10] [Description] — [file:line] — [Approach]
-  
-  ### Tech Debt (P2 - address soon)
-  - [ID: E-20] [Description] — [Impact]
-```
+Each panel is a self-contained subagent prompt kept in `references/` (progressive
+disclosure — load only what you dispatch). For each panel: read the reference
+file, fill in the app/package path placeholders, and dispatch the prompt verbatim
+as the listed subagent type. Spawn both in parallel reading the entire codebase.
 
-### Subagent 2: Compliance Review
+| Panel | Subagent type | Lens | Prompt |
+|-------|---------------|------|--------|
+| 1. Engineering | `code-reviewer` | Swift 6 concurrency, SwiftData, SwiftUI patterns, performance, error handling, architecture, tests | `references/panel-engineering.md` |
+| 2. Compliance | `explore` | App Store guidelines, privacy manifest, entitlements, binary/build, content/legal, IAP | `references/panel-compliance.md` |
 
-```yaml
-subagent_type: explore
-prompt: |
-  You are conducting an APP STORE COMPLIANCE REVIEW of {app_name} as an App 
-  Store Review team member. Find every rejection risk, guideline violation, 
-  or compliance gap.
-  
-  Check:
-  1. App Store Review Guidelines
-     - 4.0 Design: sufficient value, not a "thin" app
-     - 2.1 Performance: app completeness, no placeholder content
-     - 2.3 Accurate Metadata: screenshots match UI, description accurate
-     - 1.3 Kids Category: COPPA compliance if applicable
-     - 3.1 Payments: no external purchase links
-     - 4.2 Minimum Functionality: app does enough to justify existence
-  
-  2. Privacy & Data
-     - PrivacyInfo.xcprivacy: present and complete
-     - Required reason APIs: all used APIs declared
-     - Usage descriptions in Info.plist:
-       * Camera, Microphone, Speech — specific and honest descriptions
-       * Location, Health, Reminders — if applicable
-     * Data collection matches App Privacy label
-     * ATT prompt if any tracking occurs
-  
-  3. Entitlements & Capabilities
-     - Entitlements match code usage
-     - No entitlements declared but unused
-     - No capabilities used but not declared
-     - App Groups: consistent identifiers across targets
-     - Push notifications: registered if used
-  
-  4. Binary & Build
-     - No private API usage
-     - Minimum deployment target reasonable (iOS 26+)
-     - App icon: all required sizes present
-     - Launch screen present and not misleading
-  
-  5. Content & Legal
-     - Terms of Service / Privacy Policy linked
-     - Copyright notices present
-     - No "Lorem ipsum" placeholder content
-     - No competing platform references
-  
-  6. In-App Purchase (if applicable)
-     - Products configured correctly
-     - Restore purchases implemented
-     - Subscription management accessible
-     - Clear pricing display before purchase
-  
-  Files to read:
-  - Info.plist, *.entitlements, PrivacyInfo.xcprivacy
-  - project.yml (capabilities)
-  - All code touching protected APIs
-  
-  OUTPUT FORMAT (markdown):
-  ## Compliance Review: {App}
-  
-  ### Risk Level: [LOW / MEDIUM / HIGH / REJECTION LIKELY]
-  
-  ### Rejection Risks (P0 - will likely cause rejection)
-  - [ID: C-01] [Guideline #] [Description] — [file:line] — [Required fix]
-  
-  ### Warnings (P1 - may cause rejection)
-  - [ID: C-10] [Guideline #] [Description] — [Recommendation]
-  
-  ### Best Practices (P2 - recommended)
-  - [ID: C-20] [Description] — [Why it matters]
-  
-  ### Checklist
-  - [ ] Privacy manifest complete
-  - [ ] All usage descriptions present and specific
-  - [ ] Entitlements match code usage
-  - [ ] No placeholder content
-  - [ ] App icon complete
-  - [ ] Privacy policy linked
-```
+Both panel prompts enforce the same contract:
+
+- **API grounding** — the engineering panel loads `ios26-api-reference` essentials
+  for every detected framework and (optionally) cross-checks signatures against
+  Context7 live docs before flagging.
+- **Stable finding IDs** — Engineering `E-`, Compliance `C-` — carried into the
+  Phase 2 priority matrix.
+- **Priority buckets** — P0 (crash/bug or rejection risk) → P1 (quality / may
+  cause rejection) → P2 (tech debt / recommended).
+- **Mandatory structured output** — each prompt ends with a required output format
+  (scores table, bucketed findings, compliance checklist) so the orchestrator can
+  correlate results.
 
 ---
 
@@ -2011,6 +2197,50 @@ echo "✅ TestFlight Alpha Verification Complete"
 
 ---
 
+## Error Handling & Recovery
+
+These recoveries apply to the Phase 7 push — CI and TestFlight failures surface here.
+
+### If CI Build Fails
+
+```bash
+1. Capture CI errors: xc_get_issues
+2. Analyze failures — are they related to cleanup changes?
+3. If related:
+   a. Return to worktree
+   b. Dispatch fix subagent with error context
+   c. Re-verify locally
+   d. Amend commit and re-push
+4. If unrelated (infrastructure/signing):
+   a. Document in report
+   b. Escalate to /check-build skill
+   c. Manual intervention may be needed
+```
+
+### If TestFlight Distribution Fails
+
+```bash
+1. Check error with xc_get_build
+2. Common issues:
+   - Missing compliance info → Fix and re-push
+   - Signing issues → /check-build skill
+   - Export compliance → Add ITSAppUsesNonExemptEncryption = NO
+3. Re-trigger distribution after fix
+```
+
+### If Local Build Succeeds but CI Fails
+
+```bash
+1. Compare environments (local vs CI)
+2. Check for:
+   - Environment-specific code (#if DEBUG)
+   - Missing files not committed
+   - Xcode version differences
+3. Fix and re-push
+```
+
+---
+
 ## Phase 8: Final Report
 
 ```
@@ -2097,48 +2327,6 @@ NEXT STEPS
 
 ---
 
-## Error Handling & Recovery
-
-### If CI Build Fails
-
-```bash
-1. Capture CI errors: xc_get_issues
-2. Analyze failures — are they related to cleanup changes?
-3. If related:
-   a. Return to worktree
-   b. Dispatch fix subagent with error context
-   c. Re-verify locally
-   d. Amend commit and re-push
-4. If unrelated (infrastructure/signing):
-   a. Document in report
-   b. Escalate to /check-build skill
-   c. Manual intervention may be needed
-```
-
-### If TestFlight Distribution Fails
-
-```bash
-1. Check error with xc_get_build
-2. Common issues:
-   - Missing compliance info → Fix and re-push
-   - Signing issues → /check-build skill
-   - Export compliance → Add ITSAppUsesNonExemptEncryption = NO
-3. Re-trigger distribution after fix
-```
-
-### If Local Build Succeeds but CI Fails
-
-```bash
-1. Compare environments (local vs CI)
-2. Check for:
-   - Environment-specific code (#if DEBUG)
-   - Missing files not committed
-   - Xcode version differences
-3. Fix and re-push
-```
-
----
-
 ## Context Management
 
 The main session orchestrates with minimal context usage:
@@ -2194,6 +2382,200 @@ Total time: ~2-4 hours depending on issue count
 ---
 
 *Engineering excellence: crash-free, compliant, optimized, shipped. No exceptions. No shortcuts.*
+
+<!-- REFERENCE: apple-cleanup/references/panel-compliance.md -->
+
+# Panel 2: Compliance Review — Subagent Prompt
+
+**Persona:** An App Store Review team member hunting every rejection risk, guideline violation, or compliance gap before submission.
+
+**Dispatch:** Spawn as a parallel subagent. Send the block below verbatim.
+
+```yaml
+subagent_type: explore
+prompt: |
+  You are conducting an APP STORE COMPLIANCE REVIEW of {app_name} as an App 
+  Store Review team member. Find every rejection risk, guideline violation, 
+  or compliance gap.
+  
+  Check:
+  1. App Store Review Guidelines
+     - 4.0 Design: sufficient value, not a "thin" app
+     - 2.1 Performance: app completeness, no placeholder content
+     - 2.3 Accurate Metadata: screenshots match UI, description accurate
+     - 1.3 Kids Category: COPPA compliance if applicable
+     - 3.1 Payments: no external purchase links
+     - 4.2 Minimum Functionality: app does enough to justify existence
+  
+  2. Privacy & Data
+     - PrivacyInfo.xcprivacy: present and complete
+     - Required reason APIs: all used APIs declared
+     - Usage descriptions in Info.plist:
+       * Camera, Microphone, Speech — specific and honest descriptions
+       * Location, Health, Reminders — if applicable
+     * Data collection matches App Privacy label
+     * ATT prompt if any tracking occurs
+  
+  3. Entitlements & Capabilities
+     - Entitlements match code usage
+     - No entitlements declared but unused
+     - No capabilities used but not declared
+     - App Groups: consistent identifiers across targets
+     - Push notifications: registered if used
+  
+  4. Binary & Build
+     - No private API usage
+     - Minimum deployment target reasonable (iOS 26+)
+     - App icon: all required sizes present
+     - Launch screen present and not misleading
+  
+  5. Content & Legal
+     - Terms of Service / Privacy Policy linked
+     - Copyright notices present
+     - No "Lorem ipsum" placeholder content
+     - No competing platform references
+  
+  6. In-App Purchase (if applicable)
+     - Products configured correctly
+     - Restore purchases implemented
+     - Subscription management accessible
+     - Clear pricing display before purchase
+  
+  Files to read:
+  - Info.plist, *.entitlements, PrivacyInfo.xcprivacy
+  - project.yml (capabilities)
+  - All code touching protected APIs
+  
+  OUTPUT FORMAT (markdown):
+  ## Compliance Review: {App}
+  
+  ### Risk Level: [LOW / MEDIUM / HIGH / REJECTION LIKELY]
+  
+  ### Rejection Risks (P0 - will likely cause rejection)
+  - [ID: C-01] [Guideline #] [Description] — [file:line] — [Required fix]
+  
+  ### Warnings (P1 - may cause rejection)
+  - [ID: C-10] [Guideline #] [Description] — [Recommendation]
+  
+  ### Best Practices (P2 - recommended)
+  - [ID: C-20] [Description] — [Why it matters]
+  
+  ### Checklist
+  - [ ] Privacy manifest complete
+  - [ ] All usage descriptions present and specific
+  - [ ] Entitlements match code usage
+  - [ ] No placeholder content
+  - [ ] App icon complete
+  - [ ] Privacy policy linked
+```
+
+<!-- REFERENCE: apple-cleanup/references/panel-engineering.md -->
+
+# Panel 1: Engineering Review — Subagent Prompt
+
+**Persona:** A senior Apple engineering lead evaluating architecture, code quality, Swift 6 compliance, performance, and platform best practices across the entire app codebase.
+
+**Dispatch:** Spawn as a parallel subagent reading the entire app codebase. Fill in the `[app-dir]` / `[shared-package-dir]` placeholders, then send the block below verbatim.
+
+```yaml
+subagent_type: code-reviewer
+prompt: |
+  You are conducting an ENGINEERING REVIEW of {app_name} as a senior Apple
+  engineering lead. Evaluate architecture, code quality, Swift 6 compliance,
+  performance, and platform best practices.
+  
+  App path: [app-dir]/
+  Shared packages: [shared-package-dir]/ (if any)
+  
+  MANDATORY: Load ios26-api-reference essentials before analyzing.
+  Detect frameworks via import statements and load matching files:
+  - essentials/swift6.md — strict concurrency patterns
+  - essentials/swiftdata.md — model design, queries, migrations
+  - essentials/swiftui.md — @Observable patterns, previews
+  - essentials/speech.md — if app uses speech recognition
+  - essentials/avfoundation.md — if app uses audio
+  - (load other essentials as needed per detected imports)
+  
+  RECOMMENDED: Use Context7 MCP (if installed) for live API documentation verification.
+  When encountering unfamiliar APIs or verifying signatures:
+  1. Query Context7 for official Apple framework documentation (optional)
+  2. Cross-reference with ios26-api-reference essentials
+  3. Flag any API usage that conflicts with live documentation, or mark as "unverified" if Context7 is unavailable
+  4. Prioritize live docs for API signatures, local essentials for crash prevention rules
+  
+  Evaluate:
+  1. Swift 6 & Concurrency
+     - SWIFT_STRICT_CONCURRENCY: complete enabled
+     - @MainActor isolation on UI classes
+     - @preconcurrency imports for EventKit/HealthKit/Speech/AVFoundation
+     - Nonisolated deinit for MainActor classes (Apple confirmed crash fix)
+     - Task cancellation handling
+     - Sendable conformance
+     - No @Model objects crossing async boundaries
+  
+  2. SwiftData & Persistence
+     - Model design: relationships, cascade rules, default values
+     - Migration strategy: VersionedSchema usage
+     - Query efficiency: well-scoped fetches, no N+1 queries
+     - Data integrity: invariants enforced at model level
+     - Threading: proper context usage
+  
+  3. SwiftUI Patterns
+     - @Observable (iOS 17+) vs ObservableObject
+     - @State for selection (Observable list selection crash workaround)
+     - #Preview coverage for every view
+     - Theme token usage (no hardcoded colors/fonts)
+     - Sheet environment propagation (.modelContext())
+  
+  4. Performance & Resources
+     - Memory: retain cycles, [weak self] usage
+     - Launch time: deferred work
+     - Timer patterns: RunLoop.common on iOS, Task.sleep on watchOS
+     - Background tasks: well-behaved
+  
+  5. Error Handling & Resilience
+     - No force unwraps (try!, as!, !)
+     - No fatalError in production paths
+     - Graceful error handling at all boundaries
+     - State recovery from interrupted states
+  
+  6. Architecture & Structure
+     - MVVM separation: Views contain no business logic
+     - ViewModels are testable in isolation
+     - Service layer properly abstracted
+     - Dependencies flow correctly
+  
+  7. Testing
+     - Critical paths have test coverage
+     - Tests validate behavior, not implementation
+     - No shared state between tests
+  
+  Provide specific file:line references for every finding.
+  
+  OUTPUT FORMAT (markdown):
+  ## Engineering Review: {App}
+  
+  ### Scores (1-10)
+  | Dimension | Score | Notes |
+  |-----------|-------|-------|
+  | Swift 6 Compliance | X | ... |
+  | SwiftData Usage | X | ... |
+  | SwiftUI Patterns | X | ... |
+  | Performance | X | ... |
+  | Error Handling | X | ... |
+  | Architecture | X | ... |
+  | Test Coverage | X | ... |
+  | **Overall** | **X** | ... |
+  
+  ### Critical Issues (P0 - crash/bug risks)
+  - [ID: E-01] [Description] — [file:line] — [Fix]
+  
+  ### Improvements (P1 - quality/maintainability)
+  - [ID: E-10] [Description] — [file:line] — [Approach]
+  
+  ### Tech Debt (P2 - address soon)
+  - [ID: E-20] [Description] — [Impact]
+```
 
 <!-- END SKILL: apple-cleanup -->
 
@@ -2614,266 +2996,33 @@ Assign files:
 
 Spawn 2 parallel subagents with the file manifest pre-loaded.
 
-### Subagent 1: Design Panel
+### Review Panels
 
-**Persona:** Jony Ive and the Apple design team reviewing a product the night before announcement. Every pixel is intentional. Every transition earns its place. The question isn't "does it work?" — it's "does it feel inevitable?"
+Each panel is a self-contained subagent prompt kept in `references/` (progressive
+disclosure — load only what you dispatch). For each panel: read the reference
+file, paste the Views-only file manifest into its
+`[PASTE FILE MANIFEST HERE — Views only]` placeholder, and dispatch the prompt
+verbatim as the listed subagent type. Spawn both in parallel.
 
-```yaml
-subagent_type: code-reviewer
-prompt: |
-  You are conducting a DESIGN REVIEW of {app_name} with the critical eye of
-  Apple's most obsessive designers. Every pixel, every transition, every moment
-  of friction matters. You MUST produce a structured review with scores and
-  specific file:line references.
+| Panel | Subagent type | Lens | Prompt |
+|-------|---------------|------|--------|
+| 1. Design | `code-reviewer` | First impressions, navigation, visual craft, motion, delight, simplicity, HIG, edge cases | `references/panel-design.md` |
+| 2. Keynote | `code-reviewer` | Story clarity, demo-readiness, "one more thing", narrative, platform story, cringe test | `references/panel-keynote.md` |
 
-  ## File Manifest
-  [PASTE FILE MANIFEST HERE — Views only]
+Both panel prompts enforce the same contract:
 
-  ## Reading Strategy
-  Read files in this priority order. Stop after 15-20 files and write your review.
-  1. MUST READ: App entry, Home/main view, onboarding, primary editor, live/session
-     view, ALL DesignSystem files, ALL ViewModels
-  2. SHOULD READ (if context allows): Components, Controls, edge case views
-  3. SKIP: Services, Models, Tests, Extensions, Utilities
-
-  An incomplete review based on 15 files is infinitely more valuable than reading
-  40 files and producing no output. After reading MUST READ files, STOP and write.
-
-  ## Evaluation Criteria
-
-  ### 1.1 First Impressions & Onboarding
-  - What does the user see on first launch? Welcoming or overwhelming?
-  - Skippable onboarding? Does it respect the user's time?
-  - Time-to-value: taps from launch to first meaningful interaction?
-  - Does the first screen earn the user's trust?
-
-  ### 1.2 Core Flow & Navigation
-  - Map the primary user journey (the ONE thing people open the app to do)
-  - Count taps/gestures required for the most common actions
-  - Dead ends? Confusing back-navigation? Orphaned screens?
-  - Does navigation feel spatial and predictable (iOS stack/tab patterns)?
-  - Clear information hierarchy on each screen?
-
-  ### 1.3 Visual Craft & Polish
-  - Typography: consistent scale? Orphaned styles (hardcoded fonts vs tokens)?
-  - Color: cohesive palette? Semantic colors used correctly? Hardcoded hex?
-  - Spacing: consistent system? Cramped or floating elements?
-  - Icons: consistent SF Symbol weight and optical alignment?
-  - Dark mode: intentional or just inverted?
-  - Dynamic Type: graceful adaptation at all text sizes?
-  - Are DesignSystem tokens actually used, or do views hardcode their own values?
-
-  ### 1.4 Motion & Feedback
-  - Are transitions meaningful or gratuitous?
-  - Do interactive elements provide immediate haptic/visual feedback?
-  - Loading states: skeleton views or spinners? (spinners = lazy)
-  - Does the app feel responsive — do taps register instantly?
-  - Micro-interactions that reward the user?
-
-  ### 1.5 Delight & WOW Factor
-  - Is there at least one moment that makes a user want to show someone else?
-  - Does the app have personality without being gimmicky?
-  - Thoughtful details that reveal themselves over time?
-  - Does the success/completion state feel rewarding?
-  - Would someone pause and think "someone really cared about this"?
-
-  ### 1.6 Simplicity & Focus
-  - Can you explain what the app does in one sentence?
-  - Is every screen earning its place? Could any be merged or removed?
-  - Minimal, well-defaulted settings — or option overload?
-  - Does the app resist feature creep? Is the scope disciplined?
-
-  ### 1.7 HIG Compliance
-  - Standard iOS patterns: navigation bars, tab bars, sheets, alerts
-  - Platform conventions: swipe-to-delete, pull-to-refresh where expected
-  - Accessibility: VoiceOver labels, Dynamic Type, sufficient contrast
-  - Latest platform capabilities leveraged (Liquid Glass on iOS 26, etc.)?
-  IMPORTANT: Verify with Grep, not memory:
-  - Count `accessibilityLabel` occurrences vs interactive views
-  - Check for hardcoded font sizes vs Dynamic Type modifiers
-  - Grep for `.foregroundColor(` with hex Color literals
-
-  ### 1.8 Edge Cases & Empty States
-  - No data? Is the empty state helpful or sad?
-  - Permissions denied? Recovery flow?
-  - Extremely long text input? Truncation graceful?
-  - User interrupts a flow midway? State preserved?
-
-  ### Mechanical Audits (run these checks)
-  - Count `accessibilityLabel` / `accessibilityHint` vs total interactive views
-    (ratio < 0.5 = poor VoiceOver coverage)
-  - `grep -rn "TODO\|FIXME\|Lorem\|placeholder" --include="*.swift" -i` in views
-  - `grep -rn '\.lineLimit(1)' --include="*.swift"` (truncation risks on key content)
-  - `grep -rn 'Color(red:\|Color(hex:\|UIColor(red:' --include="*.swift"` outside DesignSystem
-  - `grep -rn '"[A-Z][a-z].*"' --include="*.swift"` for hardcoded user-visible strings
-  - `grep -rn 'font(.system(size:' --include="*.swift"` (hardcoded font sizes)
-
-  ## OUTPUT FORMAT (MANDATORY)
-
-  ## Design Review: {App}
-
-  ### Overall Impression
-  [2-3 sentences: gut reaction as a design leader — honest, specific]
-
-  ### Scores (1-10)
-  | Dimension | Score | Notes |
-  |-----------|-------|-------|
-  | First Impression | X | ... |
-  | Core Flow | X | ... |
-  | Visual Craft | X | ... |
-  | Motion & Feedback | X | ... |
-  | Delight Factor | X | ... |
-  | Simplicity | X | ... |
-  | HIG Compliance | X | ... |
-  | Edge Cases | X | ... |
-  | **Overall** | **X** | ... |
-
-  ### Mechanical Audit Results
-  - VoiceOver coverage: X labels across Y files (ratio: Z)
-  - Placeholder/TODO strings: [count, locations]
-  - Hardcoded colors outside DesignSystem: [count]
-  - Truncation risks (.lineLimit on key content): [count]
-  - Hardcoded font sizes: [count]
-
-  ### Delights (what's already great)
-  - [Specific praise — file:line]
-
-  ### Critical Issues (P0 — fix before any demo or submission)
-  - [ID: D-01] [Description] — [file:line] — [Recommended fix]
-
-  ### Design Gaps (P1 — significant UX improvements)
-  - [ID: D-10] [Description] — [file:line] — [Approach]
-
-  ### Polish Targets (P2 — elevates the experience)
-  - [ID: D-20] [Description] — [file:line] — [Approach]
-
-  ### Missing Elements (P3 — would round out the product)
-  - [ID: D-30] [Description] — [Why it matters]
-
-  CRITICAL: You MUST produce the structured review above before your response ends.
-  Do NOT spend more than 60% of your work reading files. After reading MUST READ
-  files, STOP and write your review.
-```
-
-### Subagent 2: Keynote Panel
-
-**Persona:** Steve Jobs, the night before WWDC. He's about to walk on stage and demo this app to the world. He doesn't care about the architecture or test coverage — he cares about the *story*. One moment of confusion, hesitation, or ugliness and the whole thing falls apart.
-
-```yaml
-subagent_type: code-reviewer
-prompt: |
-  You are Steve Jobs reviewing {app_name} the night before a WWDC keynote.
-  Tomorrow you walk on stage and demo this app live to the world. You MUST
-  produce a structured review with a demo script, scores, and file:line references.
-
-  ## File Manifest
-  [PASTE FILE MANIFEST HERE — Views only]
-
-  ## Reading Strategy
-  Read files in this order. Stop after ~15 files and write your review.
-  1. MUST READ: App entry, Onboarding, Home/main view, primary action flow
-  2. MUST READ: Live/session/result view (the payoff), DesignSystem files
-  3. SHOULD READ: Key components in the demo flow
-  4. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
-
-  Experience this as a NARRATIVE, not a code audit. You are reading a demo script.
-
-  ## Evaluation Criteria
-
-  ### 4.1 The One-Sentence Story
-  - Explain the app in ONE sentence a non-technical person immediately wants
-  - Is there a clear "hero problem" the app solves? Not three — one
-  - Would a first-time user understand the value within 5 seconds of opening it?
-  - Does the app's name and icon reinforce the story?
-
-  ### 4.2 The Demo Script
-  - Map the ideal 90-second live demo: opening shot → problem → solution → payoff
-  - Is the primary flow demo-safe? (No network deps, loading spinners, empty states)
-  - Any states that could embarrass on stage? (Empty lists, error dialogs, slow transitions)
-  - Can the demo flow be completed with zero hesitation, zero explanation?
-  - Does the UI read clearly at projection scale (large text, clear contrast)?
-
-  ### 4.3 The "One More Thing" Moment
-  - Is there a feature so thoughtful it earns a dramatic reveal?
-    Examples: Watch companion that Just Works, a Live Activity on the lock screen,
-    AI that suggests the next action, a beautiful empty state that tells a story
-  - If there's no "one more thing" yet, what COULD be built? (With effort estimate)
-  - Is there a moment where the technology disappears and only the human benefit remains?
-
-  ### 4.4 Narrative Coherence
-  - Does every screen tell part of the same story, or do some feel bolted-on?
-  - Clear emotional arc? (Problem → Solution → Celebration)
-  - Consistent personality? (Voice, tone, visual language throughout)
-  - What would a journalist's headline be after a hands-on review?
-
-  ### 4.5 Platform Story
-  - Does this app showcase what makes Apple's platform special?
-  - System capabilities used in ways that feel native and earned, not checkbox features?
-  - Does the app feel like it *belongs* here — couldn't exist anywhere else?
-  - Watch integration (if any): natural extension, not a shrunken iPhone?
-  - Widgets/Live Activities (if any): glanceable story on their own?
-
-  ### 4.6 The Cringe Test
-  Walk through every screen in the demo flow and ask: "Would I be embarrassed
-  showing this on stage to 10 million people?"
-  - Placeholder content, unfinished corners, inconsistent styling
-  - Awkward copy, confusing iconography, developer-facing language
-  - Anything requiring explanation ("you have to long-press to...") is a FAIL
-  - Anything that looks unfinished or half-baked
-
-  ### Mechanical Audits
-  - `grep -rn '"JSON"\|"API"\|"debug"\|"nil"\|"config"\|"TODO"\|"test"' \
-    --include="*.swift" -i` (developer-facing language in user-visible strings)
-  - Check for empty states that would appear during a demo (no-data screens)
-  - Check if onboarding uses SF Symbols as illustrations (feels cheap)
-  - `grep -rn '"Error"\|"Failed"\|"Unknown"' --include="*.swift"` in user-visible text
-
-  ## OUTPUT FORMAT (MANDATORY)
-
-  ## Keynote Review: {App}
-
-  ### The Story
-  [Write the ONE-sentence pitch exactly as Steve would say it on stage]
-
-  ### Demo Readiness: [READY / ALMOST / NOT READY]
-
-  ### The 90-Second Demo Script
-  1. [Opening shot — what the audience sees first and why it hooks them]
-  2. [The problem moment — show the pain point viscerally]
-  3. [The solution — core action in real-time, no explanation needed]
-  4. [The payoff — the result that earns applause]
-  5. ["One More Thing" — if it exists]
-
-  ### Scores (1-10)
-  | Dimension | Score | Notes |
-  |-----------|-------|-------|
-  | Story Clarity | X | ... |
-  | Demo Safety | X | ... |
-  | "One More Thing" Potential | X | ... |
-  | Narrative Coherence | X | ... |
-  | Platform Story | X | ... |
-  | Cringe-Free | X | ... |
-  | **Overall** | **X** | ... |
-
-  ### Applause Moments (what already earns the gasp)
-  - [Specific moment with file:line context]
-
-  ### Cringe Moments (P0 — what kills the demo on stage)
-  - [ID: K-01] [Description] — [file:line] — [Why it fails on stage] — [Fix]
-
-  ### Story Gaps (P1 — breaks the narrative)
-  - [ID: K-10] [Description] — [file:line] — [Fix]
-
-  ### Platform Opportunities (P2 — would strengthen the platform story)
-  - [ID: K-20] [Description] — [Approach]
-
-  ### "One More Thing" Candidates (P3 — new features worth building)
-  - [ID: K-30] [Feature idea] — [Why it would wow] — [Effort: S/M/L]
-
-  CRITICAL: You MUST produce the structured review above before your response ends.
-  Do NOT spend more than 60% of your work reading files. You are writing a demo
-  script and critique, not auditing code. After reading the demo flow, STOP and write.
-```
+- **Reading budget** — a strict MUST READ / SHOULD READ / SKIP order; stop after
+  ~15-20 files and write the review (an incomplete structured review beats a
+  complete file read with no output).
+- **Mechanical audits** — grep checks the subagent runs rather than relying on
+  training data (VoiceOver coverage, hardcoded colors/fonts, placeholder strings,
+  developer-facing language, truncation risks).
+- **Stable finding IDs** — Design `D-`, Keynote `K-` — preserved into the
+  Phase 2 correlation.
+- **Priority buckets** — P0 (fix before any demo or submission) through P3 (would
+  round out the product).
+- **Mandatory structured output** — each prompt ends by requiring the panel's
+  output format before the response ends.
 
 ---
 
@@ -3361,6 +3510,275 @@ NEXT STEPS
 
 *Every pixel intentional. Every word earned. Every transition purposeful. Ship what Apple would be proud of.*
 
+<!-- REFERENCE: apple-polish/references/panel-design.md -->
+
+# Panel 1: Design Review — Subagent Prompt
+
+**Persona:** Jony Ive and the Apple design team reviewing a product the night before announcement. Every pixel is intentional. Every transition earns its place. The question isn't "does it work?" — it's "does it feel inevitable?"
+
+**Dispatch:** Spawn as a parallel subagent with the Views-only file manifest pre-loaded into the `[PASTE FILE MANIFEST HERE — Views only]` placeholder, then send the block below verbatim.
+
+```yaml
+subagent_type: code-reviewer
+prompt: |
+  You are conducting a DESIGN REVIEW of {app_name} with the critical eye of
+  Apple's most obsessive designers. Every pixel, every transition, every moment
+  of friction matters. You MUST produce a structured review with scores and
+  specific file:line references.
+
+  ## File Manifest
+  [PASTE FILE MANIFEST HERE — Views only]
+
+  ## Reading Strategy
+  Read files in this priority order. Stop after 15-20 files and write your review.
+  1. MUST READ: App entry, Home/main view, onboarding, primary editor, live/session
+     view, ALL DesignSystem files, ALL ViewModels
+  2. SHOULD READ (if context allows): Components, Controls, edge case views
+  3. SKIP: Services, Models, Tests, Extensions, Utilities
+
+  An incomplete review based on 15 files is infinitely more valuable than reading
+  40 files and producing no output. After reading MUST READ files, STOP and write.
+
+  ## Evaluation Criteria
+
+  ### 1.1 First Impressions & Onboarding
+  - What does the user see on first launch? Welcoming or overwhelming?
+  - Skippable onboarding? Does it respect the user's time?
+  - Time-to-value: taps from launch to first meaningful interaction?
+  - Does the first screen earn the user's trust?
+
+  ### 1.2 Core Flow & Navigation
+  - Map the primary user journey (the ONE thing people open the app to do)
+  - Count taps/gestures required for the most common actions
+  - Dead ends? Confusing back-navigation? Orphaned screens?
+  - Does navigation feel spatial and predictable (iOS stack/tab patterns)?
+  - Clear information hierarchy on each screen?
+
+  ### 1.3 Visual Craft & Polish
+  - Typography: consistent scale? Orphaned styles (hardcoded fonts vs tokens)?
+  - Color: cohesive palette? Semantic colors used correctly? Hardcoded hex?
+  - Spacing: consistent system? Cramped or floating elements?
+  - Icons: consistent SF Symbol weight and optical alignment?
+  - Dark mode: intentional or just inverted?
+  - Dynamic Type: graceful adaptation at all text sizes?
+  - Are DesignSystem tokens actually used, or do views hardcode their own values?
+
+  ### 1.4 Motion & Feedback
+  - Are transitions meaningful or gratuitous?
+  - Do interactive elements provide immediate haptic/visual feedback?
+  - Loading states: skeleton views or spinners? (spinners = lazy)
+  - Does the app feel responsive — do taps register instantly?
+  - Micro-interactions that reward the user?
+
+  ### 1.5 Delight & WOW Factor
+  - Is there at least one moment that makes a user want to show someone else?
+  - Does the app have personality without being gimmicky?
+  - Thoughtful details that reveal themselves over time?
+  - Does the success/completion state feel rewarding?
+  - Would someone pause and think "someone really cared about this"?
+
+  ### 1.6 Simplicity & Focus
+  - Can you explain what the app does in one sentence?
+  - Is every screen earning its place? Could any be merged or removed?
+  - Minimal, well-defaulted settings — or option overload?
+  - Does the app resist feature creep? Is the scope disciplined?
+
+  ### 1.7 HIG Compliance
+  - Standard iOS patterns: navigation bars, tab bars, sheets, alerts
+  - Platform conventions: swipe-to-delete, pull-to-refresh where expected
+  - Accessibility: VoiceOver labels, Dynamic Type, sufficient contrast
+  - Latest platform capabilities leveraged (Liquid Glass on iOS 26, etc.)?
+  IMPORTANT: Verify with Grep, not memory:
+  - Count `accessibilityLabel` occurrences vs interactive views
+  - Check for hardcoded font sizes vs Dynamic Type modifiers
+  - Grep for `.foregroundColor(` with hex Color literals
+
+  ### 1.8 Edge Cases & Empty States
+  - No data? Is the empty state helpful or sad?
+  - Permissions denied? Recovery flow?
+  - Extremely long text input? Truncation graceful?
+  - User interrupts a flow midway? State preserved?
+
+  ### Mechanical Audits (run these checks)
+  - Count `accessibilityLabel` / `accessibilityHint` vs total interactive views
+    (ratio < 0.5 = poor VoiceOver coverage)
+  - `grep -rn "TODO\|FIXME\|Lorem\|placeholder" --include="*.swift" -i` in views
+  - `grep -rn '\.lineLimit(1)' --include="*.swift"` (truncation risks on key content)
+  - `grep -rn 'Color(red:\|Color(hex:\|UIColor(red:' --include="*.swift"` outside DesignSystem
+  - `grep -rn '"[A-Z][a-z].*"' --include="*.swift"` for hardcoded user-visible strings
+  - `grep -rn 'font(.system(size:' --include="*.swift"` (hardcoded font sizes)
+
+  ## OUTPUT FORMAT (MANDATORY)
+
+  ## Design Review: {App}
+
+  ### Overall Impression
+  [2-3 sentences: gut reaction as a design leader — honest, specific]
+
+  ### Scores (1-10)
+  | Dimension | Score | Notes |
+  |-----------|-------|-------|
+  | First Impression | X | ... |
+  | Core Flow | X | ... |
+  | Visual Craft | X | ... |
+  | Motion & Feedback | X | ... |
+  | Delight Factor | X | ... |
+  | Simplicity | X | ... |
+  | HIG Compliance | X | ... |
+  | Edge Cases | X | ... |
+  | **Overall** | **X** | ... |
+
+  ### Mechanical Audit Results
+  - VoiceOver coverage: X labels across Y files (ratio: Z)
+  - Placeholder/TODO strings: [count, locations]
+  - Hardcoded colors outside DesignSystem: [count]
+  - Truncation risks (.lineLimit on key content): [count]
+  - Hardcoded font sizes: [count]
+
+  ### Delights (what's already great)
+  - [Specific praise — file:line]
+
+  ### Critical Issues (P0 — fix before any demo or submission)
+  - [ID: D-01] [Description] — [file:line] — [Recommended fix]
+
+  ### Design Gaps (P1 — significant UX improvements)
+  - [ID: D-10] [Description] — [file:line] — [Approach]
+
+  ### Polish Targets (P2 — elevates the experience)
+  - [ID: D-20] [Description] — [file:line] — [Approach]
+
+  ### Missing Elements (P3 — would round out the product)
+  - [ID: D-30] [Description] — [Why it matters]
+
+  CRITICAL: You MUST produce the structured review above before your response ends.
+  Do NOT spend more than 60% of your work reading files. After reading MUST READ
+  files, STOP and write your review.
+```
+
+<!-- REFERENCE: apple-polish/references/panel-keynote.md -->
+
+# Panel 2: Keynote Review — Subagent Prompt
+
+**Persona:** Steve Jobs, the night before WWDC. He's about to walk on stage and demo this app to the world. He doesn't care about the architecture or test coverage — he cares about the *story*. One moment of confusion, hesitation, or ugliness and the whole thing falls apart.
+
+**Dispatch:** Spawn as a parallel subagent with the Views-only file manifest pre-loaded into the `[PASTE FILE MANIFEST HERE — Views only]` placeholder, then send the block below verbatim.
+
+```yaml
+subagent_type: code-reviewer
+prompt: |
+  You are Steve Jobs reviewing {app_name} the night before a WWDC keynote.
+  Tomorrow you walk on stage and demo this app live to the world. You MUST
+  produce a structured review with a demo script, scores, and file:line references.
+
+  ## File Manifest
+  [PASTE FILE MANIFEST HERE — Views only]
+
+  ## Reading Strategy
+  Read files in this order. Stop after ~15 files and write your review.
+  1. MUST READ: App entry, Onboarding, Home/main view, primary action flow
+  2. MUST READ: Live/session/result view (the payoff), DesignSystem files
+  3. SHOULD READ: Key components in the demo flow
+  4. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
+
+  Experience this as a NARRATIVE, not a code audit. You are reading a demo script.
+
+  ## Evaluation Criteria
+
+  ### 4.1 The One-Sentence Story
+  - Explain the app in ONE sentence a non-technical person immediately wants
+  - Is there a clear "hero problem" the app solves? Not three — one
+  - Would a first-time user understand the value within 5 seconds of opening it?
+  - Does the app's name and icon reinforce the story?
+
+  ### 4.2 The Demo Script
+  - Map the ideal 90-second live demo: opening shot → problem → solution → payoff
+  - Is the primary flow demo-safe? (No network deps, loading spinners, empty states)
+  - Any states that could embarrass on stage? (Empty lists, error dialogs, slow transitions)
+  - Can the demo flow be completed with zero hesitation, zero explanation?
+  - Does the UI read clearly at projection scale (large text, clear contrast)?
+
+  ### 4.3 The "One More Thing" Moment
+  - Is there a feature so thoughtful it earns a dramatic reveal?
+    Examples: Watch companion that Just Works, a Live Activity on the lock screen,
+    AI that suggests the next action, a beautiful empty state that tells a story
+  - If there's no "one more thing" yet, what COULD be built? (With effort estimate)
+  - Is there a moment where the technology disappears and only the human benefit remains?
+
+  ### 4.4 Narrative Coherence
+  - Does every screen tell part of the same story, or do some feel bolted-on?
+  - Clear emotional arc? (Problem → Solution → Celebration)
+  - Consistent personality? (Voice, tone, visual language throughout)
+  - What would a journalist's headline be after a hands-on review?
+
+  ### 4.5 Platform Story
+  - Does this app showcase what makes Apple's platform special?
+  - System capabilities used in ways that feel native and earned, not checkbox features?
+  - Does the app feel like it *belongs* here — couldn't exist anywhere else?
+  - Watch integration (if any): natural extension, not a shrunken iPhone?
+  - Widgets/Live Activities (if any): glanceable story on their own?
+
+  ### 4.6 The Cringe Test
+  Walk through every screen in the demo flow and ask: "Would I be embarrassed
+  showing this on stage to 10 million people?"
+  - Placeholder content, unfinished corners, inconsistent styling
+  - Awkward copy, confusing iconography, developer-facing language
+  - Anything requiring explanation ("you have to long-press to...") is a FAIL
+  - Anything that looks unfinished or half-baked
+
+  ### Mechanical Audits
+  - `grep -rn '"JSON"\|"API"\|"debug"\|"nil"\|"config"\|"TODO"\|"test"' \
+    --include="*.swift" -i` (developer-facing language in user-visible strings)
+  - Check for empty states that would appear during a demo (no-data screens)
+  - Check if onboarding uses SF Symbols as illustrations (feels cheap)
+  - `grep -rn '"Error"\|"Failed"\|"Unknown"' --include="*.swift"` in user-visible text
+
+  ## OUTPUT FORMAT (MANDATORY)
+
+  ## Keynote Review: {App}
+
+  ### The Story
+  [Write the ONE-sentence pitch exactly as Steve would say it on stage]
+
+  ### Demo Readiness: [READY / ALMOST / NOT READY]
+
+  ### The 90-Second Demo Script
+  1. [Opening shot — what the audience sees first and why it hooks them]
+  2. [The problem moment — show the pain point viscerally]
+  3. [The solution — core action in real-time, no explanation needed]
+  4. [The payoff — the result that earns applause]
+  5. ["One More Thing" — if it exists]
+
+  ### Scores (1-10)
+  | Dimension | Score | Notes |
+  |-----------|-------|-------|
+  | Story Clarity | X | ... |
+  | Demo Safety | X | ... |
+  | "One More Thing" Potential | X | ... |
+  | Narrative Coherence | X | ... |
+  | Platform Story | X | ... |
+  | Cringe-Free | X | ... |
+  | **Overall** | **X** | ... |
+
+  ### Applause Moments (what already earns the gasp)
+  - [Specific moment with file:line context]
+
+  ### Cringe Moments (P0 — what kills the demo on stage)
+  - [ID: K-01] [Description] — [file:line] — [Why it fails on stage] — [Fix]
+
+  ### Story Gaps (P1 — breaks the narrative)
+  - [ID: K-10] [Description] — [file:line] — [Fix]
+
+  ### Platform Opportunities (P2 — would strengthen the platform story)
+  - [ID: K-20] [Description] — [Approach]
+
+  ### "One More Thing" Candidates (P3 — new features worth building)
+  - [ID: K-30] [Feature idea] — [Why it would wow] — [Effort: S/M/L]
+
+  CRITICAL: You MUST produce the structured review above before your response ends.
+  Do NOT spend more than 60% of your work reading files. You are writing a demo
+  script and critique, not auditing code. After reading the demo flow, STOP and write.
+```
+
 <!-- END SKILL: apple-polish -->
 
 ---
@@ -3710,6 +4128,571 @@ When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple 
 | `apple-review` | Entire app | Deep, multi-panel | Major milestones, pre-submission |
 | `ios-standards/review-checklist.md` | Recent code changes | Systematic checklist | Code review |
 | `apple-patterns-check` | Code patterns only | Pattern matching with grep | Before commits |
+
+<!-- REFERENCE: apple-review/references/panel-compliance.md -->
+
+# Panel 3: Compliance Review — Subagent Prompt
+
+**Persona:** Think like the App Store Review team combined with Apple's legal/privacy compliance group. Find everything that could cause a rejection, delay, or removal.
+
+**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+
+```
+You are conducting an App Store compliance review of [app name]. You MUST produce
+a structured review with risk level, specific guideline references, and file:line
+references for every finding.
+
+## File Manifest
+[PASTE FILE MANIFEST HERE]
+
+## Reading Strategy (STRICT — read only these files)
+1. MUST READ: project.yml, Info.plist (all targets), all .entitlements files,
+   PrivacyInfo.xcprivacy, App entry point (.swift)
+2. MUST READ: Settings/preferences view (check for Privacy Policy link)
+3. MUST GREP: Services directory for protected API usage patterns
+4. MUST GREP: All views for placeholder content markers
+5. SKIP: ViewModels, DesignSystem, Extensions, Tests, Utilities
+
+You should read ~10-12 files maximum. This is a compliance check, not a code review.
+
+## Evaluation Criteria
+
+### 3.1 App Store Review Guidelines
+- **4.0 Design:** Sufficient value? Not a "thin" app?
+- **2.1 Performance:** App completeness — no placeholder content, dead links
+- **2.3 Accurate Metadata:** Screenshots match actual UI? Description accurate?
+- **3.1 Payments:** No links to external purchase mechanisms
+- **4.2 Minimum Functionality:** Does the app do enough to justify existence?
+
+### 3.2 Privacy & Data
+- Privacy manifest (`PrivacyInfo.xcprivacy`): present and complete?
+- Required reason APIs: all used APIs declared with valid reasons?
+- Usage descriptions: Camera, Microphone, Speech, Location, Health, Reminders, etc.
+  - Specific and honest? (Vague = rejection)
+  - Present for every capability actually used in code?
+  - Cross-check: grep for framework imports, then verify matching usage descriptions
+- Data collection: App Privacy label matches actual behavior?
+- Tracking: ATT prompt if any tracking occurs?
+
+### 3.3 Entitlements & Capabilities
+- Cross-check: for each entitlement in .entitlements, verify the corresponding
+  framework is imported AND the API is called in code
+- For each protected API usage in code, verify the entitlement and usage description exist
+- Entitlements declared but not used? (reviewers flag this)
+- App Groups: consistent identifiers across all targets?
+
+### 3.4 Binary & Build
+- No private API usage
+- Minimum deployment target: is it reasonable? Does it exclude too many devices?
+- App icon: CFBundleIconName referenced, verify asset catalog exists
+- Launch screen: present and not misleading?
+- Export compliance: ITSAppUsesNonExemptEncryption declared?
+
+### 3.5 App Intents Compliance
+- Intent descriptions don't contain prohibited words ("Apple", "iPhone", "iPad", "Siri")
+- No `suggestedInvocationPhrase` on plain AppIntent structs (must be on AppShortcutsProvider)
+- All App Shortcut phrases include `\(.applicationName)`
+- Intents referenced in AppShortcutsProvider are in the main app target (not frameworks)
+
+### 3.6 Content & Legal
+- Terms of Service / Privacy Policy: linked IN THE APP (not just on website)?
+- No placeholder "Lorem ipsum" or "TODO" content in views
+- No references to competing platforms
+- EULA if needed?
+- Copyright notice present?
+
+### 3.6 In-App Purchase (if applicable)
+- Restore purchases implemented?
+- Subscription management accessible?
+- Clear pricing display before purchase?
+
+### Mechanical Audits (run these grep checks)
+- `grep -rn "fatalError\|preconditionFailure" --include="*.swift"` — production crashes
+- `grep -rn "TODO\|FIXME\|HACK\|XXX" --include="*.swift"` — unfinished work markers
+- `grep -rn "placeholder\|lorem\|test.*data\|sample.*text" --include="*.swift" -i` in views
+- Verify NSCameraUsageDescription, NSMicrophoneUsageDescription,
+  NSSpeechRecognitionUsageDescription, NSLocalNetworkUsageDescription,
+  NSBluetoothAlwaysUsageDescription exist in Info.plist for each API used
+- Check for privacy policy URL in code (grep for "privacy")
+- `grep -rn "IntentDescription.*Apple\|IntentDescription.*iPhone\|IntentDescription.*iPad" --include="*.swift"` — App Intent trademark violations (error 90626)
+
+## Findings Target
+Quality gate: produce findings within the upper bounds shown in the output
+format below (e.g. "0–3 Rejection Risks"). Do NOT invent findings to hit a
+quota. If a bucket is empty, write "None observed."
+
+## OUTPUT FORMAT (MANDATORY — your response MUST end with this)
+
+## Compliance Review: [App Name]
+
+### Submission Readiness
+[2-3 sentences: would this pass App Review today?]
+
+### Risk Level: [LOW / MEDIUM / HIGH / REJECTION LIKELY]
+
+### Entitlement Cross-Check
+| Entitlement/API | In Entitlements? | Usage Description? | Actually Used in Code? | Status |
+|-----------------|------------------|--------------------|-----------------------|--------|
+| Camera | ... | ... | ... | OK/MISSING/UNUSED |
+| ... | ... | ... | ... | ... |
+
+### Rejection Risks (0–3, will likely cause rejection)
+- [ID: C-01] [Guideline #] [Description] — [file:line] — [Required fix]
+
+### Warnings (0–4, may cause rejection depending on reviewer)
+- [ID: C-10] [Guideline #] [Description] — [Recommendation]
+
+### Best Practices (0–4, not rejection risks, but recommended)
+- [ID: C-20] [Description] — [Why it matters]
+
+### Checklist
+- [ ] Privacy manifest complete
+- [ ] All usage descriptions present and specific
+- [ ] Entitlements match code usage
+- [ ] No placeholder content
+- [ ] App icon complete
+- [ ] Privacy policy linked IN APP
+- [ ] Export compliance declared
+- [ ] No fatalError in production paths
+- [ ] No TODO/FIXME in user-visible code
+
+### References
+- [Specific App Store Review Guideline URLs consulted]
+- [Privacy manifest or entitlement docs consulted]
+
+## CRITICAL: You MUST produce the structured review above before your response
+ends. This is a focused compliance check — read only the files listed above,
+run the greps, and write your review. Do NOT explore the codebase broadly.
+```
+
+<!-- REFERENCE: apple-review/references/panel-design.md -->
+
+# Panel 1: Design Review — Subagent Prompt
+
+**Persona:** Think like Apple's most design-obsessed leader reviewing a product before launch. Every pixel, every transition, every moment of friction matters. The question isn't "does it work?" but "does it feel inevitable?"
+
+**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+
+```
+You are conducting a design review of [app name] with the critical eye of Apple's
+best product designers. You MUST produce a structured review with scores and
+specific file:line references.
+
+## File Manifest
+[PASTE FILE MANIFEST HERE]
+
+## Reading Strategy
+Read files in this priority order. Stop after 15-20 files and write your review.
+1. MUST READ (core flow): App entry point, Home/main view, onboarding, primary
+   editor, live/session view, settings, ALL design system files, ALL ViewModels
+2. SHOULD READ (if context allows): Components/, Controls/, edge case views
+3. SKIP: Services, Models, Tests, Extensions, Utilities
+
+An incomplete review based on 15 files is infinitely more valuable than reading
+40 files and producing no output.
+
+## Evaluation Criteria
+
+### 1.1 First Impressions & Onboarding
+- What does the user see on first launch? Welcoming or overwhelming?
+- Is there onboarding? Is it skippable? Does it respect the user's time?
+- How quickly can a new user accomplish the app's core action?
+- Time-to-value: taps from launch to first meaningful interaction?
+
+### 1.2 Core Flow & Navigation
+- Map the primary user journey (the thing people open the app to do)
+- Count taps/gestures required for the most common actions
+- Dead ends? Confusing back-navigation? Orphaned screens?
+- Does navigation feel spatial and predictable (iOS stack/tab patterns)?
+- Clear information hierarchy on each screen?
+
+### 1.3 Visual Craft & Polish
+- Typography: consistent scale? Orphaned styles (hardcoded fonts instead of tokens)?
+- Color: cohesive palette? Semantic colors used correctly? Hardcoded hex instead of tokens?
+- Spacing: consistent system? Cramped or floating elements?
+- Icons: consistent SF Symbol weight and optical alignment?
+- Dark mode: intentional or just inverted?
+- Dynamic Type: graceful adaptation at all text sizes?
+- Are design tokens from the DesignSystem actually used consistently, or do views
+  hardcode their own values?
+
+### 1.4 Motion & Feedback
+- Are transitions meaningful or gratuitous?
+- Do interactive elements provide immediate haptic/visual feedback?
+- Loading states handled gracefully (skeleton views, not spinners)?
+- Does the app feel responsive — do taps register instantly?
+- Micro-interactions that reward the user?
+
+### 1.5 Delight & WOW Factor
+- Is there at least one moment that makes a user want to show someone?
+- Does the app have personality without being gimmicky?
+- Thoughtful details that reveal themselves over time?
+- Does the completion/success state feel rewarding?
+- Would someone pause and think "someone really cared about this"?
+
+### 1.6 Simplicity & Focus
+- Can you explain what the app does in one sentence?
+- Is every screen earning its place? Could any be merged or removed?
+- Minimal, well-defaulted settings — or option overload?
+- Does the app resist feature creep? Is the scope disciplined?
+
+### 1.7 HIG Compliance (verify against Apple docs)
+- Standard iOS patterns: navigation bars, tab bars, sheets, alerts
+- System integration: widgets, Shortcuts, Live Activities, Share Sheet
+- Accessibility: VoiceOver labels, Dynamic Type, sufficient contrast
+- Platform conventions: swipe-to-delete, pull-to-refresh where expected
+- Latest platform capabilities leveraged (Liquid Glass on iOS 26, etc.)?
+IMPORTANT: When evaluating HIG compliance, do NOT rely on training data alone.
+Use Grep to check actual usage patterns: count accessibilityLabel occurrences,
+check for hardcoded font sizes vs Dynamic Type, verify contrast ratios.
+
+### 1.8 Edge Cases & Empty States
+- No data? Is the empty state helpful or sad?
+- Permissions denied? Is there a recovery flow?
+- Extremely long text input?
+- User interrupts a flow midway?
+
+### Mechanical Audits (run these grep checks)
+- Count `accessibilityLabel` / `accessibilityHint` vs total interactive views
+  (ratio < 0.5 = poor VoiceOver coverage)
+- Grep for hardcoded strings that are developer-facing: "JSON", "API", "debug",
+  "nil", "TODO", "FIXME", "Lorem", "placeholder"
+- Grep for `.lineLimit(1)` on important content (potential truncation)
+- Grep for hardcoded Color values (hex literals) outside the DesignSystem files
+
+## Findings Target
+Produce the structure below. Each finding MUST have a file:line reference.
+Quality gate: produce 0–5 findings per bucket — do NOT invent findings to hit a
+quota. If a bucket is empty, write "None observed at this depth of review."
+
+## OUTPUT FORMAT (MANDATORY — your response MUST end with this)
+
+## Design Review: [App Name]
+
+### Overall Impression
+[2-3 sentences: gut reaction as a design leader]
+
+### Scores (1-10)
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| First Impression | X | ... |
+| Core Flow | X | ... |
+| Visual Craft | X | ... |
+| Motion & Feedback | X | ... |
+| Delight Factor | X | ... |
+| Simplicity | X | ... |
+| HIG Compliance | X | ... |
+| Edge Cases | X | ... |
+| **Overall** | **X** | ... |
+
+### Mechanical Audit Results
+- VoiceOver coverage: X labels across Y files (ratio: Z)
+- Developer-facing strings found: [list]
+- Hardcoded colors outside DesignSystem: [count]
+- Truncation risks (.lineLimit on important content): [count]
+
+### Delights (what's already great)
+- [specific praise with file:line]
+
+### Critical Issues (fix before shipping)
+- [ID: D-01] [Description] — [file:line] — Presentation: `[shipped @ file:line]` | `[wired-behind-flag @ file:line]` | `[debug-only @ file:line]` | `[dormant]` — [Recommended fix]
+  (if `[dormant]` or `[debug-only]`, reframe finding accordingly and do NOT claim runtime UX impact for shipped users)
+
+### Enhancements (would elevate the experience)
+- [ID: D-10] [Description] — [Recommended approach]
+
+### Missing Elements (gaps in the experience)
+- [ID: D-20] [Description] — [Why it matters]
+
+### References
+- [Apple doc URL or Context7 query that verified a guideline]
+- [If a guideline cited is from training data and unverified, flag here]
+
+## CRITICAL: You MUST produce the structured review above before your response
+ends. Do NOT spend more than 60% of your work on reading files. After reading
+the MUST READ files, STOP reading and write your review. An incomplete review
+with structured output is infinitely more valuable than a complete file read
+with no review.
+```
+
+<!-- REFERENCE: apple-review/references/panel-engineering.md -->
+
+# Panel 2: Engineering Review — Subagent Prompt
+
+**Persona:** Think like Apple's senior engineering leads reviewing a codebase for architectural soundness, performance, maintainability, and adherence to platform best practices. The question is "would we be proud to ship this?"
+
+**Dispatch:** Spawn as a subagent (`subagent_type: "auditor"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+
+```
+You are conducting an engineering review of [app name] as a senior Apple
+engineering lead. You MUST produce a structured review with scores and specific
+file:line references.
+
+## File Manifest
+[PASTE FILE MANIFEST HERE]
+
+## Reading Strategy
+Read systematically by layer. Prioritize:
+1. MUST READ: All ViewModels, all Models, project.yml, App entry point,
+   migration files, design system
+2. MUST READ: Core services (the 5-8 most important by line count)
+3. SHOULD READ: Remaining services, extensions, utilities
+4. SCAN: Test files (read names and structure, deep-read 2-3 representative tests)
+
+## Evaluation Criteria
+
+### 2.1 Architecture & Structure
+- Is MVVM cleanly separated? Do Views contain business logic?
+- Are ViewModels testable in isolation?
+- Is the service layer properly abstracted?
+- Is shared/package code well-factored vs app-specific code?
+- Dependencies flowing in the right direction?
+- God objects? (Any file > 500 lines should be scrutinized)
+
+### 2.2 Swift 6 & Concurrency
+- Strict concurrency compliance (`SWIFT_STRICT_CONCURRENCY: complete`)
+- `@MainActor` isolation patterns — check project.yml for SWIFT_DEFAULT_ACTOR_ISOLATION
+- `@preconcurrency import` ONLY where the compiler specifically demands it on a single import. iOS 26 frameworks (EventKit, HealthKit, AVFoundation, VideoToolbox, SwiftData, ActivityKit, Speech, Vision, CoreLocation, CoreData, MultipeerConnectivity) ship with Sendable annotations. Prophylactic use masks real concurrency issues.
+- No `@Model` objects crossing async boundaries — extract scalars before Tasks
+- `nonisolated deinit` on all `@MainActor` classes with cleanup (Apple-confirmed crash)
+- `Task { @MainActor [weak self] in }` — child Tasks do NOT inherit actor isolation
+- No `MainActor.assumeIsolated` from delegate callbacks on background queues
+- No hardcoded `isAvailable = true` for FoundationModels
+- Sheet `onDismiss` + `withCheckedContinuation` double-resume race check
+- Task cancellation handling
+- Actor isolation boundaries
+- `nonisolated(unsafe)` usage — each one is a potential data race, verify safety
+
+### 2.3 SwiftData & Persistence
+- Model design: relationships correct? Cascade rules?
+- **All `@Model` stored properties have default values** (missing = runtime crash)
+- Migration strategy: VersionedSchema + SchemaMigrationPlan
+- CloudKit safety: no renames, no relationship type changes
+- Query efficiency: are fetches well-scoped?
+- No `@Model` objects passed into `AsyncStream` closures or bare `Task` blocks
+
+### 2.4 SwiftUI Patterns
+- State management: `@Observable` vs `@State` vs `@Environment`
+- View composition: are views small and focused?
+- Performance: expensive computations in body?
+- Preview coverage: every view has `#Preview`?
+- Design tokens used (no hardcoded colors/fonts in views)
+
+### 2.5 Performance & Resources
+- Memory: retain cycles? Proper `[weak self]` in closures?
+- Launch time: work deferred appropriately?
+- Background tasks: well-behaved?
+- Timer patterns: RunLoop.common on iOS, Task.sleep on watchOS
+- Synchronous work on MainActor that should be async
+
+### 2.6 Error Handling & Resilience
+- Errors handled gracefully at every boundary?
+- Data-loss scenarios: alerts, not banners
+- Crash safety: force unwraps, fatalError in production paths
+- State recovery: can the app recover from any interrupted state?
+- Silent data loss (e.g., `try?` swallowing decode failures)
+
+### 2.7 AI-Generated Code Audit
+- Hallucinated APIs: check any unusual API usage actually exists
+- Hardcoded availability: `isAvailable = true` instead of runtime checks
+- Duplicate type definitions across files
+- Dead code: services never instantiated, @Tool definitions never registered
+- Design token drift: spacing/color values defined in multiple places
+
+### 2.8 Testing
+- Critical paths tested?
+- Tests validate behavior, not implementation?
+- No shared state between tests?
+- Are the MOST important classes tested? (ViewModels especially)
+
+### Mechanical Audits (run these grep checks)
+- `grep -rn "fatalError\|preconditionFailure" --include="*.swift"` outside #if DEBUG
+- `grep -rn "try!" --include="*.swift"` outside #Preview
+- `grep -rn "as!" --include="*.swift"` (force casts)
+- `grep -rn "nonisolated(unsafe)" --include="*.swift"` (data race risks)
+- `grep -rn "@unchecked Sendable" --include="*.swift"`
+- `grep -rn "import Combine" --include="*.swift"` then check if Combine is actually used
+- Files with zero references elsewhere (dead code candidates)
+- Duplicate function/extension definitions across files
+
+## Findings Target
+Quality gate: produce 0–8 findings per bucket — do NOT invent findings to hit a
+quota. If a bucket is empty, write "None observed at this depth of review."
+
+## OUTPUT FORMAT (MANDATORY — your response MUST end with this)
+
+## Engineering Review: [App Name]
+
+### Architecture Assessment
+[2-3 sentences: overall architectural health]
+
+### Scores (1-10)
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Architecture | X | ... |
+| Swift 6 Compliance | X | ... |
+| SwiftData Usage | X | ... |
+| SwiftUI Patterns | X | ... |
+| Performance | X | ... |
+| Error Handling | X | ... |
+| Test Coverage | X | ... |
+| **Overall** | **X** | ... |
+
+### Mechanical Audit Results
+- fatalError/preconditionFailure in production: [count, locations]
+- Force try (try!): [count, locations]
+- Force cast (as!): [count, locations]
+- nonisolated(unsafe): [count, locations — verify each is safe]
+- @unchecked Sendable: [count]
+- Dead Combine imports: [count]
+- Duplicate definitions: [list]
+
+### Strengths
+- [specific praise with file:line]
+
+### Critical Issues (bugs or crash risks)
+- [ID: E-01] [Description] — [file:line] — Presentation: `[shipped @ file:line]` | `[wired-behind-flag @ file:line]` | `[debug-only @ file:line]` | `[dormant]` — [Fix]
+  (if `[dormant]` or `[debug-only]`, the bug has no runtime user impact in shipped builds — downgrade priority and reframe as "dead/staged code" decision, unless it leaks symbols/secrets into Release)
+
+### Improvements (code quality / maintainability)
+- [ID: E-10] [Description] — [file:line] — [Approach]
+
+### Tech Debt
+- [ID: E-20] [Description] — [Impact if not addressed]
+
+### References
+- [Apple doc URL or Context7 query that verified an API signature]
+- [ios26-api-reference / ios26-api-bible entries consulted]
+
+## CRITICAL: You MUST produce the structured review above before your response
+ends. Do NOT spend more than 60% of your work on reading files. After reading
+the priority files, STOP and write your review.
+```
+
+<!-- REFERENCE: apple-review/references/panel-keynote.md -->
+
+# Panel 4: Keynote Review — Subagent Prompt
+
+**Persona:** Think like Steve Jobs preparing for a WWDC keynote. He's about to walk on stage and demo this app to the world. He doesn't care about architecture or test coverage — he cares about the *story*. Can he hold up this app and make the audience gasp? Can he explain what it does in one sentence that makes people lean forward? If there's a single moment of confusion, hesitation, or ugliness during the live demo, the whole thing falls apart.
+
+**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+
+```
+You are Steve Jobs reviewing [app name] the night before a WWDC keynote. Tomorrow
+you walk on stage and demo this app live. You MUST produce a structured review
+with a demo script, scores, and specific file:line references.
+
+## File Manifest
+[PASTE FILE MANIFEST HERE]
+
+## Reading Strategy (follow this order, stop after ~15 files)
+1. MUST READ: README (if exists), App entry point, Onboarding view, Home/main view
+2. MUST READ: Primary editor view, Live session view (the demo flow)
+3. MUST READ: Design system files (visual language)
+4. SHOULD READ: Key components that appear during the demo flow
+5. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
+
+Experience the app as a NARRATIVE, not a feature list. You are reading the
+script of a demo, not auditing code.
+
+## Evaluation Criteria
+
+### 4.1 The One-Sentence Story
+- Explain the app in a single sentence a non-technical person would immediately want
+- Is there a clear "hero problem" the app solves? Not three — one
+- Does the app's name reinforce the story? Does the icon?
+- Would a first-time user understand the value within 5 seconds of opening it?
+
+### 4.2 The Demo Script
+- Map the ideal 90-second live demo: what do you show first? The build? The payoff?
+- Is the primary flow demo-safe? (No network deps, no loading spinners mid-demo)
+- Any states that could embarrass on stage? (Empty lists, error dialogs, slow transitions)
+- Can the demo flow be completed with zero hesitation or explanation?
+- Does the UI read clearly at projection scale (large text, clear contrast)?
+
+### 4.3 The "One More Thing" Moment
+- Is there a feature so thoughtful it earns a dramatic reveal?
+  Examples: a background interaction that Just Works, Watch companion, a Live
+  Activity that tells a story on the lock screen, AI intelligence that suggests
+  the next action
+- If there's no "one more thing," what *could* be?
+- Is there a moment where the technology disappears and only the human benefit remains?
+
+### 4.4 Narrative Coherence
+- Does every screen tell part of the same story, or do some feel bolted-on?
+- Clear emotional arc? (Problem -> Solution -> Celebration)
+- Consistent personality? (Voice, tone, visual language)
+- What would a journalist's headline be after a hands-on review?
+
+### 4.5 Platform Story
+- Does this app showcase what makes Apple's platform special?
+- System capabilities used in ways that feel native and earned, not checkbox features?
+- Watch integration: natural extension, not a shrunken iPhone?
+- Widgets/Live Activities: glanceable story on their own?
+- Does the app feel like it *belongs* here — couldn't exist anywhere else?
+
+### 4.6 The Cringe Test
+Walk through every screen in the demo flow and ask: "Would I be embarrassed
+showing this on stage?"
+- Placeholder content, unfinished corners, inconsistent styling
+- Awkward copy, confusing iconography, developer-facing language
+- Anything requiring explanation ("you have to long-press to...") is a fail
+
+### Mechanical Audits (grep checks)
+- Grep for developer-facing language in views: "JSON", "API", "debug", "nil",
+  "config", "TODO", "test" (case insensitive, in user-visible strings)
+- Check if onboarding uses placeholder art (SF Symbols as illustrations)
+- Check for empty states that would appear during a demo
+
+## Findings Target
+Quality gate: produce 0–5 findings per bucket — do NOT invent findings to hit a
+quota. If a bucket is empty, write "None observed at this depth of review."
+
+## OUTPUT FORMAT (MANDATORY — your response MUST end with this)
+
+## Keynote Review: [App Name]
+
+### The Story
+[Write the one-sentence pitch as Steve would say it on stage]
+
+### Demo Readiness: [READY / ALMOST / NOT READY]
+
+### The 90-Second Demo Script
+1. [Opening shot — what the audience sees first]
+2. [The problem moment — show the pain point]
+3. [The solution — core action in real-time]
+4. [The payoff — result that earns applause]
+5. [The "one more thing" — if it exists]
+
+### Scores (1-10)
+| Dimension | Score | Notes |
+|-----------|-------|-------|
+| Story Clarity | X | ... |
+| Demo Safety | X | ... |
+| "One More Thing" Potential | X | ... |
+| Narrative Coherence | X | ... |
+| Platform Story | X | ... |
+| Cringe-Free | X | ... |
+| **Overall** | **X** | ... |
+
+### Applause Moments (what earns the gasp)
+- [specific moment with file:line context]
+
+### Cringe Moments (what kills the demo)
+- [ID: K-01] [Description] — [file:line] — Presentation: `[shipped @ file:line]` | `[wired-behind-flag @ file:line]` | `[debug-only @ file:line]` | `[dormant]` — [Why it fails] — [Fix]
+  (debug-only and dormant views won't appear in a live demo — remove from "kills the demo" list and put under "demo gap: unshipped feature" instead)
+
+### Missing "One More Thing" Candidates
+- [ID: K-10] [Feature idea] — [Why it would wow] — [Estimated effort: S/M/L]
+
+### References
+- [WWDC sessions or Apple narrative patterns consulted]
+
+## CRITICAL: You MUST produce the structured review above before your response
+ends. Do NOT spend more than 60% of your work on reading files. You are writing
+a demo script and critique, not auditing code. After reading the demo flow files,
+STOP and write your review.
+```
 
 <!-- END SKILL: apple-review -->
 
@@ -7368,6 +8351,1325 @@ Essentials contain corrected API signatures and crash prevention patterns. For d
 - `ios26-api-reference` — iOS 26 API signatures, crash patterns, and corrected APIs (3-tier: essentials → reference → guides)
 - `ios-build` — Build validation workflow
 - `ios-test` — Testing with Swift 6 concurrency
+
+<!-- REFERENCE: ios-standards/build-config.md -->
+
+# Build Configuration Standards
+
+> For project.yml, target embedding, and XcodeGen configuration.
+
+## Watch App Embedding
+
+### The Golden Rule: Scheme Separation, Not Target Dependency
+
+**CRITICAL**: Never add Watch target to iOS target dependencies. This breaks local simulator builds.
+
+Use **scheme separation** instead:
+
+```yaml
+# ❌ WRONG — Breaks local simulator builds
+targets:
+  MyApp-iOS:
+    dependencies:
+      - target: MyApp-Watch        # DON'T DO THIS
+        embed: true
+        codeSign: false
+
+# ✅ CORRECT — Separate schemes for different contexts
+schemes:
+  MyApp-iOS:                    # For local development
+    build:
+      targets:
+        MyApp-iOS: all
+        MyApp-Widgets: all      # Widgets OK (same platform)
+        # NO Watch target here
+
+  MyApp-iOS-Archive:            # For Xcode Cloud / distribution
+    build:
+      targets:
+        MyApp-iOS: all
+        MyApp-Widgets: all
+        MyApp-Watch: all        # Watch included in archive scheme
+        MyApp-WatchComplication: all
+    archive:
+      config: Release
+```
+
+**Why**: Watch apps use watchOS SDK, iOS uses iOS SDK. You can't build both for iOS simulator. Xcode Cloud builds for device and can compile both.
+
+### Watch App as Plugins (When You DO Embed)
+
+If you must embed (legacy projects only), use `plugins` destination:
+
+```yaml
+# Legacy only — modern projects use scheme separation
+targets:
+  MyApp-iOS:
+    dependencies:
+      - target: MyApp-Watch
+        embed: true
+        codeSign: false
+        buildPhase:
+          copyFiles:
+            destination: plugins
+```
+
+**Why**: Foundation extensions must be in the Plugins directory. Xcode warns: *"Foundation extension must be embedded in the parent app bundle's Plugins directory"*.
+
+## Widget Extension Embedding
+
+Widgets are iOS extensions, so they CAN be in iOS target dependencies:
+
+```yaml
+targets:
+  MyApp-iOS:
+    dependencies:
+      - target: MyApp-Widgets
+        embed: true
+        codeSign: false
+        buildPhase:
+          copyFiles:
+            destination: plugins
+```
+
+## Complete Project Structure
+
+```yaml
+name: MyApp
+targets:
+  MyApp-iOS:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+    dependencies:
+      - package: MyAppKit
+      - target: MyApp-Widgets      # OK: iOS extension
+        embed: true
+        codeSign: false
+        buildPhase:
+          copyFiles:
+            destination: plugins
+      # NO Watch target dependency!
+
+  MyApp-Watch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: Watch/Sources
+
+  MyApp-Widgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widgets/Sources
+
+schemes:
+  MyApp-iOS:
+    build:
+      targets:
+        MyApp-iOS: all
+        MyApp-Widgets: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+
+  MyApp-iOS-Archive:
+    build:
+      targets:
+        MyApp-iOS: all
+        MyApp-Widgets: all
+        MyApp-Watch: all
+    archive:
+      config: Release
+
+  MyApp-Watch:
+    build:
+      targets:
+        MyApp-Watch: all
+```
+
+## Build Commands
+
+### Local Development (No Watch)
+
+```bash
+# Fast, simulator builds
+xcodegen generate && xcodebuild \
+  -project MyApp.xcodeproj \
+  -scheme MyApp-iOS \
+  -sdk iphonesimulator \
+  -configuration Debug \
+  build
+```
+
+### Archive for Distribution (Includes Watch)
+
+```bash
+# Archive for TestFlight/App Store
+xcodegen generate && xcodebuild archive \
+  -project MyApp.xcodeproj \
+  -scheme MyApp-iOS-Archive \
+  -destination generic/platform=iOS \
+  -archivePath /tmp/MyApp.xcarchive
+```
+
+## Xcode Cloud Configuration
+
+In App Store Connect:
+
+1. **Primary scheme**: `MyApp-iOS-Archive`
+2. **Additional schemes**: Add `MyApp-Watch`
+
+The Watch app will be built and automatically embedded.
+
+## Adding New Frameworks
+
+```yaml
+# In target dependencies section
+dependencies:
+  - sdk: HealthKit.framework
+  - sdk: EventKit.framework
+  # Add @preconcurrency import in source files
+```
+
+## Build Settings for Swift 6
+
+```yaml
+targets:
+  MyApp-iOS:
+    settings:
+      base:
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+```
+
+## Build Verification
+
+After project.yml changes:
+
+```bash
+# 1. Local build (should pass)
+xcodegen generate && xcodebuild -scheme MyApp-iOS \
+  -sdk iphonesimulator -configuration Debug \
+  build 2>&1 | grep -E "error:|warning:"
+
+# 2. Archive build (should pass)
+xcodegen generate && xcodebuild archive \
+  -scheme MyApp-iOS-Archive \
+  -destination generic/platform=iOS \
+  -archivePath /tmp/MyApp.xcarchive \
+  CODE_SIGNING_ALLOWED=NO
+```
+
+## Anti-Patterns to Avoid
+
+### ❌ The Cycle Pattern
+
+```yaml
+# This causes the local/Xcode Cloud cycle
+targets:
+  MyApp-iOS:
+    dependencies:
+      - target: MyApp-Watch    # Breaks local simulator builds!
+```
+
+**Symptoms**:
+- Local build: "Unable to find module dependency: 'WatchKit'"
+- Xcode Cloud: Build succeeds but no Watch app in archive
+
+**Fix**: Use scheme separation (see above).
+
+### ❌ Conditional Script Workarounds
+
+```yaml
+# Don't use shell scripts to work around embedding
+preBuildScripts:
+  - script: |
+      # Fragile, breaks on Xcode updates
+      if [ "$PLATFORM_NAME" = "iphonesimulator" ]; then ...
+```
+
+**Fix**: Scheme separation handles this natively.
+
+## Extension & Watch Target Gotchas
+
+### Extension Targets Need SKIP_INSTALL: true
+
+Without this, `xcodebuild archive` tries to export extensions as standalone apps, causing export failures.
+
+```yaml
+# project.yml
+targets:
+  MyApp-Widgets:
+    type: app-extension
+    platform: iOS
+    settings:
+      base:
+        SKIP_INSTALL: true    # Required for all extension targets
+    sources:
+      - path: Widgets/Sources
+```
+
+This applies to **all** extension types: widget extensions, intents extensions, notification extensions, watch complications, etc.
+
+### watchOS Apps Need Their Own Assets.xcassets
+
+Without a platform-specific icon set, "Preparing build for App Store Connect" fails silently or with a cryptic asset validation error.
+
+Create `Watch/Assets.xcassets/AppIcon.appiconset/Contents.json` with the watchOS platform:
+
+```json
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "platform" : "watchos",
+      "size" : "1024x1024"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
+```
+
+Reference it in `project.yml`:
+
+```yaml
+targets:
+  MyApp-Watch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: Watch/Sources
+      - path: Watch/Assets.xcassets    # Must contain watchos icon set
+    settings:
+      base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+```
+
+### CFBundleIconName Required in Static Info.plist
+
+Auto-generated plists include `CFBundleIconName` automatically. If you use a static `Info.plist` (e.g., for entitlements or custom keys), you must add it manually — otherwise the app icon won't appear and App Store Connect may reject the build.
+
+```xml
+<!-- Info.plist -->
+<key>CFBundleIconName</key>
+<string>AppIcon</string>
+```
+
+Or in `project.yml` using `plist` settings:
+
+```yaml
+targets:
+  MyApp-iOS:
+    info:
+      properties:
+        CFBundleIconName: AppIcon
+```
+
+## Quick Self-Check
+
+- [ ] Watch target is NOT in iOS target dependencies
+- [ ] `MyApp-iOS` scheme exists for local development
+- [ ] `MyApp-iOS-Archive` scheme exists with Watch target
+- [ ] `MyApp-Watch` scheme exists for standalone Watch builds
+- [ ] Widget targets have `destination: plugins`
+- [ ] `xcodegen generate` run after changes
+- [ ] Local build passes: `xcodebuild -scheme MyApp-iOS -sdk iphonesimulator`
+- [ ] Archive build passes: `xcodebuild archive -scheme MyApp-iOS-Archive`
+- [ ] Swift version set to 6.0
+- [ ] Deployment target matches minimum iOS version
+- [ ] Extension targets have `SKIP_INSTALL: true`
+- [ ] watchOS app has own `Assets.xcassets` with `platform: watchos` icon set
+- [ ] Static `Info.plist` files include `CFBundleIconName: AppIcon`
+
+## Reference
+
+- **Related**: See `BUILD_ARCHITECTURE.md` in your project for specific implementation
+- **Pattern**: Scheme separation for multi-platform apps
+- **Version**: 2026-03-24 (updated for Xcode 16.3, watchOS 26)
+
+<!-- REFERENCE: ios-standards/concurrency.md -->
+
+# Concurrency Standards
+
+> For Swift 6 concurrency in iOS development.
+
+## Critical Rules
+
+### 1. SwiftUI Views Are Structs — No [weak self]
+
+**CHECKLIST**: Any closure in a View body using `[weak self]`?
+
+```swift
+// ❌ WRONG — View is a struct
+struct MyView: View {
+    @State private var service = MyService()
+
+    func load() {
+        service.start { [weak self] result in
+            self?.handle(result)  // Error: 'weak' only for class types
+        }
+    }
+}
+
+// ✅ CORRECT — Direct capture + MainActor dispatch
+struct MyView: View {
+    @State private var service = MyService()
+
+    func load() {
+        service.start { result in
+            Task { @MainActor in
+                handle(result)  // 'self' not needed in struct
+            }
+        }
+    }
+}
+```
+
+### 2. @Sendable Closures Cannot Touch MainActor State
+
+**CHECKLIST**: Any `@Sendable` closure modifying `@State`, `@ObservedObject`, or calling MainActor methods?
+
+```swift
+// ❌ WRONG — @Sendable closure captures MainActor-isolated state
+Delay.after(0.5) { @Sendable in
+    showToast = true  // Error: Main actor-isolated property
+}
+
+// ✅ CORRECT — Bridge to MainActor via Task
+Delay.after(0.5) { @Sendable in
+    Task { @MainActor in
+        showToast = true
+    }
+}
+```
+
+### 3. Non-Sendable Types in Async Contexts
+
+**CHECKLIST**: Any SwiftData model (`@Model` class) captured in `@Sendable` closure or passed across isolation boundaries?
+
+```swift
+// ❌ WRONG — Capturing non-Sendable model
+let thought = CapturedThought(text: "...")
+Delay.after(0.5) { @Sendable in
+    capturedThought = thought  // Error: non-Sendable type
+}
+
+// ✅ CORRECT — Capture ID, fetch in Task
+let thoughtID = thought.id
+Delay.after(0.5) { @Sendable in
+    Task { @MainActor in
+        if let thought = try? modelContext.fetch(
+            FetchDescriptor<CapturedThought>(
+                predicate: #Predicate { $0.id == thoughtID }
+            )
+        ).first {
+            capturedThought = thought
+        }
+    }
+}
+```
+
+### 4. Sendable Structs with Stored Properties (Archive Build Killer)
+
+**CHECKLIST**: Any `Sendable` struct with stored properties accessed from `nonisolated` methods?
+
+With `SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor`, ALL stored properties become implicitly `@MainActor`. If the struct's methods are `nonisolated`, the compiler will reject property access — but **only in archive/release builds**, not debug simulator builds. This is the #1 cause of CI failures.
+
+```swift
+// ❌ WRONG — embedding is implicitly @MainActor, nonisolated methods can't access it
+struct SemanticMatcher: Sendable {
+    private let embedding: NLEmbedding?  // Implicitly @MainActor!
+
+    nonisolated func match(text: String) -> Bool {
+        guard let embedding = self.embedding else { return false }
+        // ^^^^ Error: Main actor-isolated property 'embedding' cannot be
+        //      referenced from a nonisolated context
+        return embedding.contains(text)
+    }
+}
+
+// ✅ CORRECT — nonisolated(unsafe) opts out of MainActor isolation
+struct SemanticMatcher: Sendable {
+    nonisolated(unsafe) private let embedding: NLEmbedding?
+
+    nonisolated func match(text: String) -> Bool {
+        guard let embedding = self.embedding else { return false }
+        return embedding.contains(text)
+    }
+}
+```
+
+**Rule**: On any `Sendable` struct/class where methods are `nonisolated`, stored properties that those methods access MUST be `nonisolated(unsafe)`.
+
+**Why debug builds don't catch this**: Simulator builds use `-Onone` (no optimization), which relaxes some isolation checks. Archive builds use `-O` (optimized) with full strict concurrency enforcement. The archive/debug divergence is the **#1 cause of Xcode Cloud failures**.
+
+### 4a. `nonisolated` vs `nonisolated(unsafe)` — Know the Difference
+
+These two annotations solve different problems. Using the wrong one compiles in debug but fails in archive.
+
+| Annotation | Use For | Safety |
+|------------|---------|--------|
+| `nonisolated` | Immutable `let` properties, pure methods that don't touch isolated state | Fully checked by the compiler |
+| `nonisolated(unsafe)` | Mutable `var` stored properties on `Sendable` types that need cross-isolation access | Unchecked — you are asserting thread safety yourself |
+
+```swift
+struct Config: Sendable {
+    // ✅ nonisolated is enough — immutable let, compiler can verify safety
+    nonisolated let id: String
+
+    // ❌ WRONG — var requires nonisolated(unsafe), not plain nonisolated
+    nonisolated var retryCount: Int  // Archive error: stored property must be immutable
+
+    // ✅ CORRECT — var on Sendable type needs nonisolated(unsafe)
+    nonisolated(unsafe) var retryCount: Int
+}
+
+@MainActor
+@Observable
+class MyService {
+    // ✅ nonisolated(unsafe) for the static singleton (mutable storage)
+    nonisolated(unsafe) static let shared = MyService()
+
+    // ✅ nonisolated is fine for pure computed properties / methods
+    nonisolated func computeHash() -> Int { return 42 }
+}
+```
+
+**Decision guide**:
+1. Is it a `let` property or a method that doesn't access isolated state? Use `nonisolated`.
+2. Is it a `var` stored property on a `Sendable` type? Use `nonisolated(unsafe)`.
+3. Not sure? Try `nonisolated` first — if archive builds reject it, upgrade to `nonisolated(unsafe)`.
+
+### 5. Service Singleton Pattern
+
+**CHECKLIST**: New services using correct singleton pattern?
+
+```swift
+@MainActor
+@Observable
+class MyService {
+    // This is the pattern — nonisolated(unsafe) for shared instance
+    nonisolated(unsafe) static let shared = MyService()
+
+    private init() {}
+
+    // Methods are MainActor-isolated by default
+    func doWork() { }
+
+    // Explicitly nonisolated for thread-safe operations
+    nonisolated func compute() -> Int { return 42 }
+}
+```
+
+### 6. Framework Imports
+
+**CHECKLIST**: Are `@preconcurrency` imports added ONLY where the compiler specifically demands them?
+
+> **Reversed guidance (2026-04-03):** iOS 26 first-party frameworks (AVFoundation, Speech, EventKit, Vision, SwiftData, ActivityKit, etc.) now ship with full Sendable annotations. Prophylactic `@preconcurrency` masks real concurrency issues that surface as archive crashes. Cadence removed `@preconcurrency` from 10 files and crashes stopped.
+
+```swift
+// ❌ WRONG — do not add prophylactically
+@preconcurrency import Speech
+@preconcurrency import EventKit
+@preconcurrency import AVFoundation
+
+// ✅ CORRECT — add only where the compiler specifically demands it
+import Speech
+import EventKit
+import AVFoundation
+@preconcurrency import SomeLegacyBinaryFramework  // Compiler demanded this
+```
+
+## Common Patterns
+
+### Async Stream with MainActor Updates
+
+```swift
+Task {
+    for try await result in asyncSequence {
+        await MainActor.run {
+            // Update UI state here
+        }
+    }
+}
+```
+
+### Completion Handlers that Bridge Isolation
+
+```swift
+func fetchData(completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
+    // Work happens on background queue
+    Task {
+        let result = await performWork()
+        // Completion is @Sendable, so result must be Sendable
+        completion(result)
+    }
+}
+
+// Usage in View:
+fetchData { result in
+    Task { @MainActor in
+        switch result {
+        case .success(let data): self.data = data
+        case .failure(let error): self.error = error
+        }
+    }
+}
+```
+
+## Quick Self-Check
+
+Before finishing concurrency code, verify:
+
+- [ ] No `[weak self]` in View structs
+- [ ] All `@Sendable` closures that touch state use `Task { @MainActor in }`
+- [ ] SwiftData models captured by ID, not by reference
+- [ ] Sendable structs with `nonisolated` methods use `nonisolated(unsafe)` on stored properties
+- [ ] `nonisolated` used for immutable `let` / pure methods; `nonisolated(unsafe)` used for mutable `var` stored properties
+- [ ] Services use `nonisolated(unsafe) static let shared`
+- [ ] Speech/EventKit imports use `@preconcurrency`
+
+<!-- REFERENCE: ios-standards/review-checklist.md -->
+
+# Review Checklist
+
+> Systematic validation for all iOS code changes. Load this module when asked to "review" or "check" code.
+
+## Cross-Cutting Checks
+
+### 1. Build Verification
+
+**MUST PASS** before any code is considered valid:
+
+```bash
+# Simulator build (fast, catches most errors)
+xcodegen generate && xcodebuild -scheme <YourScheme> \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro Max' \
+  build 2>&1 | grep -E "error:|warning:.*concurrency|warning:.*deprecated|warning:.*never used"
+```
+
+Expected output: **Empty** (no errors, no concurrency warnings, no deprecation warnings, no unused variable warnings)
+
+### 1b. Archive Verification (catches CI failures)
+
+**CRITICAL**: Run archive builds to catch MainActor isolation errors that simulator builds miss:
+
+```bash
+# Archive build (slower, catches strict concurrency errors)
+xcodebuild -scheme <YourScheme> -configuration Release \
+  -destination 'generic/platform=iOS' archive
+```
+
+**Why**: Debug/simulator builds use `-Onone` which relaxes isolation checks. Archive builds use `-O` with full strict concurrency enforcement.
+
+### 2. Every SwiftUI File Has Preview
+
+**CHECK**: Does the file contain `#Preview`?
+
+```swift
+// Required pattern
+#Preview("Description") {
+    MyView()
+}
+
+// Or with environment setup
+#Preview {
+    PreviewContainer {
+        MyView()
+    }
+}
+```
+
+### 3. No Hardcoded Design Values
+
+**CHECK**: Any raw numbers for colors, spacing, or fonts?
+
+| Wrong | Correct |
+|-------|---------|
+| `.padding(16)` | `.padding(Theme.Spacing.lg)` or `.padding(.lg)` |
+| `.background(Color.blue)` | `.background(Theme.primary)` |
+| `.cornerRadius(8)` | `.cornerRadius(Theme.Radius.medium)` |
+| `.font(.title)` | `.font(Theme.Font.title)` |
+
+### 4. Proper Error Handling
+
+**CHECK**: Are errors silently ignored?
+
+```swift
+// ❌ WRONG — Silent failure
+try? modelContext.save()
+
+// ✅ CORRECT — At minimum, log the error
+do {
+    try modelContext.save()
+} catch {
+    errorMessage = error.localizedDescription
+    logger.error("Failed to save: \(error)")
+}
+```
+
+## Module-Specific Checks
+
+### If File Contains SwiftUI Views
+
+Load `swiftui.md` and verify:
+- [ ] Uses `@Environment` for ViewModels
+- [ ] ViewModels use `@Observable`, not `ObservableObject`
+- [ ] Has `#Preview`
+- [ ] Uses design system constants (Theme.*)
+
+### If File Contains Async/Closures
+
+Load `concurrency.md` and verify:
+- [ ] No `[weak self]` in View structs
+- [ ] `@Sendable` closures use `Task { @MainActor in }` for state
+- [ ] SwiftData models captured by ID, not reference
+- [ ] Services use `nonisolated(unsafe) static let shared`
+
+### If File Contains SwiftData
+
+Load `swiftdata.md` and verify:
+- [ ] `@Model` types not captured in closures
+- [ ] `modelContext` from `@Environment` in Views
+- [ ] Proper `#Predicate` syntax
+- [ ] New `@Model` entities or relationships have a `VersionedSchema` + `SchemaMigrationPlan`
+- [ ] Test containers use full production schema (all `@Model` types) + unique URLs
+- [ ] `PreviewContainer` includes all `@Model` types
+
+**CloudKit migration safety** (if app uses CloudKit sync — see `swiftdata.md` CloudKit section):
+- [ ] No `@Model` class was renamed — CRITICAL: permanent silent data loss cross-version
+- [ ] No stored property was renamed — HIGH: orphaned CKRecord fields on old devices
+- [ ] No raw ID → `@Relationship` change without `.custom` migration stage
+- [ ] If `@Model` file changed, a `VersionedSchema` bump was included — HIGH: schema change without migration crashes on launch
+
+### If File Uses System Frameworks
+
+Load `ios26-apis.md` and verify:
+- [ ] `AVAudioApplication` for permissions
+- [ ] `@preconcurrency` imports where required
+- [ ] No deprecated API warnings
+
+## Review Output Format
+
+When reviewing code, structure your response as:
+
+```
+## Summary
+- Files reviewed: N
+- Issues found: N critical, N warnings
+- Build status: ✅ PASS / ❌ FAIL
+
+## Critical Issues (MUST FIX)
+
+### File: Path/To/File.swift
+**Line X**: [Brief description]
+**Rule**: [Which standard was violated]
+**Fix**: [Specific code change]
+
+```swift
+// Current (wrong):
+[code]
+
+// Should be:
+[code]
+```
+
+## Warnings (SHOULD FIX)
+[...]
+
+## Correct Patterns Found ✅
+[Acknowledge what was done right]
+```
+
+## Pre-Commit Checklist
+
+Before suggesting code is complete:
+
+- [ ] Build passes with no errors
+- [ ] Archive build passes (if applicable)
+- [ ] No concurrency warnings
+- [ ] No deprecated API warnings
+- [ ] All SwiftUI files have previews
+- [ ] No hardcoded design values
+- [ ] Proper error handling (not silent `try?`)
+- [ ] Accessibility identifiers on interactive elements
+
+<!-- REFERENCE: ios-standards/swiftdata.md -->
+
+# SwiftData Standards
+
+> Patterns for models, queries, and context operations in iOS 26+.
+
+## Critical Rules
+
+### 1. @Model Classes Are Non-Sendable
+
+**CHECKLIST**: Any `@Model` type being captured in closures, passed to async contexts, or stored in `@State`?
+
+```swift
+// ❌ WRONG — @Model class captured in @Sendable closure
+@Model
+class CapturedThought {
+    // ...
+}
+
+// Elsewhere:
+Delay.after(0.5) { @Sendable in
+    let t = thought  // Error: non-Sendable type
+}
+
+// ✅ CORRECT — Pass by ID, fetch in destination context
+let thoughtID = thought.id
+Task {
+    let descriptor = FetchDescriptor<CapturedThought>(
+        predicate: #Predicate { $0.id == thoughtID }
+    )
+    if let thought = try? modelContext.fetch(descriptor).first {
+        // Work with thought here
+    }
+}
+```
+
+### 2. ModelContext Access
+
+**CHECKLIST**: Using `@Environment(\.modelContext)` in Views, not passing through initializers?
+
+```swift
+// ✅ CORRECT — Inject via environment
+struct MyView: View {
+    @Environment(\.modelContext) private var modelContext
+
+    func save() {
+        let thought = CapturedThought(text: "...")
+        modelContext.insert(thought)
+        try? modelContext.save()
+    }
+}
+
+// ✅ CORRECT — Pass to ViewModel methods
+func addCapture(_ thought: CapturedThought, modelContext: ModelContext) {
+    modelContext.insert(thought)
+    // ...
+}
+```
+
+### 3. FetchDescriptor Patterns
+
+**CHECKLIST**: Queries using modern `#Predicate` syntax?
+
+```swift
+// ✅ CORRECT — Modern FetchDescriptor with #Predicate
+func fetchRecentCaptures() -> [CapturedThought] {
+    let descriptor = FetchDescriptor<CapturedThought>(
+        predicate: #Predicate { thought in
+            thought.timestamp > Date().addingTimeInterval(-86400)
+        },
+        sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+    )
+    return (try? modelContext.fetch(descriptor)) ?? []
+}
+```
+
+### 4. Model Indexes
+
+**CHECKLIST**: New `@Model` types have appropriate indexes?
+
+```swift
+@Model
+@Index<CapturedThought>([\.timestamp], [\.categoryRaw, \.timestamp])
+class CapturedThought {
+    @Attribute(.unique) var id: UUID
+    var timestamp: Date
+    var categoryRaw: String
+    // ...
+}
+```
+
+### 5. Relationship Patterns
+
+**CHECKLIST**: Relationships using proper inverse declarations?
+
+```swift
+@Model
+class FocusSession {
+    @Relationship(deleteRule: .cascade, inverse: \CapturedThought.session)
+    var captures: [CapturedThought]?
+}
+
+@Model
+class CapturedThought {
+    var session: FocusSession?  // Inverse is declared above
+}
+```
+
+## Common Operations
+
+### Insert and Save
+
+```swift
+let thought = CapturedThought(text: text, category: category)
+modelContext.insert(thought)
+try? modelContext.save()
+```
+
+### Delete
+
+```swift
+modelContext.delete(thought)
+try? modelContext.save()
+```
+
+### Batch Delete (for cleanup)
+
+```swift
+func deleteAll() {
+    let descriptor = FetchDescriptor<CapturedThought>()
+    if let thoughts = try? modelContext.fetch(descriptor) {
+        for thought in thoughts {
+            modelContext.delete(thought)
+        }
+        try? modelContext.save()
+    }
+}
+```
+
+### Production Service Pattern: Throws on Writes
+
+In production code, **never silently swallow save errors**. Service-layer write methods should `throw` so callers can surface failures to the user or retry:
+
+```swift
+public actor HistoryService {
+    private let container: ModelContainer?
+
+    public func save(item: CaptureItem, sidecarURL: URL? = nil) async throws {
+        guard let container else { throw ServiceError.noContainer }
+        try await Task.detached(priority: .utility) {
+            let ctx = ModelContext(container)
+            let historyItem = CaptureHistoryItem(from: item, sidecarURL: sidecarURL)
+            ctx.insert(historyItem)
+            try ctx.save()  // throws on failure
+        }.value
+    }
+
+    public func rename(itemID: UUID, to newName: String) async throws {
+        guard let container else { throw ServiceError.noContainer }
+        try await Task.detached(priority: .utility) {
+            let ctx = ModelContext(container)
+            let descriptor = FetchDescriptor<CaptureHistoryItem>(
+                predicate: #Predicate { $0.id == itemID }
+            )
+            guard let item = try ctx.fetch(descriptor).first else {
+                throw ServiceError.notFound
+            }
+            item.displayName = newName
+            try ctx.save()
+        }.value
+    }
+}
+```
+
+**Why this matters:**
+- Silent `try?` saves mask disk-full errors, CloudKit sync conflicts, and schema mismatches
+- `throws` forces every caller to handle failure — either propagate or present UI
+- `Task.detached(priority: .utility)` keeps SwiftData I/O off the main actor
+- Value-type snapshots (e.g., `ChatTurnSnapshot`) should cross module boundaries, not `@Model` objects
+
+## SwiftData + Concurrency
+
+**CRITICAL**: `@Model` objects are NOT Sendable. Never pass them across isolation boundaries.
+
+```swift
+// ❌ WRONG
+func processThought(_ thought: CapturedThought) async {
+    // Error: non-Sendable type
+}
+
+// ✅ CORRECT — Pass ID, fetch in context
+func processThought(id: UUID) async {
+    let descriptor = FetchDescriptor<CapturedThought>(
+        predicate: #Predicate { $0.id == id }
+    )
+    guard let thought = try? modelContext.fetch(descriptor).first else { return }
+    // Process...
+}
+```
+
+## Quick Self-Check
+
+Before finishing SwiftData code:
+
+- [ ] `@Model` classes never captured in `@Sendable` closures
+- [ ] Using `@Environment(\.modelContext)` in Views
+- [ ] Passing `ModelContext` as parameter to ViewModel methods
+- [ ] Using `#Predicate` syntax in `FetchDescriptor`
+- [ ] Indexes defined for frequently queried properties
+- [ ] Relationships have proper `inverse` declarations
+- [ ] New entities/relationships have `VersionedSchema` + `SchemaMigrationPlan`
+- [ ] Test containers use full production schema + unique URLs
+- [ ] `PreviewContainer` includes all `@Model` types
+
+## Schema Migration (VersionedSchema)
+
+**CRITICAL**: Any new `@Model` entity or new relationship on an existing entity requires a migration plan. Without one, existing users' stores will fail to open → crash on launch (`SIGABRT` in `TaskLocal::StopLookupScope`).
+
+### When Migration Is Required
+
+| Change | Migration Needed? | Type | CloudKit Safe? |
+|--------|:-:|------|:-:|
+| New `@Model` entity | **YES** | Lightweight | ✅ |
+| New optional property on existing entity | **YES** | Lightweight | ✅ |
+| New required property (no default) | **YES** | Custom | ✅ |
+| New `@Relationship` on existing entity | **YES** | Lightweight | ✅ |
+| Delete property | **YES** | Lightweight | ✅ with caveat¹ |
+| Rename property | **YES** | Custom | ❌ **HIGH RISK** |
+| Rename `@Model` class | **YES** | Custom | ❌ **CRITICAL RISK** |
+| Change raw ID → `@Relationship` | **YES** | Custom | ❌ **HIGH RISK** |
+| New computed property | No | — | ✅ |
+
+¹ Removing a property is CloudKit-safe IF the old property had no semantic meaning that would cause incorrect behavior when old devices see its default value.
+
+### CloudKit Sync Safety
+
+When CloudKit sync is enabled, the schema rules become much stricter because the iCloud container schema is **permanent and append-only** — record types and fields are never deleted from the server. Multiple devices can run different app versions simultaneously.
+
+#### NEVER rename an `@Model` class
+
+CloudKit maps each `@Model` class to a CKRecord type by name. Renaming creates a new record type; the old one persists with orphaned data. Old devices write records of the old type that new devices don't import, and vice versa — **silent data loss in both directions**.
+
+```swift
+// ❌ WRONG — Renaming creates a new CloudKit record type, orphaning old data
+// Before: class SubPoint → After: class OutlineLine
+
+// ✅ CORRECT — Add a new class, migrate data in .custom stage, keep old registered for 2 versions
+enum SchemaV2: VersionedSchema {
+    // Keep OldModelName registered even if unused — old CloudKit records still reference it
+    static var models: [any PersistentModel.Type] = [NewModelName.self, OldModelName.self]
+}
+static let migrateV1toV2 = MigrationStage.custom(
+    fromVersion: SchemaV1.self, toVersion: SchemaV2.self,
+    willMigrate: { context in
+        let old = try context.fetch(FetchDescriptor<OldModelName>())
+        for item in old {
+            context.insert(NewModelName(from: item))
+        }
+    }, didMigrate: nil
+)
+```
+
+#### NEVER rename a stored property
+
+CloudKit maps stored properties to CKRecord fields. Renaming a property creates a new field; the old field persists on old records. Old devices read the old field (never updated); new devices read the new field (missing old data).
+
+```swift
+// ❌ WRONG — Renaming creates orphaned CKRecord field
+// Before: var duration: Int → After: var durationSeconds: Int
+
+// ✅ CORRECT — Add new property, copy data in .custom stage, stop writing to old
+var duration: Int         // keep — old CloudKit records still have this
+var durationSeconds: Int  // new
+// In .custom migration: durationSeconds = duration
+```
+
+#### NEVER change a raw ID field to `@Relationship` without `.custom` migration
+
+Raw ID (`var sessionId: UUID`) and `@Relationship` are stored differently in CloudKit (field vs CKReference). Old devices can't interpret the new format.
+
+```swift
+// ❌ WRONG — Changing storage format breaks cross-version sync
+// Before: var sessionId: UUID → After: @Relationship var session: FocusSession?
+
+// ✅ CORRECT — Keep both for at least 1 version so old devices can still link via raw ID
+var sessionId: UUID?            // keep for backward compat
+@Relationship var session: FocusSession?  // new
+```
+
+#### Adding and removing properties is safe
+
+- **Adding** optional properties (defaulting to `nil`): old devices ignore unknown fields on import
+- **Removing** properties: CloudKit ignores unknown fields → old records sync fine, field is dropped locally
+
+#### Versioning convention
+
+SwiftData uses semantic versioning: `Schema.Version(major, minor, patch)`. Increment patch for additive changes, minor for non-breaking structural changes, major for changes requiring a data transform.
+
+```swift
+enum SchemaV1: VersionedSchema {
+    nonisolated(unsafe) static var versionIdentifier = Schema.Version(1, 0, 0)
+    static var models: [any PersistentModel.Type] = [FocusSession.self]
+}
+enum SchemaV2: VersionedSchema {
+    nonisolated(unsafe) static var versionIdentifier = Schema.Version(1, 1, 0)  // minor: additive
+    static var models: [any PersistentModel.Type] = [FocusSession.self]
+}
+```
+
+### Pattern: VersionedSchema + MigrationPlan
+
+```swift
+import SwiftData
+
+// Each schema version lists which @Model types exist
+enum MySchemaV1: VersionedSchema {
+    nonisolated(unsafe) static var versionIdentifier = Schema.Version(1, 0, 0)
+    static var models: [any PersistentModel.Type] {
+        [Item.self, Tag.self]
+    }
+}
+
+enum MySchemaV2: VersionedSchema {
+    nonisolated(unsafe) static var versionIdentifier = Schema.Version(2, 0, 0)
+    static var models: [any PersistentModel.Type] {
+        [Item.self, Tag.self, Folder.self]  // Added Folder
+    }
+}
+
+enum MyMigrationPlan: SchemaMigrationPlan {
+    static var schemas: [any VersionedSchema.Type] {
+        [MySchemaV1.self, MySchemaV2.self]
+    }
+    static var stages: [MigrationStage] {
+        [migrateV1toV2]
+    }
+    static let migrateV1toV2 = MigrationStage.lightweight(
+        fromVersion: MySchemaV1.self,
+        toVersion: MySchemaV2.self
+    )
+}
+
+// Wire into container
+let schema = Schema(versionedSchema: MySchemaV2.self)
+let container = try ModelContainer(
+    for: schema,
+    migrationPlan: MyMigrationPlan.self,
+    configurations: [config]
+)
+```
+
+### Test Containers
+
+Test `ModelContainer` instances must use the **full production schema** to avoid `loadIssueModelContainer` errors. Use unique URLs to isolate each test:
+
+```swift
+// ✅ CORRECT — Full schema + unique URL per test
+func makeContainer() throws -> ModelContainer {
+    let schema = Schema([Item.self, Tag.self, Folder.self])  // ALL @Model types
+    let url = URL(filePath: "/dev/null").appending(path: UUID().uuidString)
+    let config = ModelConfiguration(url: url, cloudKitDatabase: .none)
+    return try ModelContainer(for: schema, configurations: [config])
+}
+```
+
+### PreviewContainer
+
+Must also include all `@Model` types in its schema. When adding a new entity, always update `PreviewContainer`.
+
+<!-- REFERENCE: ios-standards/swiftui.md -->
+
+# SwiftUI Standards
+
+> Patterns for Views, state management, and animations in iOS 26+.
+
+## Critical Rules
+
+### 1. Environment Pattern for ViewModels
+
+**CHECKLIST**: Views using `@Environment` for shared state?
+
+```swift
+// ✅ CORRECT — Use @Environment for shared ViewModels
+struct TimerView: View {
+    @Environment(TimerViewModel.self) private var timerVM
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        // Access directly — @Observable means no @ObservedObject needed
+        Text(timerVM.timeRemainingFormatted)
+    }
+}
+```
+
+### 2. @Observable ViewModels (Not ObservableObject)
+
+**CHECKLIST**: New ViewModels using `@Observable`, not `ObservableObject`?
+
+```swift
+// ❌ OLD PATTERN — Don't use
+class OldViewModel: ObservableObject {
+    @Published var state: State = .idle
+}
+
+// ✅ CORRECT — Swift 6 @Observable
+@Observable
+@MainActor
+class TimerViewModel {
+    var timerState: TimerState = .idle
+    var timeRemaining: TimeInterval = 25 * 60
+
+    // No @Published needed — all stored properties are observable
+}
+```
+
+### 3. State Initialization
+
+**CHECKLIST**: `@State` objects properly initialized?
+
+```swift
+// ✅ CORRECT — Direct initialization
+struct MyView: View {
+    @State private var speechService = SpeechService()
+    @State private var waveformService = RealAudioWaveformService()
+    @State private var isRecording = false
+}
+```
+
+### 4. Every File Has #Preview
+
+**CHECKLIST**: Every SwiftUI view file has at least one `#Preview`?
+
+```swift
+// Required at end of every View file
+#Preview("Default State") {
+    MyView()
+}
+
+#Preview("Dark Mode") {
+    MyView()
+        .preferredColorScheme(.dark)
+}
+```
+
+**For complex views requiring environment setup**, use a preview container:
+
+```swift
+#Preview {
+    PreviewContainer {
+        MyView()
+    }
+}
+
+// PreviewContainer helper
+struct PreviewContainer<Content: View>: View {
+    @State private var viewModel = MyViewModel()
+
+    let content: Content
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+
+    var body: some View {
+        content
+            .environment(viewModel)
+    }
+}
+```
+
+## Animation Patterns
+
+### Standard Transitions
+
+```swift
+// Use consistent animation values
+.animation(.spring(response: 0.35, dampingFraction: 0.8), value: isExpanded)
+.animation(.easeInOut(duration: 0.3), value: showCapture)
+
+// For view appearance/disappearance
+.transition(.opacity.combined(with: .scale(scale: 0.95)))
+.transition(.move(edge: .bottom).combined(with: .opacity))
+```
+
+### WithAnimation Blocks
+
+```swift
+// For programmatic state changes
+withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+    showCompletion = true
+}
+```
+
+## Layout Patterns
+
+### Design System Constants
+
+Never hardcode values — use your design system:
+
+```swift
+// ✅ CORRECT — Use design system tokens
+.padding(.horizontal, Theme.Spacing.lg)
+.background(Theme.background)
+.foregroundStyle(Theme.primary)
+
+// Define in Theme.swift or asset catalog
+enum Theme {
+    enum Spacing {
+        static let xs: CGFloat = 8
+        static let sm: CGFloat = 12
+        static let md: CGFloat = 16
+        static let lg: CGFloat = 20
+        static let xl: CGFloat = 24
+        static let xxl: CGFloat = 32
+    }
+
+    enum Radius {
+        static let small: CGFloat = 8
+        static let medium: CGFloat = 12
+        static let large: CGFloat = 16
+    }
+
+    static let primary = Color("Primary")
+    static let background = Color("Background")
+}
+```
+
+### Conditional Modifiers
+
+```swift
+// Use conditional modifiers for clean code
+.background(hasContent ? Theme.primary : Theme.chip)
+.opacity(isLoading ? 0.5 : 1)
+```
+
+## Accessibility
+
+**CHECKLIST**: Views have proper accessibility?
+
+```swift
+// Add identifiers for UI testing
+Button("Save") { }
+    .accessibilityIdentifier("save-button")
+
+// Group related elements
+VStack {
+    Text("Title")
+    Text("Subtitle")
+}
+.accessibilityElement(children: .combine)
+.accessibilityLabel("Title, Subtitle")
+
+// Hide decorative elements
+Image("background-decoration")
+    .accessibilityHidden(true)
+```
+
+## Quick Self-Check
+
+Before finishing a View:
+
+- [ ] File has `#Preview`
+- [ ] Uses `@Environment` for shared ViewModels, not `@ObservedObject`
+- [ ] Uses `@Observable` ViewModels, not `ObservableObject`
+- [ ] No hardcoded colors or spacing — uses design system tokens
+- [ ] Proper accessibility identifiers on interactive elements
+- [ ] Animations use appropriate curves (not `.linear`)
 
 <!-- END SKILL: ios-standards -->
 

@@ -112,266 +112,33 @@ Assign files:
 
 Spawn 2 parallel subagents with the file manifest pre-loaded.
 
-### Subagent 1: Design Panel
+### Review Panels
 
-**Persona:** Jony Ive and the Apple design team reviewing a product the night before announcement. Every pixel is intentional. Every transition earns its place. The question isn't "does it work?" — it's "does it feel inevitable?"
+Each panel is a self-contained subagent prompt kept in `references/` (progressive
+disclosure — load only what you dispatch). For each panel: read the reference
+file, paste the Views-only file manifest into its
+`[PASTE FILE MANIFEST HERE — Views only]` placeholder, and dispatch the prompt
+verbatim as the listed subagent type. Spawn both in parallel.
 
-```yaml
-subagent_type: code-reviewer
-prompt: |
-  You are conducting a DESIGN REVIEW of {app_name} with the critical eye of
-  Apple's most obsessive designers. Every pixel, every transition, every moment
-  of friction matters. You MUST produce a structured review with scores and
-  specific file:line references.
+| Panel | Subagent type | Lens | Prompt |
+|-------|---------------|------|--------|
+| 1. Design | `code-reviewer` | First impressions, navigation, visual craft, motion, delight, simplicity, HIG, edge cases | `references/panel-design.md` |
+| 2. Keynote | `code-reviewer` | Story clarity, demo-readiness, "one more thing", narrative, platform story, cringe test | `references/panel-keynote.md` |
 
-  ## File Manifest
-  [PASTE FILE MANIFEST HERE — Views only]
+Both panel prompts enforce the same contract:
 
-  ## Reading Strategy
-  Read files in this priority order. Stop after 15-20 files and write your review.
-  1. MUST READ: App entry, Home/main view, onboarding, primary editor, live/session
-     view, ALL DesignSystem files, ALL ViewModels
-  2. SHOULD READ (if context allows): Components, Controls, edge case views
-  3. SKIP: Services, Models, Tests, Extensions, Utilities
-
-  An incomplete review based on 15 files is infinitely more valuable than reading
-  40 files and producing no output. After reading MUST READ files, STOP and write.
-
-  ## Evaluation Criteria
-
-  ### 1.1 First Impressions & Onboarding
-  - What does the user see on first launch? Welcoming or overwhelming?
-  - Skippable onboarding? Does it respect the user's time?
-  - Time-to-value: taps from launch to first meaningful interaction?
-  - Does the first screen earn the user's trust?
-
-  ### 1.2 Core Flow & Navigation
-  - Map the primary user journey (the ONE thing people open the app to do)
-  - Count taps/gestures required for the most common actions
-  - Dead ends? Confusing back-navigation? Orphaned screens?
-  - Does navigation feel spatial and predictable (iOS stack/tab patterns)?
-  - Clear information hierarchy on each screen?
-
-  ### 1.3 Visual Craft & Polish
-  - Typography: consistent scale? Orphaned styles (hardcoded fonts vs tokens)?
-  - Color: cohesive palette? Semantic colors used correctly? Hardcoded hex?
-  - Spacing: consistent system? Cramped or floating elements?
-  - Icons: consistent SF Symbol weight and optical alignment?
-  - Dark mode: intentional or just inverted?
-  - Dynamic Type: graceful adaptation at all text sizes?
-  - Are DesignSystem tokens actually used, or do views hardcode their own values?
-
-  ### 1.4 Motion & Feedback
-  - Are transitions meaningful or gratuitous?
-  - Do interactive elements provide immediate haptic/visual feedback?
-  - Loading states: skeleton views or spinners? (spinners = lazy)
-  - Does the app feel responsive — do taps register instantly?
-  - Micro-interactions that reward the user?
-
-  ### 1.5 Delight & WOW Factor
-  - Is there at least one moment that makes a user want to show someone else?
-  - Does the app have personality without being gimmicky?
-  - Thoughtful details that reveal themselves over time?
-  - Does the success/completion state feel rewarding?
-  - Would someone pause and think "someone really cared about this"?
-
-  ### 1.6 Simplicity & Focus
-  - Can you explain what the app does in one sentence?
-  - Is every screen earning its place? Could any be merged or removed?
-  - Minimal, well-defaulted settings — or option overload?
-  - Does the app resist feature creep? Is the scope disciplined?
-
-  ### 1.7 HIG Compliance
-  - Standard iOS patterns: navigation bars, tab bars, sheets, alerts
-  - Platform conventions: swipe-to-delete, pull-to-refresh where expected
-  - Accessibility: VoiceOver labels, Dynamic Type, sufficient contrast
-  - Latest platform capabilities leveraged (Liquid Glass on iOS 26, etc.)?
-  IMPORTANT: Verify with Grep, not memory:
-  - Count `accessibilityLabel` occurrences vs interactive views
-  - Check for hardcoded font sizes vs Dynamic Type modifiers
-  - Grep for `.foregroundColor(` with hex Color literals
-
-  ### 1.8 Edge Cases & Empty States
-  - No data? Is the empty state helpful or sad?
-  - Permissions denied? Recovery flow?
-  - Extremely long text input? Truncation graceful?
-  - User interrupts a flow midway? State preserved?
-
-  ### Mechanical Audits (run these checks)
-  - Count `accessibilityLabel` / `accessibilityHint` vs total interactive views
-    (ratio < 0.5 = poor VoiceOver coverage)
-  - `grep -rn "TODO\|FIXME\|Lorem\|placeholder" --include="*.swift" -i` in views
-  - `grep -rn '\.lineLimit(1)' --include="*.swift"` (truncation risks on key content)
-  - `grep -rn 'Color(red:\|Color(hex:\|UIColor(red:' --include="*.swift"` outside DesignSystem
-  - `grep -rn '"[A-Z][a-z].*"' --include="*.swift"` for hardcoded user-visible strings
-  - `grep -rn 'font(.system(size:' --include="*.swift"` (hardcoded font sizes)
-
-  ## OUTPUT FORMAT (MANDATORY)
-
-  ## Design Review: {App}
-
-  ### Overall Impression
-  [2-3 sentences: gut reaction as a design leader — honest, specific]
-
-  ### Scores (1-10)
-  | Dimension | Score | Notes |
-  |-----------|-------|-------|
-  | First Impression | X | ... |
-  | Core Flow | X | ... |
-  | Visual Craft | X | ... |
-  | Motion & Feedback | X | ... |
-  | Delight Factor | X | ... |
-  | Simplicity | X | ... |
-  | HIG Compliance | X | ... |
-  | Edge Cases | X | ... |
-  | **Overall** | **X** | ... |
-
-  ### Mechanical Audit Results
-  - VoiceOver coverage: X labels across Y files (ratio: Z)
-  - Placeholder/TODO strings: [count, locations]
-  - Hardcoded colors outside DesignSystem: [count]
-  - Truncation risks (.lineLimit on key content): [count]
-  - Hardcoded font sizes: [count]
-
-  ### Delights (what's already great)
-  - [Specific praise — file:line]
-
-  ### Critical Issues (P0 — fix before any demo or submission)
-  - [ID: D-01] [Description] — [file:line] — [Recommended fix]
-
-  ### Design Gaps (P1 — significant UX improvements)
-  - [ID: D-10] [Description] — [file:line] — [Approach]
-
-  ### Polish Targets (P2 — elevates the experience)
-  - [ID: D-20] [Description] — [file:line] — [Approach]
-
-  ### Missing Elements (P3 — would round out the product)
-  - [ID: D-30] [Description] — [Why it matters]
-
-  CRITICAL: You MUST produce the structured review above before your response ends.
-  Do NOT spend more than 60% of your work reading files. After reading MUST READ
-  files, STOP and write your review.
-```
-
-### Subagent 2: Keynote Panel
-
-**Persona:** Steve Jobs, the night before WWDC. He's about to walk on stage and demo this app to the world. He doesn't care about the architecture or test coverage — he cares about the *story*. One moment of confusion, hesitation, or ugliness and the whole thing falls apart.
-
-```yaml
-subagent_type: code-reviewer
-prompt: |
-  You are Steve Jobs reviewing {app_name} the night before a WWDC keynote.
-  Tomorrow you walk on stage and demo this app live to the world. You MUST
-  produce a structured review with a demo script, scores, and file:line references.
-
-  ## File Manifest
-  [PASTE FILE MANIFEST HERE — Views only]
-
-  ## Reading Strategy
-  Read files in this order. Stop after ~15 files and write your review.
-  1. MUST READ: App entry, Onboarding, Home/main view, primary action flow
-  2. MUST READ: Live/session/result view (the payoff), DesignSystem files
-  3. SHOULD READ: Key components in the demo flow
-  4. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
-
-  Experience this as a NARRATIVE, not a code audit. You are reading a demo script.
-
-  ## Evaluation Criteria
-
-  ### 4.1 The One-Sentence Story
-  - Explain the app in ONE sentence a non-technical person immediately wants
-  - Is there a clear "hero problem" the app solves? Not three — one
-  - Would a first-time user understand the value within 5 seconds of opening it?
-  - Does the app's name and icon reinforce the story?
-
-  ### 4.2 The Demo Script
-  - Map the ideal 90-second live demo: opening shot → problem → solution → payoff
-  - Is the primary flow demo-safe? (No network deps, loading spinners, empty states)
-  - Any states that could embarrass on stage? (Empty lists, error dialogs, slow transitions)
-  - Can the demo flow be completed with zero hesitation, zero explanation?
-  - Does the UI read clearly at projection scale (large text, clear contrast)?
-
-  ### 4.3 The "One More Thing" Moment
-  - Is there a feature so thoughtful it earns a dramatic reveal?
-    Examples: Watch companion that Just Works, a Live Activity on the lock screen,
-    AI that suggests the next action, a beautiful empty state that tells a story
-  - If there's no "one more thing" yet, what COULD be built? (With effort estimate)
-  - Is there a moment where the technology disappears and only the human benefit remains?
-
-  ### 4.4 Narrative Coherence
-  - Does every screen tell part of the same story, or do some feel bolted-on?
-  - Clear emotional arc? (Problem → Solution → Celebration)
-  - Consistent personality? (Voice, tone, visual language throughout)
-  - What would a journalist's headline be after a hands-on review?
-
-  ### 4.5 Platform Story
-  - Does this app showcase what makes Apple's platform special?
-  - System capabilities used in ways that feel native and earned, not checkbox features?
-  - Does the app feel like it *belongs* here — couldn't exist anywhere else?
-  - Watch integration (if any): natural extension, not a shrunken iPhone?
-  - Widgets/Live Activities (if any): glanceable story on their own?
-
-  ### 4.6 The Cringe Test
-  Walk through every screen in the demo flow and ask: "Would I be embarrassed
-  showing this on stage to 10 million people?"
-  - Placeholder content, unfinished corners, inconsistent styling
-  - Awkward copy, confusing iconography, developer-facing language
-  - Anything requiring explanation ("you have to long-press to...") is a FAIL
-  - Anything that looks unfinished or half-baked
-
-  ### Mechanical Audits
-  - `grep -rn '"JSON"\|"API"\|"debug"\|"nil"\|"config"\|"TODO"\|"test"' \
-    --include="*.swift" -i` (developer-facing language in user-visible strings)
-  - Check for empty states that would appear during a demo (no-data screens)
-  - Check if onboarding uses SF Symbols as illustrations (feels cheap)
-  - `grep -rn '"Error"\|"Failed"\|"Unknown"' --include="*.swift"` in user-visible text
-
-  ## OUTPUT FORMAT (MANDATORY)
-
-  ## Keynote Review: {App}
-
-  ### The Story
-  [Write the ONE-sentence pitch exactly as Steve would say it on stage]
-
-  ### Demo Readiness: [READY / ALMOST / NOT READY]
-
-  ### The 90-Second Demo Script
-  1. [Opening shot — what the audience sees first and why it hooks them]
-  2. [The problem moment — show the pain point viscerally]
-  3. [The solution — core action in real-time, no explanation needed]
-  4. [The payoff — the result that earns applause]
-  5. ["One More Thing" — if it exists]
-
-  ### Scores (1-10)
-  | Dimension | Score | Notes |
-  |-----------|-------|-------|
-  | Story Clarity | X | ... |
-  | Demo Safety | X | ... |
-  | "One More Thing" Potential | X | ... |
-  | Narrative Coherence | X | ... |
-  | Platform Story | X | ... |
-  | Cringe-Free | X | ... |
-  | **Overall** | **X** | ... |
-
-  ### Applause Moments (what already earns the gasp)
-  - [Specific moment with file:line context]
-
-  ### Cringe Moments (P0 — what kills the demo on stage)
-  - [ID: K-01] [Description] — [file:line] — [Why it fails on stage] — [Fix]
-
-  ### Story Gaps (P1 — breaks the narrative)
-  - [ID: K-10] [Description] — [file:line] — [Fix]
-
-  ### Platform Opportunities (P2 — would strengthen the platform story)
-  - [ID: K-20] [Description] — [Approach]
-
-  ### "One More Thing" Candidates (P3 — new features worth building)
-  - [ID: K-30] [Feature idea] — [Why it would wow] — [Effort: S/M/L]
-
-  CRITICAL: You MUST produce the structured review above before your response ends.
-  Do NOT spend more than 60% of your work reading files. You are writing a demo
-  script and critique, not auditing code. After reading the demo flow, STOP and write.
-```
+- **Reading budget** — a strict MUST READ / SHOULD READ / SKIP order; stop after
+  ~15-20 files and write the review (an incomplete structured review beats a
+  complete file read with no output).
+- **Mechanical audits** — grep checks the subagent runs rather than relying on
+  training data (VoiceOver coverage, hardcoded colors/fonts, placeholder strings,
+  developer-facing language, truncation risks).
+- **Stable finding IDs** — Design `D-`, Keynote `K-` — preserved into the
+  Phase 2 correlation.
+- **Priority buckets** — P0 (fix before any demo or submission) through P3 (would
+  round out the product).
+- **Mandatory structured output** — each prompt ends by requiring the panel's
+  output format before the response ends.
 
 ---
 

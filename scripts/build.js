@@ -197,11 +197,38 @@ For **executable validation**, use the plugin tools:
 
 `;
 
+  // ios26-api-reference ships its (very large) reference tree via the api-lookup
+  // tool (copied to dest/reference/ above), so it must NOT be inlined here.
+  const INLINE_REF_EXCLUDE = new Set(['ios26-api-reference']);
+
   for (const dir of skillDirs) {
     const skillPath = path.join(SRC, 'skills', dir, 'SKILL.md');
     if (!fs.existsSync(skillPath)) continue;
     const { body } = readFrontmatter(skillPath);
-    masterSkill += `<!-- BEGIN SKILL: ${dir} -->\n\n# ${dir}\n\n${body.trim()}\n\n<!-- END SKILL: ${dir} -->\n\n---\n\n`;
+    masterSkill += `<!-- BEGIN SKILL: ${dir} -->\n\n# ${dir}\n\n${body.trim()}\n\n`;
+
+    // Kimi has no progressive disclosure (one SKILL.md per plugin), so any
+    // references/*.md a skill links to must travel inline or they are lost.
+    if (!INLINE_REF_EXCLUDE.has(dir)) {
+      const skillRoot = path.join(SRC, 'skills', dir);
+      const refFiles = [];
+      (function walk(d, rel) {
+        for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
+          if (entry.name === 'SKILL.md') continue;
+          const abs = path.join(d, entry.name);
+          const relPath = rel ? `${rel}/${entry.name}` : entry.name;
+          if (entry.isDirectory()) walk(abs, relPath);
+          else if (entry.name.endsWith('.md')) refFiles.push({ relPath, abs });
+        }
+      })(skillRoot, '');
+      refFiles.sort((a, b) => a.relPath.localeCompare(b.relPath));
+      for (const ref of refFiles) {
+        const refBody = fs.readFileSync(ref.abs, 'utf8').trim();
+        masterSkill += `<!-- REFERENCE: ${dir}/${ref.relPath} -->\n\n${refBody}\n\n`;
+      }
+    }
+
+    masterSkill += `<!-- END SKILL: ${dir} -->\n\n---\n\n`;
   }
 
   fs.writeFileSync(path.join(dest, 'SKILL.md'), masterSkill);
@@ -293,6 +320,16 @@ function buildCodex() {
     const srcFile = path.join(SRC, 'skills', dir, 'SKILL.md');
     const destFile = path.join(dest, `apple-dev__${dir}.SKILL.md`);
     fs.copyFileSync(srcFile, destFile);
+
+    // Flatten subdirectories with __ separator (Codex doesn't discover nested
+    // dirs — referenced files must travel alongside the skill or they are lost).
+    const subdirs = fs.readdirSync(path.join(SRC, 'skills', dir))
+      .filter(f => fs.statSync(path.join(SRC, 'skills', dir, f)).isDirectory());
+    for (const sub of subdirs) {
+      const subSrc = path.join(SRC, 'skills', dir, sub);
+      const subDest = path.join(dest, `${dir}__${sub}`);
+      fs.cpSync(subSrc, subDest, { recursive: true });
+    }
   }
 
   console.log('[codex] Done.');
@@ -309,6 +346,16 @@ function buildAgy() {
     const srcFile = path.join(SRC, 'skills', dir, 'SKILL.md');
     const destFile = path.join(dest, `apple-dev__${dir}.md`);
     fs.copyFileSync(srcFile, destFile);
+
+    // Flatten subdirectories with __ separator (Agy doesn't discover nested
+    // dirs — referenced files must travel alongside the skill or they are lost).
+    const subdirs = fs.readdirSync(path.join(SRC, 'skills', dir))
+      .filter(f => fs.statSync(path.join(SRC, 'skills', dir, f)).isDirectory());
+    for (const sub of subdirs) {
+      const subSrc = path.join(SRC, 'skills', dir, sub);
+      const subDest = path.join(dest, `${dir}__${sub}`);
+      fs.cpSync(subSrc, subDest, { recursive: true });
+    }
   }
 
   console.log('[agy] Done.');
