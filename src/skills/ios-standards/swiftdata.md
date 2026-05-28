@@ -135,6 +135,47 @@ func deleteAll() {
 }
 ```
 
+### Production Service Pattern: Throws on Writes
+
+In production code, **never silently swallow save errors**. Service-layer write methods should `throw` so callers can surface failures to the user or retry:
+
+```swift
+public actor HistoryService {
+    private let container: ModelContainer?
+
+    public func save(item: CaptureItem, sidecarURL: URL? = nil) async throws {
+        guard let container else { throw ServiceError.noContainer }
+        try await Task.detached(priority: .utility) {
+            let ctx = ModelContext(container)
+            let historyItem = CaptureHistoryItem(from: item, sidecarURL: sidecarURL)
+            ctx.insert(historyItem)
+            try ctx.save()  // throws on failure
+        }.value
+    }
+
+    public func rename(itemID: UUID, to newName: String) async throws {
+        guard let container else { throw ServiceError.noContainer }
+        try await Task.detached(priority: .utility) {
+            let ctx = ModelContext(container)
+            let descriptor = FetchDescriptor<CaptureHistoryItem>(
+                predicate: #Predicate { $0.id == itemID }
+            )
+            guard let item = try ctx.fetch(descriptor).first else {
+                throw ServiceError.notFound
+            }
+            item.displayName = newName
+            try ctx.save()
+        }.value
+    }
+}
+```
+
+**Why this matters:**
+- Silent `try?` saves mask disk-full errors, CloudKit sync conflicts, and schema mismatches
+- `throws` forces every caller to handle failure — either propagate or present UI
+- `Task.detached(priority: .utility)` keeps SwiftData I/O off the main actor
+- Value-type snapshots (e.g., `ChatTurnSnapshot`) should cross module boundaries, not `@Model` objects
+
 ## SwiftData + Concurrency
 
 **CRITICAL**: `@Model` objects are NOT Sendable. Never pass them across isolation boundaries.

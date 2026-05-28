@@ -1,13 +1,14 @@
 # Apple Dev Skills — Catalog
 
 > Version: **0.1.0**
-> Generated: 2026-05-27
+> Generated: 2026-05-28
 > Repository: https://github.com/markdavidgan/apple-dev-skills
 
-## Skills (19)
+## Skills (20)
 
 | Skill | Description | Invoke |
 |-------|-------------|--------|
+| apple-architecture-diagram | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |  |
 | apple-cleanup | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. | `/apple-cleanup [app] — EXHAUSTIVE cleanup: review → plan → fix ALL (P0-P2) → optimize → TestFlight alpha` |
 | apple-patterns-check | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". | `/apple-check [path] — Validate Apple patterns in modified files` |
 | apple-polish | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. | `/apple-polish [app] — Design & keynote review → select issues → fix → TestFlight` |

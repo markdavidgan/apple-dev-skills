@@ -722,6 +722,8 @@ Generate documentation artifacts:
 
 After verification passes, push alpha to TestFlight:
 
+> **macOS apps:** Standard fastlane `pilot distribute` and `xc_distribute_build` often fail for macOS due to API path differences. See the macOS fallback script below.
+
 ```bash
 #!/bin/bash
 # testflight-push.sh — Push verified build to TestFlight
@@ -804,6 +806,58 @@ xc_distribute_build \
 
 echo ""
 echo "✅ Alpha build pushed to TestFlight!"
+```
+
+### macOS TestFlight Fallback (When Standard Distribution Fails)
+
+If the app is a **macOS app** and `xc_distribute_build` / `pilot distribute` fails:
+
+```ruby
+# fastlane/Fastfile — add these lanes for macOS
+
+def asc_api_token
+  Spaceship::ConnectAPI::Token.create(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    filepath: ENV["ASC_KEY_PATH"]
+  )
+end
+
+lane :update_beta_changelog do |options|
+  Spaceship::ConnectAPI.token = asc_api_token
+  app = Spaceship::ConnectAPI::App.find(options[:bundle_id])
+  build = app.get_builds(limit: 10).find { |b| b.version == options[:build] }
+
+  locs = build.get_beta_build_localizations
+  existing = locs.find { |l| l.locale == "en-US" }
+
+  if existing
+    Spaceship::ConnectAPI.patch_beta_build_localizations(
+      localization_id: existing.id,
+      attributes: { whatsNew: options[:changelog] }
+    )
+  else
+    Spaceship::ConnectAPI.post_beta_build_localizations(
+      build_id: build.id,
+      attributes: { locale: "en-US", whatsNew: options[:changelog] }
+    )
+  end
+end
+
+lane :distribute_macos_alpha do |options|
+  Spaceship::ConnectAPI.token = asc_api_token
+  app = Spaceship::ConnectAPI::App.find(options[:bundle_id])
+  build = app.get_builds(limit: 10).find { |b| b.version == options[:build] }
+  group = app.get_beta_groups.find { |g| g.name == options[:group] }
+
+  current = group.fetch_builds
+  unless current.any? { |b| b.id == build.id }
+    Spaceship::ConnectAPI.add_beta_groups_to_build(
+      build_id: build.id,
+      beta_group_ids: [group.id]
+    )
+  end
+end
 ```
 
 ### TestFlight Verification

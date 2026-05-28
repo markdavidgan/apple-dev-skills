@@ -248,6 +248,63 @@ struct PreviewContainer<Content: View>: View {
 
 ---
 
+## Localization
+
+### Infrastructure Setup
+
+Create `Localizable.strings` early — even for single-language apps. It prevents hardcoded string debt and makes future localization trivial:
+
+```
+App/Resources/
+  en.lproj/
+    Localizable.strings
+```
+
+```swift
+// Localizable.strings
+"preview.action.ai" = "Ask this screenshot";
+"preview.conversation.inputPlaceholder" = "Ask anything…";
+"upgrade.title" = "Klyp Unlock";
+"lockedFeature.trialButton" = "Try free for %d days";
+```
+
+### NSLocalizedString in SwiftUI
+
+```swift
+// ✅ CORRECT — Use table name for app-specific strings
+struct UpgradeSheetCopy {
+    static var title: String {
+        NSLocalizedString("upgrade.title", tableName: "Localizable", comment: "Upgrade sheet title")
+    }
+    static func trialButton(days: Int) -> String {
+        String(format: NSLocalizedString("lockedFeature.trialButton", tableName: "Localizable", comment: ""), days)
+    }
+}
+
+// In views
+Text(UpgradeSheetCopy.title)
+TextField(UpgradeSheetCopy.inputPlaceholder, text: $input)
+```
+
+### Migration Path: Hardcoded → Localized
+
+When retrofitting localization into an existing app:
+
+1. Extract all user-facing strings to `Localizable.strings` with semantic keys
+2. Replace literals with `NSLocalizedString` calls
+3. Keep keys namespaced by feature: `feature.element.purpose`
+4. Use `String(format: ...)` for interpolated values — never concatenate
+
+```swift
+// ❌ WRONG — concatenation breaks in RTL languages
+Text("Try free for " + String(days) + " days")
+
+// ✅ CORRECT — format string handles pluralization and RTL
+String(format: NSLocalizedString("lockedFeature.trialButton", comment: ""), days)
+```
+
+---
+
 ## Accessibility
 
 ### Labels and Hints

@@ -4,6 +4,7 @@
 
 | Skill | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |-------|:------:|:------:|:----:|:-----------:|:-----:|:---:|
+| apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-polish | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

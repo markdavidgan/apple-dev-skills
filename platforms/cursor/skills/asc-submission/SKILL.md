@@ -83,6 +83,59 @@ When the user wants to distribute a build to TestFlight:
 
 4. **Distribute:** Call `asc_distribute_build` to add the build to the group.
 
+#### Workflow C-macOS: TestFlight Distribution for macOS Apps
+
+Fastlane's `pilot distribute` and `asc_distribute_build` (MCP) often fail for macOS builds due to API path differences. Use this fallback when the standard workflow fails:
+
+```ruby
+# In Fastfile — macOS-specific distribution via Spaceship
+lane :distribute_macos_build do |options|
+  token = Spaceship::ConnectAPI::Token.create(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    filepath: ENV["ASC_KEY_PATH"]
+  )
+  Spaceship::ConnectAPI.token = token
+
+  app = Spaceship::ConnectAPI::App.find(options[:bundle_id])
+  build = app.get_builds(limit: 10).find { |b| b.version == options[:build] }
+  group = app.get_beta_groups.find { |g| g.name == options[:group] }
+
+  # Set "What to Test"
+  locs = build.get_beta_build_localizations
+  existing = locs.find { |l| l.locale == "en-US" }
+  if existing
+    Spaceship::ConnectAPI.patch_beta_build_localizations(
+      localization_id: existing.id,
+      attributes: { whatsNew: options[:changelog] }
+    )
+  else
+    Spaceship::ConnectAPI.post_beta_build_localizations(
+      build_id: build.id,
+      attributes: { locale: "en-US", whatsNew: options[:changelog] }
+    )
+  end
+
+  # Add to beta group
+  current = group.fetch_builds
+  unless current.any? { |b| b.id == build.id }
+    Spaceship::ConnectAPI.add_beta_groups_to_build(
+      build_id: build.id,
+      beta_group_ids: [group.id]
+    )
+  end
+end
+```
+
+**Common macOS TestFlight failures and fixes:**
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `pilot list` → `betaBuildMetrics is not a valid relationship name` | fastlane bug with macOS build metadata | Use Spaceship directly; build status is still queryable via `app.get_builds` |
+| `pilot distribute` → interactive platform prompt | macOS builds lack `betaBuildMetrics` relationship | Use `add_beta_groups_to_build` via Spaceship |
+| `asc_set_beta_notes` → "resource does not exist" | MCP tool may use wrong API path for macOS | Use `post_beta_build_localizations` / `patch_beta_build_localizations` via Spaceship |
+| Build not appearing in TestFlight after upload | macOS `.pkg` processing takes longer than `.ipa` | Poll `app.get_builds` and check `processing_state` — can take 10-30 min |
+
 ### Workflow D: Submit for Review
 
 When the user explicitly asks to submit for review:

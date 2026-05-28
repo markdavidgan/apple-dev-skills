@@ -407,6 +407,143 @@ end
 
 ---
 
+## macOS TestFlight & App Store
+
+macOS builds follow different export and distribution paths than iOS. The standard Fastlane `build_app` + `upload_to_testflight` patterns are iOS-centric and break on macOS.
+
+### macOS Archive + Export
+
+```bash
+# Archive (automatic signing + ASC API key auth)
+xcodebuild -project Klyp.xcodeproj \
+  -scheme Klyp \
+  -configuration Release \
+  archive \
+  -archivePath build/Klyp.xcarchive \
+  -destination 'generic/platform=macOS' \
+  -allowProvisioningUpdates \
+  -authenticationKeyPath ~/.private_keys/AuthKey_XXXXXX.p8 \
+  -authenticationKeyID <KEY_ID> \
+  -authenticationKeyIssuerID <ISSUER_ID> \
+  CODE_SIGN_STYLE=Automatic \
+  CODE_SIGN_IDENTITY='Apple Development' \
+  PROVISIONING_PROFILE_SPECIFIER='' \
+  DEVELOPMENT_TEAM=<TEAM_ID>
+
+# Export as .pkg (Mac App Store distribution)
+cat > /tmp/exportOptions.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" ...>
+<plist version="1.0">
+<dict>
+  <key>method</key>
+  <string>app-store-connect</string>   <!-- NOT "app-store" -->
+  <key>teamID</key>
+  <string>YOUR_TEAM_ID</string>
+  <key>signingStyle</key>
+  <string>automatic</string>
+  <key>thinning</key>
+  <string>&lt;none&gt;</string>
+</dict>
+</plist>
+EOF
+
+xcodebuild -exportArchive \
+  -archivePath build/Klyp.xcarchive \
+  -exportOptionsPlist /tmp/exportOptions.plist \
+  -exportPath build \
+  -allowProvisioningUpdates \
+  -authenticationKeyPath ~/.private_keys/AuthKey_XXXXXX.p8 \
+  -authenticationKeyID <KEY_ID> \
+  -authenticationKeyIssuerID <ISSUER_ID>
+# Produces: build/Klyp.pkg
+```
+
+### Fastlane macOS Limitations (Critical)
+
+Fastlane's `pilot` and `build_app` actions have **known macOS incompatibilities** as of 2.235.0:
+
+| Action | iOS | macOS | Workaround |
+|--------|-----|-------|------------|
+| `build_app` / `gym` | ✅ Produces `.ipa` | ❌ Not designed for `.pkg` | Use raw `xcodebuild` archive + export |
+| `upload_to_testflight` / `pilot` | ✅ Uploads `.ipa` | ✅ Uploads `.pkg` via `pkg:` param | Works, but see below |
+| `pilot list` | ✅ Lists builds | ❌ `'betaBuildMetrics' is not a valid relationship name` | Use Spaceship directly |
+| `pilot distribute` | ✅ Adds to groups | ❌ Prompts for platform interactively; crashes non-interactive | Use Spaceship directly |
+| `set_changelog` (action) | ✅ Sets "What to Test" | ❌ Built-in action doesn't target macOS builds reliably | Use Spaceship directly |
+
+### Spaceship Workarounds for macOS TestFlight
+
+When fastlane actions fail for macOS, use Spaceship directly in your `Fastfile`:
+
+```ruby
+def asc_api_token
+  Spaceship::ConnectAPI::Token.create(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    filepath: ENV["ASC_KEY_PATH"]
+  )
+end
+
+# Set "What to Test" changelog for the latest macOS build
+lane :update_beta_changelog do |options|
+  Spaceship::ConnectAPI.token = asc_api_token
+  app = Spaceship::ConnectAPI::App.find("com.example.app")
+  build = app.get_builds(limit: 10).find { |b| b.version == options[:build] }
+
+  locs = build.get_beta_build_localizations
+  existing = locs.find { |l| l.locale == "en-US" }
+
+  if existing
+    Spaceship::ConnectAPI.patch_beta_build_localizations(
+      localization_id: existing.id,
+      attributes: { whatsNew: options[:changelog] }
+    )
+  else
+    Spaceship::ConnectAPI.post_beta_build_localizations(
+      build_id: build.id,
+      attributes: { locale: "en-US", whatsNew: options[:changelog] }
+    )
+  end
+end
+
+# Distribute macOS build to a beta group
+lane :distribute_macos_alpha do |options|
+  Spaceship::ConnectAPI.token = asc_api_token
+  app = Spaceship::ConnectAPI::App.find("com.example.app")
+  build = app.get_builds(limit: 10).find { |b| b.version == options[:build] }
+  group = app.get_beta_groups.find { |g| g.name == options[:group] }
+
+  current = group.fetch_builds  # NOTE: fetch_builds, NOT get_builds
+  unless current.any? { |b| b.id == build.id }
+    Spaceship::ConnectAPI.add_beta_groups_to_build(
+      build_id: build.id,
+      beta_group_ids: [group.id]
+    )
+  end
+end
+```
+
+**Key Spaceship API notes for macOS:**
+- `Build#get_beta_build_localizations` — returns existing `BetaBuildLocalization` objects
+- `post_beta_build_localizations(build_id:, attributes: { locale:, whatsNew: })` — `attributes:` is a Hash, not keyword args
+- `patch_beta_build_localizations(localization_id:, attributes: { whatsNew: })` — update existing localization
+- `BetaGroup#fetch_builds` — list builds in a group (method name is `fetch_builds`, not `get_builds`)
+- `add_beta_groups_to_build(build_id:, beta_group_ids:)` — add build to groups
+
+### Fastfile Naming Conflicts
+
+Avoid naming lanes after built-in fastlane actions:
+
+```ruby
+# WRONG — conflicts with built-in `set_changelog` action
+lane :set_changelog do ... end
+
+# RIGHT
+lane :update_beta_changelog do ... end
+```
+
+---
+
 ## CI/CD Gotchas
 
 ### Build Number Regression
