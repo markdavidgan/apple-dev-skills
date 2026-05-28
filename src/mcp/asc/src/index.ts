@@ -140,7 +140,7 @@ server.tool(
     scheme: z
       .string()
       .describe(
-        "Xcode scheme to build (e.g. 'AetherFocus-iOS', 'AetherCadence-iOS')"
+        "Xcode scheme to build (e.g. 'MyApp-iOS', 'MyAppWatch-iOS')"
       ),
     action_type: z
       .enum(["ARCHIVE", "BUILD", "TEST", "ANALYZE"])
@@ -173,7 +173,7 @@ server.tool(
       .string()
       .optional()
       .describe(
-        "Path to the Xcode project/workspace relative to repo root (e.g. 'apps/focus/AetherFocus.xcodeproj')"
+        "Path to the Xcode project/workspace relative to repo root (e.g. 'apps/ios/MyApp.xcodeproj')"
       ),
   },
   async ({
@@ -1302,7 +1302,7 @@ server.tool(
   "asc_create_profile",
   "Create a provisioning profile for a bundle ID and certificate. Use asc_list_bundle_ids to get the bundle ID resource ID and asc_list_certificates to get certificate IDs.",
   {
-    name: z.string().describe("Profile name (e.g. 'Aether Focus App Store')"),
+    name: z.string().describe("Profile name (e.g. 'MyApp App Store')"),
     profile_type: z
       .string()
       .default("IOS_APP_STORE")

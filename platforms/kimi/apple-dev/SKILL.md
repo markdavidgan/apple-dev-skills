@@ -12,27 +12,28 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 | # | Skill | Domain | Description |
 |---|-------|--------|-------------|
-| 1 | app-store-pricing | Workflow | App Store pricing strategy, global equalization, subscription management, and regional pricing decisions using Apple's official 900-price-point system. Use when user asks about pricing tiers, IAP pricing, subscription pricing, regional pricing, price changes, App Store proceeds, base storefront selection, introductory offers, or promotional offers. |
-| 2 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
-| 3 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
-| 4 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
-| 5 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
-| 6 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
-| 7 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
-| 8 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
-| 9 | complete-feature | Workflow | Complete a feature implementation with full validation. Use when a feature feels 'done' to ensure nothing is missed before committing. |
-| 10 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 11 | ios-asc | iOS | App Store Connect MCP tools for signing certificates, provisioning profiles, TestFlight builds, and app submission. |
-| 12 | ios-build | iOS | iOS build system patterns, validation workflows, XcodeGen, and common build failure solutions. Use for build errors, validation, and CI/CD setup. |
-| 13 | ios-design | iOS | SwiftUI design system patterns, iOS 26 Liquid Glass, accessibility best practices, and preview patterns. |
-| 14 | ios-simulate | iOS | iOS Simulator workflows, xcrun simctl commands, screenshot automation, and device management. |
-| 15 | ios-standards | iOS | Swift 6.0+ standards, strict concurrency patterns, modern SwiftUI with @Observable, and @MainActor isolation. Essential for iOS 26+ development. Updated 2026-04-04 with crash audit findings. |
-| 16 | ios-test | iOS | XCTest patterns, SwiftData testing with in-memory containers, UI testing, and test performance budgets for iOS. |
-| 17 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
-| 18 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
-| 19 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
-| 20 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 21 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 1 | app-brand-identity | Workflow | Create a complete brand identity system for Apple platform apps — wordmark, icon, design tokens, brand voice, and App Store marketing assets. Use when starting a new app, renaming/rebranding, designing a logo, choosing typography, building a design system, or preparing App Store screenshots and preview materials. |
+| 2 | app-store-pricing | Workflow | App Store pricing strategy, global equalization, subscription management, and regional pricing decisions using Apple's official 900-price-point system. Use when user asks about pricing tiers, IAP pricing, subscription pricing, regional pricing, price changes, App Store proceeds, base storefront selection, introductory offers, or promotional offers. |
+| 3 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
+| 4 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
+| 5 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
+| 6 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
+| 7 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
+| 8 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
+| 9 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
+| 10 | complete-feature | Workflow | Complete a feature implementation with full validation. Use when a feature feels 'done' to ensure nothing is missed before committing. |
+| 11 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 12 | ios-asc | iOS | App Store Connect MCP tools for signing certificates, provisioning profiles, TestFlight builds, and app submission. |
+| 13 | ios-build | iOS | iOS build system patterns, validation workflows, XcodeGen, and common build failure solutions. Use for build errors, validation, and CI/CD setup. |
+| 14 | ios-design | iOS | SwiftUI design system patterns, iOS 26 Liquid Glass, accessibility best practices, and preview patterns. |
+| 15 | ios-simulate | iOS | iOS Simulator workflows, xcrun simctl commands, screenshot automation, and device management. |
+| 16 | ios-standards | iOS | Swift 6.0+ standards, strict concurrency patterns, modern SwiftUI with @Observable, and @MainActor isolation. Essential for iOS 26+ development. Updated 2026-04-04 with crash audit findings. |
+| 17 | ios-test | iOS | XCTest patterns, SwiftData testing with in-memory containers, UI testing, and test performance budgets for iOS. |
+| 18 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
+| 19 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
+| 20 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
+| 21 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
+| 22 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -44,6 +45,324 @@ Each skill is bounded by `<!-- BEGIN SKILL: name -->` and `<!-- END SKILL: name 
 For **executable validation**, use the plugin tools:
 - `pattern-check` — Run mechanical Swift 6 / SwiftUI / SwiftData / entitlements validation
 - `api-lookup` — Query iOS 26 API signatures and anti-hallucination references
+
+---
+
+<!-- BEGIN SKILL: app-brand-identity -->
+
+# app-brand-identity
+
+# App Brand Identity
+
+Create a complete brand identity system for Apple platform apps. Produces a wordmark, app icon, design token foundation, brand voice guidelines, and App Store marketing asset strategy. **Use before `ios-design` — this skill creates the visual system that `ios-design` implements in SwiftUI.**
+
+> **Embody a product designer at Apple.** Your brand will live on the App Store, in the Dock, in Spotlight results, and in screenshots on social media. Every decision must survive at 16×16 (menu bar) and 1280×800 (App Store feature). No generic startup aesthetics. No gradient blobs. No AI-slop.
+
+## When to Use
+
+- Starting a new app and need a name, logo, or visual identity
+- Renaming or rebranding an existing app
+- Designing the app icon (macOS rounded rect, iOS squircle, visionOS layered)
+- Choosing typography, color palette, or spacing system
+- Building a design token system that bridges marketing site and app code
+- Preparing App Store screenshots, preview video storyboards, or feature graphics
+- Creating a press kit or maker page
+
+## When NOT to Use
+
+- **Don't use** for pure UI component design — that's `ios-design`
+- **Don't use** for App Store submission logistics — that's `asc-submission`
+- **Don't use** for pricing decisions — that's `app-store-pricing`
+- **Don't use** for architecture diagrams — that's `apple-architecture-diagram`
+
+---
+
+## The Brand Identity Process
+
+### 1. Discovery & Constraints
+
+Before designing, lock the constraints:
+
+| Question | Why It Matters |
+|----------|----------------|
+| **Platforms?** | macOS icons are rounded rect (≤ 1024pt). iOS is squircle (superellipse mask). visionOS is circular with layered depth. |
+| **Minimum OS?** | iOS/macOS 26+ unlocks Liquid Glass, SF Rounded, new material effects. |
+| **Category?** | Utility apps need instant recognition. Creative tools can be more expressive. Productivity apps should feel calm and competent. |
+| **Competitive frame?** | Who do you want to be compared to? Who do you want to avoid being compared to? |
+| **Name length?** | Short names (< 6 chars) allow larger wordmarks. Long names need abbreviation strategies. |
+| **Dark mode default?** | macOS utilities often live in dark mode. iOS apps see both. |
+
+### 2. Name & Naming Conventions
+
+**Product name rules for Apple platforms:**
+
+- **Searchable** — type it into Spotlight and App Store search; is it unique enough?
+- **Speakable** — can someone say it to Siri and be understood?
+- **Short** — 4–6 characters ideal for menubar/Dock labels; 10+ requires truncation strategy
+- **No generic descriptors** — "Photo Editor Pro" is unbrandable. "Orbit" is ownable.
+- **Domain check** — `.app` preferred, but not required at launch
+
+**Naming convention matrix:**
+
+| Context | Form | Example |
+|---------|------|---------|
+| Product name in prose | Full name | Orbit |
+| Wordmark / logo lockup | Name + mark | `orbit` + triangle |
+| Paid tier | Name + modifier | Orbit+ |
+| App Store listing | Full name (no punctuation marks) | Orbit |
+| Bundle ID | Reverse DNS | `com.example.orbit` |
+| Menubar / Dock | Icon only (no text) | — |
+
+### 3. Wordmark Design
+
+#### The Wordmark Hierarchy
+
+Every wordmark decision is a trade-off between **distinctiveness** and **legibility**:
+
+| Approach | Distinctiveness | Legibility | Best For |
+|----------|----------------|------------|----------|
+| **System sans + custom mark** (SF Pro + unique icon) | Medium | High | Most apps |
+| **System rounded** (SF Rounded) | Low | High | Friendly consumer apps |
+| **Serif + geometric mark** | High | Medium | Premium/design tools |
+| **Custom logotype** | Very High | Variable | Established brands |
+
+**Default recommendation for indie Apple apps:** System sans (SF Pro) + custom mark. It feels native, performs well at small sizes, and doesn't fight the platform.
+
+#### Typography Selection
+
+| Font | Weight | Personality | Platform Feel |
+|------|--------|-------------|---------------|
+| SF Pro Display | 300–600 | Native, neutral, professional | Invisible (good) |
+| SF Pro Rounded | 400–500 | Friendly, accessible, soft | Playful without being childish |
+| Georgia / Times | 400 | Editorial, distinctive, premium | Stands out in utility categories |
+| Custom sans | Varies | Unique, ownable | Requires strong justification |
+
+**Rules:**
+- Use **SF Pro Display** for wordmarks unless you have a specific reason not to
+- Use **Georgia** only when the icon already contains serif elements (creates system harmony)
+- Never use **SF Pro Text** for wordmarks — it's optimized for body copy, not display
+- Letter-spacing: tight (`-0.02em` to `-0.04em`) for modern feel; normal for classic
+
+#### The Mark (Punctuation/Icon Element)
+
+The mark is the visual signature that makes the wordmark ownable:
+
+| Mark Type | Example | Risk | Reward |
+|-----------|---------|------|--------|
+| **Dot** | `orbit.` | Generic — any product can use it | Clean, typographic |
+| **Triangle/geometric** | `orbit` ▲ | Requires design work | Ownable, product-relevant |
+| **Plus badge** | `orbit+` | Universal tier signifier | Clear paid tier communication |
+| **None** | `Orbit` | Harder to trademark, less distinctive | Maximum simplicity |
+
+**Mark construction rules (from Orbit triangle mark):**
+- The mark must echo the app icon — every wordmark use reinforces icon recognition
+- Position in natural whitespace, never clip or modify letterforms
+- Scale proportionally: derive size from font metrics (e.g., `fontSize × 0.247`)
+- Use Canvas API or SVG for precise positioning after `document.fonts.ready`
+
+#### Wordmark Exploration Template
+
+When exploring wordmarks, produce **4 directions** as self-contained HTML:
+
+```html
+<!-- Direction A: System sans, bold, no mark -->
+<!-- Direction B: System rounded, medium weight -->
+<!-- Direction C: Serif + geometric mark -->
+<!-- Direction D: System sans + custom mark (Liquid Glass aesthetic) -->
+```
+
+Each direction must show:
+- Large (hero size)
+- Medium (nav bar size)
+- Small (App Store listing size)
+- Dark background
+- Light background
+- With paid tier variant (+ mark)
+
+### 4. App Icon Design
+
+#### Platform Geometry
+
+| Platform | Shape | Corner Radius | Key Characteristic |
+|----------|-------|---------------|-------------------|
+| **macOS** | Rounded rectangle | `22%` of side (1024pt → ~205px) | Subtle 3D tilt optional |
+| **iOS** | Superellipse (squircle) | System-masked | No transparency |
+| **visionOS** | Circle with depth | N/A (circular mask) | Layered glass + shadow |
+| **watchOS** | Circle | N/A | Simplified, high contrast |
+
+**Anti-patterns:**
+- Don't design the macOS icon as a perfect square with sharp corners — it looks like a Windows port
+- Don't put text inside the icon (except single-letter marks at very large sizes)
+- Don't use the full wordmark inside the icon — it becomes illegible at 29×29
+
+#### Icon Design Principles
+
+1. **One idea, instantly readable** — The icon should communicate the app's core action at 60×60 (Spotlight) and 1024×1024 (App Store)
+2. **Bold silhouette** — The outer shape should be distinctive even when blurred
+3. **Material honesty** — On macOS 26+/iOS 26+, use Liquid Glass or native materials. On older OS, use flat or subtle gradients.
+4. **Color discipline** — 1–2 colors + neutral. Coral + dark is better than rainbow.
+
+#### Icon Variations Checklist
+
+```
+AppIcon.appiconset/
+  ├─ 16x16@1x.png      (menubar, small)
+  ├─ 16x16@2x.png
+  ├─ 32x32@1x.png      (Retina menubar)
+  ├─ 32x32@2x.png
+  ├─ 128x128@1x.png    (Finder)
+  ├─ 128x128@2x.png
+  ├─ 256x256@1x.png    (Dock default)
+  ├─ 256x256@2x.png
+  ├─ 512x512@1x.png    (Quick Look)
+  ├─ 512x512@2x.png    (App Store)
+  └─ 1024x1024@1x.png  (App Store marketing)
+```
+
+**Critical:** The 16×16 menubar icon is the hardest. Design it first — if it works there, it works everywhere.
+
+### 5. Color System
+
+#### Primary Palette
+
+| Role | Selection Criteria | Example |
+|------|-------------------|---------|
+| **Signature** | The one color users associate with your app | `#FF6B5B` (coral) |
+| **Canvas (dark)** | The background your app lives on | `#0E1117` |
+| **Canvas (light)** | For light mode / marketing | `#F5F5F7` |
+| **Surface** | Elevated cards, panels | `#16191D` (dark), `#FFFFFF` (light) |
+| **Text primary** | Headlines, body | `#FFFFFF` (dark), `#1D1D1F` (light) |
+| **Text muted** | Captions, secondary | `#9CA3AF` (dark), `#86868B` (light) |
+
+**Rules:**
+- Signature color must pass WCAG AA on both canvas colors (4.5:1 for text, 3:1 for UI)
+- Never use the signature color for error states — reserve red (`#FF453A`) for errors
+- Dark canvas should be subtly tinted toward the signature (e.g., coral-tinted dark `#0E1117`), not pure gray
+
+#### Semantic Colors
+
+```swift
+// Inherit from Apple semantic colors where possible
+let success = Color.green      // #34C759
+let warning = Color.orange     // #FF9F0A
+let danger = Color.red         // #FF453A
+```
+
+### 6. Design Token System
+
+Tokens bridge marketing (CSS) and app (SwiftUI):
+
+```css
+/* apps/website/src/styles/tokens.css */
+@theme {
+  --color-primary: #0E1117;
+  --color-signature: #FF6B5B;
+  --font-display: "SF Pro Display", -apple-system, sans-serif;
+  --radius-icon: 22px;
+  --ease-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+}
+```
+
+```swift
+// Packages/AppCore/Sources/AppCore/Tokens/AppTokens.swift
+public enum AppTokens {
+    public static let signature = Color(hex: "#FF6B5B")
+    public static let canvasDark = Color(hex: "#0E1117")
+    public static let canvasLight = Color(hex: "#F5F5F7")
+    public static let radiusIcon: CGFloat = 22
+}
+```
+
+**Sync rule:** When tokens.css changes, update the Swift mirror. Document the dependency in both files.
+
+### 7. Brand Voice
+
+| Attribute | Do | Don't |
+|-----------|-----|-------|
+| **Tone** | Calm, confident, craft-focused | Hype, exclamation points, trend words |
+| **AI references** | Name what it does, not that it's AI | "AI-powered," "smarter than ever" |
+| **Feature copy** | Describe the benefit, not the mechanism | "Utilizes advanced neural networks" |
+| **Error copy** | Plain language, no blame | "Something went wrong" not "User error" |
+| **Pricing copy** | One-time = "Unlock"; Subscription = "Pro" | Ambiguous tier names |
+
+**Voice test:** Read your App Store subtitle aloud. If it sounds like it could be from any other app, rewrite it.
+
+### 8. App Store Marketing Assets
+
+#### Screenshots Strategy
+
+| Slot | Purpose | Content |
+|------|---------|---------|
+| 1 | **Hook** — the "wow" moment | The app doing its core action beautifully |
+| 2 | **Context** — where it lives | Menubar, Dock, or device context |
+| 3 | **Feature 1** — primary differentiator | The one thing no competitor does |
+| 4 | **Feature 2** — secondary benefit | Supporting capability |
+| 5 | **Social proof** — trust | Ratings, testimonials, or "Featured by Apple" |
+| 6 | **CTA** — pricing clarity | Clear tier distinction, no surprises |
+
+**Screenshot rules:**
+- Use **real app UI** — never mockups. The gap between screenshot and reality is a rejection risk.
+- Include **device chrome** for iOS; **clean UI** for macOS (no window chrome needed)
+- Maintain **color consistency** — all screenshots feel like the same app
+- **Text overlays** are optional; if used, keep under 4 words per slide
+
+#### App Preview Video (Optional)
+
+- 15–30 seconds
+- No audio required (most users watch muted)
+- Show the core loop: trigger → action → result
+- End on the App Store CTA frame
+
+#### Press Kit / Maker Note
+
+Single-page markdown:
+- One-sentence pitch
+- 3 bullet differentiators
+- 2–3 screenshot links
+- Contact / social links
+- "Made by [name]" — personal attribution performs better than anonymous studio
+
+---
+
+## Deliverables Checklist
+
+A complete brand identity handoff includes:
+
+- [ ] **Name** — searchable, speakable, ownable
+- [ ] **Wordmark** — 4-direction exploration → 1 approved → dark + light variants
+- [ ] **App Icon** — 1024pt master → all platform variations → menubar 16×16 validated
+- [ ] **Color system** — signature + canvas + surface + semantic + contrast verification
+- [ ] **Typography** — display font, text font, mono font (if needed), weights specified
+- [ ] **Design tokens** — CSS file + Swift mirror, synced
+- [ ] **Brand voice** — tone attributes, do/don't table, example copy
+- [ ] **App Store screenshots** — 6-slot strategy + mock descriptions
+- [ ] **Maker note / press kit** — single-page markdown
+
+---
+
+## Integration with Other Skills
+
+| After `app-brand-identity`, invoke... | For... |
+|--------------------------------------|--------|
+| `ios-design` | Implementing tokens in SwiftUI, Liquid Glass effects, preview patterns |
+| `app-store-pricing` | Pricing tiers, introductory offers, global equalization |
+| `asc-submission` | Preparing screenshots, metadata, and App Store listing |
+| `apple-architecture-diagram` | Marketing architecture diagrams for press/VC pitches |
+
+---
+
+## Anti-AI-Slop Rules
+
+| Avoid | Use Instead |
+|-------|-------------|
+| Gradient blobs / abstract shapes | Meaningful geometry related to app function |
+| Purple-blue gradients ("AI aesthetic") | Signature color + true black |
+| Generic sans-serif wordmarks with no mark | System font + custom geometric mark |
+| Stock icon templates | Original silhouette tested at 16×16 |
+| Trendy 3D renderings | Native materials (Liquid Glass, metal, fabric) |
+| Multiple competing signature colors | One signature + neutral system |
+
+<!-- END SKILL: app-brand-identity -->
 
 ---
 
@@ -3158,7 +3477,7 @@ ViewModels/ — 5 files, ~2500 lines
 Services/ — 35 files, ~8000 lines
 Models/ — 18 files, ~1200 lines
 DesignSystem/ — 3 files, ~300 lines
-Config: project.yml, Info.plist, AetherCue.entitlements, PrivacyInfo.xcprivacy
+Config: project.yml, Info.plist, MyApp.entitlements, PrivacyInfo.xcprivacy
 ```
 
 ### 3. Assign files to each panel
@@ -5373,11 +5692,11 @@ macOS builds follow different export and distribution paths than iOS. The standa
 
 ```bash
 # Archive (automatic signing + ASC API key auth)
-xcodebuild -project Klyp.xcodeproj \
-  -scheme Klyp \
+xcodebuild -project MyApp.xcodeproj \
+  -scheme MyApp \
   -configuration Release \
   archive \
-  -archivePath build/Klyp.xcarchive \
+  -archivePath build/MyApp.xcarchive \
   -destination 'generic/platform=macOS' \
   -allowProvisioningUpdates \
   -authenticationKeyPath ~/.private_keys/AuthKey_XXXXXX.p8 \
@@ -5407,14 +5726,14 @@ cat > /tmp/exportOptions.plist << 'EOF'
 EOF
 
 xcodebuild -exportArchive \
-  -archivePath build/Klyp.xcarchive \
+  -archivePath build/MyApp.xcarchive \
   -exportOptionsPlist /tmp/exportOptions.plist \
   -exportPath build \
   -allowProvisioningUpdates \
   -authenticationKeyPath ~/.private_keys/AuthKey_XXXXXX.p8 \
   -authenticationKeyID <KEY_ID> \
   -authenticationKeyIssuerID <ISSUER_ID>
-# Produces: build/Klyp.pkg
+# Produces: build/MyApp.pkg
 ```
 
 ### Fastlane macOS Limitations (Critical)
@@ -5633,8 +5952,8 @@ SwiftUI design system patterns, iOS 26 Liquid Glass effects, and accessibility b
 Centralize design tokens in a theme enum. Apps extend a shared base theme for app-specific expression.
 
 ```swift
-// Shared package: AetherTheme.swift
-public enum AetherTheme {
+// Shared package: AppTheme.swift
+public enum AppTheme {
     // Foundation: Backgrounds
     public static var canvas: Color {
         Color(light: Color(hex: "#FAF9F6"), dark: Color(hex: "#0D0D0F"))
@@ -5661,12 +5980,12 @@ public enum AetherTheme {
 // App-specific: Theme.swift
 enum Theme {
     // Inherit from shared theme
-    static let primary = AetherTheme.actionPrimary
-    static let spacing = AetherTheme.Spacing.self
+    static let primary = AppTheme.actionPrimary
+    static let spacing = AppTheme.Spacing.self
     
     // App-specific expression
     static var dialFace: Color {
-        Color(light: AetherTheme.surface, dark: Color(hex: "#1A1A1E"))
+        Color(light: AppTheme.surface, dark: Color(hex: "#1A1A1E"))
     }
 }
 ```
@@ -5678,7 +5997,7 @@ enum Theme {
 | `Theme.primary` | `Color.blue` |
 | `Theme.Spacing.md` | `16` |
 | `Theme.Radius.capsule` | `999` |
-| `AetherTheme.canvas` | `Color.white` |
+| `AppTheme.canvas` | `Color.white` |
 
 ### Asset Catalog Organization
 
@@ -5727,9 +6046,9 @@ Prefer code-defined colors (hex values in theme) for dynamic dark mode support.
 .background(.ultraThinMaterial)
 
 // From theme
-AetherTheme.glassSurface   // .regularMaterial
-AetherTheme.glassThick     // .thickMaterial
-AetherTheme.glassThin      // .ultraThinMaterial
+AppTheme.glassSurface   // .regularMaterial
+AppTheme.glassThick     // .thickMaterial
+AppTheme.glassThin      // .ultraThinMaterial
 ```
 
 ### Liquid Glass Best Practices
@@ -5783,9 +6102,9 @@ struct Card<Content: View>: View {
     var body: some View {
         content
             .padding(Theme.Spacing.md)
-            .background(AetherTheme.surface)
+            .background(AppTheme.surface)
             .cornerRadius(Theme.Radius.md)
-            .aetherDepth(.surface)
+            .appDepth(.surface)
     }
 }
 
@@ -5881,7 +6200,7 @@ App/Resources/
 // Localizable.strings
 "preview.action.ai" = "Ask this screenshot";
 "preview.conversation.inputPlaceholder" = "Ask anything…";
-"upgrade.title" = "Klyp Unlock";
+"upgrade.title" = "Unlock Pro";
 "lockedFeature.trialButton" = "Try free for %d days";
 ```
 
@@ -6116,7 +6435,7 @@ Button(action: action) {
 
 ```swift
 // Depth/shadow
-.aetherDepth(.surface)
+.appDepth(.surface)
 .breathingShadow(color: Theme.primary)
 
 // Border
@@ -6137,20 +6456,20 @@ Button(action: action) {
 
 ```swift
 // Colors
-AetherTheme.canvas           // Background
-AetherTheme.surface          // Cards
-AetherTheme.actionPrimary    // Buttons
-AetherTheme.textPrimary      // Body text
+AppTheme.canvas           // Background
+AppTheme.surface          // Cards
+AppTheme.actionPrimary    // Buttons
+AppTheme.textPrimary      // Body text
 
 // Spacing
-AetherTheme.Spacing.xs       // 8
-AetherTheme.Spacing.md       // 16
-AetherTheme.Spacing.lg       // 24
+AppTheme.Spacing.xs       // 8
+AppTheme.Spacing.md       // 16
+AppTheme.Spacing.lg       // 24
 
 // Radius
-AetherTheme.Radius.sm        // 8
-AetherTheme.Radius.md        // 12
-AetherTheme.Radius.capsule   // 999
+AppTheme.Radius.sm        // 8
+AppTheme.Radius.md        // 12
+AppTheme.Radius.capsule   // 999
 ```
 
 ### Preview Template
@@ -6342,7 +6661,7 @@ xcrun simctl io booted screenshot "screenshot-$(date +%Y%m%d-%H%M%S).png"
 
 ### Dual-Path Architecture
 
-The Aether project uses two screenshot paths with different purposes:
+The example project uses two screenshot paths with different purposes:
 
 #### ASC Path (Committed, High Quality)
 

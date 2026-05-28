@@ -415,11 +415,11 @@ macOS builds follow different export and distribution paths than iOS. The standa
 
 ```bash
 # Archive (automatic signing + ASC API key auth)
-xcodebuild -project Klyp.xcodeproj \
-  -scheme Klyp \
+xcodebuild -project MyApp.xcodeproj \
+  -scheme MyApp \
   -configuration Release \
   archive \
-  -archivePath build/Klyp.xcarchive \
+  -archivePath build/MyApp.xcarchive \
   -destination 'generic/platform=macOS' \
   -allowProvisioningUpdates \
   -authenticationKeyPath ~/.private_keys/AuthKey_XXXXXX.p8 \
@@ -449,14 +449,14 @@ cat > /tmp/exportOptions.plist << 'EOF'
 EOF
 
 xcodebuild -exportArchive \
-  -archivePath build/Klyp.xcarchive \
+  -archivePath build/MyApp.xcarchive \
   -exportOptionsPlist /tmp/exportOptions.plist \
   -exportPath build \
   -allowProvisioningUpdates \
   -authenticationKeyPath ~/.private_keys/AuthKey_XXXXXX.p8 \
   -authenticationKeyID <KEY_ID> \
   -authenticationKeyIssuerID <ISSUER_ID>
-# Produces: build/Klyp.pkg
+# Produces: build/MyApp.pkg
 ```
 
 ### Fastlane macOS Limitations (Critical)

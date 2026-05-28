@@ -1,6 +1,7 @@
 ---
 name: asc-submission
 description: Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions.
+invoke: "/prepare-submission [app] — Check submission readiness, metadata, screenshots, and signing via ASC MCP."
 ---
 
 # ASC Submission

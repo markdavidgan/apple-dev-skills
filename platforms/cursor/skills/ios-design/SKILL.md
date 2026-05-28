@@ -16,8 +16,8 @@ SwiftUI design system patterns, iOS 26 Liquid Glass effects, and accessibility b
 Centralize design tokens in a theme enum. Apps extend a shared base theme for app-specific expression.
 
 ```swift
-// Shared package: AetherTheme.swift
-public enum AetherTheme {
+// Shared package: AppTheme.swift
+public enum AppTheme {
     // Foundation: Backgrounds
     public static var canvas: Color {
         Color(light: Color(hex: "#FAF9F6"), dark: Color(hex: "#0D0D0F"))
@@ -44,12 +44,12 @@ public enum AetherTheme {
 // App-specific: Theme.swift
 enum Theme {
     // Inherit from shared theme
-    static let primary = AetherTheme.actionPrimary
-    static let spacing = AetherTheme.Spacing.self
+    static let primary = AppTheme.actionPrimary
+    static let spacing = AppTheme.Spacing.self
     
     // App-specific expression
     static var dialFace: Color {
-        Color(light: AetherTheme.surface, dark: Color(hex: "#1A1A1E"))
+        Color(light: AppTheme.surface, dark: Color(hex: "#1A1A1E"))
     }
 }
 ```
@@ -61,7 +61,7 @@ enum Theme {
 | `Theme.primary` | `Color.blue` |
 | `Theme.Spacing.md` | `16` |
 | `Theme.Radius.capsule` | `999` |
-| `AetherTheme.canvas` | `Color.white` |
+| `AppTheme.canvas` | `Color.white` |
 
 ### Asset Catalog Organization
 
@@ -110,9 +110,9 @@ Prefer code-defined colors (hex values in theme) for dynamic dark mode support.
 .background(.ultraThinMaterial)
 
 // From theme
-AetherTheme.glassSurface   // .regularMaterial
-AetherTheme.glassThick     // .thickMaterial
-AetherTheme.glassThin      // .ultraThinMaterial
+AppTheme.glassSurface   // .regularMaterial
+AppTheme.glassThick     // .thickMaterial
+AppTheme.glassThin      // .ultraThinMaterial
 ```
 
 ### Liquid Glass Best Practices
@@ -166,9 +166,9 @@ struct Card<Content: View>: View {
     var body: some View {
         content
             .padding(Theme.Spacing.md)
-            .background(AetherTheme.surface)
+            .background(AppTheme.surface)
             .cornerRadius(Theme.Radius.md)
-            .aetherDepth(.surface)
+            .appDepth(.surface)
     }
 }
 
@@ -264,7 +264,7 @@ App/Resources/
 // Localizable.strings
 "preview.action.ai" = "Ask this screenshot";
 "preview.conversation.inputPlaceholder" = "Ask anything…";
-"upgrade.title" = "Klyp Unlock";
+"upgrade.title" = "Unlock Pro";
 "lockedFeature.trialButton" = "Try free for %d days";
 ```
 
@@ -499,7 +499,7 @@ Button(action: action) {
 
 ```swift
 // Depth/shadow
-.aetherDepth(.surface)
+.appDepth(.surface)
 .breathingShadow(color: Theme.primary)
 
 // Border
@@ -520,20 +520,20 @@ Button(action: action) {
 
 ```swift
 // Colors
-AetherTheme.canvas           // Background
-AetherTheme.surface          // Cards
-AetherTheme.actionPrimary    // Buttons
-AetherTheme.textPrimary      // Body text
+AppTheme.canvas           // Background
+AppTheme.surface          // Cards
+AppTheme.actionPrimary    // Buttons
+AppTheme.textPrimary      // Body text
 
 // Spacing
-AetherTheme.Spacing.xs       // 8
-AetherTheme.Spacing.md       // 16
-AetherTheme.Spacing.lg       // 24
+AppTheme.Spacing.xs       // 8
+AppTheme.Spacing.md       // 16
+AppTheme.Spacing.lg       // 24
 
 // Radius
-AetherTheme.Radius.sm        // 8
-AetherTheme.Radius.md        // 12
-AetherTheme.Radius.capsule   // 999
+AppTheme.Radius.sm        // 8
+AppTheme.Radius.md        // 12
+AppTheme.Radius.capsule   // 999
 ```
 
 ### Preview Template

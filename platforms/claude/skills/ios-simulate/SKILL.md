@@ -159,7 +159,7 @@ xcrun simctl io booted screenshot "screenshot-$(date +%Y%m%d-%H%M%S).png"
 
 ### Dual-Path Architecture
 
-The Aether project uses two screenshot paths with different purposes:
+The example project uses two screenshot paths with different purposes:
 
 #### ASC Path (Committed, High Quality)
 

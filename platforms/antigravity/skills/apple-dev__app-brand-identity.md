@@ -51,18 +51,18 @@ Before designing, lock the constraints:
 - **Searchable** — type it into Spotlight and App Store search; is it unique enough?
 - **Speakable** — can someone say it to Siri and be understood?
 - **Short** — 4–6 characters ideal for menubar/Dock labels; 10+ requires truncation strategy
-- **No generic descriptors** — "Photo Editor Pro" is unbrandable. "Klyp" is ownable.
+- **No generic descriptors** — "Photo Editor Pro" is unbrandable. "Orbit" is ownable.
 - **Domain check** — `.app` preferred, but not required at launch
 
 **Naming convention matrix:**
 
 | Context | Form | Example |
 |---------|------|---------|
-| Product name in prose | Full name | Klyp |
-| Wordmark / logo lockup | Name + mark | `klyp` + triangle |
-| Paid tier | Name + modifier | Klyp+ |
-| App Store listing | Full name (no punctuation marks) | Klyp |
-| Bundle ID | Reverse DNS | `com.markdavidgan.klyp` |
+| Product name in prose | Full name | Orbit |
+| Wordmark / logo lockup | Name + mark | `orbit` + triangle |
+| Paid tier | Name + modifier | Orbit+ |
+| App Store listing | Full name (no punctuation marks) | Orbit |
+| Bundle ID | Reverse DNS | `com.example.orbit` |
 | Menubar / Dock | Icon only (no text) | — |
 
 ### 3. Wordmark Design
@@ -101,12 +101,12 @@ The mark is the visual signature that makes the wordmark ownable:
 
 | Mark Type | Example | Risk | Reward |
 |-----------|---------|------|--------|
-| **Dot** | `klyp.` | Generic — any product can use it | Clean, typographic |
-| **Triangle/geometric** | `klyp` ▲ | Requires design work | Ownable, product-relevant |
-| **Plus badge** | `klyp+` | Universal tier signifier | Clear paid tier communication |
-| **None** | `Klyp` | Harder to trademark, less distinctive | Maximum simplicity |
+| **Dot** | `orbit.` | Generic — any product can use it | Clean, typographic |
+| **Triangle/geometric** | `orbit` ▲ | Requires design work | Ownable, product-relevant |
+| **Plus badge** | `orbit+` | Universal tier signifier | Clear paid tier communication |
+| **None** | `Orbit` | Harder to trademark, less distinctive | Maximum simplicity |
 
-**Mark construction rules (from Klyp triangle mark):**
+**Mark construction rules (from Orbit triangle mark):**
 - The mark must echo the app icon — every wordmark use reinforces icon recognition
 - Position in natural whitespace, never clip or modify letterforms
 - Scale proportionally: derive size from font metrics (e.g., `fontSize × 0.247`)
@@ -216,7 +216,7 @@ Tokens bridge marketing (CSS) and app (SwiftUI):
 ```
 
 ```swift
-// Packages/KlypCore/Sources/KlypCore/Tokens/AppTokens.swift
+// Packages/AppCore/Sources/AppCore/Tokens/AppTokens.swift
 public enum AppTokens {
     public static let signature = Color(hex: "#FF6B5B")
     public static let canvasDark = Color(hex: "#0E1117")

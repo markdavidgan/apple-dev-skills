@@ -4,6 +4,7 @@
 
 | Skill | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |-------|:------:|:------:|:----:|:-----------:|:-----:|:---:|
+| app-brand-identity | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-store-pricing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

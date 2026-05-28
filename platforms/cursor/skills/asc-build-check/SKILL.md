@@ -1,6 +1,7 @@
 ---
 name: asc-build-check
 description: Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries.
+invoke: "/check-build [app] — Check CI build status and debug failures via App Store Connect MCP."
 ---
 
 # ASC Build Check

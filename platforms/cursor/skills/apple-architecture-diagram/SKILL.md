@@ -1,6 +1,7 @@
 ---
 name: apple-architecture-diagram
 description: Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language.
+invoke: "/arch-diagram [topic] — Create a self-contained HTML architecture diagram for the given topic or system."
 ---
 
 # Apple Architecture Diagram

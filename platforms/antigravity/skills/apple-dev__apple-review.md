@@ -112,7 +112,7 @@ ViewModels/ — 5 files, ~2500 lines
 Services/ — 35 files, ~8000 lines
 Models/ — 18 files, ~1200 lines
 DesignSystem/ — 3 files, ~300 lines
-Config: project.yml, Info.plist, AetherCue.entitlements, PrivacyInfo.xcprivacy
+Config: project.yml, Info.plist, MyApp.entitlements, PrivacyInfo.xcprivacy
 ```
 
 ### 3. Assign files to each panel
