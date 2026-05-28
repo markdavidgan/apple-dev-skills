@@ -1,6 +1,6 @@
 ---
 name: ios-test
-description: XCTest patterns, SwiftData testing with in-memory containers, UI testing, and test performance budgets for iOS.
+description: XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval.
 ---
 
 # iOS Testing
@@ -795,6 +795,17 @@ When adding a new feature:
 | Wait for element | `element.waitForExistence(timeout: 2)` |
 
 ---
+
+## Troubleshooting
+
+| Symptom | Likely Cause | Fix |
+|---------|--------------|-----|
+| `Main actor-isolated ... can not be referenced from a nonisolated context` in a test | Test class subject is `@MainActor` but the test method is not | Mark the class `@MainActor` and make every test method `async` |
+| `SwiftData` test mutates real app data | Container is using the default on-disk store | Use `ModelConfiguration(isStoredInMemoryOnly: true)` for the test container |
+| Test hangs and times out at an `expectation` | The awaited callback never fires (wrong queue or unfulfilled mock) | Verify the mock actually invokes the completion; keep `wait(for:timeout:)` ≥ 5s for async work |
+| `waitForExistence` flakes in UI tests | Element queried before the screen transition completes | Increase the timeout and assert on a stable accessibility identifier, not a label |
+| UI test launches the real backend | Launch arguments not honored | Pass `app.launchArguments = ["-UITestMode"]` and branch on it in the app entry point |
+| Whole suite crashes the machine | UI tests were started without approval | UI tests are gated — **never start them without explicit user approval in the current conversation** |
 
 ## See Also
 

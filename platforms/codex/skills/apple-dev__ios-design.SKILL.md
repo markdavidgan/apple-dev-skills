@@ -1,6 +1,6 @@
 ---
 name: ios-design
-description: SwiftUI design system patterns, iOS 26 Liquid Glass, accessibility best practices, and preview patterns.
+description: SwiftUI design system patterns, iOS 26 Liquid Glass effects, design tokens, and accessibility-aware previews for Apple platform UI. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent".
 ---
 
 # iOS Design

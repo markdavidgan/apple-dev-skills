@@ -1,6 +1,6 @@
 ---
 name: ios-asc
-description: App Store Connect MCP tools for signing certificates, provisioning profiles, TestFlight builds, and app submission.
+description: App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata".
 ---
 
 # iOS App Store Connect

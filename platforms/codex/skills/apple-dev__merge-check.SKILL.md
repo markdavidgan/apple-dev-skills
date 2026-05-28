@@ -106,7 +106,7 @@ Commands:
 | Archive | BLOCKING | Fix strict concurrency/isolation errors |
 | Unit Tests | BLOCKING | Fix failing tests or update test expectations |
 | UI Tests | WARNING | Investigate, retry, document if flaky |
-| Lint | WARNING | Fix style issues or mark intentional |
+| Lint | WARNING | Fix reported violations, or suppress with an inline `swiftlint:disable` + reason comment |
 | Coverage | INFO | No gate, informational only |
 
 3. Present summary with specific fixes needed

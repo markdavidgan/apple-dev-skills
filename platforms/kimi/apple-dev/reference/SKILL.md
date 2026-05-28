@@ -50,8 +50,8 @@ For debugging sessions that need architectural context or real-world gotchas:
 | Framework | Expert Guide | Community Intel |
 |-----------|-------------|-----------------|
 | Swift 6 | `guides/expert-swift6.md` | `intel/community-swift6.md` |
-| FoundationModels | `guides/expert-foundation-models.md` | `intel/community-foundation-models.md` |
-| Speech + Audio | `guides/expert-speech-audio.md` | `intel/community-speech.md`, `intel/community-avaudio.md` |
+| FoundationModels | — | `intel/community-foundation-models.md` |
+| Speech + Audio | — | `intel/community-speech.md` |
 
 Also available: `reference/crash-cheat-sheet.md` (universal rules) and `reference/apple-guides.md` (Apple documentation compilation).
 

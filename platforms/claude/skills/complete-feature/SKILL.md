@@ -1,6 +1,6 @@
 ---
 name: complete-feature
-description: Complete a feature implementation with full validation. Use when a feature feels 'done' to ensure nothing is missed before committing.
+description: Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation".
 invoke: "/complete-feature [feature-name] — Run full validation and completion workflow"
 ---
 

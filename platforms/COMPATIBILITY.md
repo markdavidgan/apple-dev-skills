@@ -10,7 +10,7 @@
 | apple-cleanup | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-polish | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| apple-review | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | complete-feature | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

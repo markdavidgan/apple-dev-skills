@@ -29,9 +29,9 @@ This is the standalone Apple development skill repository. It is **not** part of
 
 ```
 src/
-├── skills/          # 19 skill directories, each with SKILL.md
-├── agents/          # 3 agent definitions
-├── commands/        # 6 command definitions
+├── skills/          # 22 skill directories, each with SKILL.md
+├── agents/          # 7 agent definitions
+├── commands/        # 12 command definitions
 └── mcp/asc/         # App Store Connect MCP server (TypeScript)
 ```
 
@@ -49,9 +49,17 @@ Frontmatter requirements:
 ```yaml
 ---
 name: skill-name
-description: Brief description for discovery
+description: What it does + WHEN to use it (trigger phrases). Use when …
 ---
 ```
+
+**Skill authoring rules** (enforced by `scripts/validate.js`, per *The Complete Guide to Building Skills for Claude*):
+
+- `name` — kebab-case, lowercase, hyphens only; must match the directory name; must not contain "claude" or "anthropic" (reserved).
+- `description` — **required and the most important field**: it's how Claude decides whether to load the skill. Combine **WHAT it does + WHEN to use it** with concrete trigger phrases. Keep under 1024 chars. No XML angle brackets (`<` `>`) anywhere in frontmatter.
+- File must be exactly `SKILL.md` (case-sensitive). No `README.md` inside a skill folder — put docs in `SKILL.md` or `references/`.
+- Keep `SKILL.md` under ~5,000 words. Move long reference material into `references/*.md` (progressive disclosure) and link to it.
+- The `invoke:` line is a project convention consumed by the build to wire up the matching slash command — keep it on skills that ship a command.
 
 ### Agents
 

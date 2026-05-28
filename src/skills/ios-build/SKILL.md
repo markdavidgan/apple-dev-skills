@@ -1,6 +1,6 @@
 ---
 name: ios-build
-description: iOS build system patterns, validation workflows, XcodeGen, and common build failure solutions. Use for build errors, validation, and CI/CD setup.
+description: iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI".
 ---
 
 # iOS Build

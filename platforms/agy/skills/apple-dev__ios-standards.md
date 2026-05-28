@@ -1,6 +1,6 @@
 ---
 name: ios-standards
-description: Swift 6.0+ standards, strict concurrency patterns, modern SwiftUI with @Observable, and @MainActor isolation. Essential for iOS 26+ development. Updated 2026-04-04 with crash audit findings.
+description: Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards".
 ---
 
 # iOS Standards

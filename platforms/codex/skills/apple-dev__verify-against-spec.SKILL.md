@@ -136,6 +136,30 @@ Based on experience with Apple platform projects:
 - **Dead code leftover**: Old implementations not deleted when replaced
 - **Filter/state cleanup**: ViewModel has unused state from previous design
 
+## Example
+
+Verifying a "Saved Filters" feature against its design spec:
+
+```
+/verify-against-spec docs/plans/saved-filters.md
+```
+
+The three agents run in parallel and report back. A typical triage looks like:
+
+```
+Spec Coverage Verifier
+  ✅ Filter persistence (SwiftData)         — FiltersStore.swift:42
+  ✅ Apply filter from list                 — FilterListView.swift:88
+  ❌ Spec §3.2 "edit a saved filter"        — NO matching view/action found
+  ⚠️  Spec §4.1 empty state copy            — shows blank list, spec wants a message
+
+Build + Test            ✅ Build clean, 41/41 unit tests pass
+Docs Sync               ⚠️  README still describes the old single-filter behavior
+```
+
+Triage outcome: implement the missing edit flow (§3.2 — blocking), add the empty-state
+message (§4.1), update the README, then re-run before committing.
+
 ## Quick Reference
 
 ```
