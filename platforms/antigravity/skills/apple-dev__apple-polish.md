@@ -619,7 +619,7 @@ NEXT STEPS
 | `apple-polish` | Design + Keynote | Review → select → fix → TestFlight | Design craftsmanship |
 | `apple-cleanup` | Engineering + Compliance | Review → fix ALL → TestFlight | Code hardening |
 | `apple-review` | All 4 panels | Review only (no fixes) | Full audit |
-| `ios-design` | SwiftUI design patterns | Reference only | While coding |
+| `apple-design` | SwiftUI design patterns | Reference only | While coding |
 | `ios-accessibility` | VoiceOver + Dynamic Type | Reference only | Accessibility audit |
 
 ---

@@ -238,7 +238,7 @@ SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
 | Swift 6 coding patterns | `ios-standards` |
 | Specific concurrency error fixes | `swift6-concurrency` |
 | Automated pattern validation | `apple-patterns-check` |
-| Design system + Liquid Glass | `ios-design` |
+| Design system + Liquid Glass | `apple-design` |
 | Build troubleshooting | `ios-build` |
 | Live API documentation | Context7 MCP (Optional — via `/setup`) |
 

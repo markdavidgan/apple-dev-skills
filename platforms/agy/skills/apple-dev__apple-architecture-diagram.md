@@ -469,7 +469,7 @@ Before delivering:
 |------|------|
 | Aesthetic guidance, anti-slop check, design critique | `huashu-design` skill |
 | Swift 6 concurrency patterns for Physical layer | `ios-standards` skill |
-| SwiftUI / SwiftData implementation details | `ios-design` skill |
+| SwiftUI / SwiftData implementation details | `apple-design` skill |
 | Specific API signatures for Apple frameworks | `ios26-api-reference` skill |
 | Build target analysis | `ios-build` skill |
 

@@ -22,7 +22,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `ios-accessibility` | Design | VoiceOver, Dynamic Type, tap targets, semantic grouping audit |
 | `ios-asc` | ASC | App Store Connect MCP tools reference |
 | `ios-build` | Engineering | Build system patterns, XcodeGen, 4-layer validation, CI/CD |
-| `ios-design` | Design | SwiftUI design system, iOS 26 Liquid Glass, ADHD-friendly UX |
+| `apple-design` | Design | SwiftUI design system, iOS 26 Liquid Glass, ADHD-friendly UX |
 | `ios-simulate` | Engineering | iOS Simulator workflows, screenshot automation, device management |
 | `ios-standards` | Engineering | Swift 6.0+ standards, strict concurrency, `@Observable`, `@MainActor` |
 | `ios-test` | Engineering | XCTest patterns, SwiftData in-memory testing, UI testing, perf budgets |

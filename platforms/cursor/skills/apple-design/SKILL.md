@@ -1,6 +1,6 @@
 ---
-name: ios-design
-description: SwiftUI design system patterns, iOS 26 Liquid Glass effects, design tokens, and accessibility-aware previews for Apple platform UI. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent".
+name: apple-design
+description: SwiftUI design system patterns, Apple platform design system, iOS 26 iOS 26 Liquid Glass effects, design tokens macOS 26 Liquid Glass, design tokens, and accessibility-aware previews for Apple platform UI. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent".
 ---
 
 # iOS Design
@@ -123,6 +123,105 @@ AppTheme.glassThin      // .ultraThinMaterial
 | Layer glass at different thicknesses for depth | Overuse glass — it reduces contrast |
 | Add `.hoverEffect(.lift)` for interactive elements | Apply glass to text-heavy content |
 | Use ornaments for secondary controls | Put glass behind primary action buttons |
+
+### Nested Glass & Contrast (macOS/iOS 26)
+
+**The #1 cause of "muddy unreadable glass UI"** is violating these four rules simultaneously:
+
+**Rule 1: Keep glass backing ≤ 8% white opacity for `.surface` tiers**
+```swift
+// ❌ WRONG: White at 20% overwhelms the system tint
+.background(shape.fill(Color.white.opacity(0.20)))
+
+// ✅ CORRECT: Let the system Liquid Glass tint dominate
+.background(shape.fill(Color.white.opacity(0.08)))
+```
+At 20% white, light desktops wash out text; dark desktops create gray sludge. At 8%, the panel refracts the desktop without overwhelming it.
+
+**Rule 2: Never put solid `Color.opacity()` overlays on top of glass**
+```swift
+// ❌ WRONG: Three competing opacity layers (desktop → glass → white backing → dark overlay → text)
+.background(Color.black.opacity(0.65))
+
+// ✅ CORRECT: True glass.embedded — light refracts through coherent depth
+.glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
+    .opacity(0.88)
+```
+Solid color overlays on glass create inconsistent contrast that varies with the desktop wallpaper. Use `.glassEffect(.regular)` at reduced opacity, or `.ultraThinMaterial`, for embedded rows.
+
+**Rule 3: Never nest `glassEffect` inside `glassEffect`**
+```swift
+// ❌ WRONG: Glass-on-glass causes visual doubling and smearing
+GlassPanel(tier: .surface) {
+    Button("Unlock") { }
+        .glassEffect(.regular.interactive())  // Nested — fights parent glass
+}
+
+// ✅ CORRECT: Use stroke borders or materials for child elements inside glass
+.background(
+    Capsule()
+        .stroke(accentColor, lineWidth: 1)
+)
+```
+A `.glassEffect(.regular)` button inside a `.glassEffect(.regular)` panel picks up the parent's refraction and creates a low-contrast blob. Use coral hairline strokes, `.ultraThinMaterial`, or plain text instead.
+
+**Rule 4: Glass UIs need explicit hover feedback**
+```swift
+// ❌ WRONG: .buttonStyle(.plain) on glass feels dead and unresponsive
+Button("Settings…") { }
+    .buttonStyle(.plain)
+
+// ✅ CORRECT: Add hover states — coral stroke for rows, underline for text
+@State private var isHovered = false
+// ...
+.background(
+    RoundedRectangle(cornerRadius: 12)
+        .stroke(isHovered ? accentColor : Color.clear, lineWidth: 1)
+)
+.onHover { isHovered = $0 }
+```
+On glass surfaces, `.buttonStyle(.plain)` provides zero visual feedback. Every tappable element needs a hover state: coral hairline stroke for rows, underline for text buttons, or scale+lift for prominent actions.
+
+### Menubar Dropdown Pattern (macOS 26)
+
+```swift
+// Surface glass container
+GlassPanel(tier: .surface, radius: 18) {
+    VStack(spacing: 0) {
+        // Header: sparkle + wordmark
+        HStack {
+            Image(systemName: "sparkle")
+                .foregroundStyle(accentColor)
+            Text("app.")
+                .font(.system(size: 16, weight: .ultraLight))
+            Spacer()
+            // Trial chip: coral hairline stroke, NOT nested glass
+            TrialChip()
+        }
+
+        Divider()
+
+        // Capture rows: glass.embedded with hover stroke
+        ForEach(actions) { action in
+            CaptureRow(action: action)
+        }
+
+        Divider()
+
+        // Footer: plain text with hover underline
+        FooterButton("Settings…")
+        FooterButton("Quit")
+    }
+    .frame(width: 360)  // Not 280 — give content room to breathe
+}
+```
+
+**Key dimensions:**
+- Width: **360pt** (not 280pt — cramped width breaks visual rhythm)
+- Backing: **≤ 8% white opacity** for surface tier
+- Embedded rows: `.glassEffect(.regular)` at **0.88 opacity**
+- Buttons inside glass: **stroke borders**, not nested glass effects
+- Hover: **coral hairline stroke** on rows, **underline** on text buttons
 
 ---
 

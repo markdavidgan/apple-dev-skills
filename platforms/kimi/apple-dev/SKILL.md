@@ -25,7 +25,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 11 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
 | 12 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
 | 13 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 14 | ios-design | iOS | SwiftUI design system patterns, iOS 26 Liquid Glass effects, design tokens, and accessibility-aware previews for Apple platform UI. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
+| 14 | apple-design | iOS | SwiftUI design system patterns, iOS 26 Liquid Glass effects, design tokens, and accessibility-aware previews for Apple platform UI. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
 | 15 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
 | 16 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
 | 17 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
@@ -54,7 +54,7 @@ For **executable validation**, use the plugin tools:
 
 # App Brand Identity
 
-Create a complete brand identity system for Apple platform apps. Produces a wordmark, app icon, design token foundation, brand voice guidelines, and App Store marketing asset strategy. **Use before `ios-design` — this skill creates the visual system that `ios-design` implements in SwiftUI.**
+Create a complete brand identity system for Apple platform apps. Produces a wordmark, app icon, design token foundation, brand voice guidelines, and App Store marketing asset strategy. **Use before `apple-design` — this skill creates the visual system that `apple-design` implements in SwiftUI.**
 
 > **Embody a product designer at Apple.** Your brand will live on the App Store, in the Dock, in Spotlight results, and in screenshots on social media. Every decision must survive at 16×16 (menu bar) and 1280×800 (App Store feature). No generic startup aesthetics. No gradient blobs. No AI-slop.
 
@@ -70,7 +70,7 @@ Create a complete brand identity system for Apple platform apps. Produces a word
 
 ## When NOT to Use
 
-- **Don't use** for pure UI component design — that's `ios-design`
+- **Don't use** for pure UI component design — that's `apple-design`
 - **Don't use** for App Store submission logistics — that's `asc-submission`
 - **Don't use** for pricing decisions — that's `app-store-pricing`
 - **Don't use** for architecture diagrams — that's `apple-architecture-diagram`
@@ -344,7 +344,7 @@ A complete brand identity handoff includes:
 
 | After `app-brand-identity`, invoke... | For... |
 |--------------------------------------|--------|
-| `ios-design` | Implementing tokens in SwiftUI, Liquid Glass effects, preview patterns |
+| `apple-design` | Implementing tokens in SwiftUI, Liquid Glass effects, preview patterns |
 | `app-store-pricing` | Pricing tiers, introductory offers, global equalization |
 | `asc-submission` | Preparing screenshots, metadata, and App Store listing |
 | `apple-architecture-diagram` | Marketing architecture diagrams for press/VC pitches |
@@ -1076,7 +1076,7 @@ Before delivering:
 |------|------|
 | Aesthetic guidance, anti-slop check, design critique | `huashu-design` skill |
 | Swift 6 concurrency patterns for Physical layer | `ios-standards` skill |
-| SwiftUI / SwiftData implementation details | `ios-design` skill |
+| SwiftUI / SwiftData implementation details | `apple-design` skill |
 | Specific API signatures for Apple frameworks | `ios26-api-reference` skill |
 | Build target analysis | `ios-build` skill |
 
@@ -3503,7 +3503,7 @@ NEXT STEPS
 | `apple-polish` | Design + Keynote | Review → select → fix → TestFlight | Design craftsmanship |
 | `apple-cleanup` | Engineering + Compliance | Review → fix ALL → TestFlight | Code hardening |
 | `apple-review` | All 4 panels | Review only (no fixes) | Full audit |
-| `ios-design` | SwiftUI design patterns | Reference only | While coding |
+| `apple-design` | SwiftUI design patterns | Reference only | While coding |
 | `ios-accessibility` | VoiceOver + Dynamic Type | Reference only | Accessibility audit |
 
 ---
@@ -6388,9 +6388,9 @@ settings:
 
 ---
 
-<!-- BEGIN SKILL: ios-design -->
+<!-- BEGIN SKILL: apple-design -->
 
-# ios-design
+# apple-design
 
 # iOS Design
 
@@ -6512,6 +6512,105 @@ AppTheme.glassThin      // .ultraThinMaterial
 | Layer glass at different thicknesses for depth | Overuse glass — it reduces contrast |
 | Add `.hoverEffect(.lift)` for interactive elements | Apply glass to text-heavy content |
 | Use ornaments for secondary controls | Put glass behind primary action buttons |
+
+### Nested Glass & Contrast (macOS/iOS 26)
+
+**The #1 cause of "muddy unreadable glass UI"** is violating these four rules simultaneously:
+
+**Rule 1: Keep glass backing ≤ 8% white opacity for `.surface` tiers**
+```swift
+// ❌ WRONG: White at 20% overwhelms the system tint
+.background(shape.fill(Color.white.opacity(0.20)))
+
+// ✅ CORRECT: Let the system Liquid Glass tint dominate
+.background(shape.fill(Color.white.opacity(0.08)))
+```
+At 20% white, light desktops wash out text; dark desktops create gray sludge. At 8%, the panel refracts the desktop without overwhelming it.
+
+**Rule 2: Never put solid `Color.opacity()` overlays on top of glass**
+```swift
+// ❌ WRONG: Three competing opacity layers (desktop → glass → white backing → dark overlay → text)
+.background(Color.black.opacity(0.65))
+
+// ✅ CORRECT: True glass.embedded — light refracts through coherent depth
+.glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
+    .opacity(0.88)
+```
+Solid color overlays on glass create inconsistent contrast that varies with the desktop wallpaper. Use `.glassEffect(.regular)` at reduced opacity, or `.ultraThinMaterial`, for embedded rows.
+
+**Rule 3: Never nest `glassEffect` inside `glassEffect`**
+```swift
+// ❌ WRONG: Glass-on-glass causes visual doubling and smearing
+GlassPanel(tier: .surface) {
+    Button("Unlock") { }
+        .glassEffect(.regular.interactive())  // Nested — fights parent glass
+}
+
+// ✅ CORRECT: Use stroke borders or materials for child elements inside glass
+.background(
+    Capsule()
+        .stroke(accentColor, lineWidth: 1)
+)
+```
+A `.glassEffect(.regular)` button inside a `.glassEffect(.regular)` panel picks up the parent's refraction and creates a low-contrast blob. Use coral hairline strokes, `.ultraThinMaterial`, or plain text instead.
+
+**Rule 4: Glass UIs need explicit hover feedback**
+```swift
+// ❌ WRONG: .buttonStyle(.plain) on glass feels dead and unresponsive
+Button("Settings…") { }
+    .buttonStyle(.plain)
+
+// ✅ CORRECT: Add hover states — coral stroke for rows, underline for text
+@State private var isHovered = false
+// ...
+.background(
+    RoundedRectangle(cornerRadius: 12)
+        .stroke(isHovered ? accentColor : Color.clear, lineWidth: 1)
+)
+.onHover { isHovered = $0 }
+```
+On glass surfaces, `.buttonStyle(.plain)` provides zero visual feedback. Every tappable element needs a hover state: coral hairline stroke for rows, underline for text buttons, or scale+lift for prominent actions.
+
+### Menubar Dropdown Pattern (macOS 26)
+
+```swift
+// Surface glass container
+GlassPanel(tier: .surface, radius: 18) {
+    VStack(spacing: 0) {
+        // Header: sparkle + wordmark
+        HStack {
+            Image(systemName: "sparkle")
+                .foregroundStyle(accentColor)
+            Text("app.")
+                .font(.system(size: 16, weight: .ultraLight))
+            Spacer()
+            // Trial chip: coral hairline stroke, NOT nested glass
+            TrialChip()
+        }
+
+        Divider()
+
+        // Capture rows: glass.embedded with hover stroke
+        ForEach(actions) { action in
+            CaptureRow(action: action)
+        }
+
+        Divider()
+
+        // Footer: plain text with hover underline
+        FooterButton("Settings…")
+        FooterButton("Quit")
+    }
+    .frame(width: 360)  // Not 280 — give content room to breathe
+}
+```
+
+**Key dimensions:**
+- Width: **360pt** (not 280pt — cramped width breaks visual rhythm)
+- Backing: **≤ 8% white opacity** for surface tier
+- Embedded rows: `.glassEffect(.regular)` at **0.88 opacity**
+- Buttons inside glass: **stroke borders**, not nested glass effects
+- Hover: **coral hairline stroke** on rows, **underline** on text buttons
 
 ---
 
@@ -6950,7 +7049,7 @@ AppTheme.Radius.capsule   // 999
 - `ios26-api-reference` — iOS 26 API signatures
 - `ios-build` — Build validation workflow
 
-<!-- END SKILL: ios-design -->
+<!-- END SKILL: apple-design -->
 
 ---
 
@@ -10731,7 +10830,7 @@ SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
 | Swift 6 coding patterns | `ios-standards` |
 | Specific concurrency error fixes | `swift6-concurrency` |
 | Automated pattern validation | `apple-patterns-check` |
-| Design system + Liquid Glass | `ios-design` |
+| Design system + Liquid Glass | `apple-design` |
 | Build troubleshooting | `ios-build` |
 | Live API documentation | Context7 MCP (Optional — via `/setup`) |
 

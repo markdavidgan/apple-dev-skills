@@ -6,7 +6,7 @@ invoke: "/brand-identity [app-name] — Create wordmark, icon, design tokens, an
 
 # App Brand Identity
 
-Create a complete brand identity system for Apple platform apps. Produces a wordmark, app icon, design token foundation, brand voice guidelines, and App Store marketing asset strategy. **Use before `ios-design` — this skill creates the visual system that `ios-design` implements in SwiftUI.**
+Create a complete brand identity system for Apple platform apps. Produces a wordmark, app icon, design token foundation, brand voice guidelines, and App Store marketing asset strategy. **Use before `apple-design` — this skill creates the visual system that `apple-design` implements in SwiftUI.**
 
 > **Embody a product designer at Apple.** Your brand will live on the App Store, in the Dock, in Spotlight results, and in screenshots on social media. Every decision must survive at 16×16 (menu bar) and 1280×800 (App Store feature). No generic startup aesthetics. No gradient blobs. No AI-slop.
 
@@ -22,7 +22,7 @@ Create a complete brand identity system for Apple platform apps. Produces a word
 
 ## When NOT to Use
 
-- **Don't use** for pure UI component design — that's `ios-design`
+- **Don't use** for pure UI component design — that's `apple-design`
 - **Don't use** for App Store submission logistics — that's `asc-submission`
 - **Don't use** for pricing decisions — that's `app-store-pricing`
 - **Don't use** for architecture diagrams — that's `apple-architecture-diagram`
@@ -296,7 +296,7 @@ A complete brand identity handoff includes:
 
 | After `app-brand-identity`, invoke... | For... |
 |--------------------------------------|--------|
-| `ios-design` | Implementing tokens in SwiftUI, Liquid Glass effects, preview patterns |
+| `apple-design` | Implementing tokens in SwiftUI, Liquid Glass effects, preview patterns |
 | `app-store-pricing` | Pricing tiers, introductory offers, global equalization |
 | `asc-submission` | Preparing screenshots, metadata, and App Store listing |
 | `apple-architecture-diagram` | Marketing architecture diagrams for press/VC pitches |
