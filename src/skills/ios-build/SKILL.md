@@ -155,6 +155,51 @@ targets:
 2. Use `embed: true` with `copyFiles` to `products/Watch`
 3. Watch app will build automatically via target dependency
 
+#### Watch App Icon — Xcode 17 iphoneos Thinning (Gotcha)
+
+When archiving with `-destination generic/platform=iOS`, Xcode 17 runs actool on the **embedded Watch bundle** with `--platform iphoneos` as part of the iOS archive's thinning pass. If your Watch `AppIcon.appiconset/Contents.json` only contains a `"platform": "watchos"` entry, actool throws:
+
+```
+error: The app icon set named "AppIcon" did not have any applicable content.
+```
+
+**Fix:** Add a second `"idiom": "universal"` entry (no `platform` field) pointing to the same 1024×1024 file. The watchOS-specific entry continues to handle proper CFBundleIconName assignment for the Watch bundle; the universal entry gives iphoneos thinning something to find.
+
+```json
+{
+  "images": [
+    {
+      "filename": "AppIcon.png",
+      "idiom": "universal",
+      "platform": "watchos",
+      "size": "1024x1024"
+    },
+    {
+      "filename": "AppIcon.png",
+      "idiom": "universal",
+      "size": "1024x1024"
+    }
+  ],
+  "info": { "author": "xcode", "version": 1 }
+}
+```
+
+The "unassigned child" warning emitted for the universal entry is harmless — it's a warning, not an error, and does not affect the archive result or altool validation.
+
+#### Never Pass `-sdk iphoneos` to xcodebuild (Xcode 17)
+
+Passing `-sdk iphoneos` to an xcodebuild archive command forces **all** targets — including the embedded Watch app — to compile against the iOS SDK. In Xcode 17 this causes the Watch build to fail outright.
+
+```bash
+# ❌ Broken in Xcode 17 — Watch targets compile against iOS SDK
+xcodebuild -scheme MyApp-iOS -sdk iphoneos archive ...
+
+# ✅ Correct — each platform target uses its own SDK automatically
+xcodebuild -scheme MyApp-iOS -destination generic/platform=iOS archive ...
+```
+
+Remove `-sdk iphoneos` from any Fastfile `gym`/`xcodebuild` invocation and use `-destination generic/platform=iOS` only.
+
 ---
 
 ## Build Commands
