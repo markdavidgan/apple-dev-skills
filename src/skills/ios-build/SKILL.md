@@ -202,6 +202,60 @@ Remove `-sdk iphoneos` from any Fastfile `gym`/`xcodebuild` invocation and use `
 
 ---
 
+## Gating a Privacy-Sensitive Symbol Per-App in a Shared SPM Package
+
+**Problem:** A shared SPM package (e.g. a monorepo's `Kit`) is linked by several apps. One app needs a privacy-sensitive symbol (`AVCaptureDevice`, `CLLocationManager`, `CMMotionManager`, `HKHealthStore`); the others don't. If the symbol lives in the shared package, *every* app links it, and Apple's binary scanner then demands the corresponding `Info.plist` usage string from apps that have no such feature — which human review rejects as a false feature (Guideline 5.1.1). See `apple-review` → "Privacy Symbols vs Usage Strings."
+
+**Why SPM traits don't solve this in Xcode:** SwiftPM package *traits* (the `traits:`/`enabledTraits:` feature) look like the answer, but they **cannot be toggled per-target from an Xcode `.xcodeproj`**. There's no app-level `Package.swift` to enable a dependency's trait; the `.xcodeproj` just references the product. (Traits work when the consumer is itself a SwiftPM package.) Don't reach for them in an XcodeGen/`.xcodeproj` app.
+
+**Reliable Xcode-native fix — separate product + dependency inversion:**
+
+1. In the shared package, split the symbol into its **own product/target**. Core stays symbol-free; it declares a protocol + a set-once registry instead of calling the symbol directly:
+   ```swift
+   // Core target — no AVCaptureDevice anywhere
+   public protocol CameraPermissionProviding: Sendable { /* status/request */ }
+   public enum CameraPermissionRegistry {
+       private static let storage = Mutex<(any CameraPermissionProviding)?>(nil)  // Synchronization
+       public static func register(_ p: any CameraPermissionProviding) { storage.withLock { $0 = p } }
+       public static var provider: (any CameraPermissionProviding)? { storage.withLock { $0 } }
+   }
+   ```
+   ```swift
+   // Separate "Camera" target/product — the ONLY AVCaptureDevice site
+   public struct AVCaptureCameraProvider: CameraPermissionProviding { /* calls AVCaptureDevice */ }
+   public enum AppCamera { public static func install() { CameraPermissionRegistry.register(AVCaptureCameraProvider()) } }
+   ```
+   ```swift
+   // Package.swift
+   .library(name: "KitCamera", targets: ["KitCamera"]),
+   .target(name: "KitCamera", dependencies: ["Kit"], path: "Sources/KitCamera"),
+   ```
+2. Only camera-using apps add the product in `project.yml` and call `install()` once at launch:
+   ```yaml
+   dependencies:
+     - package: Kit
+       product: Kit          # XcodeGen defaults `- package: Kit` to the same-named product;
+     - package: Kit          # list products explicitly when a package has more than one.
+       product: KitCamera
+   ```
+   ```swift
+   // App launch (camera-using app only)
+   AppCamera.install()
+   ```
+   Apps that don't link `KitCamera` get the core's safe no-op fallback and never link the symbol.
+
+**Verify at the binary level (don't trust source-grep alone):**
+```bash
+make archive-<app>          # build a FRESH archive — stale ones in build/ predate the fix
+APP=.../<App>.xcarchive/Products/Applications/<App>.app
+nm "$APP/<App>" | grep -i AVCaptureDevice          # opted-out app → zero matches
+grep -rl AVCaptureDevice "$APP"                     # full-bundle scan incl. embedded frameworks
+otool -L "$APP/<App>" | grep -i AVFoundation        # positive control on the opted-in app
+```
+Run the same `nm` on a camera-using app as a positive control — it *should* show the symbol. App-level Swift compile flags do **not** propagate into a local SwiftPM dependency, so you cannot gate the symbol with an app-target `#if`; the product boundary is what does the gating.
+
+---
+
 ## Build Commands
 
 ### Simulator Build (Fast)
