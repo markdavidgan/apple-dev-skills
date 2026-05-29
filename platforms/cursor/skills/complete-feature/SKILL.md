@@ -31,7 +31,7 @@ Coordinator — Phase 5: Documentation + Phase 6: App Store Readiness
 
 ### Agent A — Build + Test (Fast tier)
 
-Spawn as `build-agent` (or `explore`). Prompt:
+Spawn as `apple-dev-skills:build-agent` (or `apple-dev-skills:explore`). Prompt:
 
 ```
 Run build and test verification for the iOS feature being completed.
@@ -53,7 +53,7 @@ Report:
 
 ### Agent B — Code Quality (Standard tier)
 
-Spawn as `code-reviewer`. Prompt:
+Spawn as `apple-dev-skills:code-reviewer`. Prompt:
 
 ```
 Run code quality checks on the changed files for this iOS feature.
@@ -82,7 +82,7 @@ Severity: CRITICAL | HIGH | MEDIUM
 
 ### Agent C — Accessibility Audit (Standard tier)
 
-Spawn as `code-reviewer`. Prompt:
+Spawn as `apple-dev-skills:code-reviewer`. Prompt:
 
 ```
 Run accessibility audit on the SwiftUI views changed in this feature.

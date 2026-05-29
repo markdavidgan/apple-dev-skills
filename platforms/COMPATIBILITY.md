@@ -8,6 +8,7 @@
 | app-store-pricing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
+| apple-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-polish | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
@@ -17,7 +18,6 @@
 | ios-accessibility | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-asc | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-build | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| apple-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-simulate | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-standards | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

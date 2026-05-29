@@ -5,7 +5,7 @@
 **Dispatch:** Spawn as a parallel subagent reading the entire app codebase. Fill in the `[app-dir]` / `[shared-package-dir]` placeholders, then send the block below verbatim.
 
 ```yaml
-subagent_type: code-reviewer
+subagent_type: apple-dev-skills:code-reviewer
 prompt: |
   You are conducting an ENGINEERING REVIEW of {app_name} as a senior Apple
   engineering lead. Evaluate architecture, code quality, Swift 6 compliance,

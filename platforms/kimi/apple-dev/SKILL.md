@@ -16,16 +16,16 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 2 | app-store-pricing | Workflow | App Store pricing strategy, global equalization, subscription management, and regional pricing decisions using Apple's official 900-price-point system. Use when user asks about pricing tiers, IAP pricing, subscription pricing, regional pricing, price changes, App Store proceeds, base storefront selection, introductory offers, or promotional offers. |
 | 3 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
 | 4 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
-| 5 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
-| 6 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
-| 7 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
-| 8 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
-| 9 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
-| 10 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
-| 11 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 12 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
-| 13 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 14 | apple-design | iOS | SwiftUI design system patterns, iOS 26 Liquid Glass effects, design tokens, and accessibility-aware previews for Apple platform UI. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
+| 5 | apple-design | Quality | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
+| 6 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
+| 7 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
+| 8 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
+| 9 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
+| 10 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
+| 11 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
+| 12 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 13 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
+| 14 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
 | 15 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
 | 16 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
 | 17 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
@@ -1587,8 +1587,8 @@ as the listed subagent type. Spawn both in parallel reading the entire codebase.
 
 | Panel | Subagent type | Lens | Prompt |
 |-------|---------------|------|--------|
-| 1. Engineering | `code-reviewer` | Swift 6 concurrency, SwiftData, SwiftUI patterns, performance, error handling, architecture, tests | `references/panel-engineering.md` |
-| 2. Compliance | `explore` | App Store guidelines, privacy manifest, entitlements, binary/build, content/legal, IAP | `references/panel-compliance.md` |
+| 1. Engineering | `apple-dev-skills:code-reviewer` | Swift 6 concurrency, SwiftData, SwiftUI patterns, performance, error handling, architecture, tests | `references/panel-engineering.md` |
+| 2. Compliance | `apple-dev-skills:explore` | App Store guidelines, privacy manifest, entitlements, binary/build, content/legal, IAP | `references/panel-compliance.md` |
 
 Both panel prompts enforce the same contract:
 
@@ -1738,7 +1738,7 @@ Dispatch specialized subagents in parallel batches.
 
 **Bug Fix Squad (P0 critical):**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a BUG FIX SPECIALIST in worktree: {worktree_path}
@@ -1766,7 +1766,7 @@ prompt: |
 
 **Swift 6 Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a SWIFT 6 COMPLIANCE SPECIALIST in worktree: {worktree_path}
@@ -1793,7 +1793,7 @@ prompt: |
 
 **SwiftData Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a SWIFTDATA SPECIALIST in worktree: {worktree_path}
@@ -1817,7 +1817,7 @@ prompt: |
 
 **Optimization Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a PERFORMANCE OPTIMIZER in worktree: {worktree_path}
@@ -1837,7 +1837,7 @@ prompt: |
 
 **AI Deslop Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are an AI DESLOP SPECIALIST in worktree: {worktree_path}
@@ -1864,7 +1864,7 @@ prompt: |
 
 **Integration Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are an INTEGRATION SPECIALIST in worktree: {worktree_path}
@@ -2392,7 +2392,7 @@ Total time: ~2-4 hours depending on issue count
 **Dispatch:** Spawn as a parallel subagent. Send the block below verbatim.
 
 ```yaml
-subagent_type: explore
+subagent_type: apple-dev-skills:explore
 prompt: |
   You are conducting an APP STORE COMPLIANCE REVIEW of {app_name} as an App 
   Store Review team member. Find every rejection risk, guideline violation, 
@@ -2478,7 +2478,7 @@ prompt: |
 **Dispatch:** Spawn as a parallel subagent reading the entire app codebase. Fill in the `[app-dir]` / `[shared-package-dir]` placeholders, then send the block below verbatim.
 
 ```yaml
-subagent_type: code-reviewer
+subagent_type: apple-dev-skills:code-reviewer
 prompt: |
   You are conducting an ENGINEERING REVIEW of {app_name} as a senior Apple
   engineering lead. Evaluate architecture, code quality, Swift 6 compliance,
@@ -2578,6 +2578,673 @@ prompt: |
 ```
 
 <!-- END SKILL: apple-cleanup -->
+
+---
+
+<!-- BEGIN SKILL: apple-design -->
+
+# apple-design
+
+---
+
+# iOS Design
+
+SwiftUI design system patterns, iOS 26 Liquid Glass effects, and accessibility best practices. **Apply these patterns to all UI code.**
+
+---
+
+## Design System Architecture
+
+### Theme.swift Pattern
+
+Centralize design tokens in a theme enum. Apps extend a shared base theme for app-specific expression.
+
+```swift
+// Shared package: AppTheme.swift
+public enum AppTheme {
+    // Foundation: Backgrounds
+    public static var canvas: Color {
+        Color(light: Color(hex: "#FAF9F6"), dark: Color(hex: "#0D0D0F"))
+    }
+    
+    // Action: Primary color
+    public static let actionPrimary = Color(hex: "#7BA7BC")
+    
+    // Spacing system
+    public enum Spacing {
+        public static let xs: CGFloat = 8
+        public static let md: CGFloat = 16
+        public static let lg: CGFloat = 24
+    }
+    
+    // Corner radius
+    public enum Radius {
+        public static let sm: CGFloat = 8
+        public static let md: CGFloat = 12
+        public static let capsule: CGFloat = 999
+    }
+}
+
+// App-specific: Theme.swift
+enum Theme {
+    // Inherit from shared theme
+    static let primary = AppTheme.actionPrimary
+    static let spacing = AppTheme.Spacing.self
+    
+    // App-specific expression
+    static var dialFace: Color {
+        Color(light: AppTheme.surface, dark: Color(hex: "#1A1A1E"))
+    }
+}
+```
+
+### Design Tokens vs Hardcoded Values
+
+| Do | Don't |
+|----|-------|
+| `Theme.primary` | `Color.blue` |
+| `Theme.Spacing.md` | `16` |
+| `Theme.Radius.capsule` | `999` |
+| `AppTheme.canvas` | `Color.white` |
+
+### Asset Catalog Organization
+
+```
+Assets.xcassets/
+  Colors/
+    Primary.colorset/
+    Surface.colorset/
+  Images/
+    AppIcon.appiconset/
+    Logo.imageset/
+```
+
+Prefer code-defined colors (hex values in theme) for dynamic dark mode support.
+
+---
+
+## iOS 26 Liquid Glass
+
+### Glass Background Effects
+
+```swift
+// Standard glass background
+.glassEffect(.regular)
+
+// Glass with interactive (hover/press) feedback
+.glassEffect(.regular.interactive())
+
+// Ornament for floating controls
+.ornament(visibility: .visible, attachmentAnchor: .scene(.trailing)) {
+    FloatingControls()
+        .glassEffect(.regular)
+}
+```
+
+### Glass Material Hierarchy
+
+```swift
+// Thick material for modals, sheets
+.background(.thickMaterial)
+
+// Regular material for cards, surfaces
+.background(.regularMaterial)
+
+// Thin material for subtle overlays
+.background(.ultraThinMaterial)
+
+// From theme
+AppTheme.glassSurface   // .regularMaterial
+AppTheme.glassThick     // .thickMaterial
+AppTheme.glassThin      // .ultraThinMaterial
+```
+
+### Liquid Glass Best Practices
+
+| Do | Don't |
+|----|-------|
+| Use `.glassEffect(.regular)` for floating UI | Use solid colors for primary surfaces |
+| Layer glass at different thicknesses for depth | Overuse glass — it reduces contrast |
+| Add `.hoverEffect(.lift)` for interactive elements | Apply glass to text-heavy content |
+| Use ornaments for secondary controls | Put glass behind primary action buttons |
+
+### Nested Glass & Contrast (macOS/iOS 26)
+
+**The #1 cause of "muddy unreadable glass UI"** is violating these four rules simultaneously:
+
+**Rule 1: Keep glass backing ≤ 8% white opacity for `.surface` tiers**
+```swift
+// ❌ WRONG: White at 20% overwhelms the system tint
+.background(shape.fill(Color.white.opacity(0.20)))
+
+// ✅ CORRECT: Let the system Liquid Glass tint dominate
+.background(shape.fill(Color.white.opacity(0.08)))
+```
+At 20% white, light desktops wash out text; dark desktops create gray sludge. At 8%, the panel refracts the desktop without overwhelming it.
+
+**Rule 2: Never put solid `Color.opacity()` overlays on top of glass**
+```swift
+// ❌ WRONG: Three competing opacity layers (desktop → glass → white backing → dark overlay → text)
+.background(Color.black.opacity(0.65))
+
+// ✅ CORRECT: True glass.embedded — light refracts through coherent depth
+.glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
+    .opacity(0.88)
+```
+Solid color overlays on glass create inconsistent contrast that varies with the desktop wallpaper. Use `.glassEffect(.regular)` at reduced opacity, or `.ultraThinMaterial`, for embedded rows.
+
+**Rule 3: Never nest `glassEffect` inside `glassEffect`**
+```swift
+// ❌ WRONG: Glass-on-glass causes visual doubling and smearing
+GlassPanel(tier: .surface) {
+    Button("Unlock") { }
+        .glassEffect(.regular.interactive())  // Nested — fights parent glass
+}
+
+// ✅ CORRECT: Use stroke borders or materials for child elements inside glass
+.background(
+    Capsule()
+        .stroke(accentColor, lineWidth: 1)
+)
+```
+A `.glassEffect(.regular)` button inside a `.glassEffect(.regular)` panel picks up the parent's refraction and creates a low-contrast blob. Use coral hairline strokes, `.ultraThinMaterial`, or plain text instead.
+
+**Rule 4: Glass UIs need explicit hover feedback**
+```swift
+// ❌ WRONG: .buttonStyle(.plain) on glass feels dead and unresponsive
+Button("Settings…") { }
+    .buttonStyle(.plain)
+
+// ✅ CORRECT: Add hover states — coral stroke for rows, underline for text
+@State private var isHovered = false
+// ...
+.background(
+    RoundedRectangle(cornerRadius: 12)
+        .stroke(isHovered ? accentColor : Color.clear, lineWidth: 1)
+)
+.onHover { isHovered = $0 }
+```
+On glass surfaces, `.buttonStyle(.plain)` provides zero visual feedback. Every tappable element needs a hover state: coral hairline stroke for rows, underline for text buttons, or scale+lift for prominent actions.
+
+### Menubar Dropdown Pattern (macOS 26)
+
+```swift
+// Surface glass container
+GlassPanel(tier: .surface, radius: 18) {
+    VStack(spacing: 0) {
+        // Header: sparkle + wordmark
+        HStack {
+            Image(systemName: "sparkle")
+                .foregroundStyle(accentColor)
+            Text("app.")
+                .font(.system(size: 16, weight: .ultraLight))
+            Spacer()
+            // Trial chip: coral hairline stroke, NOT nested glass
+            TrialChip()
+        }
+
+        Divider()
+
+        // Capture rows: glass.embedded with hover stroke
+        ForEach(actions) { action in
+            CaptureRow(action: action)
+        }
+
+        Divider()
+
+        // Footer: plain text with hover underline
+        FooterButton("Settings…")
+        FooterButton("Quit")
+    }
+    .frame(width: 360)  // Not 280 — give content room to breathe
+}
+```
+
+**Key dimensions:**
+- Width: **360pt** (not 280pt — cramped width breaks visual rhythm)
+- Backing: **≤ 8% white opacity** for surface tier
+- Embedded rows: `.glassEffect(.regular)` at **0.88 opacity**
+- Buttons inside glass: **stroke borders**, not nested glass effects
+- Hover: **coral hairline stroke** on rows, **underline** on text buttons
+
+---
+
+## SwiftUI Patterns
+
+### ViewModifiers for Reusable Styles
+
+```swift
+// Define custom modifiers
+struct PrimaryButtonStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.headline.weight(.semibold))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 12)
+            .background(Theme.primary)
+            .clipShape(Capsule())
+    }
+}
+
+// Extend View for convenience
+extension View {
+    func primaryButtonStyle() -> some View {
+        modifier(PrimaryButtonStyle())
+    }
+}
+
+// Usage
+Button("Start") { }
+    .primaryButtonStyle()
+```
+
+### Container Views for Layout Patterns
+
+```swift
+// Reusable card container
+struct Card<Content: View>: View {
+    @ViewBuilder let content: Content
+    
+    var body: some View {
+        content
+            .padding(Theme.Spacing.md)
+            .background(AppTheme.surface)
+            .cornerRadius(Theme.Radius.md)
+            .appDepth(.surface)
+    }
+}
+
+// Usage
+Card {
+    VStack(alignment: .leading) {
+        Text("Title")
+        Text("Description")
+            .foregroundStyle(Theme.textSecondary)
+    }
+}
+```
+
+### Environment Values for Theme
+
+```swift
+// Custom environment key
+private struct ThemeKey: EnvironmentKey {
+    static let defaultValue = AppTheme.standard
+}
+
+extension EnvironmentValues {
+    var appTheme: AppTheme {
+        get { self[ThemeKey.self] }
+        set { self[ThemeKey.self] = newValue }
+    }
+}
+
+// Usage in view
+@Environment(\.appTheme) private var theme
+```
+
+### Preview Patterns with PreviewContainer
+
+```swift
+/// Lightweight container that injects required @Environment objects
+@MainActor
+struct PreviewContainer<Content: View>: View {
+    let content: Content
+    let timerVM: TimerViewModel
+    let modelContext: ModelContext
+    
+    init(
+        timerState: TimerState = .idle,
+        @ViewBuilder content: () -> Content
+    ) {
+        self.timerVM = TimerViewModel()
+        self.timerVM.timerState = timerState
+        self.content = content()
+        // Create in-memory model context for previews
+        self.modelContext = try! ModelContext(
+            ModelContainer(for: FocusSession.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        )
+    }
+    
+    var body: some View {
+        content
+            .environment(timerVM)
+            .modelContainer(modelContext.container)
+    }
+}
+
+// Preview usage
+#Preview("Running State") {
+    PreviewContainer(timerState: .running) {
+        TimerView()
+    }
+}
+
+#Preview("Dark Mode") {
+    PreviewContainer(timerState: .idle) {
+        TimerView()
+    }
+    .preferredColorScheme(.dark)
+}
+```
+
+---
+
+## Localization
+
+### Infrastructure Setup
+
+Create `Localizable.strings` early — even for single-language apps. It prevents hardcoded string debt and makes future localization trivial:
+
+```
+App/Resources/
+  en.lproj/
+    Localizable.strings
+```
+
+```swift
+// Localizable.strings
+"preview.action.ai" = "Ask this screenshot";
+"preview.conversation.inputPlaceholder" = "Ask anything…";
+"upgrade.title" = "Unlock Pro";
+"lockedFeature.trialButton" = "Try free for %d days";
+```
+
+### NSLocalizedString in SwiftUI
+
+```swift
+// ✅ CORRECT — Use table name for app-specific strings
+struct UpgradeSheetCopy {
+    static var title: String {
+        NSLocalizedString("upgrade.title", tableName: "Localizable", comment: "Upgrade sheet title")
+    }
+    static func trialButton(days: Int) -> String {
+        String(format: NSLocalizedString("lockedFeature.trialButton", tableName: "Localizable", comment: ""), days)
+    }
+}
+
+// In views
+Text(UpgradeSheetCopy.title)
+TextField(UpgradeSheetCopy.inputPlaceholder, text: $input)
+```
+
+### Migration Path: Hardcoded → Localized
+
+When retrofitting localization into an existing app:
+
+1. Extract all user-facing strings to `Localizable.strings` with semantic keys
+2. Replace literals with `NSLocalizedString` calls
+3. Keep keys namespaced by feature: `feature.element.purpose`
+4. Use `String(format: ...)` for interpolated values — never concatenate
+
+```swift
+// ❌ WRONG — concatenation breaks in RTL languages
+Text("Try free for " + String(days) + " days")
+
+// ✅ CORRECT — format string handles pluralization and RTL
+String(format: NSLocalizedString("lockedFeature.trialButton", comment: ""), days)
+```
+
+---
+
+## Accessibility
+
+### Labels and Hints
+
+```swift
+// Always provide accessibility labels for icons
+Image(systemName: "play.fill")
+    .accessibilityLabel("Start timer")
+
+// Add hints for interactive elements
+Button(action: startSession) {
+    Text("Focus")
+}
+.accessibilityHint("Double tap to begin a focus session")
+
+// Hide decorative elements
+Image(systemName: "sparkles")
+    .accessibilityHidden(true)
+```
+
+### Identifiers for Testing
+
+```swift
+// Add identifiers for UI testing
+Text(timeRemaining)
+    .accessibilityIdentifier("timeDisplay")
+
+Button(action: pause) {
+    Image(systemName: "pause.fill")
+}
+.accessibilityIdentifier("pauseButton")
+```
+
+### Dynamic Type Support
+
+```swift
+// Use scalable font metrics
+Text("Title")
+    .font(.system(.title, design: .rounded))
+
+// Or custom sizes relative to metrics
+Text("Body")
+    .font(.system(size: UIFont.preferredFont(forTextStyle: .body).pointSize))
+
+// Ensure layouts adapt
+VStack {
+    Text("Title")
+}
+.padding(.horizontal, Theme.Spacing.md)
+// Use GeometryReader or @ScaledMetric for size-dependent layouts
+```
+
+### VoiceOver Considerations
+
+```swift
+// Group related elements
+VStack {
+    Text("25:00")
+    Text("remaining")
+}
+.accessibilityElement(children: .combine)
+.accessibilityLabel("25 minutes remaining")
+
+// Custom actions for complex UI
+.accessibilityAction(named: "Add 5 minutes") {
+    extendSession(by: 300)
+}
+
+// Update announcements for state changes
+@AccessibilityAction
+private func announceCompletion() {
+    AccessibilityNotification.announce("Focus session complete")
+}
+```
+
+### Accessibility Checklist
+
+| Element | Required |
+|---------|----------|
+| Icon buttons | `.accessibilityLabel()` |
+| Custom controls | `.accessibilityLabel()` + `.accessibilityHint()` |
+| Test targets | `.accessibilityIdentifier()` |
+| Decorative images | `.accessibilityHidden(true)` |
+| Complex groups | `.accessibilityElement(children: .combine)` |
+| Dynamic text | Use `UIFont` metrics or `.dynamicTypeSize()` |
+
+---
+
+## ADHD-Friendly UX Principles
+
+Design for focus, clarity, and reduced cognitive load. Never use "ADHD" in user-facing copy.
+
+### Reduce Decision Fatigue
+
+```swift
+// Do: Smart defaults, minimal choices
+struct DurationSelector: View {
+    let presets = [15, 25, 45, 60]  // Curated options
+    
+    var body: some View {
+        HStack(spacing: Theme.Spacing.sm) {
+            ForEach(presets, id: \.self) { minutes in
+                DurationChip(minutes: minutes)
+            }
+        }
+    }
+}
+
+// Don't: Open-ended inputs or overwhelming options
+TextField("Enter duration", value: $customMinutes, format: .number)
+```
+
+### Clear Visual Hierarchy
+
+```swift
+// Do: One primary action, clear focal point
+VStack(spacing: Theme.Spacing.lg) {
+    // Hero element (the dial)
+    TimerDial()
+        .frame(maxWidth: .infinity)
+    
+    // Secondary actions in a row
+    HStack {
+        SecondaryButton("Adjust") { }
+        PrimaryButton("Start") { }
+    }
+}
+
+// Don't: Competing primary actions
+HStack {
+    Button("Start") { }      // Same weight as...
+    Button("Settings") { }   // ...this
+    Button("History") { }
+}
+```
+
+### Immediate Feedback
+
+```swift
+// Do: Instant visual response
+Button(action: { isPressed.toggle() }) {
+    Image(systemName: isPressed ? "pause.fill" : "play.fill")
+}
+.buttonStyle(.borderedProminent)
+
+// Do: Haptic feedback for actions
+HapticsService.shared.playTap()
+
+// Do: Visual state changes
+Circle()
+    .fill(isActive ? Theme.primary : Theme.surface)
+    .animation(.easeInOut(duration: 0.2), value: isActive)
+```
+
+### Forgiving Interactions
+
+```swift
+// Do: Easy undo, no destructive confirmations
+Button(action: { 
+    withAnimation {
+        item.delete()
+    }
+}) {
+    Label("Remove", systemImage: "xmark")
+}
+
+// Do: Auto-save, resume where left off
+@AppStorage("draftThought") private var draftThought: String = ""
+
+// Do: Gesture forgiveness (larger touch targets)
+Button(action: action) {
+    Image(systemName: "plus")
+        .frame(width: 44, height: 44)  // Minimum 44pt
+}
+```
+
+### UX Principles Summary
+
+| Principle | Implementation |
+|-----------|----------------|
+| Reduce decision fatigue | Curated presets, smart defaults, progressive disclosure |
+| Clear visual hierarchy | One hero element, primary/secondary action distinction |
+| Immediate feedback | Haptics, animations, visual state changes |
+| Forgiving interactions | Undo support, auto-save, 44pt minimum touch targets |
+| Never label as ADHD | Describe benefits: "captures thoughts in under 5 seconds" |
+
+---
+
+## Quick Reference
+
+### Common Modifiers
+
+```swift
+// Depth/shadow
+.appDepth(.surface)
+.breathingShadow(color: Theme.primary)
+
+// Border
+.radiantBorder(color: Theme.primary, intensity: 0.3)
+
+// Glass (iOS 26+)
+.glassEffect(.regular)
+.glassEffect(.regular.interactive())
+
+// Accessibility
+.accessibilityLabel("Description")
+.accessibilityHint("Double tap to activate")
+.accessibilityIdentifier("uniqueID")
+.accessibilityHidden(true)
+```
+
+### Theme Values
+
+```swift
+// Colors
+AppTheme.canvas           // Background
+AppTheme.surface          // Cards
+AppTheme.actionPrimary    // Buttons
+AppTheme.textPrimary      // Body text
+
+// Spacing
+AppTheme.Spacing.xs       // 8
+AppTheme.Spacing.md       // 16
+AppTheme.Spacing.lg       // 24
+
+// Radius
+AppTheme.Radius.sm        // 8
+AppTheme.Radius.md        // 12
+AppTheme.Radius.capsule   // 999
+```
+
+### Preview Template
+
+```swift
+#Preview("State Name") {
+    PreviewContainer(timerState: .idle) {
+        YourView()
+    }
+}
+
+#Preview("Dark Mode") {
+    PreviewContainer(timerState: .idle) {
+        YourView()
+    }
+    .preferredColorScheme(.dark)
+}
+```
+
+---
+
+## See Also
+
+- `ios-standards` — Swift 6 concurrency patterns
+- `ios26-api-reference` — iOS 26 API signatures
+- `ios-build` — Build validation workflow
+
+<!-- END SKILL: apple-design -->
 
 ---
 
@@ -3006,8 +3673,8 @@ verbatim as the listed subagent type. Spawn both in parallel.
 
 | Panel | Subagent type | Lens | Prompt |
 |-------|---------------|------|--------|
-| 1. Design | `code-reviewer` | First impressions, navigation, visual craft, motion, delight, simplicity, HIG, edge cases | `references/panel-design.md` |
-| 2. Keynote | `code-reviewer` | Story clarity, demo-readiness, "one more thing", narrative, platform story, cringe test | `references/panel-keynote.md` |
+| 1. Design | `apple-dev-skills:code-reviewer` | First impressions, navigation, visual craft, motion, delight, simplicity, HIG, edge cases | `references/panel-design.md` |
+| 2. Keynote | `apple-dev-skills:code-reviewer` | Story clarity, demo-readiness, "one more thing", narrative, platform story, cringe test | `references/panel-keynote.md` |
 
 Both panel prompts enforce the same contract:
 
@@ -3099,7 +3766,7 @@ Wait for user confirmation before proceeding. If user says "yes" or presses ente
 After user selects issues, spawn a planning agent to create the execution plan.
 
 ```yaml
-subagent_type: architect
+subagent_type: apple-dev-skills:architect
 prompt: |
   You are a DESIGN ORCHESTRATOR planning the implementation of selected polish
   issues for {app_name}.
@@ -3186,7 +3853,7 @@ xcodebuild -scheme {App}-iOS \
 ### Visual Polish Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a VISUAL POLISH SPECIALIST working in worktree: {worktree_path}
@@ -3217,7 +3884,7 @@ prompt: |
 ### UX Flow Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a UX FLOW SPECIALIST working in worktree: {worktree_path}
@@ -3247,7 +3914,7 @@ prompt: |
 ### Delight Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a DELIGHT SPECIALIST working in worktree: {worktree_path}
@@ -3278,7 +3945,7 @@ prompt: |
 ### Narrative Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a NARRATIVE SPECIALIST working in worktree: {worktree_path}
@@ -3519,7 +4186,7 @@ NEXT STEPS
 **Dispatch:** Spawn as a parallel subagent with the Views-only file manifest pre-loaded into the `[PASTE FILE MANIFEST HERE — Views only]` placeholder, then send the block below verbatim.
 
 ```yaml
-subagent_type: code-reviewer
+subagent_type: apple-dev-skills:code-reviewer
 prompt: |
   You are conducting a DESIGN REVIEW of {app_name} with the critical eye of
   Apple's most obsessive designers. Every pixel, every transition, every moment
@@ -3664,7 +4331,7 @@ prompt: |
 **Dispatch:** Spawn as a parallel subagent with the Views-only file manifest pre-loaded into the `[PASTE FILE MANIFEST HERE — Views only]` placeholder, then send the block below verbatim.
 
 ```yaml
-subagent_type: code-reviewer
+subagent_type: apple-dev-skills:code-reviewer
 prompt: |
   You are Steve Jobs reviewing {app_name} the night before a WWDC keynote.
   Tomorrow you walk on stage and demo this app live to the world. You MUST
@@ -3844,16 +4511,16 @@ The review spawns four parallel subagents, each examining the app from a distinc
 │
 ├─► [Parallel Phase] ─────────────────────────────────────────
 │   │
-│   ├─► Panel 1: Design Review (code-reviewer)
+│   ├─► Panel 1: Design Review (apple-dev-skills:code-reviewer)
 │   │   UI/UX flows, visual craft, delight, simplicity, HIG
 │   │
-│   ├─► Panel 2: Engineering Review (auditor)
+│   ├─► Panel 2: Engineering Review (apple-dev-skills:auditor)
 │   │   Architecture, code quality, performance, patterns
 │   │
-│   ├─► Panel 3: Compliance Review (code-reviewer)
+│   ├─► Panel 3: Compliance Review (apple-dev-skills:code-reviewer)
 │   │   App Store guidelines, rejection risks, metadata
 │   │
-│   └─► Panel 4: Keynote Review (code-reviewer)
+│   └─► Panel 4: Keynote Review (apple-dev-skills:code-reviewer)
 │       Product story, demo-readiness, "one more thing" moments
 │
 ├─► [Correlation Phase] ──────────────────────────────────────
@@ -3919,10 +4586,10 @@ listed subagent type. Spawn all four in parallel.
 
 | Panel | Subagent type | Lens | Prompt |
 |-------|---------------|------|--------|
-| 1. Design | `code-reviewer` | UI/UX flows, visual craft, delight, simplicity, HIG | `references/panel-design.md` |
-| 2. Engineering | `auditor` | Architecture, Swift 6, performance, patterns, tests | `references/panel-engineering.md` |
-| 3. Compliance | `code-reviewer` | App Store guidelines, privacy, entitlements, rejection risks | `references/panel-compliance.md` |
-| 4. Keynote | `code-reviewer` | Product story, demo-readiness, "one more thing" | `references/panel-keynote.md` |
+| 1. Design | `apple-dev-skills:code-reviewer` | UI/UX flows, visual craft, delight, simplicity, HIG | `references/panel-design.md` |
+| 2. Engineering | `apple-dev-skills:auditor` | Architecture, Swift 6, performance, patterns, tests | `references/panel-engineering.md` |
+| 3. Compliance | `apple-dev-skills:code-reviewer` | App Store guidelines, privacy, entitlements, rejection risks | `references/panel-compliance.md` |
+| 4. Keynote | `apple-dev-skills:code-reviewer` | Product story, demo-readiness, "one more thing" | `references/panel-keynote.md` |
 
 Each panel prompt enforces the same contract:
 
@@ -4107,12 +4774,12 @@ When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple 
 ## Execution Notes
 
 - Each panel agent MUST produce structured output — this is non-negotiable
-- The `code-reviewer` agent type is used for Design/Compliance/Keynote because it
+- The `apple-dev-skills:code-reviewer` agent type is used for Design/Compliance/Keynote because it
   emphasizes analysis and structured output over exploration
-- The `auditor` agent type is used for Engineering because it
-  excels at deep codebase analysis with structured findings. If `auditor` is
-  not available in the current environment, fall back to `architect` (preferred)
-  or `code-reviewer`, and note the substitution in the report.
+- The `apple-dev-skills:auditor` agent type is used for Engineering because it
+  excels at deep codebase analysis with structured findings. If `apple-dev-skills:auditor` is
+  not available in the current environment, fall back to `apple-dev-skills:architect` (preferred)
+  or `apple-dev-skills:code-reviewer`, and note the substitution in the report.
 - If a panel agent returns without structured output, the main thread should note
   this in the report and fill in from its own reading
 - Include the file manifest in each agent's prompt — this saves 3-5 tool calls per agent
@@ -4135,7 +4802,7 @@ When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple 
 
 **Persona:** Think like the App Store Review team combined with Apple's legal/privacy compliance group. Find everything that could cause a rejection, delay, or removal.
 
-**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+**Dispatch:** Spawn as a subagent (`subagent_type: "apple-dev-skills:code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
 
 ```
 You are conducting an App Store compliance review of [app name]. You MUST produce
@@ -4271,7 +4938,7 @@ run the greps, and write your review. Do NOT explore the codebase broadly.
 
 **Persona:** Think like Apple's most design-obsessed leader reviewing a product before launch. Every pixel, every transition, every moment of friction matters. The question isn't "does it work?" but "does it feel inevitable?"
 
-**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+**Dispatch:** Spawn as a subagent (`subagent_type: "apple-dev-skills:code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
 
 ```
 You are conducting a design review of [app name] with the critical eye of Apple's
@@ -4421,7 +5088,7 @@ with no review.
 
 **Persona:** Think like Apple's senior engineering leads reviewing a codebase for architectural soundness, performance, maintainability, and adherence to platform best practices. The question is "would we be proud to ship this?"
 
-**Dispatch:** Spawn as a subagent (`subagent_type: "auditor"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+**Dispatch:** Spawn as a subagent (`subagent_type: "apple-dev-skills:auditor"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
 
 ```
 You are conducting an engineering review of [app name] as a senior Apple
@@ -4575,7 +5242,7 @@ the priority files, STOP and write your review.
 
 **Persona:** Think like Steve Jobs preparing for a WWDC keynote. He's about to walk on stage and demo this app to the world. He doesn't care about architecture or test coverage — he cares about the *story*. Can he hold up this app and make the audience gasp? Can he explain what it does in one sentence that makes people lean forward? If there's a single moment of confusion, hesitation, or ugliness during the live demo, the whole thing falls apart.
 
-**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+**Dispatch:** Spawn as a subagent (`subagent_type: "apple-dev-skills:code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
 
 ```
 You are Steve Jobs reviewing [app name] the night before a WWDC keynote. Tomorrow
@@ -4740,7 +5407,7 @@ For each failed build:
 
 If errors include `ExportArchiveStep` failures ("Exporting for X Distribution failed"):
 
-1. **Parallel local analysis** — while calling `asc_check_signing`, dispatch an `explore` agent (Fast tier: `claude-haiku-4-5` / `gpt-4.1-mini` / `gemini-3.0-flash` / `kimi-for-coding`) to read local files simultaneously:
+1. **Parallel local analysis** — while calling `asc_check_signing`, dispatch an `apple-dev-skills:explore` agent (Fast tier: `claude-haiku-4-5` / `gpt-4.1-mini` / `gemini-3.0-flash` / `kimi-for-coding`) to read local files simultaneously:
 
 ```
 You (MCP calls)                    explore agent (local files)
@@ -5108,7 +5775,7 @@ Coordinator — Phase 5: Documentation + Phase 6: App Store Readiness
 
 ### Agent A — Build + Test (Fast tier)
 
-Spawn as `build-agent` (or `explore`). Prompt:
+Spawn as `apple-dev-skills:build-agent` (or `apple-dev-skills:explore`). Prompt:
 
 ```
 Run build and test verification for the iOS feature being completed.
@@ -5130,7 +5797,7 @@ Report:
 
 ### Agent B — Code Quality (Standard tier)
 
-Spawn as `code-reviewer`. Prompt:
+Spawn as `apple-dev-skills:code-reviewer`. Prompt:
 
 ```
 Run code quality checks on the changed files for this iOS feature.
@@ -5159,7 +5826,7 @@ Severity: CRITICAL | HIGH | MEDIUM
 
 ### Agent C — Accessibility Audit (Standard tier)
 
-Spawn as `code-reviewer`. Prompt:
+Spawn as `apple-dev-skills:code-reviewer`. Prompt:
 
 ```
 Run accessibility audit on the SwiftUI views changed in this feature.
@@ -6385,671 +7052,6 @@ settings:
 - `ios-test` — Testing patterns and commands
 
 <!-- END SKILL: ios-build -->
-
----
-
-<!-- BEGIN SKILL: apple-design -->
-
-# apple-design
-
-# iOS Design
-
-SwiftUI design system patterns, iOS 26 Liquid Glass effects, and accessibility best practices. **Apply these patterns to all UI code.**
-
----
-
-## Design System Architecture
-
-### Theme.swift Pattern
-
-Centralize design tokens in a theme enum. Apps extend a shared base theme for app-specific expression.
-
-```swift
-// Shared package: AppTheme.swift
-public enum AppTheme {
-    // Foundation: Backgrounds
-    public static var canvas: Color {
-        Color(light: Color(hex: "#FAF9F6"), dark: Color(hex: "#0D0D0F"))
-    }
-    
-    // Action: Primary color
-    public static let actionPrimary = Color(hex: "#7BA7BC")
-    
-    // Spacing system
-    public enum Spacing {
-        public static let xs: CGFloat = 8
-        public static let md: CGFloat = 16
-        public static let lg: CGFloat = 24
-    }
-    
-    // Corner radius
-    public enum Radius {
-        public static let sm: CGFloat = 8
-        public static let md: CGFloat = 12
-        public static let capsule: CGFloat = 999
-    }
-}
-
-// App-specific: Theme.swift
-enum Theme {
-    // Inherit from shared theme
-    static let primary = AppTheme.actionPrimary
-    static let spacing = AppTheme.Spacing.self
-    
-    // App-specific expression
-    static var dialFace: Color {
-        Color(light: AppTheme.surface, dark: Color(hex: "#1A1A1E"))
-    }
-}
-```
-
-### Design Tokens vs Hardcoded Values
-
-| Do | Don't |
-|----|-------|
-| `Theme.primary` | `Color.blue` |
-| `Theme.Spacing.md` | `16` |
-| `Theme.Radius.capsule` | `999` |
-| `AppTheme.canvas` | `Color.white` |
-
-### Asset Catalog Organization
-
-```
-Assets.xcassets/
-  Colors/
-    Primary.colorset/
-    Surface.colorset/
-  Images/
-    AppIcon.appiconset/
-    Logo.imageset/
-```
-
-Prefer code-defined colors (hex values in theme) for dynamic dark mode support.
-
----
-
-## iOS 26 Liquid Glass
-
-### Glass Background Effects
-
-```swift
-// Standard glass background
-.glassEffect(.regular)
-
-// Glass with interactive (hover/press) feedback
-.glassEffect(.regular.interactive())
-
-// Ornament for floating controls
-.ornament(visibility: .visible, attachmentAnchor: .scene(.trailing)) {
-    FloatingControls()
-        .glassEffect(.regular)
-}
-```
-
-### Glass Material Hierarchy
-
-```swift
-// Thick material for modals, sheets
-.background(.thickMaterial)
-
-// Regular material for cards, surfaces
-.background(.regularMaterial)
-
-// Thin material for subtle overlays
-.background(.ultraThinMaterial)
-
-// From theme
-AppTheme.glassSurface   // .regularMaterial
-AppTheme.glassThick     // .thickMaterial
-AppTheme.glassThin      // .ultraThinMaterial
-```
-
-### Liquid Glass Best Practices
-
-| Do | Don't |
-|----|-------|
-| Use `.glassEffect(.regular)` for floating UI | Use solid colors for primary surfaces |
-| Layer glass at different thicknesses for depth | Overuse glass — it reduces contrast |
-| Add `.hoverEffect(.lift)` for interactive elements | Apply glass to text-heavy content |
-| Use ornaments for secondary controls | Put glass behind primary action buttons |
-
-### Nested Glass & Contrast (macOS/iOS 26)
-
-**The #1 cause of "muddy unreadable glass UI"** is violating these four rules simultaneously:
-
-**Rule 1: Keep glass backing ≤ 8% white opacity for `.surface` tiers**
-```swift
-// ❌ WRONG: White at 20% overwhelms the system tint
-.background(shape.fill(Color.white.opacity(0.20)))
-
-// ✅ CORRECT: Let the system Liquid Glass tint dominate
-.background(shape.fill(Color.white.opacity(0.08)))
-```
-At 20% white, light desktops wash out text; dark desktops create gray sludge. At 8%, the panel refracts the desktop without overwhelming it.
-
-**Rule 2: Never put solid `Color.opacity()` overlays on top of glass**
-```swift
-// ❌ WRONG: Three competing opacity layers (desktop → glass → white backing → dark overlay → text)
-.background(Color.black.opacity(0.65))
-
-// ✅ CORRECT: True glass.embedded — light refracts through coherent depth
-.glassEffect(.regular, in: RoundedRectangle(cornerRadius: 12))
-    .opacity(0.88)
-```
-Solid color overlays on glass create inconsistent contrast that varies with the desktop wallpaper. Use `.glassEffect(.regular)` at reduced opacity, or `.ultraThinMaterial`, for embedded rows.
-
-**Rule 3: Never nest `glassEffect` inside `glassEffect`**
-```swift
-// ❌ WRONG: Glass-on-glass causes visual doubling and smearing
-GlassPanel(tier: .surface) {
-    Button("Unlock") { }
-        .glassEffect(.regular.interactive())  // Nested — fights parent glass
-}
-
-// ✅ CORRECT: Use stroke borders or materials for child elements inside glass
-.background(
-    Capsule()
-        .stroke(accentColor, lineWidth: 1)
-)
-```
-A `.glassEffect(.regular)` button inside a `.glassEffect(.regular)` panel picks up the parent's refraction and creates a low-contrast blob. Use coral hairline strokes, `.ultraThinMaterial`, or plain text instead.
-
-**Rule 4: Glass UIs need explicit hover feedback**
-```swift
-// ❌ WRONG: .buttonStyle(.plain) on glass feels dead and unresponsive
-Button("Settings…") { }
-    .buttonStyle(.plain)
-
-// ✅ CORRECT: Add hover states — coral stroke for rows, underline for text
-@State private var isHovered = false
-// ...
-.background(
-    RoundedRectangle(cornerRadius: 12)
-        .stroke(isHovered ? accentColor : Color.clear, lineWidth: 1)
-)
-.onHover { isHovered = $0 }
-```
-On glass surfaces, `.buttonStyle(.plain)` provides zero visual feedback. Every tappable element needs a hover state: coral hairline stroke for rows, underline for text buttons, or scale+lift for prominent actions.
-
-### Menubar Dropdown Pattern (macOS 26)
-
-```swift
-// Surface glass container
-GlassPanel(tier: .surface, radius: 18) {
-    VStack(spacing: 0) {
-        // Header: sparkle + wordmark
-        HStack {
-            Image(systemName: "sparkle")
-                .foregroundStyle(accentColor)
-            Text("app.")
-                .font(.system(size: 16, weight: .ultraLight))
-            Spacer()
-            // Trial chip: coral hairline stroke, NOT nested glass
-            TrialChip()
-        }
-
-        Divider()
-
-        // Capture rows: glass.embedded with hover stroke
-        ForEach(actions) { action in
-            CaptureRow(action: action)
-        }
-
-        Divider()
-
-        // Footer: plain text with hover underline
-        FooterButton("Settings…")
-        FooterButton("Quit")
-    }
-    .frame(width: 360)  // Not 280 — give content room to breathe
-}
-```
-
-**Key dimensions:**
-- Width: **360pt** (not 280pt — cramped width breaks visual rhythm)
-- Backing: **≤ 8% white opacity** for surface tier
-- Embedded rows: `.glassEffect(.regular)` at **0.88 opacity**
-- Buttons inside glass: **stroke borders**, not nested glass effects
-- Hover: **coral hairline stroke** on rows, **underline** on text buttons
-
----
-
-## SwiftUI Patterns
-
-### ViewModifiers for Reusable Styles
-
-```swift
-// Define custom modifiers
-struct PrimaryButtonStyle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.headline.weight(.semibold))
-            .foregroundStyle(.white)
-            .padding(.horizontal, 24)
-            .padding(.vertical, 12)
-            .background(Theme.primary)
-            .clipShape(Capsule())
-    }
-}
-
-// Extend View for convenience
-extension View {
-    func primaryButtonStyle() -> some View {
-        modifier(PrimaryButtonStyle())
-    }
-}
-
-// Usage
-Button("Start") { }
-    .primaryButtonStyle()
-```
-
-### Container Views for Layout Patterns
-
-```swift
-// Reusable card container
-struct Card<Content: View>: View {
-    @ViewBuilder let content: Content
-    
-    var body: some View {
-        content
-            .padding(Theme.Spacing.md)
-            .background(AppTheme.surface)
-            .cornerRadius(Theme.Radius.md)
-            .appDepth(.surface)
-    }
-}
-
-// Usage
-Card {
-    VStack(alignment: .leading) {
-        Text("Title")
-        Text("Description")
-            .foregroundStyle(Theme.textSecondary)
-    }
-}
-```
-
-### Environment Values for Theme
-
-```swift
-// Custom environment key
-private struct ThemeKey: EnvironmentKey {
-    static let defaultValue = AppTheme.standard
-}
-
-extension EnvironmentValues {
-    var appTheme: AppTheme {
-        get { self[ThemeKey.self] }
-        set { self[ThemeKey.self] = newValue }
-    }
-}
-
-// Usage in view
-@Environment(\.appTheme) private var theme
-```
-
-### Preview Patterns with PreviewContainer
-
-```swift
-/// Lightweight container that injects required @Environment objects
-@MainActor
-struct PreviewContainer<Content: View>: View {
-    let content: Content
-    let timerVM: TimerViewModel
-    let modelContext: ModelContext
-    
-    init(
-        timerState: TimerState = .idle,
-        @ViewBuilder content: () -> Content
-    ) {
-        self.timerVM = TimerViewModel()
-        self.timerVM.timerState = timerState
-        self.content = content()
-        // Create in-memory model context for previews
-        self.modelContext = try! ModelContext(
-            ModelContainer(for: FocusSession.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-        )
-    }
-    
-    var body: some View {
-        content
-            .environment(timerVM)
-            .modelContainer(modelContext.container)
-    }
-}
-
-// Preview usage
-#Preview("Running State") {
-    PreviewContainer(timerState: .running) {
-        TimerView()
-    }
-}
-
-#Preview("Dark Mode") {
-    PreviewContainer(timerState: .idle) {
-        TimerView()
-    }
-    .preferredColorScheme(.dark)
-}
-```
-
----
-
-## Localization
-
-### Infrastructure Setup
-
-Create `Localizable.strings` early — even for single-language apps. It prevents hardcoded string debt and makes future localization trivial:
-
-```
-App/Resources/
-  en.lproj/
-    Localizable.strings
-```
-
-```swift
-// Localizable.strings
-"preview.action.ai" = "Ask this screenshot";
-"preview.conversation.inputPlaceholder" = "Ask anything…";
-"upgrade.title" = "Unlock Pro";
-"lockedFeature.trialButton" = "Try free for %d days";
-```
-
-### NSLocalizedString in SwiftUI
-
-```swift
-// ✅ CORRECT — Use table name for app-specific strings
-struct UpgradeSheetCopy {
-    static var title: String {
-        NSLocalizedString("upgrade.title", tableName: "Localizable", comment: "Upgrade sheet title")
-    }
-    static func trialButton(days: Int) -> String {
-        String(format: NSLocalizedString("lockedFeature.trialButton", tableName: "Localizable", comment: ""), days)
-    }
-}
-
-// In views
-Text(UpgradeSheetCopy.title)
-TextField(UpgradeSheetCopy.inputPlaceholder, text: $input)
-```
-
-### Migration Path: Hardcoded → Localized
-
-When retrofitting localization into an existing app:
-
-1. Extract all user-facing strings to `Localizable.strings` with semantic keys
-2. Replace literals with `NSLocalizedString` calls
-3. Keep keys namespaced by feature: `feature.element.purpose`
-4. Use `String(format: ...)` for interpolated values — never concatenate
-
-```swift
-// ❌ WRONG — concatenation breaks in RTL languages
-Text("Try free for " + String(days) + " days")
-
-// ✅ CORRECT — format string handles pluralization and RTL
-String(format: NSLocalizedString("lockedFeature.trialButton", comment: ""), days)
-```
-
----
-
-## Accessibility
-
-### Labels and Hints
-
-```swift
-// Always provide accessibility labels for icons
-Image(systemName: "play.fill")
-    .accessibilityLabel("Start timer")
-
-// Add hints for interactive elements
-Button(action: startSession) {
-    Text("Focus")
-}
-.accessibilityHint("Double tap to begin a focus session")
-
-// Hide decorative elements
-Image(systemName: "sparkles")
-    .accessibilityHidden(true)
-```
-
-### Identifiers for Testing
-
-```swift
-// Add identifiers for UI testing
-Text(timeRemaining)
-    .accessibilityIdentifier("timeDisplay")
-
-Button(action: pause) {
-    Image(systemName: "pause.fill")
-}
-.accessibilityIdentifier("pauseButton")
-```
-
-### Dynamic Type Support
-
-```swift
-// Use scalable font metrics
-Text("Title")
-    .font(.system(.title, design: .rounded))
-
-// Or custom sizes relative to metrics
-Text("Body")
-    .font(.system(size: UIFont.preferredFont(forTextStyle: .body).pointSize))
-
-// Ensure layouts adapt
-VStack {
-    Text("Title")
-}
-.padding(.horizontal, Theme.Spacing.md)
-// Use GeometryReader or @ScaledMetric for size-dependent layouts
-```
-
-### VoiceOver Considerations
-
-```swift
-// Group related elements
-VStack {
-    Text("25:00")
-    Text("remaining")
-}
-.accessibilityElement(children: .combine)
-.accessibilityLabel("25 minutes remaining")
-
-// Custom actions for complex UI
-.accessibilityAction(named: "Add 5 minutes") {
-    extendSession(by: 300)
-}
-
-// Update announcements for state changes
-@AccessibilityAction
-private func announceCompletion() {
-    AccessibilityNotification.announce("Focus session complete")
-}
-```
-
-### Accessibility Checklist
-
-| Element | Required |
-|---------|----------|
-| Icon buttons | `.accessibilityLabel()` |
-| Custom controls | `.accessibilityLabel()` + `.accessibilityHint()` |
-| Test targets | `.accessibilityIdentifier()` |
-| Decorative images | `.accessibilityHidden(true)` |
-| Complex groups | `.accessibilityElement(children: .combine)` |
-| Dynamic text | Use `UIFont` metrics or `.dynamicTypeSize()` |
-
----
-
-## ADHD-Friendly UX Principles
-
-Design for focus, clarity, and reduced cognitive load. Never use "ADHD" in user-facing copy.
-
-### Reduce Decision Fatigue
-
-```swift
-// Do: Smart defaults, minimal choices
-struct DurationSelector: View {
-    let presets = [15, 25, 45, 60]  // Curated options
-    
-    var body: some View {
-        HStack(spacing: Theme.Spacing.sm) {
-            ForEach(presets, id: \.self) { minutes in
-                DurationChip(minutes: minutes)
-            }
-        }
-    }
-}
-
-// Don't: Open-ended inputs or overwhelming options
-TextField("Enter duration", value: $customMinutes, format: .number)
-```
-
-### Clear Visual Hierarchy
-
-```swift
-// Do: One primary action, clear focal point
-VStack(spacing: Theme.Spacing.lg) {
-    // Hero element (the dial)
-    TimerDial()
-        .frame(maxWidth: .infinity)
-    
-    // Secondary actions in a row
-    HStack {
-        SecondaryButton("Adjust") { }
-        PrimaryButton("Start") { }
-    }
-}
-
-// Don't: Competing primary actions
-HStack {
-    Button("Start") { }      // Same weight as...
-    Button("Settings") { }   // ...this
-    Button("History") { }
-}
-```
-
-### Immediate Feedback
-
-```swift
-// Do: Instant visual response
-Button(action: { isPressed.toggle() }) {
-    Image(systemName: isPressed ? "pause.fill" : "play.fill")
-}
-.buttonStyle(.borderedProminent)
-
-// Do: Haptic feedback for actions
-HapticsService.shared.playTap()
-
-// Do: Visual state changes
-Circle()
-    .fill(isActive ? Theme.primary : Theme.surface)
-    .animation(.easeInOut(duration: 0.2), value: isActive)
-```
-
-### Forgiving Interactions
-
-```swift
-// Do: Easy undo, no destructive confirmations
-Button(action: { 
-    withAnimation {
-        item.delete()
-    }
-}) {
-    Label("Remove", systemImage: "xmark")
-}
-
-// Do: Auto-save, resume where left off
-@AppStorage("draftThought") private var draftThought: String = ""
-
-// Do: Gesture forgiveness (larger touch targets)
-Button(action: action) {
-    Image(systemName: "plus")
-        .frame(width: 44, height: 44)  // Minimum 44pt
-}
-```
-
-### UX Principles Summary
-
-| Principle | Implementation |
-|-----------|----------------|
-| Reduce decision fatigue | Curated presets, smart defaults, progressive disclosure |
-| Clear visual hierarchy | One hero element, primary/secondary action distinction |
-| Immediate feedback | Haptics, animations, visual state changes |
-| Forgiving interactions | Undo support, auto-save, 44pt minimum touch targets |
-| Never label as ADHD | Describe benefits: "captures thoughts in under 5 seconds" |
-
----
-
-## Quick Reference
-
-### Common Modifiers
-
-```swift
-// Depth/shadow
-.appDepth(.surface)
-.breathingShadow(color: Theme.primary)
-
-// Border
-.radiantBorder(color: Theme.primary, intensity: 0.3)
-
-// Glass (iOS 26+)
-.glassEffect(.regular)
-.glassEffect(.regular.interactive())
-
-// Accessibility
-.accessibilityLabel("Description")
-.accessibilityHint("Double tap to activate")
-.accessibilityIdentifier("uniqueID")
-.accessibilityHidden(true)
-```
-
-### Theme Values
-
-```swift
-// Colors
-AppTheme.canvas           // Background
-AppTheme.surface          // Cards
-AppTheme.actionPrimary    // Buttons
-AppTheme.textPrimary      // Body text
-
-// Spacing
-AppTheme.Spacing.xs       // 8
-AppTheme.Spacing.md       // 16
-AppTheme.Spacing.lg       // 24
-
-// Radius
-AppTheme.Radius.sm        // 8
-AppTheme.Radius.md        // 12
-AppTheme.Radius.capsule   // 999
-```
-
-### Preview Template
-
-```swift
-#Preview("State Name") {
-    PreviewContainer(timerState: .idle) {
-        YourView()
-    }
-}
-
-#Preview("Dark Mode") {
-    PreviewContainer(timerState: .idle) {
-        YourView()
-    }
-    .preferredColorScheme(.dark)
-}
-```
-
----
-
-## See Also
-
-- `ios-standards` — Swift 6 concurrency patterns
-- `ios26-api-reference` — iOS 26 API signatures
-- `ios-build` — Build validation workflow
-
-<!-- END SKILL: apple-design -->
 
 ---
 

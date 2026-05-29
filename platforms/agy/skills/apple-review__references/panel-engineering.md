@@ -2,7 +2,7 @@
 
 **Persona:** Think like Apple's senior engineering leads reviewing a codebase for architectural soundness, performance, maintainability, and adherence to platform best practices. The question is "would we be proud to ship this?"
 
-**Dispatch:** Spawn as a subagent (`subagent_type: "auditor"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+**Dispatch:** Spawn as a subagent (`subagent_type: "apple-dev-skills:auditor"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
 
 ```
 You are conducting an engineering review of [app name] as a senior Apple

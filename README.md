@@ -8,11 +8,15 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 
 ## What's Included
 
-### 19 Skills
+### 22 Skills
 
 | Skill | Domain | Purpose |
 |-------|--------|---------|
+| `app-brand-identity` | Design | Brand identity system — wordmark, icon, design tokens, brand voice, App Store marketing assets |
+| `app-store-pricing` | Business | Pricing tiers, global equalization, subscriptions, regional pricing via Apple's 900-price-point system |
+| `apple-architecture-diagram` | Docs | WWDC-keynote-ready, self-contained HTML architecture diagrams for Apple platform apps |
 | `apple-cleanup` | Quality | Exhaustive engineering hardening pipeline (P0–P2 fix → optimize → TestFlight) |
+| `apple-design` | Design | SwiftUI design system, iOS 26 Liquid Glass, design tokens, accessibility-aware previews |
 | `apple-patterns-check` | Quality | Fast mechanical validation of Swift 6, SwiftUI, SwiftData, entitlements, safety |
 | `apple-polish` | Design | Design & keynote-readiness review → fix → TestFlight |
 | `apple-review` | Quality | 4-panel review (Design + Engineering + Compliance + Keynote) |
@@ -22,7 +26,6 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `ios-accessibility` | Design | VoiceOver, Dynamic Type, tap targets, semantic grouping audit |
 | `ios-asc` | ASC | App Store Connect MCP tools reference |
 | `ios-build` | Engineering | Build system patterns, XcodeGen, 4-layer validation, CI/CD |
-| `apple-design` | Design | SwiftUI design system, iOS 26 Liquid Glass, ADHD-friendly UX |
 | `ios-simulate` | Engineering | iOS Simulator workflows, screenshot automation, device management |
 | `ios-standards` | Engineering | Swift 6.0+ standards, strict concurrency, `@Observable`, `@MainActor` |
 | `ios-test` | Engineering | XCTest patterns, SwiftData in-memory testing, UI testing, perf budgets |
@@ -32,24 +35,34 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `swift6-concurrency` | Engineering | Swift 6 concurrency error patterns and fixes |
 | `verify-against-spec` | Workflow | Parallel spec coverage verification |
 
-### 3 Agents
+### 7 Agents
 
 | Agent | Tier | Purpose |
 |-------|------|---------|
-| `build-agent` | Fast | iOS/Swift build troubleshooting |
-| `auditor` | Standard | Deep codebase analysis, architectural reviews |
+| `architect` | Deep | Architectural decisions, ADR creation, system design |
+| `auditor` | Standard | Deep codebase analysis, architectural & compliance audits |
+| `build-agent` | Fast | iOS/Swift build & compilation troubleshooting |
+| `code-reviewer` | Standard | Code review for quality, security, and best practices |
+| `coder` | Standard | General-purpose coding — features, bug fixes, tests |
+| `explore` | Fast | Fast codebase exploration and pattern search |
 | `ios-code-reviewer` | Standard | Changed-files-only review against iOS 26 crash patterns |
 
-### 6 Commands
+### 12 Commands
 
 | Command | Skill | Purpose |
 |---------|-------|---------|
 | `/apple-check` | `apple-patterns-check` | Fast pattern validation |
 | `/apple-cleanup` | `apple-cleanup` | Engineering hardening pipeline |
-| `/apple-polish` | `apple-polish` | Design polish pipeline |
-| `/apple-review` | `apple-review` | Full 4-panel review |
+| `/apple-polish` | `apple-polish` | Design & keynote polish pipeline |
+| `/apple-review` | `apple-review` | Full 4-panel review (no fixes) |
+| `/arch-diagram` | `apple-architecture-diagram` | Self-contained HTML architecture diagram |
+| `/check-build` | `asc-build-check` | CI build status & failure debugging via ASC |
 | `/complete-feature` | `complete-feature` | Feature completion gate |
+| `/merge-check` | `merge-check` | Pre-merge quality gate |
+| `/prepare-submission` | `asc-submission` | Submission readiness, metadata, screenshots, signing |
+| `/regression-test` | `regression-test` | Failing test → fix → sibling pattern check |
 | `/setup-asc` | — | ASC MCP server authentication setup |
+| `/swift6-fix` | `swift6-concurrency` | Diagnose & fix Swift 6 concurrency errors |
 
 ### MCP Server
 
@@ -202,7 +215,10 @@ apple-dev-skills/
 │   └── agy/                # Agy skills
 ├── scripts/
 │   ├── build.js            # Build platform outputs from src/
-│   └── validate.js         # Validate skills before build
+│   └── validate.js         # Validate skills before build (--watch, --compact)
+├── .vscode/
+│   ├── tasks.json          # VS Code tasks: Validate Skills (watch / once)
+│   └── settings.json       # Editor associations
 ├── install.sh              # Cross-platform installer
 └── docs/
     ├── architecture.md
@@ -222,8 +238,12 @@ node scripts/build.js
 Validate before building:
 
 ```bash
-node scripts/validate.js
+node scripts/validate.js              # one-shot validation
+node scripts/validate.js --watch      # watch mode (re-runs on file changes)
+node scripts/validate.js --compact    # machine-readable output (for CI / problem matchers)
 ```
+
+**VS Code:** Open the command palette → `Tasks: Run Task` → `Validate Skills (watch)` for continuous validation as you edit.
 
 ---
 

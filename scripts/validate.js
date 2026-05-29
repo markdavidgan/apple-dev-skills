@@ -2,7 +2,10 @@
 /**
  * Validate src/ before building platform outputs.
  *
- * Usage: node scripts/validate.js
+ * Usage:
+ *   node scripts/validate.js              # one-shot validation
+ *   node scripts/validate.js --watch      # watch mode (re-runs on change)
+ *   node scripts/validate.js --compact    # machine-readable output
  */
 
 const fs = require('fs');
@@ -11,10 +14,38 @@ const path = require('path');
 const SRC = path.join(__dirname, '..', 'src');
 let errors = 0;
 let warnings = 0;
+let format = 'pretty';
+let currentFile = '';
 
-function error(msg) { console.error(`  ❌ ${msg}`); errors++; }
-function warn(msg)  { console.warn(`  ⚠️  ${msg}`); warnings++; }
-function ok(msg)    { console.log(`  ✅ ${msg}`); }
+const ARGS = process.argv.slice(2);
+const WATCH = ARGS.includes('--watch');
+if (ARGS.includes('--compact')) format = 'compact';
+
+function setFile(f) { currentFile = f; }
+
+function error(msg) {
+  if (format === 'compact') {
+    console.error(`${currentFile}:error:${msg}`);
+  } else {
+    console.error(`  ❌ ${msg}`);
+  }
+  errors++;
+}
+
+function warn(msg) {
+  if (format === 'compact') {
+    console.warn(`${currentFile}:warning:${msg}`);
+  } else {
+    console.warn(`  ⚠️  ${msg}`);
+  }
+  warnings++;
+}
+
+function ok(msg) {
+  if (format !== 'compact') {
+    console.log(`  ✅ ${msg}`);
+  }
+}
 
 function readFrontmatter(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -43,15 +74,17 @@ function wordCount(filePath) {
 }
 
 function validateSkills() {
-  console.log('\n📂 Validating skills...');
+  if (format !== 'compact') console.log('\n📂 Validating skills...');
   const skillsRoot = path.join(SRC, 'skills');
   if (!fs.existsSync(skillsRoot)) {
+    setFile(skillsRoot);
     error('skills/ directory missing');
     return;
   }
 
   const dirs = fs.readdirSync(skillsRoot).filter(d => fs.statSync(path.join(skillsRoot, d)).isDirectory());
   if (dirs.length === 0) {
+    setFile(skillsRoot);
     error('No skill directories found');
     return;
   }
@@ -63,26 +96,36 @@ function validateSkills() {
     // Guide: SKILL.md must be exactly that name (case-sensitive); no README.md inside.
     const entries = fs.readdirSync(skillDir);
     if (!entries.includes('SKILL.md')) {
+      setFile(skillPath);
       const wrongCase = entries.find(e => e.toLowerCase() === 'skill.md');
       if (wrongCase) error(`Skill "${dir}" has "${wrongCase}" — must be exactly "SKILL.md" (case-sensitive)`);
       else error(`Skill "${dir}" missing SKILL.md`);
       continue;
     }
     const readme = entries.find(e => e.toLowerCase() === 'readme.md');
-    if (readme) error(`Skill "${dir}" contains "${readme}" — skills must not include README.md (put docs in SKILL.md or references/)`);
+    if (readme) {
+      setFile(path.join(skillDir, readme));
+      error(`Skill "${dir}" contains "${readme}" — skills must not include README.md (put docs in SKILL.md or references/)`);
+    }
 
     // Guide: skill folder naming — kebab-case, no "claude"/"anthropic".
-    if (!KEBAB_CASE.test(dir)) error(`Skill "${dir}" folder name is not kebab-case (lowercase, hyphens only)`);
+    if (!KEBAB_CASE.test(dir)) {
+      setFile(skillPath);
+      error(`Skill "${dir}" folder name is not kebab-case (lowercase, hyphens only)`);
+    }
     if (/\b(claude|anthropic)\b/i.test(dir) || /(claude|anthropic)/i.test(dir)) {
+      setFile(skillPath);
       error(`Skill "${dir}" name contains reserved word "claude"/"anthropic"`);
     }
 
     const fm = readFrontmatter(skillPath);
     if (!fm) {
+      setFile(skillPath);
       error(`Skill "${dir}" missing YAML frontmatter`);
       continue;
     }
 
+    setFile(skillPath);
     if (!fm.name) error(`Skill "${dir}" missing 'name' in frontmatter`);
     if (fm.name && !KEBAB_CASE.test(fm.name)) error(`Skill "${dir}" frontmatter name "${fm.name}" is not kebab-case`);
     if (fm.name && fm.name !== dir) {
@@ -117,9 +160,10 @@ function validateSkills() {
 }
 
 function validateAgents() {
-  console.log('\n🤖 Validating agents...');
+  if (format !== 'compact') console.log('\n🤖 Validating agents...');
   const agentsRoot = path.join(SRC, 'agents');
   if (!fs.existsSync(agentsRoot)) {
+    setFile(agentsRoot);
     warn('agents/ directory missing');
     return;
   }
@@ -127,6 +171,7 @@ function validateAgents() {
   const files = fs.readdirSync(agentsRoot).filter(f => f.endsWith('.md'));
   for (const file of files) {
     const filePath = path.join(agentsRoot, file);
+    setFile(filePath);
     const fm = readFrontmatter(filePath);
     if (!fm) {
       error(`Agent "${file}" missing YAML frontmatter`);
@@ -142,9 +187,10 @@ function validateAgents() {
 }
 
 function validateCommands() {
-  console.log('\n⌨️  Validating commands...');
+  if (format !== 'compact') console.log('\n⌨️  Validating commands...');
   const cmdsRoot = path.join(SRC, 'commands');
   if (!fs.existsSync(cmdsRoot)) {
+    setFile(cmdsRoot);
     warn('commands/ directory missing');
     return;
   }
@@ -152,6 +198,7 @@ function validateCommands() {
   const files = fs.readdirSync(cmdsRoot).filter(f => f.endsWith('.md'));
   for (const file of files) {
     const filePath = path.join(cmdsRoot, file);
+    setFile(filePath);
     const fm = readFrontmatter(filePath);
     if (!fm) {
       error(`Command "${file}" missing YAML frontmatter`);
@@ -164,19 +211,22 @@ function validateCommands() {
 }
 
 function validateMcp() {
-  console.log('\n🔌 Validating MCP server...');
+  if (format !== 'compact') console.log('\n🔌 Validating MCP server...');
   const mcpRoot = path.join(SRC, 'mcp', 'asc');
   if (!fs.existsSync(mcpRoot)) {
+    setFile(mcpRoot);
     warn('mcp/asc/ directory missing');
     return;
   }
 
   const pkgPath = path.join(mcpRoot, 'package.json');
   if (!fs.existsSync(pkgPath)) {
+    setFile(pkgPath);
     error('mcp/asc/package.json missing');
     return;
   }
 
+  setFile(pkgPath);
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
   if (!pkg.name) error('mcp/asc/package.json missing "name"');
   if (!pkg.version) warn('mcp/asc/package.json missing "version"');
@@ -184,13 +234,19 @@ function validateMcp() {
   ok('MCP server package.json');
 }
 
-// ─── Main ───
-function main() {
-  console.log('=== Apple Dev Skills Validation ===');
+// ─── Core validation runner ───
+function validate() {
+  errors = 0;
+  warnings = 0;
+  currentFile = '';
+
+  if (format !== 'compact') {
+    console.log('=== Apple Dev Skills Validation ===');
+  }
 
   if (!fs.existsSync(SRC)) {
     console.error('Error: src/ directory not found.');
-    process.exit(1);
+    return false;
   }
 
   validateSkills();
@@ -198,11 +254,56 @@ function main() {
   validateCommands();
   validateMcp();
 
-  console.log('\n=== Validation Complete ===');
-  console.log(`Errors: ${errors}, Warnings: ${warnings}`);
+  if (format !== 'compact') {
+    console.log('\n=== Validation Complete ===');
+    console.log(`Errors: ${errors}, Warnings: ${warnings}`);
+  }
 
-  if (errors > 0) {
-    process.exit(1);
+  return errors === 0;
+}
+
+// ─── Watch mode ───
+function watch() {
+  console.log('👀 Watching src/ for changes... (Ctrl+C to stop)\n');
+
+  let debounceTimer = null;
+  const trigger = () => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (format !== 'compact') console.clear();
+      validate();
+      if (format !== 'compact') console.log('\n👀 Watching for changes...');
+    }, 150);
+  };
+
+  const dirsToWatch = [
+    path.join(SRC, 'skills'),
+    path.join(SRC, 'agents'),
+    path.join(SRC, 'commands'),
+    path.join(SRC, 'mcp', 'asc'),
+  ];
+
+  for (const dir of dirsToWatch) {
+    if (!fs.existsSync(dir)) continue;
+    fs.watch(dir, { recursive: true }, (eventType, filename) => {
+      if (filename && (filename.endsWith('.md') || filename === 'package.json')) {
+        trigger();
+      }
+    });
+  }
+
+  // Initial run
+  validate();
+  if (format !== 'compact') console.log('\n👀 Watching for changes...');
+}
+
+// ─── Main ───
+function main() {
+  if (WATCH) {
+    watch();
+  } else {
+    const ok = validate();
+    process.exit(ok ? 0 : 1);
   }
 }
 

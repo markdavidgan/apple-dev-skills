@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "apple-dev-skills",
-      "description": "Apple platform development skills (ios-standards, ios26-api-reference, apple-design, accessibility, concurrency, apple-review, ASC build checks, submission prep, verify-against-spec, complete-feature, merge-check, regression-test), App Store Connect MCP server, and build agent.",
+      "description": "Apple platform development skills (ios-standards, ios26-api-reference, ios-design, accessibility, concurrency, apple-review, ASC build checks, submission prep, verify-against-spec, complete-feature, merge-check, regression-test), App Store Connect MCP server, and build agent.",
       "source": "./platforms/claude"
     }
   ]

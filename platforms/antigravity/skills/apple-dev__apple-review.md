@@ -61,16 +61,16 @@ The review spawns four parallel subagents, each examining the app from a distinc
 │
 ├─► [Parallel Phase] ─────────────────────────────────────────
 │   │
-│   ├─► Panel 1: Design Review (code-reviewer)
+│   ├─► Panel 1: Design Review (apple-dev-skills:code-reviewer)
 │   │   UI/UX flows, visual craft, delight, simplicity, HIG
 │   │
-│   ├─► Panel 2: Engineering Review (auditor)
+│   ├─► Panel 2: Engineering Review (apple-dev-skills:auditor)
 │   │   Architecture, code quality, performance, patterns
 │   │
-│   ├─► Panel 3: Compliance Review (code-reviewer)
+│   ├─► Panel 3: Compliance Review (apple-dev-skills:code-reviewer)
 │   │   App Store guidelines, rejection risks, metadata
 │   │
-│   └─► Panel 4: Keynote Review (code-reviewer)
+│   └─► Panel 4: Keynote Review (apple-dev-skills:code-reviewer)
 │       Product story, demo-readiness, "one more thing" moments
 │
 ├─► [Correlation Phase] ──────────────────────────────────────
@@ -136,10 +136,10 @@ listed subagent type. Spawn all four in parallel.
 
 | Panel | Subagent type | Lens | Prompt |
 |-------|---------------|------|--------|
-| 1. Design | `code-reviewer` | UI/UX flows, visual craft, delight, simplicity, HIG | `references/panel-design.md` |
-| 2. Engineering | `auditor` | Architecture, Swift 6, performance, patterns, tests | `references/panel-engineering.md` |
-| 3. Compliance | `code-reviewer` | App Store guidelines, privacy, entitlements, rejection risks | `references/panel-compliance.md` |
-| 4. Keynote | `code-reviewer` | Product story, demo-readiness, "one more thing" | `references/panel-keynote.md` |
+| 1. Design | `apple-dev-skills:code-reviewer` | UI/UX flows, visual craft, delight, simplicity, HIG | `references/panel-design.md` |
+| 2. Engineering | `apple-dev-skills:auditor` | Architecture, Swift 6, performance, patterns, tests | `references/panel-engineering.md` |
+| 3. Compliance | `apple-dev-skills:code-reviewer` | App Store guidelines, privacy, entitlements, rejection risks | `references/panel-compliance.md` |
+| 4. Keynote | `apple-dev-skills:code-reviewer` | Product story, demo-readiness, "one more thing" | `references/panel-keynote.md` |
 
 Each panel prompt enforces the same contract:
 
@@ -324,12 +324,12 @@ When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple 
 ## Execution Notes
 
 - Each panel agent MUST produce structured output — this is non-negotiable
-- The `code-reviewer` agent type is used for Design/Compliance/Keynote because it
+- The `apple-dev-skills:code-reviewer` agent type is used for Design/Compliance/Keynote because it
   emphasizes analysis and structured output over exploration
-- The `auditor` agent type is used for Engineering because it
-  excels at deep codebase analysis with structured findings. If `auditor` is
-  not available in the current environment, fall back to `architect` (preferred)
-  or `code-reviewer`, and note the substitution in the report.
+- The `apple-dev-skills:auditor` agent type is used for Engineering because it
+  excels at deep codebase analysis with structured findings. If `apple-dev-skills:auditor` is
+  not available in the current environment, fall back to `apple-dev-skills:architect` (preferred)
+  or `apple-dev-skills:code-reviewer`, and note the substitution in the report.
 - If a panel agent returns without structured output, the main thread should note
   this in the report and fill in from its own reading
 - Include the file manifest in each agent's prompt — this saves 3-5 tool calls per agent

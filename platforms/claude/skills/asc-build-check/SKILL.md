@@ -42,7 +42,7 @@ For each failed build:
 
 If errors include `ExportArchiveStep` failures ("Exporting for X Distribution failed"):
 
-1. **Parallel local analysis** — while calling `asc_check_signing`, dispatch an `explore` agent (Fast tier: `claude-haiku-4-5` / `gpt-4.1-mini` / `gemini-3.0-flash` / `kimi-for-coding`) to read local files simultaneously:
+1. **Parallel local analysis** — while calling `asc_check_signing`, dispatch an `apple-dev-skills:explore` agent (Fast tier: `claude-haiku-4-5` / `gpt-4.1-mini` / `gemini-3.0-flash` / `kimi-for-coding`) to read local files simultaneously:
 
 ```
 You (MCP calls)                    explore agent (local files)

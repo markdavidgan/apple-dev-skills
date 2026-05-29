@@ -5,7 +5,7 @@
 **Dispatch:** Spawn as a parallel subagent with the Views-only file manifest pre-loaded into the `[PASTE FILE MANIFEST HERE — Views only]` placeholder, then send the block below verbatim.
 
 ```yaml
-subagent_type: code-reviewer
+subagent_type: apple-dev-skills:code-reviewer
 prompt: |
   You are conducting a DESIGN REVIEW of {app_name} with the critical eye of
   Apple's most obsessive designers. Every pixel, every transition, every moment

@@ -2,7 +2,7 @@
 
 **Persona:** Think like the App Store Review team combined with Apple's legal/privacy compliance group. Find everything that could cause a rejection, delay, or removal.
 
-**Dispatch:** Spawn as a subagent (`subagent_type: "code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
+**Dispatch:** Spawn as a subagent (`subagent_type: "apple-dev-skills:code-reviewer"`). Paste the file manifest from the Pre-Work Phase into the `[PASTE FILE MANIFEST HERE]` placeholder, then send the prompt below verbatim.
 
 ```
 You are conducting an App Store compliance review of [app name]. You MUST produce

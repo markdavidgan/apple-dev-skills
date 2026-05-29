@@ -122,8 +122,8 @@ as the listed subagent type. Spawn both in parallel reading the entire codebase.
 
 | Panel | Subagent type | Lens | Prompt |
 |-------|---------------|------|--------|
-| 1. Engineering | `code-reviewer` | Swift 6 concurrency, SwiftData, SwiftUI patterns, performance, error handling, architecture, tests | `references/panel-engineering.md` |
-| 2. Compliance | `explore` | App Store guidelines, privacy manifest, entitlements, binary/build, content/legal, IAP | `references/panel-compliance.md` |
+| 1. Engineering | `apple-dev-skills:code-reviewer` | Swift 6 concurrency, SwiftData, SwiftUI patterns, performance, error handling, architecture, tests | `references/panel-engineering.md` |
+| 2. Compliance | `apple-dev-skills:explore` | App Store guidelines, privacy manifest, entitlements, binary/build, content/legal, IAP | `references/panel-compliance.md` |
 
 Both panel prompts enforce the same contract:
 
@@ -273,7 +273,7 @@ Dispatch specialized subagents in parallel batches.
 
 **Bug Fix Squad (P0 critical):**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a BUG FIX SPECIALIST in worktree: {worktree_path}
@@ -301,7 +301,7 @@ prompt: |
 
 **Swift 6 Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a SWIFT 6 COMPLIANCE SPECIALIST in worktree: {worktree_path}
@@ -328,7 +328,7 @@ prompt: |
 
 **SwiftData Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a SWIFTDATA SPECIALIST in worktree: {worktree_path}
@@ -352,7 +352,7 @@ prompt: |
 
 **Optimization Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are a PERFORMANCE OPTIMIZER in worktree: {worktree_path}
@@ -372,7 +372,7 @@ prompt: |
 
 **AI Deslop Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are an AI DESLOP SPECIALIST in worktree: {worktree_path}
@@ -399,7 +399,7 @@ prompt: |
 
 **Integration Squad:**
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: cleanup-{app}-{timestamp}
 prompt: |
   You are an INTEGRATION SPECIALIST in worktree: {worktree_path}

@@ -122,8 +122,8 @@ verbatim as the listed subagent type. Spawn both in parallel.
 
 | Panel | Subagent type | Lens | Prompt |
 |-------|---------------|------|--------|
-| 1. Design | `code-reviewer` | First impressions, navigation, visual craft, motion, delight, simplicity, HIG, edge cases | `references/panel-design.md` |
-| 2. Keynote | `code-reviewer` | Story clarity, demo-readiness, "one more thing", narrative, platform story, cringe test | `references/panel-keynote.md` |
+| 1. Design | `apple-dev-skills:code-reviewer` | First impressions, navigation, visual craft, motion, delight, simplicity, HIG, edge cases | `references/panel-design.md` |
+| 2. Keynote | `apple-dev-skills:code-reviewer` | Story clarity, demo-readiness, "one more thing", narrative, platform story, cringe test | `references/panel-keynote.md` |
 
 Both panel prompts enforce the same contract:
 
@@ -215,7 +215,7 @@ Wait for user confirmation before proceeding. If user says "yes" or presses ente
 After user selects issues, spawn a planning agent to create the execution plan.
 
 ```yaml
-subagent_type: architect
+subagent_type: apple-dev-skills:architect
 prompt: |
   You are a DESIGN ORCHESTRATOR planning the implementation of selected polish
   issues for {app_name}.
@@ -302,7 +302,7 @@ xcodebuild -scheme {App}-iOS \
 ### Visual Polish Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a VISUAL POLISH SPECIALIST working in worktree: {worktree_path}
@@ -333,7 +333,7 @@ prompt: |
 ### UX Flow Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a UX FLOW SPECIALIST working in worktree: {worktree_path}
@@ -363,7 +363,7 @@ prompt: |
 ### Delight Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a DELIGHT SPECIALIST working in worktree: {worktree_path}
@@ -394,7 +394,7 @@ prompt: |
 ### Narrative Squad
 
 ```yaml
-subagent_type: coder
+subagent_type: apple-dev-skills:coder
 worktree: polish-{app}-{timestamp}
 prompt: |
   You are a NARRATIVE SPECIALIST working in worktree: {worktree_path}

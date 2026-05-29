@@ -5,7 +5,7 @@
 **Dispatch:** Spawn as a parallel subagent. Send the block below verbatim.
 
 ```yaml
-subagent_type: explore
+subagent_type: apple-dev-skills:explore
 prompt: |
   You are conducting an APP STORE COMPLIANCE REVIEW of {app_name} as an App 
   Store Review team member. Find every rejection risk, guideline violation, 
