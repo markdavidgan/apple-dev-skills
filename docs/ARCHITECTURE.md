@@ -19,9 +19,9 @@ This document explains how `apple-dev-skills` is structured, why it is structure
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  src/                        Canonical source of truth      │
-│  ├── skills/*                19 skill directories           │
-│  ├── agents/*                3 agent definitions            │
-│  ├── commands/*              6 command definitions          │
+│  ├── skills/*                22 skill directories           │
+│  ├── agents/*                7 agent definitions            │
+│  ├── commands/*              12 command definitions         │
 │  └── mcp/asc/                TypeScript MCP server          │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -98,9 +98,9 @@ The ASC MCP server is a standard TypeScript MCP server. It is built separately f
 
 ```
 platforms/claude/
-├── skills/               # 19 directories, identical to src/skills/
-├── agents/               # 3 files
-├── commands/             # 6 files
+├── skills/               # 22 directories, identical to src/skills/
+├── agents/               # 7 files
+├── commands/             # 12 files
 └── plugin.json           # Claude marketplace manifest
 ```
 
@@ -133,7 +133,7 @@ platforms/kimi/apple-dev/
     └── api-lookup.sh
 ```
 
-**Why consolidation?** Kimi Code discovers **only one `SKILL.md` per plugin**. Nested skill directories are ignored. Therefore all 19 skills are concatenated into a single master `SKILL.md` with clear section boundaries and a skill index.
+**Why consolidation?** Kimi Code discovers **only one `SKILL.md` per plugin**. Nested skill directories are ignored. Therefore all 22 skills are concatenated into a single master `SKILL.md` with clear section boundaries and a skill index.
 
 **Tools:** Because Kimi lacks commands/agents, executable tools in `plugin.json` provide interactive capabilities:
 - `pattern-check` — Runs the mechanical validation script

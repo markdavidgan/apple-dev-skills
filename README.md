@@ -202,9 +202,9 @@ Symlink-based installs update instantly. Copied installs require re-running `./i
 ```
 apple-dev-skills/
 ├── src/                    # Source of truth (canonical content)
-│   ├── skills/             # 19 skill directories
-│   ├── agents/             # 3 agent definitions
-│   ├── commands/           # 6 command definitions
+│   ├── skills/             # 22 skill directories
+│   ├── agents/             # 7 agent definitions
+│   ├── commands/           # 12 command definitions
 │   └── mcp/asc/            # App Store Connect MCP server
 ├── platforms/              # Generated platform outputs
 │   ├── claude/             # Claude Code bundle
@@ -253,7 +253,7 @@ See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the ful
 
 | Feature | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |---------|--------|--------|------|-------------|-------|-----|
-| Skills (all 19) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
+| Skills (all 22) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
 | Agents | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | MCP Server | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |

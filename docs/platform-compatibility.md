@@ -20,7 +20,7 @@ This matrix shows how each feature maps across supported AI platforms.
 | Feature | Claude Code | Cursor | Kimi Code | Antigravity | Codex CLI | Agy |
 |---------|:-----------:|:------:|:---------:|:-----------:|:---------:|:---:|
 | **Skills** |
-| All 19 skills | ✅ | ✅ | ⚠️* | ✅ | ✅ | ✅ |
+| All 22 skills | ✅ | ✅ | ⚠️* | ✅ | ✅ | ✅ |
 | Nested skill dirs | ✅ | ✅ | ❌ | ⚠️ | ❌ | ⚠️ |
 | Skill sub-files | ✅ | ✅ | ❌ | ⚠️ | ❌ | ⚠️ |
 | **Agents** |
@@ -38,7 +38,7 @@ This matrix shows how each feature maps across supported AI platforms.
 | **Update Mechanism** |
 | `git pull` | ✅ | ✅ | `kimi plugin update` | `git pull` + recopy | `git pull` + recopy | `git pull` + recopy |
 
-\* Kimi consolidates all 19 skills into one master `SKILL.md`. Knowledge is complete; granularity is lost.  
+\* Kimi consolidates all 22 skills into one master `SKILL.md`. Knowledge is complete; granularity is lost.  
 \** MCP requires manual JSON config. Platform-specific paths differ.
 
 ---

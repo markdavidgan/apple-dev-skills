@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 19 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 22 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents

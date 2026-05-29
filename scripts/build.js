@@ -159,7 +159,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 19 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All ${skillDirs.length} apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -416,7 +416,7 @@ function buildRootMarketplaces() {
       {
         name: 'apple-dev',
         source: 'platforms/kimi/apple-dev',
-        description: 'Apple platform development skills (consolidated 19 skills), pattern-check tool, and iOS 26 API lookup tool for Kimi Code.'
+        description: `Apple platform development skills (consolidated ${getSkillDirs().length} skills), pattern-check tool, and iOS 26 API lookup tool for Kimi Code.`
       }
     ]
   };
