@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 22 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 24 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -23,17 +23,19 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 9 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
 | 10 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
 | 11 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
-| 12 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 13 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
-| 14 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 15 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
-| 16 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
-| 17 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
-| 18 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
-| 19 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
-| 20 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
-| 21 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 22 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 12 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
+| 13 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 14 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
+| 15 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
+| 16 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
+| 17 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
+| 18 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
+| 19 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
+| 20 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
+| 21 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
+| 22 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
+| 23 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
+| 24 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -4487,6 +4489,23 @@ Before any Critical Issue / Cringe Moment cites a full-screen view, modal, sheet
 
 This rule exists because a file that compiles cleanly, has previews, and has a ViewModel can still be unreachable at runtime. Reading code-in-isolation tells you what a view *would* do if presented, not whether users ever see it. Confident plausible narratives about "UX whiplash" or "jarring flows" are exactly where this trap fires — plausibility is when verification matters most.
 
+## HARD RULE: Privacy Symbols vs Usage Strings (the two-scanner contract)
+
+Two independent gates inspect privacy permissions, and they fail in **opposite** directions:
+
+- **Apple's automated binary scanner** (TestFlight upload) rejects with `ITMS-90683` if the binary links a privacy-sensitive symbol but the Info.plist has no matching usage string. It reads *linked symbols*, not features.
+- **Human App Review** rejects under **Guideline 5.1.1** if the Info.plist declares a usage string for a permission the app has no feature for. It reads *the running app*, not symbols.
+
+A permission therefore needs **symbol present ⟺ string present**. Both-or-neither. Declaring a string "just in case" fails human review; linking the symbol without the string fails the scanner.
+
+**Symbol linkage is the trigger — not the `import`, and not the feature.**
+
+- It is the *specific symbol*, not the umbrella framework. `import AVFoundation` alone does not demand `NSCameraUsageDescription`; **`AVCaptureDevice`** does. Audio via `AVAudioApplication` demands only `NSMicrophoneUsageDescription`. Same framework, different keys, keyed off which symbols you actually reference.
+- Linkage is **function-granular under the optimizer's reachability, not branch-granular**. A never-hit `switch` branch or an `if false` path still links the symbol if the *enclosing function* is reachable from the app's entry graph. You cannot dead-code your way out of a symbol by making the call conditional — only by making the enclosing function unreachable, or by removing the reference from the linked image entirely.
+- This bites hardest with **shared packages**: a symbol referenced anywhere in a package that every app links gets linked into *every* app, so one app's camera code forces a camera-permission decision on apps that have no camera. The fix is to move the symbol behind a product/module boundary that only camera-using apps link (see `ios-build` → symbol-gating). Verify with `nm <app-binary> | grep -i <Symbol>` against a *fresh* archive — stale archives in `build/` predate the fix and will mislead you.
+
+When auditing, treat a usage string with no reachable feature and a linked privacy symbol with no usage string as **the same class of finding** — a broken two-scanner contract — and report which side is missing.
+
 ## Input
 
 ```
@@ -5670,6 +5689,8 @@ When the user explicitly asks to submit for review:
 - Write for users, not developers (no technical jargon)
 - Example: "New haptic feedback during focus sessions" not "feat(haptics): add UIFeedbackGenerator"
 
+> **First App Store release has no editable "What's New."** The `whatsNew` field only exists for *updates*. On an app's very first version, a `PATCH` to `appStoreVersionLocalizations` for `whatsNew` returns **`409 STATE_ERROR` — "cannot be edited at this time"**, and the field is absent/null in `GET` responses. This is expected, not a blocker. Readiness tooling that checks "is What's New set?" will **false-positive** on a first release — treat a missing `whatsNew` on version 1.0 / the first-ever version as N/A, not as an incomplete-metadata failure. Set the description, keywords, screenshots, and promotional text instead. "What's New" becomes editable starting with the second version.
+
 ### Keywords
 - Max 100 characters, comma-separated
 - No spaces after commas
@@ -5951,6 +5972,116 @@ This skill coordinates with:
 - `merge-check` — run after completing, before merging to main
 
 <!-- END SKILL: complete-feature -->
+
+---
+
+<!-- BEGIN SKILL: design-contract -->
+
+# design-contract
+
+# Design Contract
+
+> **Purpose:** Convert a visual mockup into a tabular, section-numbered contract that a plan cites row-by-row, eliminating "compare against the mockup" drift.
+> **Trigger:** A mockup exists (HTML, PNG, Figma export, detailed spec) and you are about to write the plan that builds it.
+
+A plan that says "match the mockup" lets an executing agent hallucinate its own design — visually close, subtly wrong. The fix is a **machine-readable contract** (every color named, every string verbatim, every size mapped to real device points) plus **`#Preview`/capture gates** that make divergence a build-time failure rather than a review-time opinion.
+
+## When to Use
+
+- **Do use** when a brainstorm/design folder contains a visual mockup and the next step is a SwiftUI implementation plan.
+- **Do use** when an existing plan references a mockup only softly ("compare against the mockup") and you want to harden it.
+- **Don't use** for backend-only features, pure-text brainstorms with no visual, or one-file bug fixes.
+
+## Command Reference
+
+```
+/design-contract <mockup-path>        # Extract contract from a mockup file
+/design-contract <brainstorm-dir>     # Extract from a folder (reads every mockup in it)
+```
+
+## Workflow
+
+### Step 1: Read the mockup in full
+
+Read every mockup file end-to-end — do not skim. For HTML, grep `:root` for CSS custom properties and every inline `style=` for ad-hoc tokens. For PNG/Figma, enumerate frames visually.
+
+**Gate:** you cannot proceed until you can list every distinct color, font size, spacing value, corner radius, animation, and user-facing string. If the mockup is 1000+ lines, read it in ≤400-line chunks.
+
+### Step 2: Extract the contract
+
+Write `<app>/docs/vision/<feature>-design-contract.md` using this section skeleton. The contract is **authoritative** — it wins over the mockup when they disagree (the mockup is a snapshot; the contract is tracked).
+
+```
+§1  — Color tokens (name, hex/rgba, token symbol, use). Every hex gets a NAME — no orphan literals.
+§2  — Typography (name, font, size, weight, tracking, line-height, SwiftUI mapping)
+§3  — Spacing scale (token, pt, used for)
+§4  — Radii (token, pt, used for)
+§5  — Shadows & glows (effect, spec, used for)
+§6  — Component specs (layout, padding, radius, colors per component)
+§7  — Motion (name, duration, easing, reduced-motion fallback)
+§8  — Copy strings (every user-facing string, VERBATIM incl. punctuation, grouped by screen, with string ids)
+§9  — Canonical frames (Frame ID, mockup anchor, SwiftUI #Preview name, state description) — 6–10 frames
+§10 — Non-negotiables (hard rules: no light mode, no new screens, no count-down, etc.)
+§11 — Open questions (what the mockup couldn't answer — font-metric widths, etc.)
+```
+
+**Apple-platform critical rules:**
+
+- **Mockup px ≠ SwiftUI pt.** Mockup phones are scaled down to sit side-by-side in a browser; in-app sizes run **~1.5–1.8×** larger. §2 MUST carry a "SwiftUI mapping" column with the real device-pt value, not the mockup px. State the scale factor at the top of the contract.
+- **Every hex gets a name, tied to a tokens file.** `#E8A15A` becomes `amber` in `Theme.swift` / `<App>Tokens.swift` (see `ios-design`/`apple-design`). The plan references `Theme.amber`, never the literal.
+- **No copy-synonym drift.** If the mockup says `Gone.` with a period, §8 says `Gone.` with a period. The plan cites §8 by string id, never paraphrases.
+- **Canonical frames are finite.** 6–10 frames is correct. More means the feature is too big for one plan — decompose.
+
+### Step 3: Co-locate the mockup
+
+The mockup lives canonically in the brainstorm folder. Make it openable from the code, and create the capture target:
+
+```bash
+cd <app>/docs/vision
+ln -sf <relative-path-to-brainstorm>/<mockup> ./<mockup>     # symlink, stays git-committable
+mkdir -p captures && touch captures/.gitkeep
+```
+
+Update `<app>/docs/vision/README.md` to link the contract, the symlinked mockup, and `captures/`.
+
+### Step 4: Write the plan with hard gates
+
+Every plan step cites the contract and requires preview-backed evidence. Open the plan with a **Fidelity contract** establishing four gates:
+
+1. **Cite the contract** — every checkbox references a §section/row. No citation ⇒ the contract is incomplete; fix §1–§8 first.
+2. **Previews are mandatory** — no view step is complete without a named `#Preview` rendering the §9 state verbatim.
+3. **Capture proof** — a PNG of each touched §9 frame is committed to `captures/` at canonical device resolution (see `preview-capture`). On machines that cannot render previews, substitute the documented fallback (archive build as CI gate + human-rendered captures — see `preview-capture` §capability ladder).
+4. **Diff justification** — any deviation from the mockup is either justified against a §section in the PR description or is a bug.
+
+Make **Step 1 of the plan** = "encode tokens in `<App>Tokens.swift`" with a grep gate forbidding hex literals / ad-hoc paddings in view code. This front-loads the contract into the type system.
+
+### Step 5: Commit and hand off
+
+Single commit: `docs(<app>): extract design contract + harden <feature> verification gates`. In the body, explain *why* the gates exist (prevent drift during execution). Hand the plan to the execution skill.
+
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| Soft-reference drift | Plan says "compare against mockup", no §citations | Require a §citation per checkbox; if one has none, §1–§8 is incomplete |
+| Mockup-pt rendered as app-pt | Executor builds at the mockup's small px | §2 needs the SwiftUI-mapping column; scale 1.5–1.8× |
+| Copy synonym drift | "Got it!" when mockup says "Got it" | §8 is the only source; cite by string id |
+| Token leak | Hex literals reappear in view code weeks later | Plan Step 1 encodes tokens; grep gate forbids hex outside the tokens file |
+| "Improvement" drift | Executor adds an unrequested glow | §10 forbids it; if the change is right, update the contract first, then code |
+| Unreviewable PR | No captures; reviewer can't judge fidelity | Mergeable = every touched §9 frame has a fresh capture |
+
+## Cross-References
+
+- Render the captures: `preview-capture`
+- Verify coverage + visual fidelity after build: `verify-against-spec` (its Visual Fidelity agent diffs `captures/` against §9)
+- Tokens & Theme patterns: `apple-design` / `ios-design`
+- API signatures for the views you build: `ios26-api-reference`
+
+## Contract Maintenance
+
+The contract is living until V1 ships, then it freezes and the mockup is archived. The contract wins over the mockup on disagreement. PRs that change a token must update the contract in the same change, or the next executor loses the reason.
+
+<!-- END SKILL: design-contract -->
 
 ---
 
@@ -6551,6 +6682,105 @@ targets:
 1. Never add Watch targets to the iOS scheme's `buildTargets` — breaks Xcode Cloud
 2. Use `embed: true` with `copyFiles` to `products/Watch`
 3. Watch app will build automatically via target dependency
+
+#### Watch App Icon — Xcode 17 iphoneos Thinning (Gotcha)
+
+When archiving with `-destination generic/platform=iOS`, Xcode 17 runs actool on the **embedded Watch bundle** with `--platform iphoneos` as part of the iOS archive's thinning pass. If your Watch `AppIcon.appiconset/Contents.json` only contains a `"platform": "watchos"` entry, actool throws:
+
+```
+error: The app icon set named "AppIcon" did not have any applicable content.
+```
+
+**Fix:** Add a second `"idiom": "universal"` entry (no `platform` field) pointing to the same 1024×1024 file. The watchOS-specific entry continues to handle proper CFBundleIconName assignment for the Watch bundle; the universal entry gives iphoneos thinning something to find.
+
+```json
+{
+  "images": [
+    {
+      "filename": "AppIcon.png",
+      "idiom": "universal",
+      "platform": "watchos",
+      "size": "1024x1024"
+    },
+    {
+      "filename": "AppIcon.png",
+      "idiom": "universal",
+      "size": "1024x1024"
+    }
+  ],
+  "info": { "author": "xcode", "version": 1 }
+}
+```
+
+The "unassigned child" warning emitted for the universal entry is harmless — it's a warning, not an error, and does not affect the archive result or altool validation.
+
+#### Never Pass `-sdk iphoneos` to xcodebuild (Xcode 17)
+
+Passing `-sdk iphoneos` to an xcodebuild archive command forces **all** targets — including the embedded Watch app — to compile against the iOS SDK. In Xcode 17 this causes the Watch build to fail outright.
+
+```bash
+# ❌ Broken in Xcode 17 — Watch targets compile against iOS SDK
+xcodebuild -scheme MyApp-iOS -sdk iphoneos archive ...
+
+# ✅ Correct — each platform target uses its own SDK automatically
+xcodebuild -scheme MyApp-iOS -destination generic/platform=iOS archive ...
+```
+
+Remove `-sdk iphoneos` from any Fastfile `gym`/`xcodebuild` invocation and use `-destination generic/platform=iOS` only.
+
+---
+
+## Gating a Privacy-Sensitive Symbol Per-App in a Shared SPM Package
+
+**Problem:** A shared SPM package (e.g. a monorepo's `Kit`) is linked by several apps. One app needs a privacy-sensitive symbol (`AVCaptureDevice`, `CLLocationManager`, `CMMotionManager`, `HKHealthStore`); the others don't. If the symbol lives in the shared package, *every* app links it, and Apple's binary scanner then demands the corresponding `Info.plist` usage string from apps that have no such feature — which human review rejects as a false feature (Guideline 5.1.1). See `apple-review` → "Privacy Symbols vs Usage Strings."
+
+**Why SPM traits don't solve this in Xcode:** SwiftPM package *traits* (the `traits:`/`enabledTraits:` feature) look like the answer, but they **cannot be toggled per-target from an Xcode `.xcodeproj`**. There's no app-level `Package.swift` to enable a dependency's trait; the `.xcodeproj` just references the product. (Traits work when the consumer is itself a SwiftPM package.) Don't reach for them in an XcodeGen/`.xcodeproj` app.
+
+**Reliable Xcode-native fix — separate product + dependency inversion:**
+
+1. In the shared package, split the symbol into its **own product/target**. Core stays symbol-free; it declares a protocol + a set-once registry instead of calling the symbol directly:
+   ```swift
+   // Core target — no AVCaptureDevice anywhere
+   public protocol CameraPermissionProviding: Sendable { /* status/request */ }
+   public enum CameraPermissionRegistry {
+       private static let storage = Mutex<(any CameraPermissionProviding)?>(nil)  // Synchronization
+       public static func register(_ p: any CameraPermissionProviding) { storage.withLock { $0 = p } }
+       public static var provider: (any CameraPermissionProviding)? { storage.withLock { $0 } }
+   }
+   ```
+   ```swift
+   // Separate "Camera" target/product — the ONLY AVCaptureDevice site
+   public struct AVCaptureCameraProvider: CameraPermissionProviding { /* calls AVCaptureDevice */ }
+   public enum AppCamera { public static func install() { CameraPermissionRegistry.register(AVCaptureCameraProvider()) } }
+   ```
+   ```swift
+   // Package.swift
+   .library(name: "KitCamera", targets: ["KitCamera"]),
+   .target(name: "KitCamera", dependencies: ["Kit"], path: "Sources/KitCamera"),
+   ```
+2. Only camera-using apps add the product in `project.yml` and call `install()` once at launch:
+   ```yaml
+   dependencies:
+     - package: Kit
+       product: Kit          # XcodeGen defaults `- package: Kit` to the same-named product;
+     - package: Kit          # list products explicitly when a package has more than one.
+       product: KitCamera
+   ```
+   ```swift
+   // App launch (camera-using app only)
+   AppCamera.install()
+   ```
+   Apps that don't link `KitCamera` get the core's safe no-op fallback and never link the symbol.
+
+**Verify at the binary level (don't trust source-grep alone):**
+```bash
+make archive-<app>          # build a FRESH archive — stale ones in build/ predate the fix
+APP=.../<App>.xcarchive/Products/Applications/<App>.app
+nm "$APP/<App>" | grep -i AVCaptureDevice          # opted-out app → zero matches
+grep -rl AVCaptureDevice "$APP"                     # full-bundle scan incl. embedded frameworks
+otool -L "$APP/<App>" | grep -i AVFoundation        # positive control on the opted-in app
+```
+Run the same `nm` on a camera-using app as a positive control — it *should* show the symbol. App-level Swift compile flags do **not** propagate into a local SwiftPM dependency, so you cannot gate the symbol with an app-target `#if`; the product boundary is what does the gating.
 
 ---
 
@@ -11071,6 +11301,126 @@ Merge-check prevents broken code in main, which prevents broken releases.
 
 ---
 
+<!-- BEGIN SKILL: preview-capture -->
+
+# preview-capture
+
+# Preview Capture
+
+> **Purpose:** Turn a design contract's canonical `#Preview` frames into committed PNGs that a reviewer can diff against the mockup.
+> **Trigger:** A plan written with `design-contract` requires capture proof, and you need to render `#Preview`s to images.
+
+A design contract's §9 maps each canonical frame to a named `#Preview`. This skill renders those previews to `captures/<PreviewName>.png` so fidelity becomes reviewable. It first decides **whether this machine may render at all** — because "looks capable" is not the same as "is allowed."
+
+## When to Use
+
+- **Do use** to generate capture proof for `design-contract` §9 frames before opening a PR.
+- **Do use** to refresh captures after a UI change touches a contracted frame.
+- **Don't use** for ad-hoc screenshots of a running app (that's `ios-simulate`), or when there is no design contract.
+
+## Command Reference
+
+```
+/preview-capture                       # Render every contracted #Preview in the touched files
+/preview-capture <PreviewName> ...     # Render specific named previews
+```
+
+## Step 1: Gauge simulator capability (REQUIRED — run first)
+
+You cannot reliably probe "will the simulator crash *this* machine" from hardware. A Mac that meets every spec can still destabilize on boot. Therefore an **explicit opt-out always wins over any hardware probe** — a passing probe must never re-enable a machine a human has marked unsafe.
+
+Resolve capability with this precedence ladder:
+
+```bash
+# --- simulator-capability ladder -------------------------------------------
+# Echoes one of: forbidden | unavailable | insufficient | capable
+cap_marker_present() {
+  [ -f ".claude/NO_SIMULATOR.md" ] || [ -n "${AETHER_NO_SIMULATOR:-}" ] || \
+  [ -f "$HOME/.config/no-simulator" ]
+}
+
+min_free_ram_gb=8
+min_free_disk_gb=15
+
+if cap_marker_present; then
+  echo "forbidden"                       # human/policy opt-out — AUTHORITATIVE, stop here
+elif [ "$(uname -s)" != "Darwin" ]; then
+  echo "unavailable"                     # simulators are macOS-only
+elif ! xcode-select -p >/dev/null 2>&1; then
+  echo "unavailable"                     # no Xcode toolchain
+elif ! xcrun simctl list runtimes 2>/dev/null | grep -qiE "iOS|watchOS|visionOS"; then
+  echo "unavailable"                     # no installed simulator runtime
+else
+  ram_gb=$(( $(sysctl -n hw.memsize) / 1073741824 ))
+  disk_gb=$(df -g . | awk 'NR==2 {print $4}')
+  if [ "$ram_gb" -lt "$min_free_ram_gb" ] || [ "${disk_gb:-0}" -lt "$min_free_disk_gb" ]; then
+    echo "insufficient"                  # meets neither RAM nor disk floor
+  else
+    echo "capable"
+  fi
+fi
+# ---------------------------------------------------------------------------
+```
+
+**Interpretation:**
+
+| Result | Meaning | Action |
+|--------|---------|--------|
+| `forbidden` | A marker (`.claude/NO_SIMULATOR.md`, `AETHER_NO_SIMULATOR`, `~/.config/no-simulator`) opts this machine out | **Go to Step 3 (fallback).** Never override. |
+| `unavailable` | Not macOS, no Xcode, or no installed runtime | Go to Step 3. Cannot render here. |
+| `insufficient` | Below the RAM/disk floor | Go to Step 3; warn the user the machine is under-resourced. |
+| `capable` | Probe passed and no opt-out | Go to Step 2. |
+
+> The hardware probe is a *convenience* that catches obvious "no Xcode" cases. The **marker is the authority.** If you are unsure, treat as `forbidden`.
+
+## Step 2: Render previews (capable machines)
+
+Use Xcode's preview-to-image path. Each `#Preview` named in the contract's §9 renders at the canonical device resolution recorded in the contract (e.g. iPhone 17 Pro Max).
+
+```bash
+# Boot the canonical device once (see ios-simulate for device selection)
+xcrun simctl boot "<canonical-device>" 2>/dev/null || true
+
+# Render each contracted preview to captures/. Prefer the project's own
+# preview-render target/script if present; otherwise drive the simulator and
+# screenshot the rendered preview.
+xcrun simctl io booted screenshot "<app>/docs/vision/captures/<PreviewName>.png"
+```
+
+Commit the PNGs alongside the implementing change. One PNG per §9 frame, named exactly the §9 Preview name so the reviewer can map 1:1.
+
+**Never run iOS UI tests as part of this** — capture is a render, not a test pass. (See `ios-test` for why UI-test execution is gated.)
+
+## Step 3: Fallback (forbidden / unavailable / insufficient)
+
+When this machine may not render, the gate **substitutes** rather than disappears:
+
+1. **CI gate = archive build.** Run the project's archive/export (e.g. `make export-test-<app>` / `xcodebuild archive`). This catches Swift 6 strict concurrency, signing, asset-catalog, and Live Activity encoding failures that a debug render would not — it is a stronger correctness gate than a simulator screenshot.
+2. **Visual proof = a human render.** The `#Preview`s remain **mandatory in code** (they cost nothing and a teammate renders them in Xcode or checks a TestFlight build on device). That person drops the PNGs into `captures/<PreviewName>.png`.
+3. **Honesty rule.** The agent must NOT fabricate captures and must NOT claim visual parity it cannot see. It states plainly: *"previews compile and archive passes; visual parity pending a teammate's Xcode render."*
+
+Record in the plan which captures are agent-produced vs. pending-human, so the PR reviewer knows what is actually verified.
+
+## Error Handling
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| Ladder returns `capable` on a known-bad machine | Marker missing | Create `.claude/NO_SIMULATOR.md` (or set `AETHER_NO_SIMULATOR=1`); the marker is authoritative |
+| `xcrun simctl` hangs / crashes the host | Machine destabilizes despite passing specs | Add the opt-out marker and use Step 3 permanently for that machine |
+| Capture name ≠ §9 Preview name | Hand-named file | Rename to match §9 exactly; the reviewer maps captures→frames by name |
+| Blank/black capture | Simulator not booted, or preview compile error | Boot the device; confirm the `#Preview` compiles in the archive build |
+
+## Cross-References
+
+- Defines the §9 frames and capture gate: `design-contract`
+- Consumes the captures for fidelity diffing: `verify-against-spec` (Visual Fidelity agent)
+- Device selection, simctl workflows: `ios-simulate`
+- Why UI tests are gated separately: `ios-test`
+
+<!-- END SKILL: preview-capture -->
+
+---
+
 <!-- BEGIN SKILL: regression-test -->
 
 # regression-test
@@ -11641,13 +11991,14 @@ Parallel verification that catches implementation gaps before they slip through 
 ## Process
 
 ```
-Find spec file
+Find spec file (+ design contract, if one exists)
     │
     ▼
-Launch 3 parallel agents
+Launch parallel agents
     ├─► Spec Coverage Verifier
     ├─► Build + Test
-    └─► Docs Sync
+    ├─► Docs Sync
+    └─► Visual Fidelity Verifier   (only when a design-contract + captures/ exist)
     │
     ▼
 Triage results
@@ -11664,17 +12015,20 @@ Look in order:
 2. `docs/brainstorm/<feature>/design.md`
 3. Ask the user if unclear
 
+Also look for a **design contract** (`<app>/docs/vision/<feature>-design-contract.md`, see `design-contract`). If one exists with a `captures/` directory, enable Agent 4.
+
 ## Step 2: Launch Parallel Agents
 
-Dispatch all three agents simultaneously. Each runs independently.
+Dispatch the agents simultaneously. Each runs independently. Agent 4 runs **only** when a design contract + captures exist (UI-fidelity work); skip it for non-visual features.
 
 ```
 Coordinator (you)
 ├─► Agent 1 — Spec Coverage Verifier   [Standard tier: claude-sonnet-4-6 / gpt-4.1 / gemini-3.1-pro / kimi-k2.5]
 ├─► Agent 2 — Build + Test             [Fast tier:     claude-haiku-4-5 / gpt-4.1-mini / gemini-3.0-flash / kimi-for-coding]
-└─► Agent 3 — Docs Sync               [Fast tier:     claude-haiku-4-5 / gpt-4.1-mini / gemini-3.0-flash / kimi-for-coding]
+├─► Agent 3 — Docs Sync               [Fast tier:     claude-haiku-4-5 / gpt-4.1-mini / gemini-3.0-flash / kimi-for-coding]
+└─► Agent 4 — Visual Fidelity Verifier [Standard tier: claude-sonnet-4-6 / gpt-4.1 / gemini-3.1-pro / kimi-k2.5]   (conditional)
          │
-         ▼ (all three complete)
+         ▼ (all complete)
 Coordinator — triage and fix
 ```
 
@@ -11729,6 +12083,38 @@ Check:
 
 Return: list of stale/missing entries with suggested updates.
 
+### Agent 4 — Visual Fidelity Verifier (conditional)
+
+**(Standard tier — judgment required. Run only when a `design-contract` + `captures/` exist.)**
+
+Where Agent 1 checks *behavioral* coverage, this agent checks *visual* coverage against the design contract's §9 canonical frames. It does not eyeball "close enough" — it checks contracted tokens and the presence of capture proof.
+
+Prompt template:
+```
+You are verifying visual fidelity for a UI feature against its design contract.
+
+DESIGN CONTRACT: <app>/docs/vision/<feature>-design-contract.md
+CAPTURES DIR:    <app>/docs/vision/captures/
+IMPLEMENTATION:  <list the SwiftUI view files changed in this feature>
+
+For each canonical frame in the contract's §9 table:
+- CAPTURE PRESENT: is there a captures/<PreviewName>.png matching the §9 Preview name?
+- PREVIEW EXISTS:  does a #Preview with that exact name exist in the view files?
+For the implementation, check the contract's hard tokens:
+- §1 colors:   any raw hex literal in view code instead of a named token? (violation)
+- §2 type:     font sizes match the SwiftUI-mapping column (not the mockup px)?
+- §8 copy:     every user-facing string matches §8 VERBATIM, by string id (punctuation included)?
+- §10 rules:   any non-negotiable violated (e.g. count-down where count-up is required, light mode, new screen)?
+
+Return a list sorted by severity:
+  High   = §10 non-negotiable violated, or a contracted frame has neither preview nor capture
+  Medium = token/typography/copy mismatch vs the contract
+  Low    = capture missing but preview exists (needs a render, not a code change)
+Format each: [Severity] §section | Current State | Contract Says
+```
+
+If captures are **pending a human render** (machine could not render — see `preview-capture` Step 3), that is a Low, not a High: flag "capture pending" rather than failing the gate, since the preview compiling under the archive build is the available proof.
+
 ## Step 3: Triage and Fix
 
 | Severity | Action |
@@ -11776,10 +12162,14 @@ Spec Coverage Verifier
 
 Build + Test            ✅ Build clean, 41/41 unit tests pass
 Docs Sync               ⚠️  README still describes the old single-filter behavior
+Visual Fidelity         ✅ F1–F5 captures present and named
+                        ⚠️  §8 copy: button reads "Save filter" — contract says "Save"
+                        ❌ §10: list uses count-down badge — contract requires count-up
 ```
 
-Triage outcome: implement the missing edit flow (§3.2 — blocking), add the empty-state
-message (§4.1), update the README, then re-run before committing.
+Triage outcome: implement the missing edit flow (§3.2 — blocking), fix the count-up
+violation (§10 — blocking), correct the button copy (§8), add the empty-state message
+(§4.1), update the README, then re-run before committing.
 
 ## Quick Reference
 
@@ -11794,7 +12184,9 @@ Run at the end of every multi-day feature branch. Context compaction hides gaps 
 
 | Skill | When | Purpose |
 |-------|------|---------|
-| `verify-against-spec` | End of spec-driven work | Coverage vs design spec |
+| `verify-against-spec` | End of spec-driven work | Coverage vs design spec (+ visual fidelity) |
+| `design-contract` | Before building a mockup | Authors the contract + §9 frames this skill verifies against |
+| `preview-capture` | Producing capture proof | Renders the §9 `#Preview`s into `captures/` that Agent 4 checks |
 | `complete-feature` | Feature feels done | Comprehensive checklist |
 | `merge-check` | Before merging to main | Pre-merge quality gate |
 | `regression-test` | During bug fix | TDD-first regression workflow |

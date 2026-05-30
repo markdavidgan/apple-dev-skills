@@ -155,6 +155,105 @@ targets:
 2. Use `embed: true` with `copyFiles` to `products/Watch`
 3. Watch app will build automatically via target dependency
 
+#### Watch App Icon — Xcode 17 iphoneos Thinning (Gotcha)
+
+When archiving with `-destination generic/platform=iOS`, Xcode 17 runs actool on the **embedded Watch bundle** with `--platform iphoneos` as part of the iOS archive's thinning pass. If your Watch `AppIcon.appiconset/Contents.json` only contains a `"platform": "watchos"` entry, actool throws:
+
+```
+error: The app icon set named "AppIcon" did not have any applicable content.
+```
+
+**Fix:** Add a second `"idiom": "universal"` entry (no `platform` field) pointing to the same 1024×1024 file. The watchOS-specific entry continues to handle proper CFBundleIconName assignment for the Watch bundle; the universal entry gives iphoneos thinning something to find.
+
+```json
+{
+  "images": [
+    {
+      "filename": "AppIcon.png",
+      "idiom": "universal",
+      "platform": "watchos",
+      "size": "1024x1024"
+    },
+    {
+      "filename": "AppIcon.png",
+      "idiom": "universal",
+      "size": "1024x1024"
+    }
+  ],
+  "info": { "author": "xcode", "version": 1 }
+}
+```
+
+The "unassigned child" warning emitted for the universal entry is harmless — it's a warning, not an error, and does not affect the archive result or altool validation.
+
+#### Never Pass `-sdk iphoneos` to xcodebuild (Xcode 17)
+
+Passing `-sdk iphoneos` to an xcodebuild archive command forces **all** targets — including the embedded Watch app — to compile against the iOS SDK. In Xcode 17 this causes the Watch build to fail outright.
+
+```bash
+# ❌ Broken in Xcode 17 — Watch targets compile against iOS SDK
+xcodebuild -scheme MyApp-iOS -sdk iphoneos archive ...
+
+# ✅ Correct — each platform target uses its own SDK automatically
+xcodebuild -scheme MyApp-iOS -destination generic/platform=iOS archive ...
+```
+
+Remove `-sdk iphoneos` from any Fastfile `gym`/`xcodebuild` invocation and use `-destination generic/platform=iOS` only.
+
+---
+
+## Gating a Privacy-Sensitive Symbol Per-App in a Shared SPM Package
+
+**Problem:** A shared SPM package (e.g. a monorepo's `Kit`) is linked by several apps. One app needs a privacy-sensitive symbol (`AVCaptureDevice`, `CLLocationManager`, `CMMotionManager`, `HKHealthStore`); the others don't. If the symbol lives in the shared package, *every* app links it, and Apple's binary scanner then demands the corresponding `Info.plist` usage string from apps that have no such feature — which human review rejects as a false feature (Guideline 5.1.1). See `apple-review` → "Privacy Symbols vs Usage Strings."
+
+**Why SPM traits don't solve this in Xcode:** SwiftPM package *traits* (the `traits:`/`enabledTraits:` feature) look like the answer, but they **cannot be toggled per-target from an Xcode `.xcodeproj`**. There's no app-level `Package.swift` to enable a dependency's trait; the `.xcodeproj` just references the product. (Traits work when the consumer is itself a SwiftPM package.) Don't reach for them in an XcodeGen/`.xcodeproj` app.
+
+**Reliable Xcode-native fix — separate product + dependency inversion:**
+
+1. In the shared package, split the symbol into its **own product/target**. Core stays symbol-free; it declares a protocol + a set-once registry instead of calling the symbol directly:
+   ```swift
+   // Core target — no AVCaptureDevice anywhere
+   public protocol CameraPermissionProviding: Sendable { /* status/request */ }
+   public enum CameraPermissionRegistry {
+       private static let storage = Mutex<(any CameraPermissionProviding)?>(nil)  // Synchronization
+       public static func register(_ p: any CameraPermissionProviding) { storage.withLock { $0 = p } }
+       public static var provider: (any CameraPermissionProviding)? { storage.withLock { $0 } }
+   }
+   ```
+   ```swift
+   // Separate "Camera" target/product — the ONLY AVCaptureDevice site
+   public struct AVCaptureCameraProvider: CameraPermissionProviding { /* calls AVCaptureDevice */ }
+   public enum AppCamera { public static func install() { CameraPermissionRegistry.register(AVCaptureCameraProvider()) } }
+   ```
+   ```swift
+   // Package.swift
+   .library(name: "KitCamera", targets: ["KitCamera"]),
+   .target(name: "KitCamera", dependencies: ["Kit"], path: "Sources/KitCamera"),
+   ```
+2. Only camera-using apps add the product in `project.yml` and call `install()` once at launch:
+   ```yaml
+   dependencies:
+     - package: Kit
+       product: Kit          # XcodeGen defaults `- package: Kit` to the same-named product;
+     - package: Kit          # list products explicitly when a package has more than one.
+       product: KitCamera
+   ```
+   ```swift
+   // App launch (camera-using app only)
+   AppCamera.install()
+   ```
+   Apps that don't link `KitCamera` get the core's safe no-op fallback and never link the symbol.
+
+**Verify at the binary level (don't trust source-grep alone):**
+```bash
+make archive-<app>          # build a FRESH archive — stale ones in build/ predate the fix
+APP=.../<App>.xcarchive/Products/Applications/<App>.app
+nm "$APP/<App>" | grep -i AVCaptureDevice          # opted-out app → zero matches
+grep -rl AVCaptureDevice "$APP"                     # full-bundle scan incl. embedded frameworks
+otool -L "$APP/<App>" | grep -i AVFoundation        # positive control on the opted-in app
+```
+Run the same `nm` on a camera-using app as a positive control — it *should* show the symbol. App-level Swift compile flags do **not** propagate into a local SwiftPM dependency, so you cannot gate the symbol with an app-target `#if`; the product boundary is what does the gating.
+
 ---
 
 ## Build Commands

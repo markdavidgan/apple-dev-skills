@@ -15,6 +15,7 @@
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | complete-feature | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| design-contract | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-accessibility | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-asc | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-build | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -23,6 +24,7 @@
 | ios-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios26-api-reference | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | merge-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| preview-capture | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | regression-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swift6-concurrency | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | verify-against-spec | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

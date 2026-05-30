@@ -156,6 +156,8 @@ When the user explicitly asks to submit for review:
 - Write for users, not developers (no technical jargon)
 - Example: "New haptic feedback during focus sessions" not "feat(haptics): add UIFeedbackGenerator"
 
+> **First App Store release has no editable "What's New."** The `whatsNew` field only exists for *updates*. On an app's very first version, a `PATCH` to `appStoreVersionLocalizations` for `whatsNew` returns **`409 STATE_ERROR` — "cannot be edited at this time"**, and the field is absent/null in `GET` responses. This is expected, not a blocker. Readiness tooling that checks "is What's New set?" will **false-positive** on a first release — treat a missing `whatsNew` on version 1.0 / the first-ever version as N/A, not as an incomplete-metadata failure. Set the description, keywords, screenshots, and promotional text instead. "What's New" becomes editable starting with the second version.
+
 ### Keywords
 - Max 100 characters, comma-separated
 - No spaces after commas

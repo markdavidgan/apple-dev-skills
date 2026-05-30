@@ -37,6 +37,23 @@ Before any Critical Issue / Cringe Moment cites a full-screen view, modal, sheet
 
 This rule exists because a file that compiles cleanly, has previews, and has a ViewModel can still be unreachable at runtime. Reading code-in-isolation tells you what a view *would* do if presented, not whether users ever see it. Confident plausible narratives about "UX whiplash" or "jarring flows" are exactly where this trap fires — plausibility is when verification matters most.
 
+## HARD RULE: Privacy Symbols vs Usage Strings (the two-scanner contract)
+
+Two independent gates inspect privacy permissions, and they fail in **opposite** directions:
+
+- **Apple's automated binary scanner** (TestFlight upload) rejects with `ITMS-90683` if the binary links a privacy-sensitive symbol but the Info.plist has no matching usage string. It reads *linked symbols*, not features.
+- **Human App Review** rejects under **Guideline 5.1.1** if the Info.plist declares a usage string for a permission the app has no feature for. It reads *the running app*, not symbols.
+
+A permission therefore needs **symbol present ⟺ string present**. Both-or-neither. Declaring a string "just in case" fails human review; linking the symbol without the string fails the scanner.
+
+**Symbol linkage is the trigger — not the `import`, and not the feature.**
+
+- It is the *specific symbol*, not the umbrella framework. `import AVFoundation` alone does not demand `NSCameraUsageDescription`; **`AVCaptureDevice`** does. Audio via `AVAudioApplication` demands only `NSMicrophoneUsageDescription`. Same framework, different keys, keyed off which symbols you actually reference.
+- Linkage is **function-granular under the optimizer's reachability, not branch-granular**. A never-hit `switch` branch or an `if false` path still links the symbol if the *enclosing function* is reachable from the app's entry graph. You cannot dead-code your way out of a symbol by making the call conditional — only by making the enclosing function unreachable, or by removing the reference from the linked image entirely.
+- This bites hardest with **shared packages**: a symbol referenced anywhere in a package that every app links gets linked into *every* app, so one app's camera code forces a camera-permission decision on apps that have no camera. The fix is to move the symbol behind a product/module boundary that only camera-using apps link (see `ios-build` → symbol-gating). Verify with `nm <app-binary> | grep -i <Symbol>` against a *fresh* archive — stale archives in `build/` predate the fix and will mislead you.
+
+When auditing, treat a usage string with no reachable feature and a linked privacy symbol with no usage string as **the same class of finding** — a broken two-scanner contract — and report which side is missing.
+
 ## Input
 
 ```
