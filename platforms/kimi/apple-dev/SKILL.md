@@ -5453,6 +5453,19 @@ asc_list_certificates           ←→  grep for com.apple.developer.* keys
 
 4. **Verify certificates and profiles:** The health check also reports certificate and profile status.
 
+### Step 3c: Diagnose "uploaded fine but no build" (async processing failures)
+
+When an upload reported success (`altool`/`upload_to_testflight` printed "Successfully uploaded") but the build never appears in TestFlight — or shows "failed" / is just absent — it almost certainly failed Apple's **asynchronous** server-side processing **after** the upload. A builds-list query that returns only valid builds will not show it, so it looks like it vanished.
+
+Diagnose **locally**, without waiting on Apple's email:
+
+```bash
+# Newest altool upload log holds the server-side assetDeliveryState errors
+ls -t ~/Library/Logs/ContentDelivery/com.apple.itunes.altool/*.txt | head -1
+```
+
+Open it and find the `assetDeliveryState` block with `"state": "FAILED"` and an `errors` array — each carries a numeric `code` and `description`. Common: **90348** (an embedded `.appex` is missing `NSExtension.NSExtensionPointIdentifier` — see `ios-build`). A consumed build number can't be reused even on failure; fix the cause and re-ship under a **new** build number. Full treatment in `asc-submission` → "Asynchronous Processing Failures".
+
 ### Step 4: Report
 
 Present a clear summary:
@@ -5747,10 +5760,41 @@ Apple Transporter runs during CI upload to App Store Connect -- it does not run 
 | Fake entitlements | Non-existent entitlement keys in .entitlements file | Remove fabricated keys (e.g., `com.apple.developer.widgetkit` is not real) |
 | Bundle ID mismatch | Binary bundle ID differs from profile | Verify `PRODUCT_BUNDLE_IDENTIFIER` matches the provisioning profile |
 | Missing privacy manifest | `PrivacyInfo.xcprivacy` absent from extension target | Add privacy manifest to each target that uses required reason APIs |
+| Missing `NSExtensionPointIdentifier` | App extension has no `NSExtension` dict in Info.plist (error **90348**) | Give every `.appex` an explicit base Info.plist with `NSExtension.NSExtensionPointIdentifier` — see `ios-build` → "App Extension Info.plist" |
 
 ### Debugging Transporter Rejections
 
 Transporter errors surface in Xcode Cloud build logs after the archive step. Use `xc_get_issues` to read the full error list. Local reproduction requires `xcrun altool --validate-app` or Transporter.app, but the fastest path is fixing based on the CI error message and re-pushing.
+
+## Asynchronous Processing Failures (upload "succeeds", build still fails)
+
+**`xcrun altool`/`upload_to_testflight` printing "Successfully uploaded" does NOT mean the build was accepted.** altool uploads with `SkipValidateProductErrors: true`, which defers binary validation to Apple's **asynchronous server-side processing**. That processing runs minutes later and can still **FAIL** the build — at which point it **silently disappears from the TestFlight valid-builds list**. There is no error at upload time, no local build failure, and the App Store Connect builds API only returns valid builds, so the failed build is effectively invisible unless you go looking.
+
+Symptoms (all at once):
+- Upload reported success, but the build never appears in the internal beta group.
+- A build number you uploaded shows "failed" in the App Store Connect UI, or is just absent.
+- Re-uploading the **same** build number is rejected as a duplicate (the number is consumed even though the build failed) — you must bump to a new build number to retry.
+
+**Common async-only failures:**
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| **90348** Missing `NSExtensionPointIdentifier` | An embedded `.appex` has no `NSExtension` dict — builds and uploads fine, fails async | Add the base Info.plist key; re-ship under a **new** build number. See `ios-build`. |
+| **90482**/ICON errors | Required app-icon asset missing | Complete the asset catalog; re-ship under a new build number |
+| Invalid Swift support / dSYM | Stripped or mismatched symbols | Re-archive with correct `DEBUG_INFORMATION_FORMAT`; re-ship |
+
+### Diagnose async failures locally (no email needed)
+
+Apple emails the failure, but the same server-side errors are written **locally** by altool — you don't have to wait for or rely on email:
+
+```bash
+# altool writes per-upload logs here; the newest one holds the assetDeliveryState errors
+ls -t ~/Library/Logs/ContentDelivery/com.apple.itunes.altool/*.txt | head -1
+```
+
+Open the newest file and look for an `assetDeliveryState` block with `"state": "FAILED"` and an `errors` array carrying the numeric `code` (e.g. `90348`) and human-readable `description`. This is the authoritative reason, available immediately after the upload regardless of mailbox access.
+
+> Tooling note: a TestFlight/builds-list query that filters to valid `processingState` will not show a build that failed processing. When a build "uploaded fine but isn't there," check the ContentDelivery log first, then query the builds endpoint **without** a valid-only filter (the API exposes `processingState`, including `INVALID`/`FAILED`).
 
 ---
 
@@ -5872,6 +5916,7 @@ If no views changed, report: N/A
 - [ ] Debug build passes (simulator)
 - [ ] Archive build passes -- CRITICAL: catches MainActor isolation errors debug misses
 - [ ] No Swift 6 strict concurrency warnings
+- [ ] If the app embeds any app extension (`.appex`): every one carries `NSExtension.NSExtensionPointIdentifier` -- run `verify-appex-infoplist.sh --ipa <exported.ipa>`. Missing it builds & uploads fine but fails Apple's async processing (error 90348) and silently drops from TestFlight. See `ios-build` → "App Extension Info.plist".
 
 ### 2. Test Verification
 - [ ] All unit tests pass
@@ -7261,6 +7306,48 @@ settings:
     ENABLE_USER_SCRIPT_SANDBOXING: NO
     GENERATE_INFOPLIST_FILE: NO
 ```
+
+---
+
+## App Extension Info.plist (NSExtensionPointIdentifier)
+
+**Every app-extension target (`type: app-extension` — WidgetKit, Live Activity, Share, Action, Notification Service, etc.) MUST have an explicit base `Info.plist` containing an `NSExtension` dict with `NSExtensionPointIdentifier`.** `GENERATE_INFOPLIST_FILE: true` does **not** synthesize these keys — it only merges `CFBundle*` keys on top of whatever base plist you provide. With no base plist, the built `.appex` ships with no `NSExtension` dict.
+
+Why this is dangerous: a `.appex` missing this key **builds, exports, and uploads cleanly**. `xcrun altool` even prints *"Successfully uploaded"* because `SkipValidateProductErrors` defers the check. Then Apple's **asynchronous server-side processing** fails the build with **error 90348** ("The NSExtensionPointIdentifier key must be present…") and the build **silently drops out of the TestFlight valid-builds list**. There is no local build error — only a failed processing email and an absent build. (See `asc-submission` → "Asynchronous Processing Failures" for diagnosis.)
+
+Wire it up in `project.yml` with an explicit `INFOPLIST_FILE`; keep `GENERATE_INFOPLIST_FILE: true` so Xcode still merges the version/bundle keys:
+
+```yaml
+MyApp-Widgets:
+  type: app-extension
+  settings:
+    base:
+      INFOPLIST_FILE: MyApp-Widgets/Info.plist   # explicit base — REQUIRED
+      GENERATE_INFOPLIST_FILE: true               # merges CFBundle* on top; OK
+```
+
+```xml
+<!-- MyApp-Widgets/Info.plist -->
+<key>NSExtension</key>
+<dict>
+    <key>NSExtensionPointIdentifier</key>
+    <string>com.apple.widgetkit-extension</string>
+</dict>
+```
+
+**Point identifiers** are extension-type-specific. Verified-common values:
+
+| Extension type | `NSExtensionPointIdentifier` |
+|----------------|------------------------------|
+| WidgetKit widget **and** Live Activity | `com.apple.widgetkit-extension` |
+| Share extension | `com.apple.share-services` |
+| Action extension | `com.apple.ui-services` |
+
+> Live Activities are WidgetKit extensions — they use `com.apple.widgetkit-extension` (plus `NSSupportsLiveActivities` in the **main app's** Info.plist), **not** a separate "activity" point identifier. For any extension type not listed above, do **not** guess: use the exact value Xcode's own template generates for that target type, or confirm against Apple's [NSExtensionPointIdentifier docs](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionpointidentifier).
+
+A Share/Action extension's base plist additionally needs `NSExtensionPrincipalClass` (e.g. `$(PRODUCT_MODULE_NAME).ShareViewController`) and an `NSExtensionAttributes`/`NSExtensionActivationRule`. WidgetKit extensions need only the point identifier.
+
+**Catch it before upload, not after.** A `.appex` missing this key can't be caught by archive/export — validate the built bundle. To verify every embedded extension in a built `.ipa` or `.xcarchive`, run the project-agnostic `verify-appex-infoplist.sh` script (see `scripts/`), ideally as a fail-fast gate between export and `upload_to_testflight`/`altool`.
 
 ---
 
@@ -11186,6 +11273,19 @@ Commands:
   For each changed file: swiftlint lint [file]
   Check for print(), debugPrint(), NSLog
   Check for force unwraps added (!)
+```
+
+**Subagent 5: App-Extension Info.plist (only if the app embeds a `.appex`)**
+```
+Task: Verify every app extension carries NSExtension.NSExtensionPointIdentifier
+Inputs: project.yml (source) and/or the exported .ipa (authoritative)
+Outputs: Per-appex pass/fail + the point identifier
+Commands:
+  verify-appex-infoplist.sh --project <path/to/project.yml>   # source pre-check
+  verify-appex-infoplist.sh --ipa <path/to/exported.ipa>      # authoritative, pre-upload
+Note: A missing identifier builds, exports, and uploads cleanly, then fails Apple's
+      ASYNC processing with error 90348 and silently drops from TestFlight. Neither the
+      debug nor the archive build catches it. See ios-build → "App Extension Info.plist".
 ```
 
 ### Phase 3: Aggregation (You)

@@ -90,6 +90,19 @@ Commands:
   Check for force unwraps added (!)
 ```
 
+**Subagent 5: App-Extension Info.plist (only if the app embeds a `.appex`)**
+```
+Task: Verify every app extension carries NSExtension.NSExtensionPointIdentifier
+Inputs: project.yml (source) and/or the exported .ipa (authoritative)
+Outputs: Per-appex pass/fail + the point identifier
+Commands:
+  verify-appex-infoplist.sh --project <path/to/project.yml>   # source pre-check
+  verify-appex-infoplist.sh --ipa <path/to/exported.ipa>      # authoritative, pre-upload
+Note: A missing identifier builds, exports, and uploads cleanly, then fails Apple's
+      ASYNC processing with error 90348 and silently drops from TestFlight. Neither the
+      debug nor the archive build catches it. See ios-build → "App Extension Info.plist".
+```
+
 ### Phase 3: Aggregation (You)
 
 1. Collect results from all 4 subagents

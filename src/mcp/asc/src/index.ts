@@ -1832,16 +1832,39 @@ server.tool(
 
 server.tool(
   "asc_list_tf_builds",
-  "List TestFlight builds. Shows version, upload date, processing state, and expiration. Optionally filter by app.",
+  "List TestFlight builds (newest first). Shows version, upload date, processing state, and expiration. " +
+    "Optionally filter by app and by processing state. " +
+    "IMPORTANT: a build that fails Apple's async *delivery* processing (e.g. error 90348, a missing " +
+    "NSExtensionPointIdentifier in an .appex) is never created as a build resource, so it will NOT appear " +
+    "here under any state. If an upload reported success but no build shows up, diagnose via the altool " +
+    "ContentDelivery log (~/Library/Logs/ContentDelivery/com.apple.itunes.altool/*Upload*.txt) — see the " +
+    "asc-submission skill, 'Asynchronous Processing Failures'.",
   {
     app_id: z
       .string()
       .optional()
       .describe("Filter by App ID (from asc_list_apps)"),
+    processing_state: z
+      .string()
+      .optional()
+      .describe(
+        "Filter by processing state: comma-separated subset of PROCESSING, FAILED, INVALID, VALID. " +
+          "Omit to return all states. Use 'PROCESSING' to see in-flight builds, 'INVALID' to find " +
+          "builds rejected after upload."
+      ),
+    limit: z
+      .number()
+      .int()
+      .min(1)
+      .max(200)
+      .optional()
+      .describe("Max builds to return (default 20, Apple max 200)"),
   },
-  async ({ app_id }) => {
+  async ({ app_id, processing_state, limit }) => {
     const result = await api.listTestFlightBuilds(
-      app_id ? { appId: app_id } : undefined
+      app_id || processing_state || limit
+        ? { appId: app_id, processingState: processing_state, limit }
+        : undefined
     );
     const builds = (result.data ?? []).map((b: any) => {
       // Find the pre-release version from included

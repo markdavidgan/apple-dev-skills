@@ -214,10 +214,41 @@ Apple Transporter runs during CI upload to App Store Connect -- it does not run 
 | Fake entitlements | Non-existent entitlement keys in .entitlements file | Remove fabricated keys (e.g., `com.apple.developer.widgetkit` is not real) |
 | Bundle ID mismatch | Binary bundle ID differs from profile | Verify `PRODUCT_BUNDLE_IDENTIFIER` matches the provisioning profile |
 | Missing privacy manifest | `PrivacyInfo.xcprivacy` absent from extension target | Add privacy manifest to each target that uses required reason APIs |
+| Missing `NSExtensionPointIdentifier` | App extension has no `NSExtension` dict in Info.plist (error **90348**) | Give every `.appex` an explicit base Info.plist with `NSExtension.NSExtensionPointIdentifier` — see `ios-build` → "App Extension Info.plist" |
 
 ### Debugging Transporter Rejections
 
 Transporter errors surface in Xcode Cloud build logs after the archive step. Use `xc_get_issues` to read the full error list. Local reproduction requires `xcrun altool --validate-app` or Transporter.app, but the fastest path is fixing based on the CI error message and re-pushing.
+
+## Asynchronous Processing Failures (upload "succeeds", build still fails)
+
+**`xcrun altool`/`upload_to_testflight` printing "Successfully uploaded" does NOT mean the build was accepted.** altool uploads with `SkipValidateProductErrors: true`, which defers binary validation to Apple's **asynchronous server-side processing**. That processing runs minutes later and can still **FAIL** the build — at which point it **silently disappears from the TestFlight valid-builds list**. There is no error at upload time, no local build failure, and the App Store Connect builds API only returns valid builds, so the failed build is effectively invisible unless you go looking.
+
+Symptoms (all at once):
+- Upload reported success, but the build never appears in the internal beta group.
+- A build number you uploaded shows "failed" in the App Store Connect UI, or is just absent.
+- Re-uploading the **same** build number is rejected as a duplicate (the number is consumed even though the build failed) — you must bump to a new build number to retry.
+
+**Common async-only failures:**
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| **90348** Missing `NSExtensionPointIdentifier` | An embedded `.appex` has no `NSExtension` dict — builds and uploads fine, fails async | Add the base Info.plist key; re-ship under a **new** build number. See `ios-build`. |
+| **90482**/ICON errors | Required app-icon asset missing | Complete the asset catalog; re-ship under a new build number |
+| Invalid Swift support / dSYM | Stripped or mismatched symbols | Re-archive with correct `DEBUG_INFORMATION_FORMAT`; re-ship |
+
+### Diagnose async failures locally (no email needed)
+
+Apple emails the failure, but the same server-side errors are written **locally** by altool — you don't have to wait for or rely on email:
+
+```bash
+# altool writes per-upload logs here; the newest one holds the assetDeliveryState errors
+ls -t ~/Library/Logs/ContentDelivery/com.apple.itunes.altool/*.txt | head -1
+```
+
+Open the newest file and look for an `assetDeliveryState` block with `"state": "FAILED"` and an `errors` array carrying the numeric `code` (e.g. `90348`) and human-readable `description`. This is the authoritative reason, available immediately after the upload regardless of mailbox access.
+
+> Tooling note: a TestFlight/builds-list query that filters to valid `processingState` will not show a build that failed processing. When a build "uploaded fine but isn't there," check the ContentDelivery log first, then query the builds endpoint **without** a valid-only filter (the API exposes `processingState`, including `INVALID`/`FAILED`).
 
 ---
 

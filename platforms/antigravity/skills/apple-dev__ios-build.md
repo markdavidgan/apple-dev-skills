@@ -736,6 +736,48 @@ settings:
 
 ---
 
+## App Extension Info.plist (NSExtensionPointIdentifier)
+
+**Every app-extension target (`type: app-extension` — WidgetKit, Live Activity, Share, Action, Notification Service, etc.) MUST have an explicit base `Info.plist` containing an `NSExtension` dict with `NSExtensionPointIdentifier`.** `GENERATE_INFOPLIST_FILE: true` does **not** synthesize these keys — it only merges `CFBundle*` keys on top of whatever base plist you provide. With no base plist, the built `.appex` ships with no `NSExtension` dict.
+
+Why this is dangerous: a `.appex` missing this key **builds, exports, and uploads cleanly**. `xcrun altool` even prints *"Successfully uploaded"* because `SkipValidateProductErrors` defers the check. Then Apple's **asynchronous server-side processing** fails the build with **error 90348** ("The NSExtensionPointIdentifier key must be present…") and the build **silently drops out of the TestFlight valid-builds list**. There is no local build error — only a failed processing email and an absent build. (See `asc-submission` → "Asynchronous Processing Failures" for diagnosis.)
+
+Wire it up in `project.yml` with an explicit `INFOPLIST_FILE`; keep `GENERATE_INFOPLIST_FILE: true` so Xcode still merges the version/bundle keys:
+
+```yaml
+MyApp-Widgets:
+  type: app-extension
+  settings:
+    base:
+      INFOPLIST_FILE: MyApp-Widgets/Info.plist   # explicit base — REQUIRED
+      GENERATE_INFOPLIST_FILE: true               # merges CFBundle* on top; OK
+```
+
+```xml
+<!-- MyApp-Widgets/Info.plist -->
+<key>NSExtension</key>
+<dict>
+    <key>NSExtensionPointIdentifier</key>
+    <string>com.apple.widgetkit-extension</string>
+</dict>
+```
+
+**Point identifiers** are extension-type-specific. Verified-common values:
+
+| Extension type | `NSExtensionPointIdentifier` |
+|----------------|------------------------------|
+| WidgetKit widget **and** Live Activity | `com.apple.widgetkit-extension` |
+| Share extension | `com.apple.share-services` |
+| Action extension | `com.apple.ui-services` |
+
+> Live Activities are WidgetKit extensions — they use `com.apple.widgetkit-extension` (plus `NSSupportsLiveActivities` in the **main app's** Info.plist), **not** a separate "activity" point identifier. For any extension type not listed above, do **not** guess: use the exact value Xcode's own template generates for that target type, or confirm against Apple's [NSExtensionPointIdentifier docs](https://developer.apple.com/documentation/bundleresources/information-property-list/nsextension/nsextensionpointidentifier).
+
+A Share/Action extension's base plist additionally needs `NSExtensionPrincipalClass` (e.g. `$(PRODUCT_MODULE_NAME).ShareViewController`) and an `NSExtensionAttributes`/`NSExtensionActivationRule`. WidgetKit extensions need only the point identifier.
+
+**Catch it before upload, not after.** A `.appex` missing this key can't be caught by archive/export — validate the built bundle. To verify every embedded extension in a built `.ipa` or `.xcarchive`, run the project-agnostic `verify-appex-infoplist.sh` script (see `scripts/`), ideally as a fail-fast gate between export and `upload_to_testflight`/`altool`.
+
+---
+
 ## Best Practices
 
 1. **Always run archive builds** before committing — debug builds miss concurrency errors

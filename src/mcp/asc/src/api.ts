@@ -759,9 +759,20 @@ export async function listTestFlightBuilds(filter?: {
   appId?: string;
   version?: string;
   expired?: boolean;
+  /**
+   * Apple build processingState filter. Comma-separated subset of
+   * PROCESSING, FAILED, INVALID, VALID. Omit to return all states.
+   * NOTE: a build that fails async *delivery* processing (e.g. error 90348,
+   * a missing NSExtensionPointIdentifier) is never created as a build
+   * resource and therefore cannot appear here under any state — diagnose
+   * those via the altool ContentDelivery log instead.
+   */
+  processingState?: string;
+  /** Page size (default 20, Apple max 200). */
+  limit?: number;
 }) {
   const params: Record<string, string> = {
-    limit: "20",
+    limit: String(filter?.limit ?? 20),
     sort: "-uploadedDate",
     "fields[builds]":
       "version,uploadedDate,processingState,buildAudienceType,minOsVersion,expirationDate,expired,iconAssetToken",
@@ -771,6 +782,8 @@ export async function listTestFlightBuilds(filter?: {
   if (filter?.version) params["filter[version]"] = filter.version;
   if (filter?.expired !== undefined)
     params["filter[expired]"] = String(filter.expired);
+  if (filter?.processingState)
+    params["filter[processingState]"] = filter.processingState;
   return ascFetch("/builds", params);
 }
 

@@ -107,6 +107,7 @@ If no views changed, report: N/A
 - [ ] Debug build passes (simulator)
 - [ ] Archive build passes -- CRITICAL: catches MainActor isolation errors debug misses
 - [ ] No Swift 6 strict concurrency warnings
+- [ ] If the app embeds any app extension (`.appex`): every one carries `NSExtension.NSExtensionPointIdentifier` -- run `verify-appex-infoplist.sh --ipa <exported.ipa>`. Missing it builds & uploads fine but fails Apple's async processing (error 90348) and silently drops from TestFlight. See `ios-build` → "App Extension Info.plist".
 
 ### 2. Test Verification
 - [ ] All unit tests pass

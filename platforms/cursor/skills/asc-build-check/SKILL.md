@@ -69,6 +69,19 @@ asc_list_certificates           ←→  grep for com.apple.developer.* keys
 
 4. **Verify certificates and profiles:** The health check also reports certificate and profile status.
 
+### Step 3c: Diagnose "uploaded fine but no build" (async processing failures)
+
+When an upload reported success (`altool`/`upload_to_testflight` printed "Successfully uploaded") but the build never appears in TestFlight — or shows "failed" / is just absent — it almost certainly failed Apple's **asynchronous** server-side processing **after** the upload. A builds-list query that returns only valid builds will not show it, so it looks like it vanished.
+
+Diagnose **locally**, without waiting on Apple's email:
+
+```bash
+# Newest altool upload log holds the server-side assetDeliveryState errors
+ls -t ~/Library/Logs/ContentDelivery/com.apple.itunes.altool/*.txt | head -1
+```
+
+Open it and find the `assetDeliveryState` block with `"state": "FAILED"` and an `errors` array — each carries a numeric `code` and `description`. Common: **90348** (an embedded `.appex` is missing `NSExtension.NSExtensionPointIdentifier` — see `ios-build`). A consumed build number can't be reused even on failure; fix the cause and re-ship under a **new** build number. Full treatment in `asc-submission` → "Asynchronous Processing Failures".
+
 ### Step 4: Report
 
 Present a clear summary:
