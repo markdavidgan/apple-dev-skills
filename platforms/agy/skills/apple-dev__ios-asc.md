@@ -121,6 +121,47 @@ The `xc_check_signing` tool reports:
 # (Use xc_create_profile with bundle_id_id and certificate_ids)
 ```
 
+#### ⚠️ App Groups: the capability toggle is NOT the container link
+
+The ASC API (and `xc_add_capability` with `APP_GROUPS`) only flips the
+capability **on** for a bundle ID. It does **not** associate a specific
+container like `group.com.example.shared`. There is **no** App Store Connect
+API resource for App Group container assignment — `/v1/bundleIdCapabilities`
+has no relationship to App Groups, and there is no `/v1/appGroups` endpoint.
+This means automatic signing (`xcodebuild -allowProvisioningUpdates` with an
+ASC `.p8` API key) will fail to mint a managed profile for a bundle ID whose
+entitlements declare an App Group until that container is linked, with errors
+like "App Group ... is not associated with this app ID" or a silent fallback
+to a wildcard profile.
+
+**The only programmatic way to link the container is `fastlane produce`,
+which authenticates with an Apple ID *cookie/web session* (spaceship), NOT the
+`.p8` API key:**
+
+```bash
+# Authenticate once (caches a spaceship session under ~/.fastlane):
+#   FASTLANE_USER + FASTLANE_PASSWORD (or interactive Apple ID login)
+
+# Ensure the App Group exists (idempotent):
+bundle exec fastlane produce group \
+  -g group.com.example.shared -n "Example Shared Group"
+
+# Associate the group with each bundle ID that declares it
+# (main app AND every extension — run per bundle ID, idempotent):
+bundle exec fastlane produce associate_group \
+  -a com.example.myapp           group.com.example.shared
+bundle exec fastlane produce associate_group \
+  -a com.example.myapp.share     group.com.example.shared
+```
+
+After `associate_group` succeeds for every bundle ID, automatic signing with
+the `.p8` key works normally. Same applies to the web portal
+(Certificates, Identifiers & Profiles → the App ID → App Groups → Edit) if you
+prefer clicking. **Capability key auth is irrelevant here — the limitation is
+the API surface, not the key role.** (Verified 2026-06-01 shipping Aether
+Field's share extension; see aether-focus pattern
+`2026-06-01-app-group-link-requires-produce.md`.)
+
 ### Distributing a Build to TestFlight
 
 ```bash
@@ -152,7 +193,7 @@ Map entitlements file keys to capability types for MCP tools:
 
 | Entitlement Key | Capability Type |
 |-----------------|-----------------|
-| `com.apple.security.application-groups` | `APP_GROUPS` |
+| `com.apple.security.application-groups` | `APP_GROUPS` ⚠️ capability toggle only — container link needs `fastlane produce associate_group` (see above) |
 | `com.apple.developer.icloud-container-identifiers` | `ICLOUD` |
 | `com.apple.developer.healthkit` | `HEALTHKIT` |
 | `aps-environment` | `PUSH_NOTIFICATIONS` |

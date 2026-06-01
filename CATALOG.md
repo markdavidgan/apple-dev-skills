@@ -1,10 +1,10 @@
 # Apple Dev Skills — Catalog
 
 > Version: **0.1.0**
-> Generated: 2026-05-30
+> Generated: 2026-06-01
 > Repository: https://github.com/markdavidgan/apple-dev-skills
 
-## Skills (24)
+## Skills (25)
 
 | Skill | Description | Invoke |
 |-------|-------------|--------|
@@ -31,6 +31,7 @@
 | preview-capture | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. | `/preview-capture [preview-name...] — Render named #Previews to committed PNGs` |
 | regression-test | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. | `/regression-test [bug-description] — Write a failing test for the bug, fix it, verify, and check for similar issues.` |
 | swift6-concurrency | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". | `/swift6-fix [file] — Diagnose and fix Swift 6 strict concurrency, Sendable, or MainActor isolation errors.` |
+| swiftui-micro-craft | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. | `/swiftui-micro-craft — Audit a SwiftUI view against quantified Apple-grade micro-craft rules` |
 | verify-against-spec | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. | `/verify-against-spec [spec-path] — Check implementation coverage against design spec` |
 
 ## Agents (7)

@@ -67,6 +67,16 @@ asc_list_certificates           ←→  grep for com.apple.developer.* keys
 
 3. **Fix mismatches:** Use `asc_add_capability` to add missing capabilities directly via the API.
 
+   ⚠️ **App Groups are the exception.** If the mismatch is an
+   `application-groups` entitlement (error mentions "App Group ... is not
+   associated with this app ID", or signing silently falls back to a wildcard
+   profile), `asc_add_capability APP_GROUPS` only flips the capability on — it
+   does **not** link the container, and **no ASC API can.** Link the container
+   per bundle ID (main app + every extension) with a cookie/Apple-ID session:
+   `bundle exec fastlane produce associate_group -a <bundleId> <group.id>`.
+   See `ios-asc` → "App Groups: the capability toggle is NOT the container
+   link" for the full procedure.
+
 4. **Verify certificates and profiles:** The health check also reports certificate and profile status.
 
 ### Step 3c: Diagnose "uploaded fine but no build" (async processing failures)

@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 24 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 25 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -35,7 +35,8 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 21 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
 | 22 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
 | 23 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 24 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 24 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
+| 25 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -5451,6 +5452,16 @@ asc_list_certificates           ←→  grep for com.apple.developer.* keys
 
 3. **Fix mismatches:** Use `asc_add_capability` to add missing capabilities directly via the API.
 
+   ⚠️ **App Groups are the exception.** If the mismatch is an
+   `application-groups` entitlement (error mentions "App Group ... is not
+   associated with this app ID", or signing silently falls back to a wildcard
+   profile), `asc_add_capability APP_GROUPS` only flips the capability on — it
+   does **not** link the container, and **no ASC API can.** Link the container
+   per bundle ID (main app + every extension) with a cookie/Apple-ID session:
+   `bundle exec fastlane produce associate_group -a <bundleId> <group.id>`.
+   See `ios-asc` → "App Groups: the capability toggle is NOT the container
+   link" for the full procedure.
+
 4. **Verify certificates and profiles:** The health check also reports certificate and profile status.
 
 ### Step 3c: Diagnose "uploaded fine but no build" (async processing failures)
@@ -6346,6 +6357,47 @@ The `xc_check_signing` tool reports:
 # (Use xc_create_profile with bundle_id_id and certificate_ids)
 ```
 
+#### ⚠️ App Groups: the capability toggle is NOT the container link
+
+The ASC API (and `xc_add_capability` with `APP_GROUPS`) only flips the
+capability **on** for a bundle ID. It does **not** associate a specific
+container like `group.com.example.shared`. There is **no** App Store Connect
+API resource for App Group container assignment — `/v1/bundleIdCapabilities`
+has no relationship to App Groups, and there is no `/v1/appGroups` endpoint.
+This means automatic signing (`xcodebuild -allowProvisioningUpdates` with an
+ASC `.p8` API key) will fail to mint a managed profile for a bundle ID whose
+entitlements declare an App Group until that container is linked, with errors
+like "App Group ... is not associated with this app ID" or a silent fallback
+to a wildcard profile.
+
+**The only programmatic way to link the container is `fastlane produce`,
+which authenticates with an Apple ID *cookie/web session* (spaceship), NOT the
+`.p8` API key:**
+
+```bash
+# Authenticate once (caches a spaceship session under ~/.fastlane):
+#   FASTLANE_USER + FASTLANE_PASSWORD (or interactive Apple ID login)
+
+# Ensure the App Group exists (idempotent):
+bundle exec fastlane produce group \
+  -g group.com.example.shared -n "Example Shared Group"
+
+# Associate the group with each bundle ID that declares it
+# (main app AND every extension — run per bundle ID, idempotent):
+bundle exec fastlane produce associate_group \
+  -a com.example.myapp           group.com.example.shared
+bundle exec fastlane produce associate_group \
+  -a com.example.myapp.share     group.com.example.shared
+```
+
+After `associate_group` succeeds for every bundle ID, automatic signing with
+the `.p8` key works normally. Same applies to the web portal
+(Certificates, Identifiers & Profiles → the App ID → App Groups → Edit) if you
+prefer clicking. **Capability key auth is irrelevant here — the limitation is
+the API surface, not the key role.** (Verified 2026-06-01 shipping Aether
+Field's share extension; see aether-focus pattern
+`2026-06-01-app-group-link-requires-produce.md`.)
+
 ### Distributing a Build to TestFlight
 
 ```bash
@@ -6377,7 +6429,7 @@ Map entitlements file keys to capability types for MCP tools:
 
 | Entitlement Key | Capability Type |
 |-----------------|-----------------|
-| `com.apple.security.application-groups` | `APP_GROUPS` |
+| `com.apple.security.application-groups` | `APP_GROUPS` ⚠️ capability toggle only — container link needs `fastlane produce associate_group` (see above) |
 | `com.apple.developer.icloud-container-identifiers` | `ICLOUD` |
 | `com.apple.developer.healthkit` | `HEALTHKIT` |
 | `aps-environment` | `PUSH_NOTIFICATIONS` |
@@ -12068,6 +12120,732 @@ When enabling `SWIFT_STRICT_CONCURRENCY: complete` on an existing codebase:
 4. Test each change with a build before proceeding
 
 <!-- END SKILL: swift6-concurrency -->
+
+---
+
+<!-- BEGIN SKILL: swiftui-micro-craft -->
+
+# swiftui-micro-craft
+
+# SwiftUI Micro-Craft
+
+> **Core principle:** Apple-grade polish is not taste — it is a finite set of *quantified, checkable* rules. "It looks a bit off" almost always decomposes into a measurable violation: a value off the grid, an optically-uncentered glyph, a child radius that doesn't nest its parent, a hardcoded duration, a tap target under 44pt. This skill names every rule, scores against it 0–4, and ships a grep auditor so the violation is caught mechanically — not left to a reviewer's eye.
+
+This is the **objective ruler**. It complements three sibling skills:
+
+| Skill | Role | Relationship |
+|-------|------|--------------|
+| `apple-design` | House style + Liquid Glass + token architecture | This skill *enforces* what that one *describes* |
+| `apple-polish` | Subjective Ive/Jobs craftsmanship review | This skill is the ruler those panels cite by § |
+| `design-contract` | Mockup → machine-readable contract + capture gates | This skill is the rule layer when there is **no** mockup |
+
+## When to Use
+
+- Writing **any** new SwiftUI view, modifier, or component.
+- Reviewing UI in a PR or before a commit that touches `.swift` view code.
+- Something "looks off" and you can't name why (spacing, weight, alignment, depth).
+- You're about to type a **literal number** into `.padding()`, `.frame()`, `.cornerRadius()`, `.font(.system(size:))`, an animation `duration`, or a hardcoded color.
+- Wiring a gesture or adding haptic feedback.
+
+**When NOT to use:** pure engineering bugs (use `apple-cleanup`), accessibility audits beyond Dynamic Type (use `ios-accessibility`), or producing a contract from an existing mockup (use `design-contract`).
+
+## The Iron Rule
+
+**Every literal that controls layout, type, color, motion, or depth must trace to a named token or a stated optical exception.** A raw `16`, `0.3`, `Color.black.opacity(0.2)`, or `.system(size: 20)` in a view body is a defect until proven otherwise. "Proven otherwise" means: it is a documented optical correction (§2) with a one-line comment saying so.
+
+```swift
+// ❌ AI slop — five untraceable literals, off-grid, no concentricity, hardcoded motion
+VStack(spacing: 10) {
+    Text(title).font(.system(size: 17, weight: .semibold))
+    Label("Go", systemImage: "arrow.right").padding(13)
+}
+.padding(15)
+.background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 14))
+.shadow(radius: 8)
+.animation(.easeInOut(duration: 0.3), value: isOpen)
+
+// ✅ Apple-grade — every value tokenized, radius nests, motion named, baseline-aligned
+VStack(spacing: Spacing.sm) {                         // 8 — on grid
+    Text(title).font(.headline)                        // semantic type, scales with Dynamic Type
+    Label("Go", systemImage: "arrow.right")
+        .labelStyle(.titleAndIcon)
+        .padding(.horizontal, Spacing.md)              // 12
+        .padding(.vertical, Spacing.sm)                // 8
+}
+.padding(Spacing.md)                                   // 12 outer
+.background(.regularMaterial, in: RoundedRectangle(cornerRadius: Radius.lg)) // 16 outer
+// inner radius rule: child = 16 − 12 = 4  (see §5)
+.shadow(color: .black.opacity(0.18), radius: 12, y: 4) // depth ladder §8
+.animation(.smooth, value: isOpen)                     // named spring §14
+```
+
+## The 0–4 Scoring Rubric
+
+Score each view; **anything below 3 ships a defect.** Full rubric and per-rule scoring in [references/auditor.md](references/auditor.md).
+
+| Score | Meaning |
+|-------|---------|
+| **4 — Apple-grade** | Every value tokenized; optical corrections applied & commented; radii nest; motion named; targets ≥44pt; scales to AX5; no hairline/separator-inset miss. |
+| **3 — Shippable** | Tokenized and on-grid; minor optical misses (e.g. icon not optically centered) but nothing geometrically wrong. |
+| **2 — Rough** | Mostly on-grid but ≥1 hardcoded literal, OR a radius that doesn't nest, OR a sub-44pt target. |
+| **1 — Slop** | Multiple raw literals, off-grid spacing, hardcoded motion, no Dynamic Type. |
+| **0 — Broken** | Geometric errors visible at a glance: misaligned baselines, clipped content, overlapping glass. |
+
+## Quick Reference — the 17 domains
+
+Deep treatment of each in **[references/micro-craft-bible.md](references/micro-craft-bible.md)**. The one-line rule per domain:
+
+| § | Domain | The one rule |
+|---|--------|-------------|
+| 1 | **Spacing grid** | Every gap is a multiple of 4 (ideally 8); use a `Spacing` token, never a literal. |
+| 2 | **Optical vs geometric** | Center by *eye*, not by *frame*: triangles/play glyphs/trailing-heavy shapes need a nudge. |
+| 3 | **Baseline alignment** | Text beside text or beside an icon aligns on `.firstTextBaseline`, not `.center`. |
+| 4 | **SF Symbols** | Symbol weight tracks adjacent text weight; size via `.imageScale`/`.font`, color via `.symbolRenderingMode`. |
+| 5 | **Corner concentricity** | Inner radius = outer radius − padding. Nested rounded shapes must be concentric. |
+| 6 | **Padding** | Directional and asymmetric on purpose; optical text padding > geometric; never one global number. |
+| 7 | **Hit targets** | ≥44×44pt (iOS) tappable area; expand with `.contentShape`, never by bloating visuals. |
+| 8 | **Depth ladder** | Shadows come from a fixed elevation scale (rest/raised/overlay); y-offset > blur-only. |
+| 9 | **Color discipline** | Semantic tokens only; opacity from a ladder; respect Dark Mode & `.tint`. |
+| 10 | **Typography** | Semantic styles; mono digits for counters; set `lineSpacing`/tracking; define truncation. |
+| 11 | **Hairlines & separators** | 1px = `1/displayScale`; separators inset to content, not edge-to-edge. |
+| 12 | **Dynamic Type** | Type scales automatically; scale *metrics* (padding, icon size) with `@ScaledMetric`; test AX5. |
+| 13 | **Safe area** | Backgrounds bleed with `.ignoresSafeArea`; content respects insets; know when to do which. |
+| 14 | **Motion** | Named springs (`.smooth`/`.snappy`/`.bouncy`) over magic durations; animate `value:`, not blanket. |
+| 15 | **Gestures** | `.contentShape` first; declare priority/simultaneity; thresholds & cancellation are explicit. |
+| 16 | **Haptics** | `.sensoryFeedback` (iOS 17+) tied to a state change; `NSHapticFeedbackManager` on macOS; never gratuitous. |
+| 17 | **Liquid Glass** | `.containerConcentric` corners; never nest `glassEffect`; ≤8% white tint; interactive glass needs feedback. |
+
+## Workflow
+
+1. **Before writing:** open the bible §s for what you're building (a list row → §1,3,5,6,11; a button → §2,4,7,8,16).
+2. **While writing:** every literal gets a token or an optical-exception comment. No exceptions (see Iron Rule).
+3. **Before committing:** run the auditor (`references/auditor.md`) over changed views. Score each. Fix anything below 3.
+4. **In review:** cite findings by § and score, e.g. *"§5 radius doesn't nest (inner 16 inside 16-padded 16 → should be 0/sharp or reduce padding); §7 close button is 30pt. Score 2."*
+
+## Common Mistakes
+
+| Mistake | Fix | § |
+|---------|-----|---|
+| One `.padding(16)` everywhere | Directional padding; optical correction for text | 6 |
+| `.cornerRadius(12)` inside a 12-padded 16-radius card | `inner = 16 − 12 = 4`, or use `.containerConcentric` | 5 |
+| Icon `.center`-aligned with its label | `HStack(alignment: .firstTextBaseline)` + symbol baseline | 3,4 |
+| `Image(systemName:)` at default weight beside bold text | `.fontWeight(.semibold)` on the symbol to match | 4 |
+| 24pt icon button | `.frame(minWidth: 44, minHeight: 44)` + `.contentShape` | 7 |
+| `.animation(.easeInOut(duration: 0.3))` | `.animation(.smooth, value: state)` | 14 |
+| `.shadow(radius: 8)` ad hoc | Pull from the elevation ladder with a y-offset | 8 |
+| No `@ScaledMetric` on a fixed icon frame | Scale the metric so it grows with text | 12 |
+| Haptic fired every frame / on appear | Tie `.sensoryFeedback` to a discrete state transition | 16 |
+
+## See Also
+
+- `apple-design` — token architecture (primitive→semantic→component), Liquid Glass house rules, accessibility checklist.
+- `apple-polish` — Ive/Jobs craftsmanship panels (cite this skill's §/score as evidence).
+- `design-contract` — when a mockup exists, bind values to it instead of to generic tokens.
+- `ios-accessibility` — full VoiceOver/Dynamic Type audit beyond §12.
+
+**References:**
+- [sensoryFeedback(_:trigger:) — Apple Developer Documentation](https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:))
+- [SensoryFeedback — Apple Developer Documentation](https://developer.apple.com/documentation/swiftui/sensoryfeedback)
+- [ScaledMetric — Apple Developer Documentation](https://developer.apple.com/documentation/swiftui/scaledmetric)
+- [Human Interface Guidelines: Layout (44pt targets)](https://developer.apple.com/design/human-interface-guidelines/layout)
+- iOS 26 API Bible (this repo): `.glassEffect(.regular, in: .rect(cornerRadius: .containerConcentric))`, named springs `.bouncy`/`.smooth`/`.snappy`.
+
+<!-- REFERENCE: swiftui-micro-craft/references/auditor.md -->
+
+# The Micro-Craft Auditor
+
+> Mechanical enforcement for the rules in [micro-craft-bible.md](micro-craft-bible.md). Two layers: a **grep auditor** that flags candidate violations by §, and a **0–4 scoring rubric** for the judgment calls grep can't make. Run the auditor over changed views before every commit; score anything it flags.
+
+The auditor's job is to **surface candidates, not to convict.** Optical corrections (§2) and intentional system defaults are legitimate. A flagged line is a prompt to either tokenize it or add a one-line justifying comment — never to blindly "fix."
+
+---
+
+## Part A — The grep auditor
+
+Copy this into `scripts/micro-craft-audit.sh` in the target repo (or run inline). It scans staged/changed Swift view files and prints findings tagged by §. Pure `grep`/`bash` — no build, no deps.
+
+```bash
+#!/usr/bin/env bash
+# Micro-craft auditor — flags candidate violations of swiftui-micro-craft §rules.
+# Usage: ./micro-craft-audit.sh [path ...]   (defaults to git-changed .swift files)
+# Pure grep/bash. Uses process substitution (< <(...)) so the hit counter and the
+# per-file header survive — a plain `grep | while` runs in a subshell and loses both.
+set -uo pipefail
+
+# Resolve targets: explicit args, else changed files vs HEAD, else all Swift.
+if [ "$#" -gt 0 ]; then
+  FILES="$*"
+else
+  FILES="$(git diff --name-only --diff-filter=ACM HEAD -- '*.swift' 2>/dev/null)"
+  [ -z "$FILES" ] && FILES="$(git ls-files '*.swift')"
+fi
+[ -z "$FILES" ] && { echo "No Swift files to audit."; exit 0; }
+
+hits=0
+header_printed=0
+cur=""
+emit() {  # §  message  file:line:content   — prints the file header once, counts the hit
+  [ "$header_printed" -eq 0 ] && { echo "▸ $cur"; header_printed=1; }
+  printf '  [%s] %s\n      %s\n' "$1" "$2" "$3"
+  hits=$((hits+1))
+}
+
+# check §  message  regex  [invert-regex]   — runs one grep in the parent shell via < <(...)
+check() {
+  local sec="$1" msg="$2" re="$3" inv="${4:-}"
+  while IFS= read -r l; do
+    [ -n "$inv" ] && printf '%s' "$l" | grep -qE "$inv" && continue
+    emit "$sec" "$msg" "$cur:$l"
+  done < <(grep -nE "$re" "$cur" 2>/dev/null)
+}
+
+for f in $FILES; do
+  [ -f "$f" ] || continue
+  cur="$f"; header_printed=0
+
+  check "§1/§6" "literal padding — tokenize (Spacing.*) or make directional" '\.padding\(\s*[0-9]+'
+  check "§1"    "literal stack spacing — use a Spacing token" '(spacing:\s*[0-9]+)' 'spacing:\s*0\b'
+  check "§5"    "literal cornerRadius — verify it nests (inner = outer − padding) or use .containerConcentric" '(cornerRadius:\s*[0-9]+)|\.cornerRadius\(\s*[0-9]+'
+  check "§4/§10" "hardcoded font size — use a semantic style (.body/.headline…) so it scales" '\.font\(\s*\.system\(size:\s*[0-9]'
+  check "§8"    "shadow without y-offset — reads as a glow; use the elevation ladder (radius + y)" '\.shadow\(' 'y:'
+  check "§9"    "literal color / freehand opacity — use a semantic token + opacity ladder" 'Color\.(black|white|gray|red|blue|green)\b|\.opacity\(\s*0?\.[0-9]+'
+  check "§9"    "raw RGB/hex in view — move to asset catalog / token with dark-mode variant" 'Color\(red:|#[0-9A-Fa-f]{6}|init\(hex'
+  check "§14"   "magic-number animation duration — prefer named springs (.smooth/.snappy/.bouncy) or tokenize" '(easeInOut|easeIn|easeOut|linear|spring)\([^)]*duration:\s*[0-9.]'
+  check "§14"   "unscoped .animation — bind to value: so it only animates the trigger" '\.animation\([^,)]*\)\s*$'
+  # (§3 baseline alignment is a judgment call — not regex-detectable; score it via Part B, not here.)
+
+  # §2 raw .offset without an optical justification comment (allowed only if commented)
+  while IFS= read -r l; do
+    case "$l" in *optical*) : ;; *) emit "§2" ".offset without // optical: comment — justify the nudge or remove it" "$cur:$l";; esac
+  done < <(grep -nE '\.offset\(' "$f" 2>/dev/null)
+
+  # §17 nested glassEffect (forbidden) — flag files with >1 occurrence for manual check
+  gcount=$(grep -cE '\.glassEffect\(' "$f" 2>/dev/null); gcount=${gcount:-0}
+  [ "$gcount" -gt 1 ] && emit "§17?" "multiple glassEffect calls ($gcount) — ensure none are nested; group with GlassEffectContainer" "$cur"
+
+  # §16 haptic on appear / in a loop (gratuitous)
+  if grep -qE 'sensoryFeedback|NSHapticFeedback' "$f" 2>/dev/null && grep -qE 'onAppear|ForEach|while |for ' "$f" 2>/dev/null; then
+    emit "§16?" "haptic + onAppear/loop present — confirm haptics fire only on discrete state changes" "$cur"
+  fi
+done
+
+echo
+if [ "$hits" -eq 0 ]; then
+  echo "✓ Micro-craft auditor: no candidate violations."
+else
+  echo "⚠ $hits candidate(s). Each must be tokenized OR carry a one-line justifying comment. See micro-craft-bible.md."
+fi
+exit 0   # advisory by default; flip to 'exit $((hits>0))' to gate commits
+```
+
+### Notes on the auditor
+
+- **Advisory by default.** It exits 0 so it never blocks; flip the last line to gate. Many hits are *legitimate* (a `0` spacing, a commented optical offset, a system default). The point is to make every literal a conscious decision.
+- **Heuristics marked with `?`** (§3, §17, §16) are low-confidence — they flag *shape*, not certainty. Eyeball them.
+- **False positives are the design.** A clean view passes; a view with raw literals gets a list of "tokenize-or-justify" prompts. That's RED→GREEN at the line level.
+- Wire it into a pre-commit hook or the `merge-check` skill's gate if you want it enforced.
+
+---
+
+## Part B — The 0–4 scoring rubric (judgment layer)
+
+Grep can't see optical centering or whether a radius *actually* nests. Score each view by hand using the table below; the auditor's hit-count feeds the lower scores.
+
+### Per-domain scoring
+
+For each view, mark each applicable domain ✓ (correct) / ✗ (violated) / — (N/A):
+
+| § | Pass condition |
+|---|----------------|
+| 1 | All spacing/padding on the 4pt grid via tokens; zero bare literals |
+| 2 | Asymmetric glyphs optically corrected with `// optical:` comments |
+| 3 | Mixed-size text & icon+text rows baseline-aligned |
+| 4 | Symbol weight matches neighbor; size via imageScale/font; rendering mode set |
+| 5 | Every nested radius concentric (`inner = outer − padding`) or `.containerConcentric` |
+| 6 | Padding directional/asymmetric where content demands it |
+| 7 | Every interactive element ≥44pt with `.contentShape` |
+| 8 | Shadows from the elevation ladder, with y-offset; one per surface |
+| 9 | Semantic color tokens; opacity ladder; dark-mode safe |
+| 10 | Semantic text styles; monospaced digits on counters; truncation defined |
+| 11 | Hairlines `1/displayScale`; separators inset to content |
+| 12 | Type scales; metrics use `@ScaledMetric`; survives AX5 |
+| 13 | Backgrounds bleed; content respects safe area |
+| 14 | Named springs / tokenized timing; scoped `value:`; Reduce Motion handled |
+| 15 | `.contentShape` first; priority/simultaneity & thresholds explicit |
+| 16 | Haptics on discrete state changes only; semantic match |
+| 17 | (if glass) concentric corners; no nesting; ≤8% tint; interactive feedback |
+
+### Aggregate score
+
+| Score | Rule |
+|-------|------|
+| **4** | All applicable domains ✓; optical corrections present & commented; passes AX5. |
+| **3** | All geometric domains ✓ (1,3,5,7,11,13); ≤1 optical/polish miss (2,4,8,16). |
+| **2** | Any single geometric violation: a bare literal (§1), non-nesting radius (§5), sub-44pt target (§7), or no Dynamic Type (§12). |
+| **1** | Multiple literals + hardcoded motion + no Dynamic Type. |
+| **0** | Visible geometric breakage: misaligned baselines, clipped content, nested/overlapping glass. |
+
+**Gate: anything below 3 ships a defect.** Fix to ≥3 before commit; aim for 4 on anything a user touches repeatedly (buttons, rows, the primary screen).
+
+### How to report a finding (review shorthand)
+
+Cite the §, give the score, then list findings **tagged by severity**, and close with **Quick Wins** — the top ≤3 fixes doable in five minutes. (Severity + Quick Wins format adapted from huashu-design's 5-dimension critique.)
+
+Severity tags:
+- **⚠️ fatal** — visible geometric breakage or a sub-44pt target a user will hit (caps the score at 0–1).
+- **⚡ important** — a real defect (non-nesting radius, hardcoded motion, no Dynamic Type) that holds the score at 2.
+- **💡 polish** — optical/refinement miss (uncommented nudge, off-ladder shadow) separating a 3 from a 4.
+
+> **`FocusButton.swift` — score 2**
+> ⚡ §5: inner `RoundedRectangle(cornerRadius: 16)` inside a 12-padded 16-radius card → arcs pinch; use `16−12=4` or `.containerConcentric`.
+> ⚠️ §7: chevron button is 28pt; add `.frame(width: 44, height: 44).contentShape(Rectangle())`.
+> 💡 §8: `.shadow(radius: 8)` has no y-offset — reads as a glow; pull from the elevation ladder.
+>
+> **Quick Wins:** (1) wrap the chevron in a 44pt frame; (2) drop the inner radius to 4; (3) add `y: 4` to the shadow.
+
+Cite §, give the number, tag the severity, give the fix. That's the whole loop.
+
+<!-- REFERENCE: swiftui-micro-craft/references/micro-craft-bible.md -->
+
+# The SwiftUI Micro-Craft Bible
+
+> The complete, quantified treatment of every micro-craft domain. SKILL.md is the index and the scoring entrypoint; this is the reference. Each § gives the **rule**, the **why**, **Do/Don't**, and the **API** (verified against Apple docs / the iOS 26 API Bible — see References at the bottom of SKILL.md).
+
+A note on tokens: this file references generic token names (`Spacing.md`, `Radius.lg`, `Motion.standard`). In a specific app, bind them to that app's real token enum. The *rules* are universal; the *values* are per-app.
+
+---
+
+## §1 — The spacing grid
+
+**Rule:** Every gap, inset, and offset is a multiple of **4**, and you reach for **8** first. Express it through a `Spacing` token, never a bare literal.
+
+**Why:** A 4pt base grid is the lattice the entire system aligns to. Off-grid values (10, 13, 15, 18) read as "almost right," which the eye registers as cheapness even when it can't name it. The grid is also how independent components line up *with each other* without coordination.
+
+Canonical ladder (adapt names to your app):
+
+| Token | pt | Use |
+|-------|----|----|
+| `xxs` | 4 | Icon-to-label, tight chip internals |
+| `xs` | 8 | Default intra-component gap |
+| `sm` | 12 | Related elements |
+| `md` | 16 | Standard content padding, card insets |
+| `lg` | 24 | Section separation |
+| `xl` | 32 | Major blocks |
+| `xxl` | 48 | Screen-level breathing room |
+
+**Don't:** `VStack(spacing: 10)`, `.padding(15)`, `.padding(.top, 18)`.
+**Do:** `VStack(spacing: Spacing.xs)`, `.padding(Spacing.md)`.
+
+**Subtlety:** `VStack`/`HStack` default spacing is system-chosen (~8–10 depending on content) and is *fine* when you genuinely want the system default — but make it a decision, not an accident. If you set spacing, tokenize it.
+
+---
+
+## §2 — Optical vs geometric alignment
+
+**Rule:** Center things by how they *look*, not by their bounding box. Shapes with visual weight off their geometric center need a deliberate nudge.
+
+**Why:** The human eye centers on a shape's *visual mass*, not its frame. A play triangle, a chevron, a paper-plane "send" glyph, or any trailing-heavy form looks off-center when frame-centered.
+
+The classic cases:
+
+| Element | Problem | Correction |
+|---------|---------|-----------|
+| Play ▶ icon in a circle | Triangle's mass sits left of frame center | Nudge **right** ~1–2pt (`.offset(x: 1)` or `.padding(.leading, 2)`) |
+| Chevron `>` row accessory | Optically light, sits too close to edge | Standard trailing inset, then trust the system |
+| Up/down/send arrows | Directional mass | Offset *toward* the heavy side by 1–2pt |
+| Glyph + text on one line | Cap-height vs x-height mismatch | Baseline-align (§3), don't center |
+
+**Do:** comment every optical correction so it survives refactors:
+```swift
+Image(systemName: "play.fill")
+    .offset(x: 1)   // optical: triangle mass sits left of center (§2)
+```
+
+**Don't:** apply a magic offset with no comment — the next agent will "clean it up" and reintroduce the imbalance.
+
+This is the **one place** raw literals are allowed in a view body — and only with the `// optical:` comment. The auditor whitelists `.offset` lines carrying that comment.
+
+---
+
+## §3 — Baseline alignment
+
+**Rule:** When text sits beside text (different sizes) or beside an icon, align on the **text baseline**, not vertical center.
+
+**Why:** Two strings of different point sizes centered vertically have mismatched baselines — they look like they're floating at different heights. Baseline alignment is how typesetting has worked for 500 years.
+
+```swift
+// ❌ "24" and "min" float at different heights
+HStack { Text("24").font(.largeTitle); Text("min").font(.body) }
+
+// ✅ they sit on the same line
+HStack(alignment: .firstTextBaseline) {
+    Text("24").font(.largeTitle)
+    Text("min").font(.body).foregroundStyle(.secondary)
+}
+```
+
+- Use `.firstTextBaseline` for top-aligned multi-line; `.lastTextBaseline` when bottoms should match.
+- For an SF Symbol that should sit on the text baseline, prefer `Label` or put the symbol *inside* the `Text` via interpolation (`Text("\(Image(systemName: "bolt.fill")) Charged")`) so it inherits the baseline and font metrics automatically.
+- Numeric readouts (a timer's "24" + "min", a price's "$" + "9" + ".99") almost always want baseline alignment.
+
+---
+
+## §4 — SF Symbols
+
+**Rule:** A symbol's **weight matches the adjacent text's weight**, its **size** is set with `.imageScale` or `.font`, and its **color treatment** is chosen with `.symbolRenderingMode`. Never leave all three to default beside styled text.
+
+**Why:** SF Symbols are designed as a *typeface*. A default-weight symbol next to semibold text looks anemic; an oversized symbol breaks the line's rhythm. The symbol should feel like it was set in the same font.
+
+| Concern | API | Note |
+|---------|-----|------|
+| Weight | `.fontWeight(.semibold)` or inherit via `.font(.headline)` | Match the neighbor text weight |
+| Size | `.imageScale(.small/.medium/.large)` or `.font(.system(size:))` | `.imageScale` scales *relative* to surrounding text — preferred |
+| Color | `.symbolRenderingMode(.hierarchical / .palette / .multicolor / .monochrome)` | `.hierarchical` gives free depth from one color |
+| Variant | `.symbolVariant(.fill / .circle / .slash)` | Don't hardcode `"x.circle.fill"` if context implies it |
+
+```swift
+// ✅ symbol set like type: inherits headline weight & size, hierarchical depth
+Label("Focus", systemImage: "scope")
+    .font(.headline)
+    .symbolRenderingMode(.hierarchical)
+    .foregroundStyle(.tint)
+```
+
+**Do:** prefer `.imageScale` so the symbol scales with Dynamic Type and the surrounding font.
+**Don't:** `Image(systemName: "scope").font(.system(size: 11))` beside 10pt caps text — the 1pt mismatch is visible and won't scale.
+
+For animation, SF Symbols support `.symbolEffect(.bounce / .pulse / .variableColor, value:)` (iOS 17+) — tie to a state change, not `.onAppear` loops (§14, §16).
+
+---
+
+## §5 — Corner-radius concentricity
+
+**Rule:** A rounded shape nested inside another rounded shape must be **concentric**: `innerRadius = outerRadius − padding`. Two independent radii inside each other are the single most common "looks cheap" tell.
+
+**Why:** When a card has radius R and contains a button with its own radius, the gap between their arcs must be constant all the way around the corner. That only happens when `inner = outer − inset`. If both are 16 with 12pt padding between them, the inner arc is *tighter* than the gap — the corners visibly "pinch."
+
+```swift
+// Card: radius 16, padding 12 → inner content radius must be 16 − 12 = 4
+RoundedRectangle(cornerRadius: 16)
+    .padding(12)
+    // any rounded child here uses cornerRadius 4
+
+// iOS 26: let the system do it automatically
+.glassEffect(.regular, in: .rect(cornerRadius: .containerConcentric))
+// or
+RoundedRectangle(cornerRadius: .containerConcentric)
+```
+
+- **Portable rule (all OS versions):** compute `outer − padding` by hand, store as tokens (`Radius.card`, `Radius.cardInner`).
+- **iOS 26:** `.containerConcentric` resolves the inner radius from the container automatically — prefer it inside containers that propagate a concentric shape.
+- If `outer − padding ≤ 0`, the inner shape should be **square** (radius 0), not a tiny positive radius.
+- A `Capsule` inside a `RoundedRectangle` is fine — capsules are radius-by-height, exempt from the formula, but still center them within the parent's safe corner.
+
+---
+
+## §6 — Padding
+
+**Rule:** Padding is **directional and asymmetric on purpose**. A single global `.padding(n)` is a smell unless the content is genuinely symmetric. Text needs *optical* padding that differs from geometric.
+
+**Why:** Real layouts have hierarchy: more space above a heading than below it; more leading inset than trailing for a chevron row; tighter top than bottom on a button because cap-height leaves optical space. One number can't express that.
+
+| Situation | Padding shape |
+|-----------|---------------|
+| Button label | `.padding(.horizontal, md)` `.padding(.vertical, sm)` — wider than tall |
+| Text block | slightly less top than bottom (cap height eats top space) |
+| List row with trailing chevron | full leading inset, reduced trailing |
+| Icon-only button | symmetric, but expand hit area via `.contentShape` (§7) not padding |
+
+```swift
+// ❌ one number, ignores that text has optical top-space from cap height
+Text(title).padding(16)
+
+// ✅ directional
+Text(title)
+    .padding(.horizontal, Spacing.md)
+    .padding(.top, Spacing.sm)
+    .padding(.bottom, Spacing.md)
+```
+
+**Order matters:** `.padding().background()` paints behind the padding; `.background().padding()` paints only the content then spaces it. Decide which you mean.
+
+---
+
+## §7 — Hit targets
+
+**Rule:** Every interactive element has a **≥44×44pt** tappable area (Apple HIG minimum). When the *visual* is smaller, expand the *hittable* area with `.contentShape` + a min frame — never by inflating the glyph.
+
+**Why:** A 24pt close button is a frustrating target; misses feel like the app is broken. But you don't want a 44pt-wide *visible* X. The fix decouples visual size from touch size.
+
+```swift
+Button(action: dismiss) {
+    Image(systemName: "xmark")
+        .imageScale(.medium)
+        .frame(width: 44, height: 44)   // hit area
+        .contentShape(Rectangle())       // entire frame is tappable, incl. transparent
+}
+```
+
+- `.contentShape(Rectangle())` makes the *whole* frame hittable, including transparent padding — without it, only the glyph's pixels respond.
+- Rows: give the row `.contentShape(Rectangle())` so taps in the gaps register.
+- **macOS:** pointer targets can be tighter than 44pt, but respect a comfortable click target (~28pt+) and add `.help()` tooltips and hover feedback (`.onHover`).
+
+---
+
+## §8 — Depth & the elevation ladder
+
+**Rule:** Shadows come from a **fixed elevation scale**, not ad-hoc `radius:` values. Real depth uses a **y-offset** (light comes from above) plus low opacity — not a big symmetric blur.
+
+**Why:** Inconsistent shadows make a UI feel like cut-and-paste. A 3-step ladder (rest / raised / overlay) keeps every elevated surface coherent. A symmetric `.shadow(radius: 8)` with no offset looks like a glow, not a shadow.
+
+| Level | Use | Shape (tune per app) |
+|-------|-----|----------------------|
+| **Rest** | Cards on background | `color: .black.opacity(0.08), radius: 6, y: 2` |
+| **Raised** | Buttons, active card | `opacity(0.16), radius: 12, y: 4` |
+| **Overlay** | Sheets, popovers, menus | `opacity(0.24), radius: 24, y: 8` |
+
+```swift
+// ✅ ladder token, directional
+.shadow(color: .black.opacity(0.16), radius: 12, y: 4)   // Elevation.raised
+```
+
+- Prefer **one** shadow per surface. Stacking shadows is almost always wrong.
+- On Liquid Glass, let the glass material carry depth — don't add a heavy drop shadow on top (§17).
+- Dark mode: shadows are weaker; lean on lighter backgrounds/borders for separation instead of darker shadows.
+
+---
+
+## §9 — Color & token discipline
+
+**Rule:** Colors come from **semantic tokens**; opacity comes from a **defined ladder**; everything respects Dark Mode and the environment `.tint`.
+
+**Why:** `Color.black.opacity(0.2)` scattered through views can't be themed, can't adapt to dark mode, and drifts (0.18 here, 0.22 there). Semantic naming (`Color.surfaceSecondary`, `Color.separator`) makes intent legible and change a one-line edit.
+
+- **Never** literal RGB/hex in a view body. Define in an asset catalog or token enum with light/dark variants.
+- Opacity ladder: pick a small set (e.g. `0.04 / 0.08 / 0.16 / 0.24`) and name them; don't freehand decimals.
+- Use `.foregroundStyle` (not deprecated `.foregroundColor`) and `.tint` for accent propagation.
+- Use system semantic colors (`.primary`, `.secondary`, `.tertiary`, `Color(.separator)`) where they fit — they're already dark-mode and accessibility correct.
+- Respect `.background(.regularMaterial)` etc. for vibrancy instead of faking translucency with opacity.
+
+---
+
+## §10 — Typography
+
+**Rule:** Use **semantic text styles** (`.headline`, `.body`, `.caption`); use **monospaced digits** for any changing number; set `lineSpacing`/tracking deliberately; define truncation behavior.
+
+**Why:** Semantic styles scale with Dynamic Type for free (§12). Proportional digits make a running timer or counter "wobble" as glyph widths change — monospaced digits hold still. Default line spacing is often too tight for multi-line body copy.
+
+```swift
+// counters / timers — no horizontal jitter
+Text(timeString).font(.system(.title, design: .rounded).monospacedDigit())
+// or
+Text(count, format: .number).monospacedDigit()
+
+// multi-line body — give it air, control truncation
+Text(longBody)
+    .lineSpacing(2)
+    .lineLimit(3)
+    .truncationMode(.tail)
+```
+
+- Headlines/labels: tracking can tighten slightly at large sizes (`.tracking(-0.2)`) — optional, test it.
+- Never `.font(.system(size: 17))` to mimic `.body` — you lose Dynamic Type and the value drifts from the real metric.
+- All-caps labels: use `.textCase(.uppercase)` + tracking, not a hardcoded uppercased string.
+
+---
+
+## §11 — Hairlines & separators
+
+**Rule:** A true hairline is **`1 / displayScale`** points, not `1`. Separators are **inset to content**, not edge-to-edge, unless they intentionally span (e.g. full-width section break).
+
+**Why:** On a 3× screen, a 1pt line is 3 physical pixels — chunky. `1/displayScale` is a single device pixel — the crisp hairline Apple uses. And list separators that run to the screen edge look unfinished; system lists inset them to the text's leading edge.
+
+```swift
+@Environment(\.displayScale) private var displayScale
+
+Rectangle()
+    .fill(Color(.separator))
+    .frame(height: 1 / displayScale)   // one physical pixel
+    .padding(.leading, Spacing.md)     // inset to content, matches row text
+```
+
+- In `List`, use `.listRowSeparator(.hidden)` + `.alignmentGuide`/insets or `.listRowInsets` rather than fighting defaults.
+- A `Divider()` is convenient but doesn't give you `1/displayScale` control or inset by default — wrap it or use the `Rectangle` form when precision matters.
+
+---
+
+## §12 — Dynamic Type
+
+**Rule:** Text scales automatically via semantic styles. **Non-text metrics** (icon frames, custom paddings, fixed heights) must scale too — use `@ScaledMetric`. Test at **AX5** (largest accessibility size).
+
+**Why:** A layout that's perfect at default size collapses at AX5 if the icon is a fixed 24pt while the text triples. `@ScaledMetric` ties a numeric value to the Dynamic Type setting so it grows proportionally. (Available iOS 14+; scales any `BinaryFloatingPoint`; `relativeTo:` defaults to `.body`.)
+
+```swift
+@ScaledMetric(relativeTo: .headline) private var iconSize: CGFloat = 24
+
+Image(systemName: "bell")
+    .frame(width: iconSize, height: iconSize)   // grows with the headline
+```
+
+- Don't `@ScaledMetric` *everything* — grid spacing usually stays fixed; scale things that pair with text (icon sizes, avatar diameters, min row heights).
+- Avoid fixed `.frame(height:)` on text containers; let them grow. If you must cap, cap at a scaled value.
+- Test: Settings → Accessibility → Larger Text → AX5, or `#Preview` with `.dynamicTypeSize(.accessibility5)`. A view that breaks at AX5 scores ≤2.
+
+---
+
+## §13 — Safe area & full-bleed
+
+**Rule:** **Backgrounds bleed** edge-to-edge with `.ignoresSafeArea`; **content respects** safe-area insets. Know which layer you're on.
+
+**Why:** A gradient or image background should run under the notch and home indicator (full-bleed) — but the readable content must stay inside the safe area or it gets clipped/obscured. Mixing these up gives you either letterboxed backgrounds or text under the Dynamic Island.
+
+```swift
+ZStack {
+    BackgroundGradient().ignoresSafeArea()   // bleeds to physical edges
+    ScrollView { content }                    // respects safe area automatically
+}
+```
+
+- Scope it: `.ignoresSafeArea(.container, edges: .bottom)` is more honest than a blanket `.ignoresSafeArea()`.
+- Use `.safeAreaInset(edge:)` to place a pinned toolbar/CTA that *pushes* content rather than overlapping it.
+- Keyboard: `.ignoresSafeArea(.keyboard)` selectively when you don't want content to jump.
+
+---
+
+## §14 — Motion
+
+**Rule:** Prefer **named springs** (`.smooth`, `.snappy`, `.bouncy`) over magic `duration:` numbers. Animate a specific `value:`, never wrap the world in `.animation()`. Tokenize any custom timing.
+
+**Why:** Hardcoded `easeInOut(duration: 0.3)` scattered around gives every transition a slightly different feel. iOS 17+ named springs are tuned to feel native and self-document intent: `.snappy` for UI that should feel responsive, `.smooth` for content, `.bouncy` for playful affordances. Implicit `.animation(_, value:)` scopes the animation to the state that changed.
+
+```swift
+// ❌ magic number, unscoped (animates EVERYTHING that changes)
+.animation(.easeInOut(duration: 0.3))
+
+// ✅ named spring, scoped to the trigger
+.animation(.snappy, value: isExpanded)
+
+// custom spring → tokenize it, don't inline
+extension Animation { static let panelReveal = Animation.spring(response: 0.4, dampingFraction: 0.8) }
+.animation(.panelReveal, value: isOpen)
+```
+
+- `withAnimation(.smooth) { state.toggle() }` for explicit, event-driven changes.
+- Respect Reduce Motion: `@Environment(\.accessibilityReduceMotion)` — swap springs for a cross-fade or none.
+- Transitions: use `.transition(.move/.opacity/.scale)` with a matching animation; for shared-element morphs on glass use `matchedGeometryEffect`/`glassEffectID` (§17).
+- Never drive continuous animation from `.onAppear` timers when a `value:`-bound animation will do.
+
+---
+
+## §15 — Gestures
+
+**Rule:** Define the **hit shape first** (`.contentShape`), then declare **priority and simultaneity** explicitly, and make **thresholds and cancellation** intentional. Gestures should never silently steal touches from scrolling.
+
+**Why:** The default gesture stack resolves conflicts in non-obvious ways. A `DragGesture` on a row inside a `ScrollView` can hijack the scroll unless you set thresholds or simultaneity. Being explicit is the difference between "feels native" and "feels fighty."
+
+| Need | API |
+|------|-----|
+| Whole area responds | `.contentShape(Rectangle())` before the gesture |
+| Tap | `.onTapGesture` (cheap) or `TapGesture()` for composition |
+| Drag with a dead zone | `DragGesture(minimumDistance: 10)` so small moves stay scrolls |
+| Run alongside scroll | `.simultaneousGesture(...)` |
+| Take precedence | `.highPriorityGesture(...)` (use sparingly) |
+| Long-press → drag | `LongPressGesture().sequenced(before: DragGesture())` |
+
+```swift
+.contentShape(Rectangle())
+.gesture(
+    DragGesture(minimumDistance: 10)         // dead zone preserves scroll
+        .onChanged { value in offset = value.translation.width }
+        .onEnded { value in
+            withAnimation(.snappy) {           // §14
+                offset = abs(value.translation.width) > 80 ? .commit : 0  // explicit threshold
+            }
+        }
+)
+```
+
+- Always animate gesture *resolution* (`onEnded`) with a named spring (§14).
+- Pair a committing gesture with haptic confirmation (§16).
+- Don't attach gestures to zero-padding glyphs — combine with §7's hit-area expansion.
+
+---
+
+## §16 — Haptics
+
+**Rule:** Haptics confirm a **discrete state change** the user caused. On iOS use `.sensoryFeedback(_:trigger:)` (iOS 17+) bound to a value; on macOS use `NSHapticFeedbackManager`. Never fire on `.onAppear`, in a loop, or "for flavor."
+
+**Why:** Good haptics are felt, not noticed — they close the loop on an action (toggle flipped, item committed, limit reached). Gratuitous haptics feel cheap and drain the Taptic Engine's credibility. The `trigger:` form fires precisely when the bound value changes, which is exactly when feedback is meaningful.
+
+```swift
+// iOS 17+ — fire when `isComplete` flips
+.sensoryFeedback(.success, trigger: isComplete)
+
+// pick the semantic, not a raw impact, when one exists:
+.sensoryFeedback(.selection, trigger: selectedTab)     // picker/segmented change
+.sensoryFeedback(.impact(weight: .light), trigger: dragCommitted)
+.sensoryFeedback(.warning, trigger: validationFailed)
+
+// conditional: only on a meaningful transition
+.sensoryFeedback(.increase, trigger: count) { old, new in new > old }
+```
+
+Available `SensoryFeedback` semantics: `.success`, `.warning`, `.error`, `.selection`, `.increase`, `.decrease`, `.start`, `.stop`, `.alignment`, `.levelChange`, and `.impact(weight:intensity:)` / `.impact(flexibility:intensity:)`.
+
+```swift
+// macOS — no SwiftUI sensoryFeedback parity; use AppKit at the boundary
+import AppKit
+NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .now)
+// patterns: .generic, .alignment, .levelChange
+```
+
+- Match the semantic to the meaning: `.success` for completion, `.selection` for value changes, `.error`/`.warning` for blocks. Reaching for `.impact` everywhere is a smell.
+- Respect the system: don't haptic-spam; one event = one feedback.
+- Gate behind the user's settings if your app exposes a haptics toggle.
+
+---
+
+## §17 — Liquid Glass micro-rules (iOS 26 / macOS 26)
+
+**Rule:** Glass corners use `.containerConcentric`; **never nest `glassEffect` inside `glassEffect`**; tint stays **≤8% white**; interactive glass **must** have hover/press feedback. (These mirror `apple-design`'s house rules — repeated here as checkable items.)
+
+**Why:** Liquid Glass samples what's behind it. Glass-on-glass double-samples and muddies; over-tinting kills the translucency that justifies the material; un-concentric corners on a glass container break the optical nesting the material is designed around.
+
+```swift
+// ✅ single glass layer, concentric corners, interactive feedback
+Button("Edit") { }
+    .glassEffect(.regular.interactive(), in: .rect(cornerRadius: .containerConcentric))
+
+// group sibling glass elements so they share context & can morph — NOT nest
+GlassEffectContainer(spacing: 20) {
+    button1.glassEffect(.regular.interactive())
+    button2.glassEffect(.regular.interactive())
+}
+```
+
+The four glass rules (checkable):
+1. **≤8% white opacity** for any tint overlay on glass.
+2. **No solid color overlays** on glass — defeats the material.
+3. **Never nest** `glassEffect` within `glassEffect`; use `GlassEffectContainer` for grouping.
+4. **Interactive glass needs feedback** — `.interactive()` + hover/press state.
+
+- Don't stack a heavy drop shadow (§8) on glass — the material carries its own depth.
+- Morphing: `glassEffectID(_, in:)` within a `GlassEffectContainer` + an animated state change (§14).
+
+---
+
+## How the §s combine (recipes)
+
+| Building | Apply |
+|----------|-------|
+| **List row** | §1 spacing · §3 baseline · §6 directional padding · §7 row contentShape · §11 inset separator · §12 scaled icon |
+| **Primary button** | §2 optical glyph · §4 symbol weight · §5 inner radius · §7 44pt · §8 raised shadow · §14 press spring · §16 impact on commit |
+| **Card** | §1 · §5 concentric children · §8 rest shadow · §9 surface token · §13 if it bleeds |
+| **Sheet / overlay** | §8 overlay shadow · §13 safe-area inset CTA · §14 presentation spring · §17 if glass |
+| **Counter / timer** | §3 baseline · §10 monospaced digits · §12 scaled · §16 haptic on threshold |
+| **Draggable card** | §7 contentShape · §14 resolution spring · §15 threshold + simultaneity · §16 commit haptic |
+
+<!-- END SKILL: swiftui-micro-craft -->
 
 ---
 

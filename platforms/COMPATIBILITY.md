@@ -27,4 +27,5 @@
 | preview-capture | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | regression-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swift6-concurrency | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| swiftui-micro-craft | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | verify-against-spec | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
