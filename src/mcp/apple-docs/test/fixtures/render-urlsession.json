@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "title": "URLSession",
+    "roleHeading": "Class",
+    "symbolKind": "class",
+    "role": "symbol",
+    "platforms": [
+      { "name": "iOS", "introducedAt": "7.0" },
+      { "name": "iPadOS", "introducedAt": "7.0" },
+      { "name": "macOS", "introducedAt": "10.9" },
+      { "name": "Mac Catalyst", "introducedAt": "13.0" }
+    ]
+  },
+  "abstract": [
+    { "type": "text", "text": "An object that coordinates a group of related, network data transfer tasks." }
+  ],
+  "primaryContentSections": [
+    {
+      "kind": "declarations",
+      "declarations": [
+        {
+          "languages": ["swift"],
+          "tokens": [
+            { "kind": "keyword", "text": "class" },
+            { "kind": "text", "text": " " },
+            { "kind": "identifier", "text": "URLSession" }
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "content",
+      "content": [
+        {
+          "type": "paragraph",
+          "inlineContent": [
+            { "type": "text", "text": "Your app creates one or more " },
+            { "type": "codeVoice", "code": "URLSession" },
+            { "type": "text", "text": " instances, each of which coordinates a group of related data-transfer tasks." }
+          ]
+        }
+      ]
+    }
+  ],
+  "topicSections": [
+    {
+      "title": "Creating a Session",
+      "identifiers": [
+        "doc://com.apple.foundation/documentation/foundation/urlsessionconfiguration"
+      ]
+    }
+  ],
+  "references": {
+    "doc://com.apple.foundation/documentation/foundation/urlsessionconfiguration": {
+      "title": "URLSessionConfiguration",
+      "url": "/documentation/foundation/urlsessionconfiguration",
+      "kind": "symbol"
+    }
+  }
+}

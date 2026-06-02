@@ -1,0 +1,41 @@
+{
+  "interfaceLanguages": {
+    "swift": [
+      {
+        "title": "Foundation",
+        "path": "/documentation/foundation",
+        "type": "module",
+        "children": [
+          {
+            "title": "URL Loading System",
+            "type": "groupMarker"
+          },
+          {
+            "title": "URLSession",
+            "path": "/documentation/foundation/urlsession",
+            "type": "class",
+            "children": [
+              {
+                "title": "dataTask(with:)",
+                "path": "/documentation/foundation/urlsession/datatask(with:)",
+                "type": "method"
+              }
+            ]
+          },
+          {
+            "title": "URLSessionConfiguration",
+            "path": "/documentation/foundation/urlsessionconfiguration",
+            "type": "class"
+          },
+          {
+            "title": "NSURLConnection",
+            "path": "/documentation/foundation/nsurlconnection",
+            "type": "class",
+            "deprecated": true
+          }
+        ]
+      }
+    ]
+  },
+  "schemaVersion": { "major": 0, "minor": 1, "patch": 0 }
+}

@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "name": "Apple Docs",
+    "description": "Search and read Apple's official developer documentation from the live DocC data layer — 4 tools, no auth",
+    "requires_auth": false,
+    "auth_env": [],
+    "docs_url": "https://developer.apple.com/documentation",
+    "notes": "Requires npm build before first use. No API key. Fetches docs on demand and caches JSON under $XDG_CACHE_HOME/apple-docs-mcp."
+  },
+  "mcpServers": {
+    "apple-docs": {
+      "command": "node",
+      "args": ["<REPO_PATH>/apple-dev-skills/src/mcp/apple-docs/dist/index.js"],
+      "env": {}
+    }
+  }
+}

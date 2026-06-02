@@ -1,0 +1,33 @@
+{
+  "schemaVersion": { "major": 0, "minor": 3, "patch": 0 },
+  "references": {
+    "doc://com.apple.documentation/documentation/Foundation": {
+      "title": "Foundation",
+      "type": "topic",
+      "kind": "symbol",
+      "role": "collection",
+      "url": "/documentation/Foundation"
+    },
+    "doc://com.apple.documentation/documentation/SwiftUI": {
+      "title": "SwiftUI",
+      "type": "topic",
+      "kind": "symbol",
+      "role": "collection",
+      "url": "/documentation/SwiftUI"
+    },
+    "doc://com.apple.documentation/documentation/UIKit": {
+      "title": "UIKit",
+      "type": "topic",
+      "kind": "symbol",
+      "role": "collection",
+      "url": "/documentation/UIKit"
+    },
+    "doc://com.apple.documentation/documentation/foundation/urlsession": {
+      "title": "URLSession",
+      "type": "topic",
+      "kind": "symbol",
+      "role": "symbol",
+      "url": "/documentation/foundation/urlsession"
+    }
+  }
+}
