@@ -397,6 +397,40 @@ Task { @MainActor [weak self] in
 }
 ```
 
+### Concurrent Archives Corrupt Shared DerivedData
+
+**Error:**
+
+```
+error: unable to write file '.../DerivedData/.../<Target>-<hash>-VFS-iphoneos/all-product-headers.yaml':
+       No such file or directory (2)
+** ARCHIVE FAILED **
+```
+
+**Cause:** Two `xcodebuild archive` runs sharing **one** DerivedData path race on the same VFS
+overlay/header-map intermediates and clobber each other. This is **not** a code, Gemfile, or
+signing failure — it is pure build-directory contention. It bites whenever archives run in
+parallel: two terminals, two CI jobs on one runner, or two agents in a shared checkout. A custom
+shared build location (Xcode → Locations → Derived Data → Custom) makes *every* project collide,
+not just two of the same app.
+
+**Fix (durable):** give each archive its own DerivedData so they can never share intermediates:
+
+```bash
+xcodebuild -scheme MyApp-Archive -configuration Release archive \
+  -archivePath build/MyApp.xcarchive \
+  -derivedDataPath build/DerivedData \   # per-app/per-job, isolated
+  -destination generic/platform=iOS
+```
+
+**Fix (operational):** if you can't isolate paths, **serialize** — never start an archive while
+another is in flight. Gate on `pgrep -f "xcodebuild|swift-frontend"` before launching.
+
+**Recovery:** a poisoned archive leaves corrupt intermediates that fail repeat runs. With the
+isolated path above, `rm -rf build/DerivedData` and retry. On a shared path, only clear the
+corrupt `…/ArchiveIntermediates/<Scheme>` dir while **nothing else is building**, or you break
+the other job.
+
 ### Missing Provisioning Profile
 
 **Error:** `No profiles for 'com.example.app' were found`
