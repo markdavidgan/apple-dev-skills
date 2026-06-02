@@ -124,14 +124,10 @@ Installs to `~/.cursor/skills/`, `~/.cursor/agents/`, `~/.cursor/commands/`.
 #### Kimi Code
 
 ```bash
-# From git (discovers plugin in subdirectory)
-kimi plugin install https://github.com/markdavidgan/apple-dev-skills
-
-# Or local
 ./install.sh --platform kimi
 ```
 
-Installs to `~/.kimi/plugins/apple-dev/`. Kimi discovers one `SKILL.md` + tools per plugin.
+Installs the consolidated skill to `~/.kimi-code/skills/apple-dev/` (one `SKILL.md` + bundled `scripts/`), which Kimi Code auto-discovers on restart. Note: Kimi Code has **no MCP support**, so the App Store Connect and Apple Docs MCP servers are Claude Code / Cursor only — in Kimi the bundled `scripts/` (`pattern-check`, `api-lookup`) provide the equivalent interactivity.
 
 #### Antigravity
 

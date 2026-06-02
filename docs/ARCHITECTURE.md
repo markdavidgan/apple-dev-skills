@@ -245,7 +245,7 @@ node scripts/validate.js
 |----------|-------------|------------|-----------|
 | Claude | `~/.claude/` | `.claude/` | Symlink |
 | Cursor | `~/.cursor/` | `.cursor/` | Symlink |
-| Kimi | `~/.kimi/plugins/` | `.kimi/plugins/` | Copy + `kimi plugin install` |
+| Kimi | `~/.kimi-code/skills/` | `.kimi-code/skills/` | Copy |
 | Antigravity | `~/.gemini/antigravity/skills/` | `.agents/skills/` | Copy |
 | Codex | `~/.codex/skills/` | `.codex/skills/` | Copy |
 | Agy | `~/.agy/skills/` | `.agy/skills/` | Copy |

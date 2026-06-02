@@ -30,13 +30,13 @@ This matrix shows how each feature maps across supported AI platforms.
 | Slash commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Tools / Plugins** |
 | Executable tools | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| MCP servers | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |
+| MCP servers | ✅ | ✅ | ❌ | ✅** | ❌ | ❌ |
 | **Install Methods** |
 | Git clone + symlink | ✅ | ✅ | N/A | N/A | N/A | N/A |
-| Native plugin install | ✅ | ✅ | ✅ | N/A | N/A | N/A |
+| Native plugin install | ✅ | ✅ | N/A | N/A | N/A | N/A |
 | Marketplace | ✅ | ✅ | N/A | N/A | N/A | N/A |
 | **Update Mechanism** |
-| `git pull` | ✅ | ✅ | `kimi plugin update` | `git pull` + recopy | `git pull` + recopy | `git pull` + recopy |
+| `git pull` | ✅ | ✅ | `./install.sh` recopy | `git pull` + recopy | `git pull` + recopy | `git pull` + recopy |
 
 \* Kimi consolidates all 22 skills into one master `SKILL.md`. Knowledge is complete; granularity is lost.  
 \** MCP requires manual JSON config. Platform-specific paths differ.
@@ -103,19 +103,16 @@ claude mcp add-json app-store-connect < platforms/claude/mcp.json
 
 **Install:**
 ```bash
-kimi plugin install https://github.com/markdavidgan/apple-dev-skills
-```
-
-Or local:
-```bash
 ./install.sh --platform kimi
 ```
+
+Copies the consolidated skill to `~/.kimi-code/skills/apple-dev/`, which Kimi Code auto-discovers on restart.
 
 **Tools Available:**
 - `pattern-check` — Validate Swift 6, SwiftUI, SwiftData patterns
 - `api-lookup` — Query iOS 26 API signatures
 
-**MCP Config:** Kimi supports MCP servers but configures them separately from plugins. See Kimi docs for `mcpServers` config.
+**MCP Config:** Kimi Code has **no MCP support** (dropped in the 2026-05 `.kimi-code` migration). The App Store Connect and Apple Docs MCP servers are Claude Code / Cursor only; in Kimi the bundled `scripts/` provide the equivalent interactivity.
 
 **Workflow Adaptation:**
 Skills that rely on subagent dispatch (`apple-cleanup`, `apple-review`, `complete-feature`, `merge-check`) include a "Kimi Adaptation" section with sequential step-by-step instructions.

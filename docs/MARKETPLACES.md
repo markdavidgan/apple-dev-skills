@@ -50,13 +50,13 @@ This document covers how to submit Apple Dev Skills to each supported marketplac
 
 ### Installation Steps
 ```bash
-kimi plugin install https://github.com/markdavidgan/apple-dev-skills
+./install.sh --platform kimi
 ```
 
-Kimi discovers the plugin in `platforms/kimi/apple-dev/` (consolidated `SKILL.md` + `plugin.json` + tools).
+Copies the consolidated bundle from `platforms/kimi/apple-dev/` (`SKILL.md` + `scripts/` + `reference/`) to `~/.kimi-code/skills/apple-dev/`, which Kimi Code auto-discovers on restart. (Kimi Code has no plugin-install CLI or MCP support — it discovers plain skills under `~/.kimi-code/skills/`.)
 
 ### Update Process
-- Users re-run `kimi plugin install` or `kimi plugin update apple-dev`.
+- Users re-run `./install.sh --platform kimi`.
 
 ---
 

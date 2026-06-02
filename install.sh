@@ -161,7 +161,10 @@ install_cursor() {
 install_kimi() {
   local base="$(get_scope_base)"
   local src="$REPO_ROOT/platforms/kimi/apple-dev"
-  local dest="$base/.kimi/plugins/apple-dev"
+  # Kimi Code auto-discovers skills from <home>/.kimi-code/skills (user) and
+  # <project>/.kimi-code/skills (project). The legacy ~/.kimi/plugins path was
+  # abandoned in the 2026-05 migration to .kimi-code and is no longer read.
+  local dest="$base/.kimi-code/skills/apple-dev"
 
   log_info "Installing for Kimi Code ($SCOPE)..."
 
@@ -171,7 +174,7 @@ install_kimi() {
     return
   fi
 
-  # Kimi prefers copy (not symlink) for plugin registry stability
+  # Kimi prefers copy (not symlink) for skill discovery stability
   if [[ -d "$dest" ]]; then
     rm -rf "$dest"
   fi
@@ -180,7 +183,7 @@ install_kimi() {
   log_ok "Copied: $dest"
 
   log_info "Kimi Code installation complete."
-  log_info "Restart Kimi Code to pick up the plugin."
+  log_info "Restart Kimi Code to pick up the skill."
 }
 
 install_antigravity() {
