@@ -134,8 +134,9 @@ install_claude() {
   fi
 
   log_info "Claude Code installation complete."
-  log_info "To install the ASC MCP server, run:"
-  echo "  claude mcp add-json app-store-connect < $src/mcp.json"
+  log_info "To register the MCP servers (build each first — see README), run:"
+  echo "  claude mcp add-json app-store-connect < $REPO_ROOT/src/mcp/asc/mcp.json"
+  echo "  claude mcp add-json apple-docs        < $REPO_ROOT/src/mcp/apple-docs/mcp.json"
 }
 
 install_cursor() {

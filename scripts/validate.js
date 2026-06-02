@@ -211,27 +211,50 @@ function validateCommands() {
 }
 
 function validateMcp() {
-  if (format !== 'compact') console.log('\n🔌 Validating MCP server...');
-  const mcpRoot = path.join(SRC, 'mcp', 'asc');
+  if (format !== 'compact') console.log('\n🔌 Validating MCP servers...');
+  const mcpRoot = path.join(SRC, 'mcp');
   if (!fs.existsSync(mcpRoot)) {
     setFile(mcpRoot);
-    warn('mcp/asc/ directory missing');
+    warn('mcp/ directory missing');
     return;
   }
 
-  const pkgPath = path.join(mcpRoot, 'package.json');
-  if (!fs.existsSync(pkgPath)) {
+  const servers = fs.readdirSync(mcpRoot)
+    .filter(d => fs.statSync(path.join(mcpRoot, d)).isDirectory())
+    .sort();
+  if (!servers.length) {
+    setFile(mcpRoot);
+    warn('mcp/ has no server directories');
+    return;
+  }
+
+  for (const server of servers) {
+    const serverDir = path.join(mcpRoot, server);
+    const pkgPath = path.join(serverDir, 'package.json');
+    if (!fs.existsSync(pkgPath)) {
+      setFile(pkgPath);
+      error(`mcp/${server}/package.json missing`);
+      continue;
+    }
     setFile(pkgPath);
-    error('mcp/asc/package.json missing');
-    return;
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    if (!pkg.name) error(`mcp/${server}/package.json missing "name"`);
+    if (!pkg.version) warn(`mcp/${server}/package.json missing "version"`);
+
+    const mcpJsonPath = path.join(serverDir, 'mcp.json');
+    if (!fs.existsSync(mcpJsonPath)) {
+      setFile(mcpJsonPath);
+      warn(`mcp/${server}/mcp.json missing`);
+    } else {
+      setFile(mcpJsonPath);
+      const cfg = JSON.parse(fs.readFileSync(mcpJsonPath, 'utf8'));
+      if (!cfg.mcpServers || !Object.keys(cfg.mcpServers).length) {
+        error(`mcp/${server}/mcp.json missing "mcpServers"`);
+      }
+    }
+
+    ok(`MCP server "${server}"`);
   }
-
-  setFile(pkgPath);
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-  if (!pkg.name) error('mcp/asc/package.json missing "name"');
-  if (!pkg.version) warn('mcp/asc/package.json missing "version"');
-
-  ok('MCP server package.json');
 }
 
 // ─── Core validation runner ───
@@ -280,7 +303,7 @@ function watch() {
     path.join(SRC, 'skills'),
     path.join(SRC, 'agents'),
     path.join(SRC, 'commands'),
-    path.join(SRC, 'mcp', 'asc'),
+    path.join(SRC, 'mcp'),
   ];
 
   for (const dir of dirsToWatch) {

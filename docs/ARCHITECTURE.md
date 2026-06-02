@@ -22,7 +22,7 @@ This document explains how `apple-dev-skills` is structured, why it is structure
 │  ├── skills/*                22 skill directories           │
 │  ├── agents/*                7 agent definitions            │
 │  ├── commands/*              12 command definitions         │
-│  └── mcp/asc/                TypeScript MCP server          │
+│  └── mcp/{asc,apple-docs}    TypeScript MCP servers         │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -76,17 +76,19 @@ src/commands/<command-name>.md
 
 Thin wrappers that invoke skills. Frontmatter includes `description` and optional `argument-hint`.
 
-### MCP Server
+### MCP Servers
 
 ```
-src/mcp/asc/
-├── package.json
-├── src/                  # TypeScript source
-├── dist/                 # Compiled output (built, not committed)
-└── README.md
+src/mcp/
+├── asc/                  # App Store Connect MCP server
+│   ├── package.json
+│   ├── src/              # TypeScript source
+│   ├── dist/             # Compiled output (built, not committed)
+│   └── README.md
+└── apple-docs/           # Apple developer docs MCP server (same layout)
 ```
 
-The ASC MCP server is a standard TypeScript MCP server. It is built separately from the skill build pipeline.
+Each is a standard TypeScript MCP server, built separately from the skill build pipeline. `build.js` merges every `src/mcp/<server>/mcp.json` into `platforms/claude/mcp.json`, so registering a new server only requires adding its `mcp.json`.
 
 ---
 

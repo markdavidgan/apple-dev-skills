@@ -64,9 +64,11 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `/setup-asc` | — | ASC MCP server authentication setup |
 | `/swift6-fix` | `swift6-concurrency` | Diagnose & fix Swift 6 concurrency errors |
 
-### MCP Server
+### MCP Servers
 
-**App Store Connect MCP** (`mcp/asc/`) — 80+ tools for CI/builds, TestFlight, signing, provisioning, metadata, app submission, IAP, and screenshots.
+**App Store Connect MCP** (`mcp/asc/`) — 80+ tools for CI/builds, TestFlight, signing, provisioning, metadata, app submission, IAP, and screenshots. Requires an ASC API key.
+
+**Apple Docs MCP** (`mcp/apple-docs/`) — 4 tools (`search_docs`, `get_symbol`, `list_framework`, `check_availability`) that search and read Apple's official developer documentation from the live DocC data layer. No auth; fetches on demand and caches JSON locally.
 
 ---
 
@@ -165,15 +167,17 @@ Add `--local` to install into the current project directory (e.g., `.claude/`, `
 
 ### MCP Server Setup
 
-The App Store Connect MCP server requires a one-time build:
+Each MCP server requires a one-time build:
 
 ```bash
-cd src/mcp/asc
-npm install
-npm run build
+# App Store Connect
+cd src/mcp/asc && npm install && npm run build
+
+# Apple Docs
+cd src/mcp/apple-docs && npm install && npm run build
 ```
 
-Then configure auth (requires Apple Developer API key):
+**App Store Connect** needs auth (requires an Apple Developer API key):
 
 ```bash
 # Claude Code
@@ -181,6 +185,12 @@ claude mcp add-json app-store-connect < src/mcp/asc/mcp.json
 
 # Or run the setup command
 /setup-asc
+```
+
+**Apple Docs** needs no auth — register it directly:
+
+```bash
+claude mcp add-json apple-docs < src/mcp/apple-docs/mcp.json
 ```
 
 ---
@@ -205,7 +215,7 @@ apple-dev-skills/
 │   ├── skills/             # 22 skill directories
 │   ├── agents/             # 7 agent definitions
 │   ├── commands/           # 12 command definitions
-│   └── mcp/asc/            # App Store Connect MCP server
+│   └── mcp/                # MCP servers (asc, apple-docs)
 ├── platforms/              # Generated platform outputs
 │   ├── claude/             # Claude Code bundle
 │   ├── cursor/             # Cursor bundle

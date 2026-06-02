@@ -1,17 +1,40 @@
 {
-  "_meta": {
-    "name": "App Store Connect",
-    "description": "Full App Store Connect API — CI/CD, TestFlight, submissions, IAP, and more (80+ tools)",
-    "requires_auth": true,
-    "auth_env": ["ASC_KEY_ID", "ASC_ISSUER_ID", "ASC_KEY_PATH"],
-    "setup_command": "setup-asc",
-    "docs_url": "https://developer.apple.com/documentation/appstoreconnectapi",
-    "notes": "Requires npm build before first use. Auth via App Store Connect API key (.p8 file)."
-  },
+  "_meta": [
+    {
+      "name": "Apple Docs",
+      "description": "Search and read Apple's official developer documentation from the live DocC data layer — 4 tools, no auth",
+      "requires_auth": false,
+      "auth_env": [],
+      "docs_url": "https://developer.apple.com/documentation",
+      "notes": "Requires npm build before first use. No API key. Fetches docs on demand and caches JSON under $XDG_CACHE_HOME/apple-docs-mcp."
+    },
+    {
+      "name": "App Store Connect",
+      "description": "Full App Store Connect API — CI/CD, TestFlight, submissions, IAP, and more (80+ tools)",
+      "requires_auth": true,
+      "auth_env": [
+        "ASC_KEY_ID",
+        "ASC_ISSUER_ID",
+        "ASC_KEY_PATH"
+      ],
+      "setup_command": "setup-asc",
+      "docs_url": "https://developer.apple.com/documentation/appstoreconnectapi",
+      "notes": "Requires npm build before first use. Auth via App Store Connect API key (.p8 file)."
+    }
+  ],
   "mcpServers": {
+    "apple-docs": {
+      "command": "node",
+      "args": [
+        "<REPO_PATH>/apple-dev-skills/src/mcp/apple-docs/dist/index.js"
+      ],
+      "env": {}
+    },
     "app-store-connect": {
       "command": "node",
-      "args": ["<REPO_PATH>/apple-dev-skills/src/mcp/asc/dist/index.js"],
+      "args": [
+        "<REPO_PATH>/apple-dev-skills/src/mcp/asc/dist/index.js"
+      ],
       "env": {
         "ASC_KEY_ID": "${ASC_KEY_ID}",
         "ASC_ISSUER_ID": "${ASC_ISSUER_ID}",

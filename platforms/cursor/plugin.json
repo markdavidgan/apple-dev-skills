@@ -2,7 +2,7 @@
   "name": "apple-dev-skills",
   "displayName": "Apple Dev Skills",
   "version": "0.1.0",
-  "description": "Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
+  "description": "Apple platform development skills, agents, commands, and MCP servers (App Store Connect + Apple developer docs). Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, ASC API automation, and live Apple documentation lookup.",
   "author": {
     "name": "Mark David Gan",
     "email": "mark@markdavidgan.com"

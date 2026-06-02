@@ -68,6 +68,7 @@
 | Server | Version | Description |
 |--------|---------|-------------|
 | asc-mcp | 0.1.0 | MCP server for the full App Store Connect API — CI/CD, signing, metadata, TestFlight, IAP, reviews, and more |
+| apple-docs-mcp | 0.1.0 | MCP server for Apple's official developer documentation — search docs, read symbols, and check platform availability from the live DocC data layer (4 tools, no auth) |
 
 ---
 

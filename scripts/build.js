@@ -90,15 +90,26 @@ function buildClaude() {
   copyDir(path.join(SRC, 'agents'), path.join(dest, 'agents'));
   copyDir(path.join(SRC, 'commands'), path.join(dest, 'commands'));
 
-  // Copy MCP config
-  const mcpJsonSrc = path.join(SRC, 'mcp', 'asc', 'mcp.json');
-  if (fs.existsSync(mcpJsonSrc)) {
-    fs.copyFileSync(mcpJsonSrc, path.join(dest, 'mcp.json'));
+  // Merge MCP config from every src/mcp/<server>/mcp.json
+  const mcpRoot = path.join(SRC, 'mcp');
+  if (fs.existsSync(mcpRoot)) {
+    const merged = { _meta: [], mcpServers: {} };
+    const servers = fs.readdirSync(mcpRoot)
+      .filter(d => fs.existsSync(path.join(mcpRoot, d, 'mcp.json')))
+      .sort();
+    for (const server of servers) {
+      const cfg = JSON.parse(fs.readFileSync(path.join(mcpRoot, server, 'mcp.json'), 'utf8'));
+      if (cfg._meta) merged._meta.push(cfg._meta);
+      Object.assign(merged.mcpServers, cfg.mcpServers || {});
+    }
+    if (servers.length) {
+      fs.writeFileSync(path.join(dest, 'mcp.json'), JSON.stringify(merged, null, 2) + '\n');
+    }
   }
 
   const pluginJson = {
     name: 'apple-dev-skills',
-    description: 'Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.',
+    description: 'Apple platform development skills, agents, commands, and MCP servers (App Store Connect + Apple developer docs). Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, ASC API automation, and live Apple documentation lookup.',
     version: VERSION,
     author: { name: 'Mark David Gan', email: 'mark@markdavidgan.com' },
     repository: 'https://github.com/markdavidgan/apple-dev-skills',
@@ -122,7 +133,7 @@ function buildCursor() {
     name: 'apple-dev-skills',
     displayName: 'Apple Dev Skills',
     version: VERSION,
-    description: 'Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.',
+    description: 'Apple platform development skills, agents, commands, and MCP servers (App Store Connect + Apple developer docs). Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, ASC API automation, and live Apple documentation lookup.',
     author: { name: 'Mark David Gan', email: 'mark@markdavidgan.com' },
     repository: 'https://github.com/markdavidgan/apple-dev-skills',
     license: 'MIT',
@@ -368,7 +379,7 @@ function buildRootMarketplaces() {
   const claudeMarketplace = {
     '$schema': 'https://anthropic.com/claude-code/marketplace.schema.json',
     name: 'apple-dev-skills',
-    description: 'Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.',
+    description: 'Apple platform development skills, agents, commands, and MCP servers (App Store Connect + Apple developer docs). Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, ASC API automation, and live Apple documentation lookup.',
     owner: { name: 'Mark David Gan', email: 'mark@markdavidgan.com' },
     plugins: [
       {
@@ -388,7 +399,7 @@ function buildRootMarketplaces() {
     name: 'apple-dev-skills',
     owner: { name: 'Mark David Gan', email: 'mark@markdavidgan.com' },
     metadata: {
-      description: 'Apple platform development skills, agents, commands, and App Store Connect MCP server. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.',
+      description: 'Apple platform development skills, agents, commands, and MCP servers (App Store Connect + Apple developer docs). Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, ASC API automation, and live Apple documentation lookup.',
       version: VERSION
     },
     plugins: [

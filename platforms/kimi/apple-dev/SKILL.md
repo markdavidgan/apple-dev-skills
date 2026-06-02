@@ -224,6 +224,45 @@ AppIcon.appiconset/
 
 **Critical:** The 16×16 menubar icon is the hardest. Design it first — if it works there, it works everywhere.
 
+#### iOS/iPadOS/watchOS — ship an "All Sizes" catalog when detail is size-fragile
+
+A single-size iOS app icon (one 1024 master, the "Single Size" appiconset) is a trap for any
+icon with **fine or low-opacity detail**. iOS does not just show that 1024 on the Home Screen —
+it **downscales it** for Spotlight, Settings, notifications, and the App Store / TestFlight list
+rows. Thin strokes, soft glows, and trailing/ghost elements (anything below ~10–15% opacity or
+~1% of the canvas in stroke width) **turn to mud below ~64px**, so the icon collapses to a flat
+colored blob exactly where users see it most. The 1024 looks perfect in review and the small
+renders silently rot.
+
+The fix is the same per-size discipline macOS and tvOS already *require*: provide an asset for
+each size and put **bolder, simplified art** in the small slots.
+
+```
+AppIcon.appiconset/   (iOS "All Sizes")
+  ├─ small-variant art → 20pt, 29pt, 40pt @1x/@2x/@3x   (notification / settings / spotlight)
+  └─ master art        → 60pt @2x/@3x (home screen) + 1024 (App Store)
+```
+
+Rules:
+
+- **Choose the variant by ROLE, not raw pixel count.** Spotlight @3x is 120px yet should still
+  get the *small* art — a Spotlight icon should read like a Spotlight icon on every device. The
+  ~64px figure is the boundary for *standalone* renders (favicons, complications), not the
+  per-slot decision inside an app-icon catalog.
+- **Small art = thicker strokes, dropped faint layers, tightened glow, larger glyph.** Author it
+  as a separate vector and rasterize per slot; don't just downscale the master.
+- iOS app icons must be **opaque** (no alpha) or you risk ITMS rejection — flatten onto the
+  ground colour and strip the alpha channel after rasterizing.
+- **Apple sanctions this:** *"to show more detail at a larger size, you can provide individual
+  assets for the variations"* and *"For macOS and tvOS, you need to supply an asset for each
+  size."* — [Configuring your app icon using an asset catalog](https://developer.apple.com/documentation/Xcode/configuring-your-app-icon).
+- **watchOS has the same problem, more acutely** — the watch face renders the icon tiny and
+  circular. If your iOS catalog needed small art, the watch set does too.
+
+**Smell test:** if your icon's *meaning* lives in detail finer than a bold silhouette, a
+single-size iOS catalog will lose that meaning. Render your master at 40px and 60px before
+shipping; if it reads as a blob, you need the multi-size catalog.
+
 ### 5. Color System
 
 #### Primary Palette
@@ -7021,6 +7060,40 @@ Task { @MainActor [weak self] in
     await self.update()
 }
 ```
+
+### Concurrent Archives Corrupt Shared DerivedData
+
+**Error:**
+
+```
+error: unable to write file '.../DerivedData/.../<Target>-<hash>-VFS-iphoneos/all-product-headers.yaml':
+       No such file or directory (2)
+** ARCHIVE FAILED **
+```
+
+**Cause:** Two `xcodebuild archive` runs sharing **one** DerivedData path race on the same VFS
+overlay/header-map intermediates and clobber each other. This is **not** a code, Gemfile, or
+signing failure — it is pure build-directory contention. It bites whenever archives run in
+parallel: two terminals, two CI jobs on one runner, or two agents in a shared checkout. A custom
+shared build location (Xcode → Locations → Derived Data → Custom) makes *every* project collide,
+not just two of the same app.
+
+**Fix (durable):** give each archive its own DerivedData so they can never share intermediates:
+
+```bash
+xcodebuild -scheme MyApp-Archive -configuration Release archive \
+  -archivePath build/MyApp.xcarchive \
+  -derivedDataPath build/DerivedData \   # per-app/per-job, isolated
+  -destination generic/platform=iOS
+```
+
+**Fix (operational):** if you can't isolate paths, **serialize** — never start an archive while
+another is in flight. Gate on `pgrep -f "xcodebuild|swift-frontend"` before launching.
+
+**Recovery:** a poisoned archive leaves corrupt intermediates that fail repeat runs. With the
+isolated path above, `rm -rf build/DerivedData` and retry. On a shared path, only clear the
+corrupt `…/ArchiveIntermediates/<Scheme>` dir while **nothing else is building**, or you break
+the other job.
 
 ### Missing Provisioning Profile
 

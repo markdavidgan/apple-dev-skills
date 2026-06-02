@@ -32,7 +32,9 @@ src/
 ├── skills/          # 22 skill directories, each with SKILL.md
 ├── agents/          # 7 agent definitions
 ├── commands/        # 12 command definitions
-└── mcp/asc/         # App Store Connect MCP server (TypeScript)
+└── mcp/             # MCP servers (TypeScript)
+    ├── asc/         # App Store Connect MCP server
+    └── apple-docs/  # Apple developer docs MCP server
 ```
 
 ### Skills
@@ -119,17 +121,24 @@ When editing skills that dispatch subagents (e.g., `apple-cleanup`, `apple-revie
 
 ---
 
-## MCP Server
+## MCP Servers
 
-The ASC MCP server lives in `src/mcp/asc/`. It is built separately:
+Two MCP servers live under `src/mcp/`, each built separately:
+
+| Server | Path | Auth |
+|--------|------|------|
+| App Store Connect | `src/mcp/asc/` | ASC API key |
+| Apple developer docs | `src/mcp/apple-docs/` | none |
 
 ```bash
-cd src/mcp/asc
+cd src/mcp/<server>
 npm install
 npm run build
 ```
 
-Do not commit `node_modules/` or `dist/` in the MCP directory. The release workflow builds them fresh.
+`build.js` merges every `src/mcp/<server>/mcp.json` into `platforms/claude/mcp.json` (the `_meta` blocks become an array; `mcpServers` are merged) — adding a new server's `mcp.json` is enough to register it. `validate.js` checks each server's `package.json` and `mcp.json`.
+
+Do not commit `node_modules/` or `dist/` in the MCP directories. The release workflow builds them fresh.
 
 ---
 
