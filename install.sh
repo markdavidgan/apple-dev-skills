@@ -184,6 +184,10 @@ install_kimi() {
 
   log_info "Kimi Code installation complete."
   log_info "Restart Kimi Code to pick up the skill."
+  log_info "To register the MCP servers (build each first — see README), add them to"
+  log_info "$base/.kimi-code/mcp.json (or run /mcp-config inside Kimi Code):"
+  echo "  apple-docs        -> node $REPO_ROOT/src/mcp/apple-docs/dist/index.js"
+  echo "  app-store-connect -> node $REPO_ROOT/src/mcp/asc/dist/index.js  (needs ASC_* env)"
 }
 
 install_antigravity() {

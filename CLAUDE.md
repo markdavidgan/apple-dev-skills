@@ -110,6 +110,7 @@ The build script generates these from `src/`:
 - **Only one `SKILL.md` per plugin.** We concatenate all 19 skills into a master skill.
 - **No agents or commands.** Complex multi-agent workflows must include sequential fallback instructions.
 - **Tools provide interactivity.** `pattern-check` and `api-lookup` are declared in `plugin.json`.
+- **MCP is supported** (separate from the skill bundle) via `~/.kimi-code/mcp.json` (user-global) and `<cwd>/.kimi-code/mcp.json` (project-local) — same `{ "mcpServers": { … } }` shape as Claude. Both `asc` and `apple-docs` servers run in Kimi Code; configure with the built-in `/mcp-config` skill.
 
 When editing skills that dispatch subagents (e.g., `apple-cleanup`, `apple-review`, `complete-feature`, `merge-check`), add a **"Kimi Adaptation"** section with step-by-step manual instructions.
 

@@ -127,7 +127,22 @@ Installs to `~/.cursor/skills/`, `~/.cursor/agents/`, `~/.cursor/commands/`.
 ./install.sh --platform kimi
 ```
 
-Installs the consolidated skill to `~/.kimi-code/skills/apple-dev/` (one `SKILL.md` + bundled `scripts/`), which Kimi Code auto-discovers on restart. Note: Kimi Code has **no MCP support**, so the App Store Connect and Apple Docs MCP servers are Claude Code / Cursor only — in Kimi the bundled `scripts/` (`pattern-check`, `api-lookup`) provide the equivalent interactivity.
+Installs the consolidated skill to `~/.kimi-code/skills/apple-dev/` (one `SKILL.md` + bundled `scripts/`), which Kimi Code auto-discovers on restart.
+
+Kimi Code **supports MCP** via `~/.kimi-code/mcp.json` (user-global) or `<project>/.kimi-code/mcp.json` (project-local) — same `{ "mcpServers": { … } }` shape as Claude. Register both Apple servers (after building each — see below):
+
+```jsonc
+// ~/.kimi-code/mcp.json
+{
+  "mcpServers": {
+    "apple-docs":        { "command": "node", "args": ["<repo>/src/mcp/apple-docs/dist/index.js"] },
+    "app-store-connect": { "command": "node", "args": ["<repo>/src/mcp/asc/dist/index.js"],
+                           "env": { "ASC_KEY_ID": "…", "ASC_ISSUER_ID": "…", "ASC_KEY_PATH": "…" } }
+  }
+}
+```
+
+Or run `/mcp-config` inside Kimi Code to add them interactively. Restart Kimi (or `/new`) to load — MCP servers attach at session start.
 
 #### Antigravity
 

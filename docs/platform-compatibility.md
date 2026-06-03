@@ -30,7 +30,7 @@ This matrix shows how each feature maps across supported AI platforms.
 | Slash commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | **Tools / Plugins** |
 | Executable tools | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| MCP servers | ✅ | ✅ | ❌ | ✅** | ❌ | ❌ |
+| MCP servers | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |
 | **Install Methods** |
 | Git clone + symlink | ✅ | ✅ | N/A | N/A | N/A | N/A |
 | Native plugin install | ✅ | ✅ | N/A | N/A | N/A | N/A |
@@ -112,7 +112,7 @@ Copies the consolidated skill to `~/.kimi-code/skills/apple-dev/`, which Kimi Co
 - `pattern-check` — Validate Swift 6, SwiftUI, SwiftData patterns
 - `api-lookup` — Query iOS 26 API signatures
 
-**MCP Config:** Kimi Code has **no MCP support** (dropped in the 2026-05 `.kimi-code` migration). The App Store Connect and Apple Docs MCP servers are Claude Code / Cursor only; in Kimi the bundled `scripts/` provide the equivalent interactivity.
+**MCP Config:** Kimi Code reads MCP servers from `~/.kimi-code/mcp.json` (user-global, or `$KIMI_CODE_HOME/mcp.json`) and `<cwd>/.kimi-code/mcp.json` (project-local) — same `{ "mcpServers": { … } }` shape as Claude (stdio: `command`/`args`/`env`; http: `url`/`headers`/`bearerTokenEnvVar`; `transport` is inferred). Both the App Store Connect and Apple Docs servers run here. The built-in `/mcp-config` skill adds/edits entries and handles OAuth login; servers attach at session start, so `/new` or a restart is needed to load changes. (The `config.toml` `mcp` *key* was dropped in the 2026-05 migration because MCP moved to this dedicated file — not because support was removed.)
 
 **Workflow Adaptation:**
 Skills that rely on subagent dispatch (`apple-cleanup`, `apple-review`, `complete-feature`, `merge-check`) include a "Kimi Adaptation" section with sequential step-by-step instructions.

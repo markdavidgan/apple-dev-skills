@@ -53,7 +53,7 @@ This document covers how to submit Apple Dev Skills to each supported marketplac
 ./install.sh --platform kimi
 ```
 
-Copies the consolidated bundle from `platforms/kimi/apple-dev/` (`SKILL.md` + `scripts/` + `reference/`) to `~/.kimi-code/skills/apple-dev/`, which Kimi Code auto-discovers on restart. (Kimi Code has no plugin-install CLI or MCP support — it discovers plain skills under `~/.kimi-code/skills/`.)
+Copies the consolidated bundle from `platforms/kimi/apple-dev/` (`SKILL.md` + `scripts/` + `reference/`) to `~/.kimi-code/skills/apple-dev/`, which Kimi Code auto-discovers on restart. (Kimi Code has no plugin-install CLI — it discovers plain skills under `~/.kimi-code/skills/`. MCP servers are configured separately in `~/.kimi-code/mcp.json`; see Platform Compatibility.)
 
 ### Update Process
 - Users re-run `./install.sh --platform kimi`.
