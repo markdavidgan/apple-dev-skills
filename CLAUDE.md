@@ -22,6 +22,7 @@ This is the standalone Apple development skill repository. It is **not** part of
 3. **Regenerate after edits** — After changing any `src/` file, run `node scripts/build.js` and commit both `src/` and `platforms/` changes.
 4. **Keep skills self-contained** — Cross-reference other skills by name, not by file path.
 5. **YAML frontmatter is required** — Every `SKILL.md`, agent, and command must have valid frontmatter.
+6. **Stay machine-agnostic** — Never commit absolute clone paths or credentials. `src/mcp/*/mcp.json` must keep the `<REPO_PATH>` placeholder and `${ASC_*}` env-var references; real paths/keys belong only in `~/.claude.json` and `~/.kimi-code/mcp.json` (outside the repo). See README → *Machine-Agnostic Design*.
 
 ---
 

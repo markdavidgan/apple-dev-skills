@@ -206,6 +206,24 @@ claude mcp add-json apple-docs < src/mcp/apple-docs/mcp.json
 
 ---
 
+## Machine-Agnostic Design
+
+This repo ships **code + placeholder configs only**. Nothing machine-specific (absolute clone paths, API credentials) is ever committed — so you can clone it anywhere, on any machine, without edits to tracked files.
+
+**What's in the repo (portable):**
+- `src/mcp/*/mcp.json` use a literal `<REPO_PATH>` placeholder for the clone location and `${ASC_KEY_ID}`-style env-var references for secrets — never real paths or keys.
+- `install.sh` derives `REPO_ROOT` at runtime (`$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)`) and prints fully-resolved commands for your machine.
+
+**What lives outside the repo (per-machine, never committed):**
+- **Claude Code** — registered servers + ASC credentials in `~/.claude.json` (written by `claude mcp add-json`).
+- **Kimi Code** — registered servers + ASC credentials in `~/.kimi-code/mcp.json` (user-global) or `<project>/.kimi-code/mcp.json`.
+
+When you register a server **manually** (not via `install.sh`), substitute the `<REPO_PATH>` placeholder with your actual clone path and supply real values for the `${ASC_*}` env vars. `install.sh` prints these already-resolved for you.
+
+> ⚠️ Keep credentials out of the repo. The `.p8` key, key ID, and issuer ID belong only in `~/.claude.json` / `~/.kimi-code/mcp.json` (or your shell env) — never in any tracked file.
+
+---
+
 ## Updating
 
 ```bash
