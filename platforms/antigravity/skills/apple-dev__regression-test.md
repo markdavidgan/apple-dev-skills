@@ -1,5 +1,6 @@
 ---
 name: regression-test
+category: quality
 description: Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence.
 invoke: "/regression-test [bug-description] — Write a failing test for the bug, fix it, verify, and check for similar issues."
 ---

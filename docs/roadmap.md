@@ -40,7 +40,9 @@ Gaps cluster in three areas: **product/growth**, **implementation domains** (pur
 
 Each phase is a coherent, shippable slice. Phases are ordered by leverage, not dependency.
 
-### Phase 1 — Highest leverage *(in progress)*
+> **Status:** Phases 1–6 are all ✅ **shipped** (41 skills, 17 commands). This section is retained as the build record; new work appends below.
+
+### Phase 1 — Highest leverage *(✅ shipped)*
 
 | Skill | Category | Why now | Command |
 |-------|----------|---------|---------|
@@ -50,14 +52,14 @@ Each phase is a coherent, shippable slice. Phases are ordered by leverage, not d
 | `privacy-manifest` | quality | `PrivacyInfo.xcprivacy` + required-reason APIs — prevents real App Store rejections | `/privacy-check` |
 | `swift-testing` | engineering | Modernizes the testing story (`@Test`/`#expect`) beyond XCTest | — |
 
-### Phase 2 — App surfaces & extensions
+### Phase 2 — App surfaces & extensions *(✅ shipped)*
 
 | Skill | Category | Scope |
 |-------|----------|-------|
 | `app-intents` | engineering | App Intents, Shortcuts, Siri, Spotlight, interactive Widgets, Controls, Live Activities, Dynamic Island |
 | `push-notifications` | engineering | APNs, rich/actionable notifications, notification service extension, Live Activity push |
 
-### Phase 3 — Data, networking & security
+### Phase 3 — Data, networking & security *(✅ shipped)*
 
 | Skill | Category | Scope |
 |-------|----------|-------|
@@ -65,14 +67,14 @@ Each phase is a coherent, shippable slice. Phases are ordered by leverage, not d
 | `cloudkit-sync` | engineering | CloudKit + SwiftData sync, conflict resolution, sharing |
 | `app-security` | engineering | Keychain, App Attest / DeviceCheck, Sign in with Apple, CryptoKit, cert pinning |
 
-### Phase 4 — Performance & localization
+### Phase 4 — Performance & localization *(✅ shipped)*
 
 | Skill | Category | Scope |
 |-------|----------|-------|
 | `performance-instruments` | quality | Instruments, launch time, hangs/hitches, memory, energy, MetricKit |
 | `localization` | engineering | String Catalogs (`.xcstrings`), pluralization, RTL, pseudolocalization, localized screenshots |
 
-### Phase 5 — Product & growth
+### Phase 5 — Product & growth *(✅ shipped)*
 
 | Skill | Category | Scope |
 |-------|----------|-------|
@@ -80,7 +82,7 @@ Each phase is a coherent, shippable slice. Phases are ordered by leverage, not d
 | `paywall-design` | design | Paywall UX, trial/offer design, conversion (bridges `app-store-pricing` → screens) |
 | `app-analytics` | product | North-star/funnel framing, StoreKit analytics, conversion measurement |
 
-### Phase 6 — Cross-platform
+### Phase 6 — Cross-platform *(✅ shipped)*
 
 | Skill | Category | Scope |
 |-------|----------|-------|
@@ -90,8 +92,8 @@ Each phase is a coherent, shippable slice. Phases are ordered by leverage, not d
 
 ## Ongoing / Cross-cutting
 
-- **Category backfill** — add `category:` to the existing 25 skills.
-- **Skill-count automation** — derive the README count from `src/skills/` instead of a hand-edited number (it drifted 22→25).
+- **Category backfill** — ✅ done. All 41 skills carry a `category:` (`design · engineering · product · asc · quality · workflow · reference`).
+- **Skill-count automation** — ✅ done. `scripts/check-counts.js` derives counts from `src/` and fails CI if README/CLAUDE.md drift (added to `.github/workflows/build.yml`).
 - **Second plugin set** — *deferred.* Only if we expand beyond Apple (see Strategic Decisions).
 - **Per-skill references** — push long material into `references/*.md` to stay under the 5,000-word guide limit as skills grow.
 

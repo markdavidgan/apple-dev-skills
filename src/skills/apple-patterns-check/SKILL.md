@@ -1,5 +1,6 @@
 ---
 name: apple-patterns-check
+category: quality
 description: Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code".
 invoke: "/apple-check [path] — Validate Apple patterns in modified files"
 ---

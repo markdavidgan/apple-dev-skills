@@ -1,5 +1,6 @@
 ---
 name: verify-against-spec
+category: workflow
 description: Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification.
 invoke: "/verify-against-spec [spec-path] — Check implementation coverage against design spec"
 ---

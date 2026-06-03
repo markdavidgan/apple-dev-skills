@@ -8,7 +8,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 
 ## What's Included
 
-### 30 Skills
+### 41 Skills
 
 > Expanding per the [roadmap](docs/roadmap.md). Skills are grouped by `category:` (design · engineering · product · asc · quality · workflow).
 
@@ -41,6 +41,20 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `regression-test` | Quality | Bug-fix workflow: failing test → fix → sibling pattern check |
 | `swift6-concurrency` | Engineering | Swift 6 concurrency error patterns and fixes |
 | `verify-against-spec` | Workflow | Parallel spec coverage verification |
+| `app-intents` | Engineering | App Intents, App Shortcuts, interactive widgets/controls, Live Activities & Dynamic Island |
+| `push-notifications` | Engineering | UNUserNotificationCenter, APNs payloads, actionable & rich notifications, Live Activity push |
+| `networking` | Engineering | URLSession async/await, typed Sendable API client, parallelism, retry/backoff, offline handling |
+| `cloudkit-sync` | Engineering | SwiftData + CloudKit sync, schema rules, Dev/Prod deployment, CKShare sharing |
+| `app-security` | Engineering | Keychain, Sign in with Apple, biometrics, CryptoKit, App Attest, certificate pinning |
+| `performance-instruments` | Quality | Launch time, hangs/hitches, memory/leaks, energy — Instruments, signposts, MetricKit |
+| `localization` | Engineering | String Catalogs, plurals/grammar, RTL, locale formatting, pseudolocalization |
+| `product-spec` | Product | PRD/spec — problem, goals/non-goals, user stories, acceptance criteria, success metrics |
+| `paywall-design` | Design | High-converting, App Review-compliant paywalls — value framing, trials, legal elements |
+| `app-analytics` | Product | North-star metric, activation/retention/conversion funnels, event taxonomy, App Analytics |
+| `cross-platform-adaptivity` | Design | Adapt one SwiftUI codebase across iPhone, iPad, Mac, Watch, TV, Vision Pro |
+| `design-contract` | Design | Turn a mockup into a machine-readable design contract + co-located preview/capture |
+| `preview-capture` | Design | Render named SwiftUI `#Preview`s to PNG at canonical device resolution |
+| `swiftui-micro-craft` | Design | Quantified rules + mechanical auditor for Apple-grade SwiftUI micro-craft |
 
 ### 7 Agents
 
@@ -54,12 +68,15 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `explore` | Fast | Fast codebase exploration and pattern search |
 | `ios-code-reviewer` | Standard | Changed-files-only review against iOS 26 crash patterns |
 
-### 14 Commands
+### 17 Commands
 
 | Command | Skill | Purpose |
 |---------|-------|---------|
 | `/apple-check` | `apple-patterns-check` | Fast pattern validation |
 | `/aso-audit` | `asc-aso` | App Store Optimization audit (keywords, metadata, conversion) |
+| `/perf-audit` | `performance-instruments` | Profile a perf complaint and fix the biggest contributor |
+| `/security-check` | `app-security` | Audit credential storage, auth, crypto, data protection |
+| `/write-spec` | `product-spec` | Draft a PRD — goals, user stories, acceptance criteria, metrics |
 | `/apple-cleanup` | `apple-cleanup` | Engineering hardening pipeline |
 | `/apple-polish` | `apple-polish` | Design & keynote polish pipeline |
 | `/apple-review` | `apple-review` | Full 4-panel review (no fixes) |
@@ -250,9 +267,9 @@ Symlink-based installs update instantly. Copied installs require re-running `./i
 ```
 apple-dev-skills/
 ├── src/                    # Source of truth (canonical content)
-│   ├── skills/             # 30 skill directories
+│   ├── skills/             # 41 skill directories
 │   ├── agents/             # 7 agent definitions
-│   ├── commands/           # 14 command definitions
+│   ├── commands/           # 17 command definitions
 │   └── mcp/                # MCP servers (asc, apple-docs)
 ├── platforms/              # Generated platform outputs
 │   ├── claude/             # Claude Code bundle
@@ -301,7 +318,7 @@ See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the ful
 
 | Feature | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |---------|--------|--------|------|-------------|-------|-----|
-| Skills (all 30) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
+| Skills (all 41) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
 | Agents | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | MCP Server | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |

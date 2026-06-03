@@ -1,5 +1,6 @@
 ---
 name: apple-cleanup
+category: quality
 description: Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish.
 invoke: "/apple-cleanup [app] — EXHAUSTIVE cleanup: review → plan → fix ALL (P0-P2) → optimize → TestFlight alpha"
 ---

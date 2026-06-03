@@ -1,5 +1,6 @@
 ---
 name: swiftui-micro-craft
+category: design
 description: Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code.
 invoke: "/swiftui-micro-craft — Audit a SwiftUI view against quantified Apple-grade micro-craft rules"
 ---

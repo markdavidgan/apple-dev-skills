@@ -1,5 +1,6 @@
 ---
 name: apple-design
+category: design
 description: Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent".
 ---
 ---

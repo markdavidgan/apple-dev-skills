@@ -1,5 +1,6 @@
 ---
 name: design-contract
+category: design
 description: Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup.
 invoke: "/design-contract [mockup-path] — Extract a machine-readable design contract from a mockup"
 ---

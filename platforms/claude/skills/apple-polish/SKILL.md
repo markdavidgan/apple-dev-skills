@@ -1,5 +1,6 @@
 ---
 name: apple-polish
+category: design
 description: Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs.
 invoke: "/apple-polish [app] — Design & keynote review → select issues → fix → TestFlight"
 ---

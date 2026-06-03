@@ -21,6 +21,9 @@ jobs:
       - name: Validate sources
         run: node scripts/validate.js
 
+      - name: Check documented counts
+        run: node scripts/check-counts.js
+
       - name: Build platform outputs
         run: node scripts/build.js
 

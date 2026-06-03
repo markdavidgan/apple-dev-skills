@@ -1,5 +1,6 @@
 ---
 name: apple-review
+category: quality
 description: Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready".
 invoke: "/apple-review [app-dir] — Full Apple-grade review (design + engineering + compliance + keynote)"
 ---

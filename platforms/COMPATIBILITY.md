@@ -4,7 +4,10 @@
 
 | Skill | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |-------|:------:|:------:|:----:|:-----------:|:-----:|:---:|
+| app-analytics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-brand-identity | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-intents | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-security | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-store-pricing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
@@ -16,7 +19,9 @@
 | asc-aso | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| cloudkit-sync | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | complete-feature | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| cross-platform-adaptivity | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | design-contract | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-accessibility | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-asc | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -25,9 +30,15 @@
 | ios-standards | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios26-api-reference | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
+| localization | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | merge-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| networking | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| paywall-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| performance-instruments | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | preview-capture | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | privacy-manifest | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| product-spec | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| push-notifications | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | regression-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | storekit-purchases | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swift-testing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

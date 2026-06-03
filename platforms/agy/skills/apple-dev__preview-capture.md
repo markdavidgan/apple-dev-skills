@@ -1,5 +1,6 @@
 ---
 name: preview-capture
+category: design
 description: Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames.
 invoke: "/preview-capture [preview-name...] — Render named #Previews to committed PNGs"
 ---

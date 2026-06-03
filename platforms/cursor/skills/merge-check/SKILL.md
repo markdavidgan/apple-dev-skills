@@ -1,5 +1,6 @@
 ---
 name: merge-check
+category: quality
 description: Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration.
 invoke: "/merge-check — Pre-merge quality gate. Runs build, archive, test, and lint checks in parallel."
 ---

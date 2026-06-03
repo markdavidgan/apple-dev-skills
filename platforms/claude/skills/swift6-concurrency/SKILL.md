@@ -1,5 +1,6 @@
 ---
 name: swift6-concurrency
+category: engineering
 description: Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency".
 invoke: "/swift6-fix [file] — Diagnose and fix Swift 6 strict concurrency, Sendable, or MainActor isolation errors."
 ---

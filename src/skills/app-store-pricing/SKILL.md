@@ -1,5 +1,6 @@
 ---
 name: app-store-pricing
+category: product
 description: App Store pricing strategy, global equalization, subscription management, and regional pricing decisions using Apple's official 900-price-point system. Use when user asks about pricing tiers, IAP pricing, subscription pricing, regional pricing, price changes, App Store proceeds, base storefront selection, introductory offers, or promotional offers.
 invoke: "/pricing-strategy [app-id] — Recommend App Store pricing setup and global equalization strategy"
 ---

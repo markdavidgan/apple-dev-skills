@@ -1,5 +1,6 @@
 ---
 name: app-brand-identity
+category: design
 description: Create a complete brand identity system for Apple platform apps — wordmark, icon, design tokens, brand voice, and App Store marketing assets. Use when starting a new app, renaming/rebranding, designing a logo, choosing typography, building a design system, or preparing App Store screenshots and preview materials.
 invoke: "/brand-identity [app-name] — Create wordmark, icon, design tokens, and App Store marketing asset strategy"
 ---

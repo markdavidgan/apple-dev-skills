@@ -1,5 +1,6 @@
 ---
 name: ios-accessibility
+category: design
 description: Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review.
 ---
 
