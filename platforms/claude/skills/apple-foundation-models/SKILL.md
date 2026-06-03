@@ -122,9 +122,10 @@ struct WeatherTool: Tool {
         let city: String
     }
 
-    func call(arguments: Arguments) async throws -> ToolOutput {
+    // `call` returns any PromptRepresentable — a String works (so do [String] and @Generable types).
+    func call(arguments: Arguments) async throws -> String {
         let temp = try await WeatherService.temperature(for: arguments.city)
-        return ToolOutput("\(temp)°C in \(arguments.city)")
+        return "\(temp)°C in \(arguments.city)"
     }
 }
 

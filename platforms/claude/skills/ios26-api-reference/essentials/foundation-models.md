@@ -18,13 +18,13 @@ On-device ~3B parameter LLM (2-bit quantized). Zero cost. Works offline. Data st
 
 | What | CORRECT | HALLUCINATED (will not compile) |
 |------|---------|-------------------------------|
-| Tool method | `func call(arguments: Arguments) async throws -> ToolOutput` | ~~`func invoke(...)`~~, ~~`func execute(...)`~~ |
+| Tool method | `func call(arguments: Arguments) async throws -> String` (any `PromptRepresentable`) | ~~`func invoke(...)`~~, ~~`func execute(...)`~~ |
 | Availability check | `SystemLanguageModel.default.isAvailable` | ~~`LanguageModelSession.isAvailable`~~, ~~`FoundationModels.isAvailable`~~ |
 | Availability enum | `SystemLanguageModel.default.availability` | ~~`LanguageModelSession.availability`~~ |
 | Unavailability reason | `.unavailable(.deviceNotEligible)` | ~~`.notSupported`~~, ~~`.hardwareUnavailable`~~ |
 | @Generable target | `struct` or `enum` only | ~~`class`~~ |
 | @Guide first param | `description:` (named parameter) | ~~positional string without label~~ |
-| Tool return type | `ToolOutput` | ~~`String`~~, ~~`any Sendable`~~ |
+| Tool return type | `String`, `[String]`, or any `PromptRepresentable` (`@Generable` types qualify) | ~~`ToolOutput`~~ (no such top-level type), ~~`any Sendable`~~ |
 | Tool arguments type | Nested `@Generable struct Arguments` | ~~`[String: Any]`~~, ~~`Codable`~~ |
 | Streaming partials | Accumulate (each emission is full state so far) | ~~Deltas (incremental diffs)~~ |
 | Session init with tools | `LanguageModelSession(tools:instructions:)` | ~~`LanguageModelSession(tools:systemPrompt:)`~~ |
@@ -54,8 +54,8 @@ struct MyTool: Tool {
         let query: String
     }
     
-    func call(arguments: Arguments) async throws -> ToolOutput {
-        return ToolOutput("result")
+    func call(arguments: Arguments) async throws -> String {  // any PromptRepresentable
+        return "result"
     }
 }
 ```
@@ -182,15 +182,17 @@ catch LanguageModelSession.GenerationError.guardrailViolation {
 }
 ```
 
-### 9. ToolCallContext: Count > 1, NOT > 0
+### 9. De-duplicating tool calls: Count > 1, NOT > 0
+
+There is no `ToolCallContext` type and no `call(arguments:context:)` overload. To detect repeat calls, inspect the session transcript — the current invocation is **already recorded** in it, so guard on `> 1`, not `> 0`.
 
 ```swift
-// WRONG -- current call is already in transcript
+// WRONG -- current call is already in the transcript, so > 0 blocks the first call
 let myCalls = previousCalls.filter { $0.toolName == self.name }
-if myCalls.count > 0 { return ToolOutput("duplicate") }  // Blocks first call!
+if myCalls.count > 0 { return "duplicate" }  // Blocks first call!
 
-// RIGHT -- current invocation is already in transcript
-if myCalls.count > 1 { return ToolOutput("duplicate") }
+// RIGHT
+if myCalls.count > 1 { return "duplicate" }
 ```
 
 ---
@@ -227,9 +229,10 @@ struct WeatherTool: Tool {
         let city: String
     }
     
-    func call(arguments: Arguments) async throws -> ToolOutput {
+    // Return any PromptRepresentable — String works (so do [String] and @Generable types).
+    func call(arguments: Arguments) async throws -> String {
         let temp = await WeatherService.temperature(for: arguments.city)
-        return ToolOutput("Temperature in \(arguments.city): \(temp)F")
+        return "Temperature in \(arguments.city): \(temp)F"
     }
 }
 

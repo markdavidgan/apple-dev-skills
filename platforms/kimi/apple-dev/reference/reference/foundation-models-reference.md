@@ -28,8 +28,8 @@
 9. [@Guide Macro](#guide-macro)
 10. [PartiallyGenerated Types](#partiallygenerated-types)
 11. [Tool Protocol](#tool-protocol)
-12. [ToolOutput](#tooloutput)
-13. [ToolCallContext](#toolcallcontext)
+12. [Tool output (the `call` return type)](#tool-output-the-call-return-type)
+13. [Tool de-duplication (there is no `ToolCallContext`)](#tool-de-duplication-there-is-no-toolcallcontext)
 14. [Dynamic Schemas](#dynamic-schemas)
 15. [Error Types](#error-types)
 16. [Availability Checking -- Complete Guide](#availability-checking)
@@ -875,24 +875,26 @@ public protocol Tool {
     /// Natural language description of what this tool does
     var description: String { get }
     
-    /// The arguments type (must be @Generable)
-    associatedtype Arguments: Generable
+    /// The arguments type (conforms to ConvertibleFromGeneratedContent; an @Generable struct qualifies)
+    associatedtype Arguments: ConvertibleFromGeneratedContent
     
-    /// Execute the tool with generated arguments
-    /// IMPORTANT: The return type is String or ToolOutput (varies by API version)
-    func call(arguments: Arguments) async throws -> ToolOutput
+    /// The output type — anything the model can read back. String, [String], and @Generable types all conform.
+    associatedtype Output: PromptRepresentable
     
-    /// Enhanced version with session context (beta 26.1+)
-    func call(arguments: Arguments, context: ToolCallContext) async throws -> ToolOutput
+    /// Execute the tool with generated arguments. Returns your Output (e.g. String).
+    func call(arguments: Arguments) async throws -> Output
 }
 ```
 
 **CRITICAL NOTES:**
 - The method is named `call(arguments:)`, **NOT** `invoke(...)`. Using `invoke` will not compile.
+- There is **no** `call(arguments:context:)` overload and **no** `ToolCallContext` type — both are hallucinations.
+- The return type is your `Output: PromptRepresentable`. **`String` is valid** (Apple's own docs example returns `[String]`). There is **no** top-level `ToolOutput` type to return.
 - `Arguments` must be a nested `@Generable` struct
 - The model decides when/if to call tools -- you do not invoke them directly
 - Tools can be called multiple times per request, and in parallel
 - Tool instances maintain state across the session lifetime (developer-controlled)
+- `Tool` also has `parameters: GenerationSchema` and `includesSchemaInInstructions: Bool` requirements, but the framework synthesizes defaults from `Arguments` — you rarely implement them.
 
 ### Complete Tool Implementation
 
@@ -915,10 +917,10 @@ struct FindContactTool: Tool {
         }
     }
     
-    func call(arguments: Arguments) async throws -> ToolOutput {
+    func call(arguments: Arguments) async throws -> String {
         // Your implementation here
         let contactName = "Jane Doe"
-        return ToolOutput(contactName)
+        return contactName
     }
 }
 ```
@@ -938,14 +940,14 @@ class FindContactTool: Tool {
         let generation: String
     }
     
-    func call(arguments: Arguments) async throws -> ToolOutput {
+    func call(arguments: Arguments) async throws -> String {
         // Filter out already-picked contacts
         let available = allContacts.filter { !pickedContacts.contains($0) }
         guard let picked = available.randomElement() else {
-            return ToolOutput("No more contacts available.")
+            return "No more contacts available."
         }
         pickedContacts.insert(picked)
-        return ToolOutput(picked)
+        return picked
     }
 }
 ```
@@ -970,81 +972,53 @@ let session = LanguageModelSession(
 
 ---
 
-## ToolOutput
+## Tool output (the `call` return type)
 
-The return type from `Tool.call(arguments:)`.
+There is **no top-level `ToolOutput` type**. `Tool.call(arguments:)` returns your `associatedtype Output: PromptRepresentable`. Return whatever is convenient — `String` is the common case.
 
-### Declaration
-
-```swift
-@available(iOS 26.0, macOS 26.0, *)
-public struct ToolOutput {
-    /// Create from a string
-    public init(_ content: String)
-    
-    /// Create from structured generated content
-    public init(_ content: GeneratedContent)
-}
-```
+> Don't confuse this with **`Transcript.ToolOutput`**, which is a *different*, nested record type the framework uses to store a tool's output inside the conversation transcript (`init(id:toolName:segments:)`). You never construct it to return from `call`.
 
 ### Usage
 
 ```swift
-// String output (most common)
-func call(arguments: Arguments) async throws -> ToolOutput {
-    return ToolOutput("The temperature in Paris is 72F.")
+// String output (most common — Apple's own docs example returns [String])
+func call(arguments: Arguments) async throws -> String {
+    return "The temperature in Paris is 72F."
 }
 
-// Structured output
-func call(arguments: Arguments) async throws -> ToolOutput {
-    let content = GeneratedContent(properties: [
-        "temperature": 72,
-        "unit": "fahrenheit"
-    ])
-    return ToolOutput(content)
+// Structured output: return a @Generable type (it conforms to PromptRepresentable)
+@Generable
+struct WeatherReport { let temperature: Int; let unit: String }
+
+func call(arguments: Arguments) async throws -> WeatherReport {
+    return WeatherReport(temperature: 72, unit: "fahrenheit")
 }
 ```
 
 ---
 
-## ToolCallContext
+## Tool de-duplication (there is no `ToolCallContext`)
 
-Provides session transcript access to tools (available in beta 26.1+).
-
-### Declaration
+`call` has **no** `context:` parameter, and **`ToolCallContext` does not exist** — earlier drafts of this reference invented it. To avoid repeating work, the practical pattern is to give the tool **its own state** (it lives for the session lifetime) rather than reading a context:
 
 ```swift
-@available(iOS 26.0, macOS 26.0, *)
-public struct ToolCallContext {
-    /// The session's transcript at the time of the tool call
-    public var transcript: [Transcript.Entry] { get }
+final class FindContactTool: Tool {
+    let name = "findContact"
+    let description = "Finds a contact, avoiding repeats."
+    var pickedContacts = Set<String>()   // state persists across calls within the session
+
+    @Generable struct Arguments { let generation: String }
+
+    func call(arguments: Arguments) async throws -> String {
+        let available = allContacts.filter { !pickedContacts.contains($0) }
+        guard let picked = available.randomElement() else { return "No more contacts available." }
+        pickedContacts.insert(picked)
+        return picked
+    }
 }
 ```
 
-### Usage
-
-```swift
-func call(arguments: Arguments, context: ToolCallContext) async throws -> ToolOutput {
-    // Inspect previous tool calls to avoid duplicates
-    var previousCalls: [Transcript.ToolCall] = []
-    
-    for entry in context.transcript {
-        if case .toolCalls(let calls) = entry {
-            previousCalls.append(contentsOf: calls)
-        }
-    }
-    
-    // Count > 1 because the CURRENT call is already in the transcript
-    let myPreviousCalls = previousCalls.filter { $0.toolName == self.name }
-    if myPreviousCalls.count > 1 {
-        return ToolOutput("Already called -- skipping duplicate.")
-    }
-    
-    return ToolOutput("Result here.")
-}
-```
-
-**IMPORTANT:** When checking `targetCalls.count`, compare against `> 1` (not `> 0`) because the current invocation is already in the transcript when `call(arguments:context:)` is invoked.
+If you instead inspect a session transcript for prior calls, remember the **current invocation is already recorded** — compare counts against `> 1`, not `> 0`.
 
 ---
 
@@ -1661,7 +1635,7 @@ public struct LanguageModelFeedbackAttachment: Codable {
 
 - [ ] Tool method is `call(arguments:)` -- NOT `invoke()`
 - [ ] `Arguments` is a nested `@Generable` struct
-- [ ] Return type is `ToolOutput` -- NOT raw `String`
+- [ ] Return type is your `Output: PromptRepresentable` -- `String`/`[String]`/`@Generable` are all fine; there is NO `ToolOutput` type to return
 - [ ] Tool `name` is a short English identifier (no spaces or special chars)
 - [ ] Tool `description` is a concise one-sentence explanation
 
