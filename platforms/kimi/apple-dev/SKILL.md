@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 25 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 30 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -17,26 +17,31 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 3 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
 | 4 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
 | 5 | apple-design | Quality | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
-| 6 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
-| 7 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
-| 8 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
-| 9 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
-| 10 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
-| 11 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
-| 12 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
-| 13 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 14 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
-| 15 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 16 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
-| 17 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
-| 18 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
-| 19 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
-| 20 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
-| 21 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
-| 22 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
-| 23 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 24 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
-| 25 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 6 | apple-foundation-models | Quality | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |
+| 7 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
+| 8 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
+| 9 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
+| 10 | asc-aso | ASC | App Store Optimization — keyword research, title/subtitle/keyword-field strategy, localized metadata, and conversion-rate optimization for App Store discoverability. Use when the user says "ASO", "app store optimization", "keywords", "improve discoverability", "rank higher", "optimize my listing", "app store keywords", "subtitle", "promotional text", or wants more organic installs. Complements asc-submission (mechanics) and app-store-pricing (economics). |
+| 11 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
+| 12 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
+| 13 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
+| 14 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
+| 15 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 16 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
+| 17 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
+| 18 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
+| 19 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
+| 20 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
+| 21 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
+| 22 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
+| 23 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
+| 24 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
+| 25 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
+| 26 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
+| 27 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
+| 28 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
+| 29 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
+| 30 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -3290,6 +3295,189 @@ AppTheme.Radius.capsule   // 999
 
 ---
 
+<!-- BEGIN SKILL: apple-foundation-models -->
+
+# apple-foundation-models
+
+# Apple Foundation Models (On-Device AI)
+
+**Build private, offline, no-cost AI features on Apple's on-device foundation model** (iOS 26 / macOS 26 / Apple Intelligence), via `import FoundationModels`. The model runs on-device: zero server cost, works offline, data never leaves the device.
+
+> **Verify signatures as you go.** This framework is new and evolving. Use the **apple-docs MCP** (`check_availability` for OS/version gating, `get_symbol` for exact API shapes, `list_framework FoundationModels`) before committing to a signature. The patterns below are stable; treat specific initializer/parameter names as "confirm against live docs," in the spirit of `ios26-api-reference`.
+
+---
+
+## Right-sizing: what this model is (and isn't)
+
+The on-device model is a **small (~3B-class) language model**, not a frontier chatbot.
+
+**Great at:** summarization, classification, tagging, extraction, rewriting, short-form generation, structured output from unstructured text, semantic routing.
+
+**Not for:** authoritative world knowledge, math/code reasoning at scale, long documents beyond the context window, anything where a confident hallucination is unacceptable. For those, call a server model — don't force the on-device model past its weight class.
+
+If a task needs world facts, ground it: pass the facts in the prompt (retrieval), don't expect the model to *know* them.
+
+---
+
+## 1. Gate on availability — always
+
+The model is absent on ineligible devices, when Apple Intelligence is off, or while assets download. Check **before** showing any AI UI.
+
+```swift
+import FoundationModels
+
+let model = SystemLanguageModel.default
+
+switch model.availability {
+case .available:
+    // show the feature
+case .unavailable(let reason):
+    // .deviceNotEligible, .appleIntelligenceNotEnabled, .modelNotReady — degrade gracefully
+    break
+}
+```
+
+Never assume availability. Provide a non-AI fallback path for every AI feature (older devices, EU/region/enterprise restrictions, model still downloading).
+
+---
+
+## 2. A basic session
+
+```swift
+let session = LanguageModelSession(
+    instructions: "You are a concise assistant that summarizes notes in one sentence."
+)
+
+let response = try await session.respond(to: "Summarize: \(noteText)")
+print(response.content)   // String
+```
+
+- **`instructions`** = the system prompt: role, rules, output style. Set once at session creation; don't put per-call data here.
+- The **session keeps a transcript** — follow-up `respond` calls have prior context. Reuse a session for a conversation; create a fresh one for independent tasks.
+- Wrap calls in `do/catch` — generation can fail (guardrails, context overflow, unsupported language).
+
+---
+
+## 3. Guided generation — get typed Swift values, not strings
+
+This is the framework's superpower: describe an output type with `@Generable` and get a **decoded, validated Swift value** instead of parsing free text or fragile JSON.
+
+```swift
+@Generable
+struct Recipe {
+    @Guide(description: "A short, appetizing dish name")
+    let title: String
+
+    @Guide(description: "Total minutes to cook", .range(1...240))
+    let minutes: Int
+
+    @Guide(description: "Each ingredient as a separate line")
+    let ingredients: [String]
+}
+
+let response = try await session.respond(
+    to: "Create a recipe using leftover rice and eggs.",
+    generating: Recipe.self
+)
+let recipe = response.content   // a fully-typed Recipe
+```
+
+- `@Generable` on structs/enums makes the type generatable; `@Guide` adds natural-language hints and constraints (ranges, counts, allowed patterns).
+- Guided generation constrains decoding so the result **conforms to your type** — no manual JSON parsing, far fewer "model returned malformed output" bugs.
+- Enums model classification cleanly: a `@Generable enum Sentiment { case positive, neutral, negative }` turns the model into a typed classifier.
+
+---
+
+## 4. Streaming — show partial output as it generates
+
+```swift
+let stream = session.streamResponse(to: prompt)
+for try await partial in stream {
+    // partial is a progressively-filled snapshot — bind to SwiftUI state
+    liveText = partial.content
+}
+```
+
+Stream for anything user-visible and longer than a few words — perceived latency drops sharply. Works with guided generation too (partials fill in field-by-field).
+
+---
+
+## 5. Tool calling — let the model call your code
+
+Give the model capabilities (fetch data, perform an action) it invokes when useful.
+
+```swift
+struct WeatherTool: Tool {
+    let name = "getWeather"
+    let description = "Get the current temperature for a city."
+
+    @Generable
+    struct Arguments {
+        @Guide(description: "City name")
+        let city: String
+    }
+
+    func call(arguments: Arguments) async throws -> ToolOutput {
+        let temp = try await WeatherService.temperature(for: arguments.city)
+        return ToolOutput("\(temp)°C in \(arguments.city)")
+    }
+}
+
+let session = LanguageModelSession(
+    tools: [WeatherTool()],
+    instructions: "Answer weather questions using the getWeather tool."
+)
+let answer = try await session.respond(to: "Is it cold in Oslo?")
+```
+
+The model decides when to call the tool, with arguments it generates (typed via `@Generable`), then incorporates the result. Use tools to keep the model grounded in *your* real data instead of letting it guess.
+
+---
+
+## 6. Tuning & robustness
+
+- **`GenerationOptions`** — pass per-call to set sampling (e.g. temperature, max response tokens). Lower temperature for classification/extraction; higher for creative copy.
+- **Prewarm** — call `session.prewarm()` when you know a request is imminent (e.g. user focuses a text field) to cut first-token latency.
+- **Context window is finite** — long transcripts overflow. Catch the context-window error, then summarize-and-restart the session or trim history.
+- **Guardrails** — the framework applies safety guardrails; handle the guardrail-violation error by softening the prompt or showing a fallback. Don't surface raw errors to users.
+- **Languages** — supported-language coverage is limited; check the model's supported languages before offering the feature in a locale.
+
+---
+
+## Error handling shape
+
+```swift
+do {
+    let response = try await session.respond(to: prompt, generating: Recipe.self)
+    use(response.content)
+} catch let error as LanguageModelSession.GenerationError {
+    // guardrail violation, context window exceeded, unsupported language, etc.
+    showFallback(for: error)
+} catch {
+    showGenericFallback()
+}
+```
+
+Always have a fallback UI. On-device AI is an *enhancement*, never a hard dependency.
+
+---
+
+## When to reach for this vs. alternatives
+
+| Need | Use |
+|------|-----|
+| Private, offline, free, short-form NLP | **Foundation Models (this skill)** |
+| Typed/structured extraction from text | **Foundation Models + `@Generable`** |
+| System-wide writing tools / image generation | Apple Intelligence system features (Writing Tools, Image Playground APIs) |
+| Frontier reasoning, long context, world knowledge | A server LLM you call over the network |
+| Pure on-device classification with a custom model | Core ML (train your own) |
+
+Design the *experience* of AI features (latency states, fallbacks, trust cues) with `apple-design`; test deterministically by injecting a stubbed model boundary per `swift-testing`.
+
+<!-- END SKILL: apple-foundation-models -->
+
+---
+
 <!-- BEGIN SKILL: apple-patterns-check -->
 
 # apple-patterns-check
@@ -5421,6 +5609,125 @@ STOP and write your review.
 ```
 
 <!-- END SKILL: apple-review -->
+
+---
+
+<!-- BEGIN SKILL: asc-aso -->
+
+# asc-aso
+
+# App Store Optimization (ASO)
+
+**Maximize organic discoverability and conversion on the App Store.** Submission mechanics live in `asc-submission`; pricing lives in `app-store-pricing`. This skill is about being *found* and *chosen*.
+
+ASO has two halves:
+1. **Discoverability** — ranking for the searches your users actually type (driven by the indexed text fields).
+2. **Conversion** — turning a product-page visit into an install (driven by the visual/first-impression assets).
+
+---
+
+## The Indexed Fields (what Apple searches)
+
+Apple builds its keyword index from the **union** of these fields. Order and weighting matter.
+
+| Field | Limit | Indexed? | Weight | Notes |
+|-------|-------|:--------:|--------|-------|
+| **App name / title** | 30 chars | ✅ | Highest | Brand + 1–2 strongest keywords |
+| **Subtitle** | 30 chars | ✅ | High | Second-strongest keywords; visible under the name |
+| **Keyword field** | 100 chars | ✅ | Medium | Comma-separated, **no spaces**, hidden from users |
+| **In-app purchase name/desc** | 30/45 chars | ✅ (light) | Low | IAP display names are lightly indexed |
+| **Developer name** | — | ✅ | Low | — |
+| Description | 4000 chars | ❌ | None (iOS) | **Not indexed** on Apple — write for humans/conversion |
+| Promotional text | 170 chars | ❌ | None | Editable without review; not indexed |
+
+> **Apple ≠ Google Play.** On the App Store the long description is **not** indexed. Don't keyword-stuff it. (Google Play *does* index the description — keep that distinction if you ship both.)
+
+### The golden rules of the keyword field
+
+- **Never repeat a word** across title, subtitle, and keyword field — Apple indexes the union, so repetition wastes characters. Each keyword appears **once**, in exactly one field.
+- **No spaces after commas:** `focus,timer,pomodoro` not `focus, timer, pomodoro` (spaces burn characters).
+- **No plurals if you have the singular** — Apple matches stems reasonably; spend characters on distinct terms.
+- **Don't include your app name or category name** — those are already indexed.
+- **Don't use competitor trademarks** — rejection / legal risk.
+- **Singular words combine** — `time`,`management` lets you rank for "time management" without spending on the phrase. Apple auto-combines indexed words into phrases.
+
+---
+
+## Keyword Research Workflow
+
+1. **Seed list** — brainstorm what a *non-user* would type to find the app's job-to-be-done (not your feature names). Think intents: "track water", "split bills", "white noise".
+2. **Expand** — for each seed, gather synonyms, related jobs, and long-tail variants.
+3. **Score each candidate** on three axes:
+   - **Relevance** — does the app genuinely satisfy this search? (Irrelevant keywords tank conversion and ranking.)
+   - **Volume** — how many people search it? (High volume = more traffic if you rank.)
+   - **Difficulty** — how entrenched are the top results? (New apps win on *low-difficulty, high-relevance* long-tail first.)
+4. **Allocate** — strongest term → title, next → subtitle, the rest → keyword field by descending value until 100 chars are full.
+5. **Localize** — repeat per locale (see below). This is where most apps leave the most traffic on the table.
+
+> New apps: **win the long tail first.** Don't fight "fitness" on day one. Rank #1 for "interval timer for boxing", accrue ratings + conversion velocity, then climb to broader terms.
+
+---
+
+## Localization = free traffic
+
+Each **localization** is a separate keyword index. You can add keywords in other locales' fields even when the app UI is English, and you inherit traffic from locales that share a base.
+
+- **English has two storefront locales** — **en-US** and **en-GB (English UK)**. en-GB is indexed for many non-US English-speaking storefronts. Filling en-GB keywords **doubles** your English keyword budget for free.
+- Localize at least: en-US, en-GB, and your top revenue locales' languages.
+- Localize **screenshots and subtitle**, not just keywords — conversion is locale-sensitive.
+
+---
+
+## Conversion-Rate Optimization (the product page)
+
+Ranking gets the visit; these convert it. Order by impact:
+
+1. **First 1–3 screenshots** — visible without scrolling. Lead with the #1 benefit as a captioned hero shot, not a bare UI screenshot. Use text overlays describing the *value*, not the feature name.
+2. **App icon** — the single most-tested asset. High contrast, recognizable at 1× thumbnail size. (See `app-brand-identity` for icon craft.)
+3. **App preview video** — autoplay (muted) at the top; first 3 seconds decide. Show the app *in use*, not a logo splash.
+4. **Title + subtitle** — double duty: indexed *and* the first thing read. Make the subtitle a benefit, not a keyword dump.
+5. **Ratings & reviews** — volume and recency feed both ranking and trust. Prompt for ratings with `SKStoreReviewController`/`requestReview` at a moment of delight (see `storekit-purchases` for the modern API).
+6. **Promotional text** (170 chars) — editable without a review submission; use it for timely hooks (events, seasonal, "now with …").
+
+### Levers you can pull *without* an app update
+
+- **Promotional text** and **in-app events** — edit anytime.
+- **Custom Product Pages (CPPs)** — up to 35 variants with different screenshots/text for different ad campaigns; each has its own URL and conversion analytics.
+- **Product Page Optimization (PPO)** — Apple's native A/B test for icon/screenshots/preview (up to 3 treatments vs baseline). Run one continuously.
+
+---
+
+## Audit Checklist (`/aso-audit`)
+
+When auditing an existing listing, pull current metadata via `asc-submission`'s `asc_get_metadata` / `asc_get_app_info`, then check:
+
+- [ ] **Title** ≤ 30 chars, brand + 1 strong keyword, no wasted words.
+- [ ] **Subtitle** ≤ 30 chars, benefit-driven, distinct keywords (no overlap with title).
+- [ ] **Keyword field** = 100 chars used, no spaces, no repeats vs title/subtitle, no app/category name, no plurals-of-included-singulars.
+- [ ] **No keyword repeated** across the three indexed fields.
+- [ ] **en-GB locale** keywords filled (doubles English budget).
+- [ ] **Top revenue locales** localized (keywords + subtitle + screenshots).
+- [ ] **First 3 screenshots** are benefit-captioned, not bare UI.
+- [ ] **App preview video** present, hooks in 3s.
+- [ ] **Promotional text** used and current.
+- [ ] **PPO / Custom Product Pages** in use for paid traffic.
+- [ ] **Ratings prompt** wired to a delight moment, not app launch.
+
+Report findings as: ✅ good / ⚠️ leaving value on the table / ❌ rule violation (e.g. keyword repetition, over-limit), each with the specific fix.
+
+---
+
+## Measuring ASO
+
+Use App Store Connect **App Analytics**:
+
+- **Impressions → Product Page Views → Downloads** is the funnel. ASO discoverability moves impressions; CRO moves the views→downloads ratio (the **conversion rate**).
+- Segment by **Source Type**: *App Store Search* (keyword ASO), *App Store Browse* (category/featuring), *Web Referrer*, *App Referrer*.
+- Watch **conversion rate** per Custom Product Page and PPO treatment to pick winners.
+
+A 1% absolute conversion-rate gain often beats weeks of ranking work — instrument both, optimize the cheaper one first.
+
+<!-- END SKILL: asc-aso -->
 
 ---
 
@@ -11646,6 +11953,142 @@ Record in the plan which captures are agent-produced vs. pending-human, so the P
 
 ---
 
+<!-- BEGIN SKILL: privacy-manifest -->
+
+# privacy-manifest
+
+# Privacy Manifests & Required-Reason APIs
+
+**Declare data use and justify required-reason APIs so the build passes App Review.** Missing or incomplete manifests cause hard rejections (`ITMS-91053`, `ITMS-91061`) at upload/processing time — often *after* a "successful" upload (see `asc-submission` async failures). Run this before submitting.
+
+A privacy manifest is a property list named **`PrivacyInfo.xcprivacy`** added to a target (and **required in each SDK/framework**, not just the app). It declares four things.
+
+---
+
+## The four keys
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSPrivacyTracking</key>
+  <false/>                                  <!-- true only if you track per App Tracking Transparency -->
+
+  <key>NSPrivacyTrackingDomains</key>
+  <array/>                                  <!-- domains used for tracking; MUST be empty if NSPrivacyTracking is false -->
+
+  <key>NSPrivacyCollectedDataTypes</key>
+  <array>
+    <dict>
+      <key>NSPrivacyCollectedDataType</key>
+      <string>NSPrivacyCollectedDataTypeCrashData</string>
+      <key>NSPrivacyCollectedDataTypeLinked</key>
+      <false/>                              <!-- linked to user identity? -->
+      <key>NSPrivacyCollectedDataTypeTracking</key>
+      <false/>                              <!-- used to track? -->
+      <key>NSPrivacyCollectedDataTypePurposes</key>
+      <array>
+        <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+      </array>
+    </dict>
+  </array>
+
+  <key>NSPrivacyAccessedAPITypes</key>
+  <array>
+    <dict>
+      <key>NSPrivacyAccessedAPIType</key>
+      <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+      <key>NSPrivacyAccessedAPITypeReasons</key>
+      <array>
+        <string>CA92.1</string>            <!-- access only to data written by this app -->
+      </array>
+    </dict>
+  </array>
+</dict>
+</plist>
+```
+
+1. **`NSPrivacyTracking`** (Bool) — does the app/SDK track per ATT?
+2. **`NSPrivacyTrackingDomains`** (array) — domains that perform tracking. **Must be empty if `NSPrivacyTracking` is false.** Find them with the **App Privacy Report** / Instruments **Network** instrument.
+3. **`NSPrivacyCollectedDataTypes`** (array) — what data you collect, whether it's *linked* to identity, whether it's used for *tracking*, and the *purposes*. This feeds the App Store **privacy nutrition label**.
+4. **`NSPrivacyAccessedAPITypes`** (array) — each **required-reason API** category you call, plus approved **reason codes**.
+
+---
+
+## Required-reason APIs — the part that triggers rejections
+
+Apple gates a set of commonly-abused APIs ("required reason APIs"). If your code (or a bundled SDK) calls one, you **must** declare an approved reason. There are five categories:
+
+| Category constant | Covers | Common approved reason |
+|-------------------|--------|------------------------|
+| `NSPrivacyAccessedAPICategoryFileTimestamp` | file creation/modification dates (`stat`, `.contentModificationDate`, `NSFileModificationDate`) | `C617.1` (timestamps of files inside app container), `DDA9.1` (display to user) |
+| `NSPrivacyAccessedAPICategorySystemBootTime` | `systemUptime`, `mach_absolute_time` for boot time | `35F9.1` (measure elapsed time), `8FFB.1` (in-app time calc) |
+| `NSPrivacyAccessedAPICategoryDiskSpace` | available/total disk space | `E174.1` (check before write), `85F4.1` (display to user) |
+| `NSPrivacyAccessedAPICategoryActiveKeyboards` | active keyboard list | `3EC4.1` (custom keyboard app), `54BD.1` (UI customization on user request) |
+| `NSPrivacyAccessedAPICategoryUserDefaults` | `UserDefaults` / `NSUserDefaults` | `CA92.1` (data written only by this app), `1C8F.1` (app group shared with your other apps) |
+
+> **`UserDefaults` is the one almost everyone hits.** Using `@AppStorage` or `UserDefaults.standard` requires declaring `NSPrivacyAccessedAPICategoryUserDefaults` with reason `CA92.1`. Forgetting it is the most common cause of `ITMS-91053`.
+
+Pick the **narrowest reason that is actually true**. Declaring a reason you don't qualify for is a compliance violation; Apple cross-checks against documented valid reasons and rejects unknown/invalid codes.
+
+---
+
+## Rejection codes → meaning
+
+| Upload error | Meaning | Fix |
+|--------------|---------|-----|
+| **ITMS-91053** "Missing API declaration" | You call a required-reason API with no declared reason | Add the category + a valid reason code to `NSPrivacyAccessedAPITypes` |
+| **ITMS-91061** "Missing privacy manifest" | A bundled SDK on Apple's list ships no manifest | Update the SDK to a version that includes one, or add a manifest for it |
+
+These arrive by email and in the **ContentDelivery logs** (see `asc-submission` → diagnosing async failures) — the upload can "succeed" then fail processing.
+
+---
+
+## SDK signatures (the second half of ITMS-91061)
+
+Apple maintains a list of commonly-used SDKs that must (a) ship a privacy manifest and (b) be **code-signed**. If you depend on one (analytics, ads, crash reporters, networking libs), update to a version that bundles `PrivacyInfo.xcprivacy` and a signature. You don't author manifests for third-party SDKs — you **upgrade** them.
+
+---
+
+## `/privacy-check` workflow
+
+1. **Scan the source for required-reason API usage** (app + your own SwiftPM/embedded targets):
+
+```bash
+# UserDefaults / @AppStorage
+grep -rEn "UserDefaults|@AppStorage" --include=*.swift .
+# File timestamps
+grep -rEn "contentModificationDate|creationDate|NSFileModificationDate|\.stat\(|fileModificationDate" --include=*.swift .
+# System boot time / uptime
+grep -rEn "systemUptime|mach_absolute_time|mach_continuous_time" --include=*.swift .
+# Disk space
+grep -rEn "volumeAvailableCapacity|systemFreeSize|systemSize" --include=*.swift .
+# Active keyboards
+grep -rEn "activeInputModes" --include=*.swift .
+```
+
+2. **List every `PrivacyInfo.xcprivacy`** in the project and which target it belongs to:
+
+```bash
+find . -name "PrivacyInfo.xcprivacy"
+```
+
+3. **Cross-check**: for each API category found in step 1, confirm a matching `NSPrivacyAccessedAPIType` entry with a *valid* reason exists in the app's manifest. Report:
+   - ❌ API used but no manifest entry → will cause `ITMS-91053`.
+   - ⚠️ Manifest entry with a reason code not on Apple's approved list for that category.
+   - ⚠️ `NSPrivacyTracking` true but `NSPrivacyTrackingDomains` empty (or vice-versa).
+   - ⚠️ Third-party SDK without a bundled manifest → `ITMS-91061` risk; recommend a version bump.
+   - ✅ Each used category declared with a valid reason.
+
+4. **Verify data-collection declarations** match what the app actually sends (crash/analytics/identifiers) so the nutrition label is truthful.
+
+> A manifest is **per target**. App extensions, widgets, and embedded frameworks that touch required-reason APIs each need their own. Missing extension manifests are a frequent late surprise — see `asc-submission` Transporter table.
+
+<!-- END SKILL: privacy-manifest -->
+
+---
+
 <!-- BEGIN SKILL: regression-test -->
 
 # regression-test
@@ -11858,6 +12301,386 @@ func test_[ui]_[action]_should[updateState]() {
 - [ ] Test location follows conventions
 
 <!-- END SKILL: regression-test -->
+
+---
+
+<!-- BEGIN SKILL: storekit-purchases -->
+
+# storekit-purchases
+
+# StoreKit 2 — Purchases & Subscriptions
+
+**Implement in-app purchases and subscriptions with the modern async StoreKit 2 API.** Strategy (tiers, regional pricing) lives in `app-store-pricing`; paywall conversion in `asc-aso`. This skill is the *code*.
+
+> Use StoreKit 2 (`import StoreKit`, async/await, iOS 15+). Do **not** hand-parse receipts or call the legacy `SKPaymentQueue`/`verifyReceipt` server endpoint for new work — StoreKit 2 verifies transactions cryptographically on-device via `VerificationResult`.
+
+---
+
+## The Five Things Every IAP Implementation Needs
+
+1. **Load products** from the App Store.
+2. **Purchase** a product and handle the result.
+3. **Verify** the transaction (never trust an unverified transaction).
+4. **Check current entitlements** to unlock content (on launch and on change).
+5. **Listen** for transactions that arrive outside your purchase call (renewals, Ask-to-Buy approvals, purchases on other devices, refunds).
+
+Miss #5 and subscriptions silently break.
+
+---
+
+## Minimal correct implementation
+
+```swift
+import StoreKit
+
+@MainActor
+@Observable
+final class Store {
+    private(set) var products: [Product] = []
+    private(set) var purchasedProductIDs: Set<String> = []
+
+    private var updates: Task<Void, Never>?
+
+    init() {
+        // 5. ALWAYS start the transaction listener before any purchase,
+        //    at app launch, so renewals/Ask-to-Buy/refunds are not missed.
+        updates = Task.detached { [weak self] in
+            for await update in Transaction.updates {
+                await self?.handle(verification: update)
+            }
+        }
+    }
+
+    deinit { updates?.cancel() }
+
+    // 1. Load products
+    func loadProducts(ids: [String]) async {
+        do {
+            products = try await Product.products(for: ids)
+        } catch {
+            // network/StoreKit error — surface, allow retry
+        }
+    }
+
+    // 2 + 3. Purchase and verify
+    func purchase(_ product: Product) async throws -> Transaction? {
+        let result = try await product.purchase()
+        switch result {
+        case .success(let verification):
+            let transaction = try checkVerified(verification)   // 3
+            await updateEntitlements()
+            await transaction.finish()                          // REQUIRED
+            return transaction
+        case .userCancelled:
+            return nil
+        case .pending:
+            return nil   // Ask-to-Buy / SCA — resolved later via Transaction.updates
+        @unknown default:
+            return nil
+        }
+    }
+
+    // 3. Verification — the ONLY trustworthy source of truth
+    private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
+        switch result {
+        case .unverified(_, let error): throw error   // do NOT grant entitlement
+        case .verified(let safe):       return safe
+        }
+    }
+
+    private func handle(verification: VerificationResult<Transaction>) async {
+        guard let transaction = try? checkVerified(verification) else { return }
+        await updateEntitlements()
+        await transaction.finish()
+    }
+
+    // 4. Current entitlements — the source of truth for "what is unlocked"
+    func updateEntitlements() async {
+        var owned: Set<String> = []
+        for await result in Transaction.currentEntitlements {
+            guard let transaction = try? checkVerified(result) else { continue }
+            if transaction.revocationDate == nil {   // not refunded/revoked
+                owned.insert(transaction.productID)
+            }
+        }
+        purchasedProductIDs = owned
+    }
+}
+```
+
+### The non-negotiables
+
+- **Always `finish()` a transaction.** Unfinished consumables/transactions are redelivered forever via `Transaction.updates`.
+- **Entitlement = `Transaction.currentEntitlements`, not a local bool.** Recompute on launch and on every `Transaction.updates` event. Respect `revocationDate` (refunds) and, for subscriptions, expiry.
+- **Verify before granting.** `.unverified` means a jailbreak/tamper — deny.
+- **Start the listener at launch**, not when the paywall opens.
+
+---
+
+## Subscriptions specifics
+
+- **Status:** use `Product.SubscriptionInfo.Status` via `product.subscription?.status` (or `Product.SubscriptionInfo.status(for: groupID)`) for the *current* state including grace period and billing retry — richer than `currentEntitlements` alone.
+- **Renewal info:** `status.renewalInfo` (verify it) tells you auto-renew on/off, the next renewal product (upgrade/downgrade/crossgrade pending), and expiration reason.
+- **Free trials / intro offers:** check eligibility with `product.subscription?.isEligibleForIntroOffer`. Promotional/win-back offers are passed via `purchase(options:)` with `.promotionalOffer(...)`.
+- **Grace period & billing retry:** keep access during `.inGracePeriod` and `.inBillingRetryPeriod` — revoking immediately on a failed renewal churns paying users.
+- **Subscription groups:** one active subscription per group; upgrades/downgrades are crossgrades within the group, handled by the App Store, surfaced via `Transaction.updates`.
+
+---
+
+## SwiftUI StoreKit views (iOS 17+) — less code, fewer bugs
+
+For most paywalls, the declarative views handle fetch, purchase, and loading states for you:
+
+```swift
+import StoreKit
+
+// Whole subscription group with Apple-managed layout + trial eligibility
+SubscriptionStoreView(groupID: "ABCDEF12") {
+    MyMarketingHeader()           // your content above the controls
+}
+.subscriptionStoreButtonLabel(.multiline)
+.storeButton(.visible, for: .restorePurchases)
+
+// A single non-consumable
+ProductView(id: "com.app.pro")
+
+// A curated set
+StoreView(ids: ["com.app.pro", "com.app.coins"])
+```
+
+Hook entitlement changes with `.onInAppPurchaseCompletion { product, result in … }` or observe your `Store`. These views still require the launch-time `Transaction.updates` listener for renewals.
+
+---
+
+## Restore purchases
+
+- Provide a visible **Restore Purchases** button (App Review requires it for non-consumables/subscriptions).
+- Restore = re-evaluate `Transaction.currentEntitlements` (it's already synced). Only call `AppStore.sync()` if the user explicitly taps Restore and entitlements look empty — it can prompt for App Store auth, so never call it automatically on launch.
+
+---
+
+## Asking for a review (adjacent, commonly needed)
+
+```swift
+import StoreKit
+@Environment(\.requestReview) private var requestReview   // iOS 16+
+// call requestReview() at a delight moment, throttled — Apple caps prompts to 3/year
+```
+
+See `asc-aso` for *when* to prompt (conversion impact).
+
+---
+
+## Testing StoreKit
+
+- **Local, no sandbox:** add a **StoreKit Configuration file** (`.storekit`) to the scheme. Lets you test purchases, trials, renewals (accelerated time), Ask-to-Buy, and refunds entirely on-device/simulator.
+- **`Transaction` test API:** in `swift-testing`/XCTest use `Transaction.currentEntitlements` against the config file; accelerate subscription renewals in the `.storekit` editor.
+- **Sandbox (real ASC):** create Sandbox Apple IDs in App Store Connect → Users and Access → Sandbox. Subscriptions renew on an accelerated real-time schedule.
+- Test the unhappy paths explicitly: `userCancelled`, `pending` (Ask-to-Buy), `.unverified`, refund (`revocationDate`), expired subscription, grace period.
+
+See `swift-testing` for the test-authoring patterns and `ios-test` for the harness.
+
+---
+
+## Common bugs this skill prevents
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Subscription "lost" after renewal | No `Transaction.updates` listener | Start it at launch; recompute entitlements on each event |
+| Purchases redelivered every launch | Transaction never `finish()`ed | `finish()` after granting entitlement |
+| Refunded users keep access | Ignoring `revocationDate` | Exclude revoked transactions from entitlements |
+| Paying users churned on a card glitch | Revoking on first failed renewal | Honor `.inGracePeriod` / `.inBillingRetryPeriod` |
+| "Works in sandbox, fails for some users" | Trusting `.unverified` or local bools | Use `VerificationResult` + `currentEntitlements` |
+| Free trial offered to ex-subscribers | Not checking `isEligibleForIntroOffer` | Gate the trial on eligibility |
+
+<!-- END SKILL: storekit-purchases -->
+
+---
+
+<!-- BEGIN SKILL: swift-testing -->
+
+# swift-testing
+
+# Swift Testing
+
+**Author tests with the modern Swift Testing framework** (`import Testing`, Xcode 16+/Swift 6). It coexists with XCTest in the same target — migrate incrementally. For the test *harness*, CI wiring, SwiftData in-memory setup, and UI/performance testing, see `ios-test`; this skill is the authoring model.
+
+> **Pick the right tool.** Swift Testing covers unit/integration/logic tests. **UI tests (`XCUIApplication`) and `XCTMetric` performance tests still use XCTest** — Swift Testing does not replace them. You can keep both in one project.
+
+---
+
+## The shape of a test
+
+```swift
+import Testing
+@testable import MyApp
+
+@Test func timerStartsAtConfiguredDuration() {
+    let timer = FocusTimer(minutes: 25)
+    #expect(timer.remaining == .seconds(25 * 60))
+}
+```
+
+- No `XCTest` subclass, no `test` prefix, no `XCTAssert`. A free function (or method) annotated `@Test`.
+- `#expect(...)` records a failure but **continues**. It captures the full expression, so `#expect(a == b)` reports the actual values of `a` and `b` — no need for `XCTAssertEqual`.
+- Give tests descriptive names: `@Test("Remaining time is clamped to zero")`.
+
+### `#require` — stop on failure / safe unwrap
+
+```swift
+@Test func decodesUser() throws {
+    let data = try #require(Self.fixture)         // unwraps Optional or throws → test stops
+    let user = try JSONDecoder().decode(User.self, from: data)
+    #expect(user.name == "Ada")
+}
+```
+
+`#require` is the hard assert: if it fails the test stops (like a guard). Use it when continuing would crash or cascade. `try #require(optional)` is the idiomatic non-force unwrap.
+
+---
+
+## Async, throwing, and errors
+
+```swift
+@Test func loadsRemoteProfile() async throws {
+    let profile = try await client.fetchProfile(id: 42)   // just use async/await
+    #expect(profile.id == 42)
+}
+
+// Asserting a specific error is thrown
+@Test func rejectsEmptyName() {
+    #expect(throws: ValidationError.emptyName) {
+        try Validator.validate(name: "")
+    }
+}
+
+// Any error / error of a type
+#expect(throws: (any Error).self) { try risky() }
+#expect(throws: ValidationError.self) { try validate() }
+#expect(throws: Never.self) { try shouldNotThrow() }   // asserts NO throw
+```
+
+### Confirmations (callbacks / events that should fire N times)
+
+```swift
+@Test func deliversTwoEvents() async {
+    await confirmation("emits exactly twice", expectedCount: 2) { confirm in
+        stream.onEvent = { _ in confirm() }
+        await stream.run()
+    }
+}
+```
+
+`confirmation` replaces `XCTestExpectation` for "this closure must be called exactly N times."
+
+---
+
+## Suites — grouping & shared state
+
+```swift
+@Suite("Cart")
+struct CartTests {
+    let cart: Cart                       // fresh instance per test → natural isolation
+
+    init() async throws {                // runs before EACH test (replaces setUp)
+        cart = try await Cart.empty()
+    }
+
+    deinit { /* teardown, if needed */ } // runs after each test (for class-based suites)
+
+    @Test func startsEmpty() { #expect(cart.items.isEmpty) }
+    @Test func addsItem()   { cart.add(.sample); #expect(cart.items.count == 1) }
+}
+```
+
+- A `@Suite` is just a `struct`/`final class`/`actor`. Annotation is optional if it only contains `@Test`s, but explicit `@Suite("name")` reads better.
+- **Each test gets a fresh suite instance** — `init` runs per test, so state doesn't leak between tests. This is the big ergonomic win over XCTest's shared instance.
+- Use a `struct` by default (value semantics, parallel-safe). Use `actor` if tests share mutable reference state.
+
+---
+
+## Parameterized tests — one test, many inputs
+
+```swift
+@Test(arguments: ["", " ", "\t"])
+func rejectsBlankNames(_ name: String) {
+    #expect(throws: ValidationError.self) { try Validator.validate(name: name) }
+}
+
+// Multiple argument sets are zipped or crossed:
+@Test(arguments: zip([1, 2, 3], [2, 4, 6]))
+func doubles(_ input: Int, _ expected: Int) {
+    #expect(input * 2 == expected)
+}
+```
+
+Each argument set is a **separate test case** in the navigator — failures point to the exact input. Prefer this over a `for` loop inside one test (a loop stops at the first failure and hides which input broke).
+
+---
+
+## Traits — control how/when tests run
+
+```swift
+@Test(.tags(.networking))                       // group across suites by tag
+@Test(.disabled("flaky until FB12345 fixed"))   // skip with a reason (not silent)
+@Test(.bug("https://…/issue/42"))               // link a tracker
+@Test(.timeLimit(.minutes(1)))                  // fail if it overruns
+@Test(.enabled(if: AppFeatures.payments))       // conditional
+@Test(.serialized)                              // opt a suite OUT of parallelism
+```
+
+Define tags once:
+
+```swift
+extension Tag { @Tag static var networking: Self }
+```
+
+Run by tag from CLI / scheme to slice fast vs slow suites.
+
+### Known issues (expected failures)
+
+```swift
+withKnownIssue("rounding off by one until FB123") {
+    #expect(Money(0.1) + Money(0.2) == Money(0.3))
+}
+```
+
+`withKnownIssue` records the failure without failing the run, and **flips to a failure if the issue is unexpectedly fixed** — so stale workarounds get flagged.
+
+---
+
+## Parallelism (default ON — design for it)
+
+Swift Testing runs tests **in parallel by default**, including across suites, and may run them out of order.
+
+- Don't rely on execution order or shared global mutable state.
+- Per-test isolation comes free from fresh suite instances — use it instead of `static var`.
+- Force serial execution only when necessary with `@Suite(.serialized)`.
+- `@MainActor`-isolate tests that touch main-actor state: `@Test @MainActor func …` (matches `ios-standards` isolation rules).
+
+---
+
+## Migrating from XCTest
+
+| XCTest | Swift Testing |
+|--------|---------------|
+| `class FooTests: XCTestCase` | `struct FooTests` (`@Suite`) |
+| `func testBar()` | `@Test func bar()` |
+| `XCTAssert(x)` / `XCTAssertTrue` | `#expect(x)` |
+| `XCTAssertEqual(a, b)` | `#expect(a == b)` |
+| `XCTAssertNil(x)` | `#expect(x == nil)` |
+| `XCTUnwrap(x)` | `try #require(x)` |
+| `XCTAssertThrowsError` | `#expect(throws:)` |
+| `setUp()` / `tearDown()` | `init()` / `deinit` |
+| `XCTestExpectation` / `wait` | `await confirmation { … }` |
+| `XCTSkip` | `.disabled(...)` / `.enabled(if:)` traits |
+| `XCTExpectFailure` | `withKnownIssue { … }` |
+
+**Migration strategy:** both frameworks run in the same target — convert file-by-file, leave UI/performance tests on XCTest, and don't rewrite working tests just to change syntax. Start with new tests.
+
+See `ios-test` for the harness (schemes, CI, code coverage, SwiftData in-memory containers, UI/perf tests) and `regression-test` for the failing-test-first bug-fix workflow.
+
+<!-- END SKILL: swift-testing -->
 
 ---
 

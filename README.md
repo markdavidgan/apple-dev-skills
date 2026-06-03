@@ -8,12 +8,19 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 
 ## What's Included
 
-### 22 Skills
+### 30 Skills
+
+> Expanding per the [roadmap](docs/roadmap.md). Skills are grouped by `category:` (design · engineering · product · asc · quality · workflow).
 
 | Skill | Domain | Purpose |
 |-------|--------|---------|
 | `app-brand-identity` | Design | Brand identity system — wordmark, icon, design tokens, brand voice, App Store marketing assets |
 | `app-store-pricing` | Business | Pricing tiers, global equalization, subscriptions, regional pricing via Apple's 900-price-point system |
+| `apple-foundation-models` | Engineering | On-device AI (iOS 26) — LanguageModelSession, guided generation (`@Generable`), streaming, tool calling |
+| `asc-aso` | Product | App Store Optimization — keyword strategy, localized metadata, conversion-rate optimization |
+| `privacy-manifest` | Quality | `PrivacyInfo.xcprivacy` + required-reason APIs — avoid ITMS-91053/91061 rejections |
+| `storekit-purchases` | Engineering | StoreKit 2 IAP/subscriptions — purchase, verify, entitlements, restore, StoreKit views |
+| `swift-testing` | Engineering | Swift Testing framework — `@Test`/`#expect`, suites, parameterized tests, XCTest migration |
 | `apple-architecture-diagram` | Docs | WWDC-keynote-ready, self-contained HTML architecture diagrams for Apple platform apps |
 | `apple-cleanup` | Quality | Exhaustive engineering hardening pipeline (P0–P2 fix → optimize → TestFlight) |
 | `apple-design` | Design | SwiftUI design system, iOS 26 Liquid Glass, design tokens, accessibility-aware previews |
@@ -47,11 +54,12 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `explore` | Fast | Fast codebase exploration and pattern search |
 | `ios-code-reviewer` | Standard | Changed-files-only review against iOS 26 crash patterns |
 
-### 12 Commands
+### 14 Commands
 
 | Command | Skill | Purpose |
 |---------|-------|---------|
 | `/apple-check` | `apple-patterns-check` | Fast pattern validation |
+| `/aso-audit` | `asc-aso` | App Store Optimization audit (keywords, metadata, conversion) |
 | `/apple-cleanup` | `apple-cleanup` | Engineering hardening pipeline |
 | `/apple-polish` | `apple-polish` | Design & keynote polish pipeline |
 | `/apple-review` | `apple-review` | Full 4-panel review (no fixes) |
@@ -60,6 +68,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `/complete-feature` | `complete-feature` | Feature completion gate |
 | `/merge-check` | `merge-check` | Pre-merge quality gate |
 | `/prepare-submission` | `asc-submission` | Submission readiness, metadata, screenshots, signing |
+| `/privacy-check` | `privacy-manifest` | Required-reason API scan + `PrivacyInfo.xcprivacy` completeness |
 | `/regression-test` | `regression-test` | Failing test → fix → sibling pattern check |
 | `/setup-asc` | — | ASC MCP server authentication setup |
 | `/swift6-fix` | `swift6-concurrency` | Diagnose & fix Swift 6 concurrency errors |
@@ -241,9 +250,9 @@ Symlink-based installs update instantly. Copied installs require re-running `./i
 ```
 apple-dev-skills/
 ├── src/                    # Source of truth (canonical content)
-│   ├── skills/             # 22 skill directories
+│   ├── skills/             # 30 skill directories
 │   ├── agents/             # 7 agent definitions
-│   ├── commands/           # 12 command definitions
+│   ├── commands/           # 14 command definitions
 │   └── mcp/                # MCP servers (asc, apple-docs)
 ├── platforms/              # Generated platform outputs
 │   ├── claude/             # Claude Code bundle
@@ -292,7 +301,7 @@ See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the ful
 
 | Feature | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |---------|--------|--------|------|-------------|-------|-----|
-| Skills (all 22) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
+| Skills (all 30) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
 | Agents | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | MCP Server | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |

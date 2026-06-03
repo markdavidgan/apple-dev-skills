@@ -1,10 +1,10 @@
 # Apple Dev Skills — Catalog
 
 > Version: **0.1.0**
-> Generated: 2026-06-01
+> Generated: 2026-06-03
 > Repository: https://github.com/markdavidgan/apple-dev-skills
 
-## Skills (25)
+## Skills (30)
 
 | Skill | Description | Invoke |
 |-------|-------------|--------|
@@ -13,9 +13,11 @@
 | apple-architecture-diagram | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. | `/arch-diagram [topic] — Create a self-contained HTML architecture diagram for the given topic or system.` |
 | apple-cleanup | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. | `/apple-cleanup [app] — EXHAUSTIVE cleanup: review → plan → fix ALL (P0-P2) → optimize → TestFlight alpha` |
 | apple-design | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |  |
+| apple-foundation-models | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |  |
 | apple-patterns-check | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". | `/apple-check [path] — Validate Apple patterns in modified files` |
 | apple-polish | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. | `/apple-polish [app] — Design & keynote review → select issues → fix → TestFlight` |
 | apple-review | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". | `/apple-review [app-dir] — Full Apple-grade review (design + engineering + compliance + keynote)` |
+| asc-aso | App Store Optimization — keyword research, title/subtitle/keyword-field strategy, localized metadata, and conversion-rate optimization for App Store discoverability. Use when the user says "ASO", "app store optimization", "keywords", "improve discoverability", "rank higher", "optimize my listing", "app store keywords", "subtitle", "promotional text", or wants more organic installs. Complements asc-submission (mechanics) and app-store-pricing (economics). | `/aso-audit [app] — Audit App Store listing for keyword coverage, metadata limits, and conversion levers.` |
 | asc-build-check | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. | `/check-build [app] — Check CI build status and debug failures via App Store Connect MCP.` |
 | asc-submission | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. | `/prepare-submission [app] — Check submission readiness, metadata, screenshots, and signing via ASC MCP.` |
 | complete-feature | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". | `/complete-feature [feature-name] — Run full validation and completion workflow` |
@@ -29,7 +31,10 @@
 | ios26-api-reference | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |  |
 | merge-check | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. | `/merge-check — Pre-merge quality gate. Runs build, archive, test, and lint checks in parallel.` |
 | preview-capture | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. | `/preview-capture [preview-name...] — Render named #Previews to committed PNGs` |
+| privacy-manifest | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. | `/privacy-check [path] — Scan for required-reason API usage and verify PrivacyInfo.xcprivacy completeness before submission.` |
 | regression-test | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. | `/regression-test [bug-description] — Write a failing test for the bug, fix it, verify, and check for similar issues.` |
+| storekit-purchases | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |  |
+| swift-testing | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |  |
 | swift6-concurrency | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". | `/swift6-fix [file] — Diagnose and fix Swift 6 strict concurrency, Sendable, or MainActor isolation errors.` |
 | swiftui-micro-craft | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. | `/swiftui-micro-craft — Audit a SwiftUI view against quantified Apple-grade micro-craft rules` |
 | verify-against-spec | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. | `/verify-against-spec [spec-path] — Check implementation coverage against design spec` |
@@ -46,7 +51,7 @@
 | explore | haiku | low | Fast codebase exploration agent. Use PROACTIVELY for searching, understanding code structure, or finding patterns without making changes. |
 | ios-code-reviewer | sonnet | low | Reviews iOS code changes against iOS 26 crash patterns, concurrency rules, and API correctness. Lighter than auditor — focused on changed files only. Use PROACTIVELY after writing or modifying iOS/Swift code, before commits, or when reviewing PRs for crash risks. |
 
-## Commands (12)
+## Commands (14)
 
 | Command | Description | Arguments |
 |---------|-------------|-----------|
@@ -55,10 +60,12 @@
 | /apple-polish | Design & keynote craftsmanship review → select issues → fix → TestFlight. Runs the apple-polish skill. | `[app-dir]` |
 | /apple-review | Full Apple-grade review (design + engineering + compliance + keynote). Review only, no fixes. Runs the apple-review skill. | `[app-dir]` |
 | /arch-diagram | Create a self-contained HTML architecture diagram for the given topic or system. | `[topic]` |
+| /aso-audit | Audit App Store listing for keyword coverage, metadata limits, and conversion levers. | `[app]` |
 | /check-build | Check CI build status and debug failures via App Store Connect MCP. | `[app]` |
 | /complete-feature | Complete a feature with full validation across build, tests, lint, and patterns. Runs the complete-feature skill. | `[feature-name]` |
 | /merge-check | Pre-merge quality gate with parallel verification. Runs build, archive, test, and lint checks. |  |
 | /prepare-submission | Check submission readiness, metadata, screenshots, and signing via ASC MCP. | `[app]` |
+| /privacy-check | Scan for required-reason API usage and verify PrivacyInfo.xcprivacy completeness before submission. | `[path]` |
 | /regression-test | Write a failing regression test, fix the bug, verify, and check for similar issues. | `[bug-description]` |
 | /setup-asc | Configure App Store Connect API authentication for the ASC MCP server. Guides through API key setup (Key ID, Issuer ID, .p8 file), validates credentials, and generates MCP configuration. Use when user says "setup asc", "configure app store connect", "asc api key", or needs to set up the App Store Connect MCP server. |  |
 | /swift6-fix | Diagnose and fix Swift 6 strict concurrency, Sendable, or MainActor isolation errors. | `[file]` |
@@ -68,7 +75,6 @@
 | Server | Version | Description |
 |--------|---------|-------------|
 | asc-mcp | 0.1.0 | MCP server for the full App Store Connect API — CI/CD, signing, metadata, TestFlight, IAP, reviews, and more |
-| apple-docs-mcp | 0.1.0 | MCP server for Apple's official developer documentation — search docs, read symbols, and check platform availability from the live DocC data layer (4 tools, no auth) |
 
 ---
 

@@ -9,9 +9,11 @@
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| apple-foundation-models | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-polish | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
+| asc-aso | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | complete-feature | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -25,7 +27,10 @@
 | ios26-api-reference | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | merge-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | preview-capture | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| privacy-manifest | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | regression-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| storekit-purchases | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| swift-testing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swift6-concurrency | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swiftui-micro-craft | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | verify-against-spec | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
