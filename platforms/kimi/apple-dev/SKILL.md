@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 41 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 42 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -20,39 +20,40 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 6 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
 | 7 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
 | 8 | apple-design | Quality | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
-| 9 | apple-foundation-models | Quality | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |
-| 10 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
-| 11 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
-| 12 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
-| 13 | asc-aso | ASC | App Store Optimization — keyword research, title/subtitle/keyword-field strategy, localized metadata, and conversion-rate optimization for App Store discoverability. Use when the user says "ASO", "app store optimization", "keywords", "improve discoverability", "rank higher", "optimize my listing", "app store keywords", "subtitle", "promotional text", or wants more organic installs. Complements asc-submission (mechanics) and app-store-pricing (economics). |
-| 14 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
-| 15 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
-| 16 | cloudkit-sync | Workflow | Sync SwiftData / Core Data across a user's devices with CloudKit, plus CKShare collaboration and conflict handling. Use when adding iCloud sync, "sync across devices", SwiftData + CloudKit, NSPersistentCloudKitContainer, sharing records between users, or debugging why data isn't syncing. Trigger on "CloudKit", "iCloud sync", "cloudKitDatabase", "CKShare", "sync not working", or "share data between users". |
-| 17 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
-| 18 | cross-platform-adaptivity | Workflow | Adapt one SwiftUI codebase across iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro — size classes, adaptive navigation, multi-window/scenes, platform conditionals, and idiomatic per-platform behavior. Use when supporting iPad alongside iPhone, bringing an app to macOS or visionOS, fixing a layout that only works on one device, choosing adaptive navigation, or sharing code across platforms. Trigger on "iPad", "macOS", "Mac Catalyst", "visionOS", "watchOS", "tvOS", "size class", "adaptive layout", "multiplatform", "NavigationSplitView", or "responsive". |
-| 19 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
-| 20 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 21 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
-| 22 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 23 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
-| 24 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
-| 25 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
-| 26 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
-| 27 | localization | Workflow | Localize and internationalize an app with String Catalogs (.xcstrings), correct pluralization and grammar agreement, RTL layout, locale-aware formatting, and pseudolocalization testing. Use when adding languages, translating UI, fixing plurals or gendered strings, supporting right-to-left languages, formatting dates/numbers/currency per locale, or producing localized screenshots. Trigger on "localization", "internationalization", "i18n", "String Catalog", ".xcstrings", "translate", "RTL", "plural", or "locale". |
-| 28 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
-| 29 | networking | Workflow | Modern Swift networking with URLSession and async/await — typed requests, Codable decoding, HTTP status & error handling, retry with backoff, offline/connectivity handling, and a Sendable API client. Use when calling a REST/JSON API, building an API client/service layer, decoding responses, handling network errors or timeouts, adding retry logic, or detecting offline state. Trigger on "URLSession", "API client", "networking", "fetch data", "JSONDecoder", "retry", or "offline". |
-| 30 | paywall-design | Workflow | Design high-converting, App Review-compliant paywalls and subscription upsell screens — value framing, plan presentation, trial/intro-offer design, and required legal elements. Use when building or improving a paywall, subscription screen, upsell, or "go Pro" flow, choosing trial framing, or fixing low conversion or a 3.1.2 rejection. Trigger on "paywall", "subscription screen", "upsell", "go premium", "free trial design", or "purchase screen". Bridges app-store-pricing (economics) and storekit-purchases (code). |
-| 31 | performance-instruments | Workflow | Diagnose and fix iOS performance — launch time, main-thread hangs and scroll hitches, memory growth and leaks, and energy, using Instruments, os_signpost, and MetricKit field data. Use when the app is slow, janky, or battery-hungry, when investigating launch time, frame drops, retain cycles, or memory warnings, or when profiling with Instruments. Trigger on "slow", "laggy", "hang", "hitch", "memory leak", "Instruments", "Time Profiler", "launch time", "MetricKit", or "battery drain". |
-| 32 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
-| 33 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
-| 34 | product-spec | Workflow | Write a clear product spec / PRD for an app feature — problem, goals and non-goals, user stories, testable acceptance criteria, success metrics, scope, and open questions. Use when defining a feature before building, writing a PRD or spec, turning a vague idea into buildable requirements, or producing acceptance criteria. Trigger on "PRD", "product spec", "requirements", "acceptance criteria", "user stories", "scope this feature", or "write a spec". Feeds verify-against-spec. |
-| 35 | push-notifications | Workflow | Apple push notifications (APNs) and local notifications — authorization, device tokens, payload structure, rich/actionable notifications, notification service & content extensions, interruption levels, and Live Activity push. Use when implementing push, "remote notifications", APNs, "notification not showing", rich media notifications, notification actions, silent/background push, or pushing Live Activity updates. Trigger on "APNs", "UNUserNotificationCenter", "device token", "notification extension", or "silent push". |
-| 36 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
-| 37 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
-| 38 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
-| 39 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 40 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
-| 41 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 9 | apple-design-language | Quality | Apple-native design language for iOS, iPadOS, and macOS — the editorial layer above HIG plus the domains craft skills miss: UX writing, interaction/form/loading states, and empty/error states. Use when writing or reviewing user-facing copy, button/error/alert text, designing forms or input validation, loading/empty/error/permission-denied states, deciding when to follow or tastefully break HIG, or judging whether a screen feels Apple-quality versus templated AI slop. Routes to swiftui-micro-craft for quantified spacing/typography/motion and apple-design for tokens and Liquid Glass. |
+| 10 | apple-foundation-models | Quality | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |
+| 11 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
+| 12 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
+| 13 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
+| 14 | asc-aso | ASC | App Store Optimization — keyword research, title/subtitle/keyword-field strategy, localized metadata, and conversion-rate optimization for App Store discoverability. Use when the user says "ASO", "app store optimization", "keywords", "improve discoverability", "rank higher", "optimize my listing", "app store keywords", "subtitle", "promotional text", or wants more organic installs. Complements asc-submission (mechanics) and app-store-pricing (economics). |
+| 15 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
+| 16 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
+| 17 | cloudkit-sync | Workflow | Sync SwiftData / Core Data across a user's devices with CloudKit, plus CKShare collaboration and conflict handling. Use when adding iCloud sync, "sync across devices", SwiftData + CloudKit, NSPersistentCloudKitContainer, sharing records between users, or debugging why data isn't syncing. Trigger on "CloudKit", "iCloud sync", "cloudKitDatabase", "CKShare", "sync not working", or "share data between users". |
+| 18 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
+| 19 | cross-platform-adaptivity | Workflow | Adapt one SwiftUI codebase across iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro — size classes, adaptive navigation, multi-window/scenes, platform conditionals, and idiomatic per-platform behavior. Use when supporting iPad alongside iPhone, bringing an app to macOS or visionOS, fixing a layout that only works on one device, choosing adaptive navigation, or sharing code across platforms. Trigger on "iPad", "macOS", "Mac Catalyst", "visionOS", "watchOS", "tvOS", "size class", "adaptive layout", "multiplatform", "NavigationSplitView", or "responsive". |
+| 20 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
+| 21 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 22 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
+| 23 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
+| 24 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
+| 25 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
+| 26 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
+| 27 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
+| 28 | localization | Workflow | Localize and internationalize an app with String Catalogs (.xcstrings), correct pluralization and grammar agreement, RTL layout, locale-aware formatting, and pseudolocalization testing. Use when adding languages, translating UI, fixing plurals or gendered strings, supporting right-to-left languages, formatting dates/numbers/currency per locale, or producing localized screenshots. Trigger on "localization", "internationalization", "i18n", "String Catalog", ".xcstrings", "translate", "RTL", "plural", or "locale". |
+| 29 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
+| 30 | networking | Workflow | Modern Swift networking with URLSession and async/await — typed requests, Codable decoding, HTTP status & error handling, retry with backoff, offline/connectivity handling, and a Sendable API client. Use when calling a REST/JSON API, building an API client/service layer, decoding responses, handling network errors or timeouts, adding retry logic, or detecting offline state. Trigger on "URLSession", "API client", "networking", "fetch data", "JSONDecoder", "retry", or "offline". |
+| 31 | paywall-design | Workflow | Design high-converting, App Review-compliant paywalls and subscription upsell screens — value framing, plan presentation, trial/intro-offer design, and required legal elements. Use when building or improving a paywall, subscription screen, upsell, or "go Pro" flow, choosing trial framing, or fixing low conversion or a 3.1.2 rejection. Trigger on "paywall", "subscription screen", "upsell", "go premium", "free trial design", or "purchase screen". Bridges app-store-pricing (economics) and storekit-purchases (code). |
+| 32 | performance-instruments | Workflow | Diagnose and fix iOS performance — launch time, main-thread hangs and scroll hitches, memory growth and leaks, and energy, using Instruments, os_signpost, and MetricKit field data. Use when the app is slow, janky, or battery-hungry, when investigating launch time, frame drops, retain cycles, or memory warnings, or when profiling with Instruments. Trigger on "slow", "laggy", "hang", "hitch", "memory leak", "Instruments", "Time Profiler", "launch time", "MetricKit", or "battery drain". |
+| 33 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
+| 34 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
+| 35 | product-spec | Workflow | Write a clear product spec / PRD for an app feature — problem, goals and non-goals, user stories, testable acceptance criteria, success metrics, scope, and open questions. Use when defining a feature before building, writing a PRD or spec, turning a vague idea into buildable requirements, or producing acceptance criteria. Trigger on "PRD", "product spec", "requirements", "acceptance criteria", "user stories", "scope this feature", or "write a spec". Feeds verify-against-spec. |
+| 36 | push-notifications | Workflow | Apple push notifications (APNs) and local notifications — authorization, device tokens, payload structure, rich/actionable notifications, notification service & content extensions, interruption levels, and Live Activity push. Use when implementing push, "remote notifications", APNs, "notification not showing", rich media notifications, notification actions, silent/background push, or pushing Live Activity updates. Trigger on "APNs", "UNUserNotificationCenter", "device token", "notification extension", or "silent push". |
+| 37 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
+| 38 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
+| 39 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
+| 40 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
+| 41 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
+| 42 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -3689,6 +3690,569 @@ AppTheme.Radius.capsule   // 999
 
 ---
 
+<!-- BEGIN SKILL: apple-design-language -->
+
+# apple-design-language
+
+# Apple Design Language
+
+The editorial layer for Apple apps on iOS, iPadOS, and macOS: the parts of "feels Apple-quality" that aren't a spacing number — copy, interaction states, empty/error states, and the judgment of when to follow versus tastefully break the Human Interface Guidelines. Think in capabilities (touch vs. pointer, compact vs. regular vs. window), not device names.
+
+This skill is the **entry point** to the design language. It owns four things and routes everything else.
+
+## Orientation index
+
+| Concern | Where it lives |
+|---|---|
+| Spacing, optical alignment, padding, corner concentricity, hairlines, depth | `swiftui-micro-craft` |
+| Motion timing, named springs, gestures, haptics | `swiftui-micro-craft` |
+| Type scale mechanics, SF Symbol sizing/weight, Dynamic Type plumbing | `swiftui-micro-craft` |
+| Color, design tokens, Liquid Glass, system materials | `apple-design` |
+| VoiceOver, Dynamic Type coverage, tap-target sizing | `ios-accessibility` |
+| Adaptive layout, size classes, multi-platform navigation | `cross-platform-adaptivity` |
+| **UX writing & copy** | this skill → `references/ux-writing.md` |
+| **Forms, validation, focus, loading, control states** | this skill → `references/interaction-states.md` |
+| **Empty & error states** | this skill → `references/empty-error-states.md` |
+| **When to follow vs. break HIG; quality-vs-slop judgment** | this skill (below) |
+| Worked examples of tasteful HIG deviation | this skill → `references/exemplars.md` |
+
+## HIG is the floor, not the ceiling
+
+The Human Interface Guidelines encode what is **safe and approvable**. Meet that floor everywhere. But Apple's own best apps — and most Apple Design Award winners — exceed or selectively break the defaults where it serves the user. "HIG-compliant" and "great" are not the same target. Your job: clear the floor without exception, then raise the ceiling deliberately.
+
+### Deviation decision gates
+
+Deviate from a HIG default only when **all four** hold:
+
+1. **Named benefit** — you can state the user benefit in one sentence that isn't "looks better," "feels modern," or "cleaner."
+2. **Survives the slop check** — it is not one of the numbered tells below (and will pass `swiftui-design-check` once that exists).
+3. **Survives assistive tech** — still correct under VoiceOver and Dynamic Type at AX5 (see `ios-accessibility`).
+4. **Systematic** — applied as a rule across the app, not a one-off that creates an inconsistency.
+
+If any gate fails, use the HIG default. Deviation is earned, not assumed.
+
+## Anti-slop tells (numbered — the contract with `swiftui-design-check`)
+
+These are the Apple-native equivalents of web "AI slop." Each is numbered so the `swiftui-design-check` linter (sub-project #2) can map a scanner rule to it. **Statically detectable** ones are marked ⚙.
+
+1. ⚙ **System-gray everything** — flat `.gray`/`Color(.systemGray)` fills where a system material or hierarchical foreground style belongs.
+2. **Sheet-for-everything** — a modal `.sheet` where a push, popover, menu, or inline disclosure fits the navigation depth better.
+3. ⚙ **Unlabeled icon-only buttons** — an icon `Button`/`Label(systemImage:)` with no `accessibilityLabel` and no visible text.
+4. ⚙ **Untouched `.automatic` styling** — default button/list/navigation styling shipped with no deliberate choice behind it.
+5. ⚙ **Center-everything layout** — no leading-edge alignment hierarchy; titles, body, and controls all centered.
+6. ⚙ **Hardcoded font sizes** — `.font(.system(size: 17))` instead of a semantic text style.
+7. ⚙ **Twin full-width CTAs** — primary and secondary actions given equal visual weight, destroying hierarchy.
+8. ⚙ **Emoji as iconography** — emoji where an SF Symbol is the native choice.
+9. ⚙ **Placeholder-as-label** — relying on `TextField` placeholder text instead of a persistent field label.
+10. **Spinner-for-everything** — indeterminate spinners where a skeleton or determinate progress fits, with no empty/error variant designed.
+11. **Overlay for the critical** — a non-modal banner or overlay where an `.alert` is required (data loss, destructive confirmation).
+12. ⚙ **Gradient-and-glow slop** — decorative purple-ish gradients, drop-glows, or faux depth not derived from system materials.
+13. **Generic empty state** — "No items" with no cause and no next action (see `references/empty-error-states.md`).
+14. ⚙ **Title Case body copy** — title-casing sentences, labels, or descriptions that should be sentence case (see `references/ux-writing.md`).
+
+## Quick reference
+
+### Capitalization
+
+| Use | Case |
+|---|---|
+| Nav-bar titles, buttons, menu items, alert titles | Title Case |
+| Labels, body text, alert messages, hints, footnotes, placeholders | Sentence case |
+
+### Button verbs (pick the precise word)
+
+| Word | Use for |
+|---|---|
+| Done | Dismiss, keeping changes already applied |
+| Save | Commit changes that aren't applied yet |
+| Cancel | Dismiss, discarding changes |
+| OK | Acknowledge an alert with no alternative — prefer a specific verb when one fits |
+| Delete / Remove | Destructive — pair with confirmation; never "OK" |
+
+### Empty/error: which surface
+
+Data loss or destructive confirmation → `.alert`. Recoverable, non-blocking → inline state or banner. No data yet → designed empty state with cause + action. Full tree in `references/empty-error-states.md`.
+
+## Relationship to other skills
+
+This skill is the design-language hub. It complements `swiftui-micro-craft` (quantified visual craft), `apple-design` (tokens, color, Liquid Glass), `ios-accessibility` (assistive tech), and `cross-platform-adaptivity` (layout). It is consumed by `apple-review` and `apple-polish` (design panels) and `paywall-design` (copy). The numbered anti-slop tells above are the rule source for `swiftui-design-check`.
+
+<!-- REFERENCE: apple-design-language/references/empty-error-states.md -->
+
+# Empty and Error States
+
+Every state where content is absent or unavailable is a designed state — not a missing one. Pick the right surface and copy for the cause.
+
+---
+
+## Decision tree
+
+```
+Is there content to show?
+├─ No, and the user hasn't acted yet              → FIRST-RUN empty state
+├─ No, because this collection is genuinely empty → NO-DATA empty state
+├─ No, because a search/filter matched nothing    → NO-RESULTS state
+├─ No, because we can't reach the network         → OFFLINE state
+├─ No, because the user denied a permission       → PERMISSION-DENIED state
+└─ No, because an operation failed                → ERROR/FAILURE state
+```
+
+Each leaf is a distinct cause with a distinct fix. Never collapse them into a single "No items" screen — that is anti-slop tell #13 (Generic empty state).
+
+---
+
+## 1. FIRST-RUN empty state
+
+The user has never added content. The collection is empty because nothing has happened yet, not because something went wrong.
+
+**What to show:** a centered layout with an SF Symbol or simple illustration, a brief title, and one primary action button. `ContentUnavailableView` is the modern SwiftUI API — use it; it provides the standard centered layout and adapts to dark mode via system colors.
+
+**What to say:** explain the value in one line. Tell the user what this space is for, then invite them to fill it. "Your trips will appear here. Add your first flight." Not a marketing pitch — one sentence of orientation, one sentence of direction.
+
+**What to offer:** a single primary action that starts the creation flow. "Add Flight." No secondary distractions.
+
+The first-run state is also the right moment for pre-permission priming if the feature needs a system permission — explain the benefit once, before triggering the system prompt (see the "Notifications and permission prompts" section of `ux-writing.md`).
+
+---
+
+## 2. NO-DATA empty state
+
+The user has used the app before but has deleted or archived all items, or this section has never received any. Cause: the collection is structurally empty right now, not because it has never been filled.
+
+**What to show:** same `ContentUnavailableView` pattern as first-run, but lighter — the user already knows what this space is for, so you don't need orientation copy.
+
+**What to say:** skip the value explanation. Go straight to the prompt: "No entries. Add one to get started." or simply "No entries" with an Add button if the surface is already familiar.
+
+**What to offer:** the same create action as first-run. The difference is tone, not structure — encouraging the first time, matter-of-fact on return.
+
+---
+
+## 3. NO-RESULTS state
+
+A search or filter has returned zero matches. The collection is not empty — the query just didn't find anything in it. This is a different cause and requires a different message.
+
+**What to show:** `ContentUnavailableView` with a search-specific icon (e.g., `magnifyingglass`). Do not reuse the same layout as the no-data state — after a search, users can't tell whether the collection is empty or the query failed.
+
+**What to say:** confirm what they searched for, then suggest broadening. "No results for 'Paris'." Body: "Try a different keyword or adjust your filters."
+
+**What to offer:** a "Clear Filters" or "Clear Search" button. Don't make the user hunt for the search bar to reset — put the escape hatch in the state itself.
+
+Never make the no-results state identical to the no-data state. Different cause, different fix.
+
+---
+
+## 4. OFFLINE state
+
+The app can't reach the network. Distinguish this clearly from a server-side failure — the user needs different information and different actions.
+
+**What to show:** if you have cached content, show it — degraded content beats a blank state. Mark it as potentially stale ("Last updated 2 hours ago"). Reserve the empty/error surface for features that cannot function at all offline.
+
+**What to say:** "You're offline." Then tell the user what is and isn't available. "You can read saved articles. New content will load when you reconnect." Do not conflate offline with server failure — "Something went wrong" is wrong here.
+
+**What to offer:** a Retry button for content that should load when connectivity returns. If the user has unsynced changes, surface them — never silently discard unsynced work. "3 changes will sync when you reconnect" is a status, not an error.
+
+---
+
+## 5. PERMISSION-DENIED state
+
+The user has denied a system permission the feature depends on. This is not an error — the user made a choice. Respect it while offering a clear path back.
+
+**What to show:** an explanation of what the feature needs and why the user benefits, then a Settings button. Use `UIApplication.openSettingsURLString` to deep-link to your app's settings page.
+
+**What to say:** state the capability, not a guilt trip. "Location access is off. Enable it in Settings to see places near you." Not "You denied location — the app needs this to work."
+
+**What to offer:** an "Open Settings" button that launches `UIApplication.openSettingsURLString`. If a degraded-but-useful path exists, offer it too: "You can still search by city name." Pre-permission priming (see the "Notifications and permission prompts" section of `ux-writing.md`) reduces how often you reach this state — a well-primed user grants the permission before you need to recover from a denial.
+
+Never nag. Show this state once per session at most. If the user dismisses it without going to Settings, respect that decision until the next time they invoke the feature.
+
+---
+
+## 6. ERROR/FAILURE state
+
+An operation failed: a network call returned an error, a write failed, a sync conflict occurred. This is the broadest category and requires the most precision.
+
+**What to show:** depends on severity.
+
+- **Transient failure** (network timeout, 5xx, rate limit) — inline error state using `ContentUnavailableView`, with a Retry button. No `.alert` required.
+- **Data loss or destructive outcome** — use `.alert`. Non-modal banners or overlays can be dismissed, partially obscured, or missed; data-loss confirmation requires a blocking decision surface. This is anti-slop tell #11 (Overlay for the critical). The `.alert` must use the `.destructive` button role and name the real action verb.
+
+**What to say:** three-part error copy — what happened, why, how to fix it. Full structure is in the "Error messages" section of `ux-writing.md`. Example: "Couldn't upload the photo. The file may be too large — try a smaller photo or check your connection." Do not say "An error occurred." That is the text equivalent of anti-slop tell #13: a bare fact with no cause and no path forward.
+
+**What to offer:**
+
+- Retry for transient failures. Put the button in the state, not buried in a menu.
+- Preserve the user's input. If a form submission failed, the fields must still contain what the user typed — never reset on error.
+- For permanent or unrecoverable failures, say so plainly and tell the user what you'll do: "We couldn't recover this file. Your other notes are safe."
+
+Tie the choice of surface to the cause: recoverable → inline state with Retry; data loss → `.alert`. Never use a non-modal banner or overlay for anything in the error/failure category that requires a user decision.
+
+---
+
+## Anatomy of a good empty state
+
+A well-formed empty state has four elements:
+
+1. **An SF Symbol or simple illustration** — not an emoji (anti-slop tell #8) and not a decorative gradient (anti-slop tell #12). Pick an SF Symbol that represents the missing content type, not a generic warning icon.
+2. **A sentence-case headline** — one line, explains the cause or names the content type.
+3. **A sentence-case body line** (optional) — explains what to do next.
+4. **One primary action button** — Title Case verb, drives the next step. No secondary button competing for attention (anti-slop tell #7).
+
+**Centering is acceptable here.** This is the one place where a fully centered layout is intentional and correct — the absence of content leaves nothing else to align to. This is an explicit carve-out from anti-slop tell #5 (Center-everything layout), which targets screens with real content that should have a leading-edge hierarchy. Empty states are the exception, not the rule.
+
+Use `ContentUnavailableView` for this layout in SwiftUI. It handles Dynamic Type scaling, dark mode, and the centering automatically. Verify at AX5 (largest Dynamic Type size) that the layout does not clip or overflow.
+
+---
+
+See the hub: ../SKILL.md
+
+<!-- REFERENCE: apple-design-language/references/exemplars.md -->
+
+# Exemplars
+
+Worked examples of tasteful HIG deviation — apps that earn a deliberate departure from the defaults and the transferable principle each one yields.
+
+**Caution:** Apps evolve. Verify a cited behavior in the current version before relying on it. These illustrate the principle, which outlasts the specific implementation.
+
+---
+
+## Catalog
+
+| App | HIG default it sets aside | Why it works (named user benefit) | Transferable principle |
+|---|---|---|---|
+| Things | Inset-grouped list with full-bleed separators and system row heights | Long task lists stay readable at a glance because the reduced visual weight lets hierarchy carry the eye, not chrome | Earn density with hierarchy and whitespace, not by cramming |
+| Fantastical | Stock form entry for calendar events | Power users add events dozens of times a day; a bespoke interaction cuts that friction to a single gesture | Invest custom interaction in the one action users repeat most |
+| Flighty | Conservative, near-neutral data presentation | Flight status is time-sensitive; color encodes meaning (on time, delayed, boarding) so users read state in a glance without parsing text | Deviate from neutral palettes only where color encodes meaning |
+| Apple's own apps (Weather, Music) | Plain-form default and flat, neutral surfaces | Users orient to the content's context at a glance — current conditions, the album you're playing — instead of reading it out of plain rows | Apple itself treats HIG as a floor; match the ambition where content warrants |
+
+---
+
+## Expanded entries
+
+### Things — density through hierarchy
+
+Things, as of recent versions, renders task lists with quieter typography and tighter row spacing than the stock inset-grouped `List` default. The deviation does not feel cramped because the hierarchy does the structural work: project headings, task titles, and metadata carry clearly differentiated weights so the eye always knows where it is. Whitespace is reduced selectively, not uniformly — the breathing room moves to the boundaries between sections rather than between individual rows. The named user benefit is focus: a calm, dense list keeps the user in thinking mode rather than scrolling mode. This pattern transfers to any app where users manage long, frequently-revisited collections — earn the density first with a clear type hierarchy, then compress spacing at the row level.
+
+### Fantastical — custom interaction for the core task
+
+Fantastical's event-entry experience, as of recent versions, replaces the stock multi-field form with a single natural-language input surface for its most common operation. Instead of tapping through picker fields, the user types or dictates "Lunch with Alex Friday at noon" and the app parses intent. The named user benefit is speed: the single most-repeated task in a calendar app is adding an event, and every tap removed from that path compounds across hundreds of uses. The lesson is directional, not about copying the specific UI: identify the one action users perform most often and ask whether the default form pattern is actually the fastest path to that outcome. Custom interaction is expensive to build and expensive to maintain — it is only worth the investment at the highest-frequency touchpoint.
+
+### Flighty — color that encodes, not decorates
+
+Flighty uses bold, saturated color as a status system for flight data. As of recent versions, flight states — on time, delayed, boarding, landed — each carry a distinct color that appears consistently across list rows, detail headers, and widgets. This deviates from the conservative, near-neutral palette that most utility apps default to. The named user benefit is glanceability: a traveler checks flight status in motion, often briefly, and color lets them read state faster than parsing a label. The principle is a constraint, not a license: deviate from neutral palettes only where the color carries a specific, consistent, learnable meaning. Decorative color that does not encode a state (gradients for atmosphere, drop-glows for drama) is anti-slop tell #12 and earns nothing.
+
+### Apple's own apps — treating HIG as a floor
+
+Weather, Music, and similar Apple-built apps, as of recent versions, use edge-to-edge imagery, system materials with substantial depth, and layouts that would look excessive in a plain-form app. These choices are not accidental or Apple-privileged — they are the logical result of content that warrants emotional expression. Weather's full-screen gradients carry the ambient feel of current conditions; Music's artwork-driven layouts make the listening experience part of the visual identity. The named user benefit is informational and emotional density: the screen communicates more than data — it communicates context. The transferable principle is about ambition, not copying any specific layout: when your content has inherent visual or emotional character, a neutral, plain-form treatment wastes it. Build to the content's ceiling, not to the framework's default.
+
+---
+
+## Using these as models: run the four gates first
+
+Each deviation above would still pass the hub's four deviation gates — Named benefit, Survives the slop check, Survives assistive tech, and Systematic — and that is why they hold up. Before imitating any exemplar, run your own proposed deviation through those same four gates. If a gate fails — if you cannot name the user benefit in one sentence, if it trips an anti-slop tell, if it breaks under VoiceOver or at the largest Dynamic Type sizes, or if it is a one-off rather than a rule applied consistently — use the HIG default instead. Exemplars are evidence that deviation can be earned, not a shortcut past earning it.
+
+---
+
+See the hub: ../SKILL.md
+
+<!-- REFERENCE: apple-design-language/references/interaction-states.md -->
+
+# Interaction States
+
+Every interactive control ships with a complete set of states; every form is structured for keyboard navigation and inline feedback. Designing one state without the others is incomplete work.
+
+---
+
+## 1. The five-state discipline
+
+Every interactive control must define five states: **default**, **pressed**, **focused**, **disabled**, and — on pointer platforms — **hover**. Hover and focus are the macOS and iPad-with-pointer deltas; never ship a Mac or iPad control with no hover feedback or no focus ring. The system provides defaults for standard controls, but any custom control requires explicit treatment for each.
+
+Disabled is not the same as hidden. Hide a control only when it is irrelevant in the current context (for example, a send button when there is no selected recipient). Disable it — with a reason discoverable nearby — when it is temporarily unavailable. A disabled control must carry a discoverable reason; a silent disabled button is a slop tell (see section 8).
+
+---
+
+## 2. Forms — structure
+
+Group related fields using `Form` and `Section`. One logical idea per section; keep sections short rather than stacking twelve fields in one block.
+
+Use **persistent labels**, never placeholder-as-label (anti-slop tell #9: Placeholder-as-label — relying on `TextField` placeholder text instead of a persistent field label). When the placeholder is the only label, it disappears on first tap and the user loses context mid-entry. Put the label above or beside the field with a separate `Text`, or use a `LabeledContent` pattern.
+
+Match the keyboard to the content: `.keyboardType(.emailAddress)` for email, `.keyboardType(.decimalPad)` for prices and measurements, `.keyboardType(.numberPad)` for whole-number quantities or PINs, `.textContentType(.username)` and `.textContentType(.password)` for credential fields so the system can offer autofill. Field order should follow logical reading sequence — name before email, street before city before zip.
+
+---
+
+## 3. Forms — validation timing
+
+Validate on submit for required-field and format errors. The user should not see "Email is required" before they have had a chance to enter anything.
+
+Validate inline only for rules the user can fix while typing — for example, password strength rules — and only after the field has lost focus at least once (first blur). Never fire inline validation on every keystroke from an empty field; that produces a cascade of red text the moment the form renders.
+
+Show the error message adjacent to the field that triggered it, in sentence case, and say how to fix it: "Enter a valid email address, like name@example.com." not "Invalid input." For the full error-message structure (what happened + why + how to fix), see the "Error messages" section of `ux-writing.md`.
+
+---
+
+## 4. Required vs. optional
+
+Mark the **minority**. If most fields are required, annotate only the optional ones ("Optional" in sentence case, as helper text or a label suffix). If most fields are optional, annotate only the required ones. Do not asterisk every field — it adds visual noise and trains users to ignore the markers.
+
+When a field is contextually required (required only when another field has a value), reveal that dependency inline, adjacent to the field, when the condition becomes true.
+
+---
+
+## 5. Focus order
+
+Define `@FocusState` explicitly for any form with more than one field on iOS. The Return key on the keyboard should advance to the next logical field, and submit the form from the last field. Do not leave `.submitLabel` at its default on every field — use `.submitLabel(.next)` on intermediate fields and `.submitLabel(.done)` or `.submitLabel(.send)` on the last.
+
+On macOS and iPad with a connected keyboard, verify the tab order matches the visual and logical reading order. A tab sequence that jumps from the first field to the submit button, skipping the middle fields, is a bug, not a quirk.
+
+---
+
+## 6. Loading patterns
+
+Choose the pattern by what you know about duration and layout:
+
+- **Determinate progress** (`ProgressView(value:total:)`) — use when you know what fraction of the work is done. Downloads, uploads, multi-step processing with trackable stages.
+- **Skeleton / redacted placeholder** (`.redacted(reason: .placeholder)`) — use when you know the layout of the content and the wait is likely longer than roughly 1 second. Feeds, list rows, profile screens. Avoids layout shift when real content arrives because the placeholders already occupy the correct space.
+- **Spinner** (`ProgressView()`, indeterminate) — use only for short, unpredictable waits where you have no layout to skeleton. A spinner on a transient network call is fine; a spinner that owns the whole screen for an indeterminate period is not.
+
+Anti-slop tell #10: never use an indeterminate spinner where a skeleton or determinate progress fits, and never ship a loading surface with no empty and no error variant designed. Every loading surface needs all three reachable states: loading, loaded (or empty), and error. Design them together.
+
+Avoid layout shift when content arrives. If content will push other elements around on load, use a placeholder that reserves the space.
+
+---
+
+## 7. Destructive actions
+
+Confirm destructive actions with an `.alert` using a button in the `.destructive` role, labeled with the real action verb. "Delete" not "OK". "Remove Account" not "Yes". The user must be able to read the confirmation button and know exactly what will happen.
+
+Where feasible, prefer an **undo affordance** over a confirmation-only prompt: it is less friction for users who intended the action and a safety net for those who did not. Archive with an undo banner (a non-destructive, non-blocking surface) beats a modal confirm-then-no-recovery pattern.
+
+Never use a non-modal banner or overlay for destructive confirmation (anti-slop tell #11: a non-modal banner or overlay where an `.alert` is required for data loss or destructive confirmation). Banners can be dismissed accidentally, partially obscured, or missed. Destructive confirmation requires a blocking decision surface.
+
+---
+
+## 8. Disabled affordances
+
+A disabled primary button must let the user discover why it is disabled. Silent dead buttons — a `.disabled(true)` primary CTA with no explanation — are a slop tell.
+
+Acceptable patterns: helper text beneath the button naming the missing condition ("Add at least one item to continue"), or a tappable-but-explaining variant that enables on tap and shows an inline explanation of what is needed. Never ship a form where the submit button is grey and the user has no signal about what is blocking them.
+
+---
+
+See the hub: ../SKILL.md
+
+<!-- REFERENCE: apple-design-language/references/ux-writing.md -->
+
+# UX Writing
+
+Apple-native copy guidance: capitalization, button labels, error messages, alerts, notifications, and empty states — covering iOS, iPadOS, and macOS.
+
+---
+
+## 1. Voice and tone
+
+Apple's voice is **clear, direct, and human** — never snarky, never cute for cute's sake, never corporate. Functional copy (buttons, labels, errors, alerts) is invisible when it works: it gets out of the way and lets the user act.
+
+Rules:
+- **Second person** ("you", "your") throughout. Never "the user."
+- **Active voice** and **present tense** by default. "Couldn't save the note" — not "The note could not be saved."
+- **No marketing fluff in functional copy.** "Experience seamless productivity" belongs on a landing page, not inside the app. Onboarding body text is not an ad.
+- **Plain language.** Write at the reading level of a confident adult who isn't a developer.
+- **Contractions are fine** ("You're offline" reads faster than "You are offline").
+- **Empathy without apology.** "Couldn't connect" is empathetic. "We're so sorry, something went wrong!" is noise.
+
+---
+
+## 2. Capitalization
+
+This is anti-slop tell #14. Getting it wrong is one of the most visible markers of AI-generated copy.
+
+**The rule:**
+
+| Surface | Case |
+|---|---|
+| Navigation bar titles | Title Case |
+| Buttons and action labels | Title Case |
+| Alert titles | Title Case |
+| Menu items (iOS and macOS) | Title Case |
+| Labels, body text, alert messages | Sentence case |
+| Hints and helper text | Sentence case |
+| Footnotes and captions | Sentence case |
+| Placeholders | Sentence case |
+
+**macOS nuance:** macOS menu bar items and contextual menu items use Title Case. Menu items that open further UI append an ellipsis ("…") — not three periods — after the label.
+
+**Good/bad pair:**
+
+Button (Title Case): "Move to Trash" — correct.
+Explanatory label below it (sentence case): "This moves the file to the trash and it can be recovered later." — correct.
+
+Button: "Move To Trash" — wrong. "To" is a preposition, not capitalized in Title Case unless it's a verb.
+Label: "This Moves The File To The Trash." — wrong. Labels are sentence case.
+
+Correct Title Case: capitalize the first word, last word, all nouns, pronouns, verbs, adjectives, and adverbs. Do not capitalize articles (a, an, the), coordinating conjunctions (and, but, or), or short prepositions (to, for, in, on, at, with) unless they open the title. Pronouns are capitalized, so "Got It" is correct.
+
+---
+
+## 3. Buttons and labels
+
+**The verb names the outcome, not the mechanism.**
+
+The user cares what happens, not how the system achieves it.
+
+- Prefer "Save" over "Submit" — "submit" is a form mechanic, not a user goal.
+- Prefer "Delete" over "Remove" when data is permanently gone.
+- Prefer "Send" over "Upload" in social or messaging contexts.
+- Prefer "Sign In" over "Login" — two words, Title Case.
+
+**OK is the default of last resort.** Use a specific verb whenever one fits. "Got It" is acceptable for dismissing informational alerts where no action is being taken. Never label a destructive confirmation button "OK" — the real verb (Delete, Remove, Discard) must appear.
+
+**One primary call-to-action per screen.** If two equal-weight buttons appear, one is probably wrong. The primary verb drives the screen's purpose; the secondary is Cancel (discards) or Done (keeps changes already applied) — these are not interchangeable.
+
+| Do | Do not |
+|---|---|
+| Save | Submit |
+| Delete | OK (on a destructive action) |
+| Send | Upload (messaging context) |
+| Sign In | Login |
+| Add to Library | Confirm |
+| Discard Changes | Yes (on a yes/no alert) |
+
+---
+
+## 4. Error messages
+
+**Three-part structure: what happened + why (plainly) + how to fix.**
+
+Every error message answers three questions for the user:
+1. What happened?
+2. Why did it happen (in plain terms, no blame)?
+3. What can they do about it?
+
+If the user cannot fix it, say so plainly and tell them what you'll do (retry, sync later).
+
+No error codes. No stack-trace fragments. No developer jargon. No blame ("you entered an invalid value").
+
+**Good example:**
+"Couldn't save the note. You're offline — it'll sync when you reconnect."
+
+- What happened: couldn't save.
+- Why: offline.
+- What to do: nothing — it auto-syncs.
+
+**Bad example:**
+"Error -1009"
+
+No context, no cause, no path forward. Users cannot act on this.
+
+**Another bad example:**
+"An unexpected error occurred. Please try again later."
+
+Technically grammatical, practically useless. Gives no signal about cause or recoverability.
+
+**Additional rules:**
+- Do not start an error with "Error:" — the context makes it obvious.
+- Do not end with "Contact support" unless that is actually the only path forward.
+- Do not use passive voice: "The file could not be uploaded" — rewrite to "Couldn't upload the file."
+- This section ties directly to `empty-error-states.md` for the full decision tree on which surface to use.
+
+---
+
+## 5. Alerts
+
+Alerts are reserved for situations requiring an explicit decision — especially destructive actions or data loss. Do not use them for non-blocking information (use banners or inline states instead).
+
+**Structure:**
+- **Title** — Title Case noun phrase or question. Short (five words or fewer when possible). "Delete This Recording?" not "Are you sure you want to delete this recording?"
+- **Message** — Sentence case explanation. Gives context the title can't fit. "Deleted recordings can't be recovered."
+- **Buttons** — Verbs. Destructive button uses the real verb and the `.destructive` role (red). Cancel is always available on a destructive alert.
+
+**Good example:**
+Title: "Delete Recording"
+Message: "This recording will be permanently deleted."
+Buttons: "Delete" (destructive) / "Cancel"
+
+**Bad example:**
+Title: "Warning"
+Message: "Are you sure?"
+Buttons: "OK" / "Cancel"
+
+"OK" on a destructive alert is a guardrail failure — the user can't tell from the button label what they're confirming.
+
+---
+
+## 6. Notifications and permission prompts
+
+**Pre-permission priming:** The system permission alert is a one-shot prompt — if the user denies it, recovery requires Settings. Show a custom screen or sheet first that explains the benefit before triggering the system prompt. This is called pre-permission priming.
+
+**The Info.plist usage string (NSPhotoLibraryUsageDescription, etc.):**
+- Sentence case.
+- Benefit-led: what does the user gain?
+- Specific: what will you actually use the permission for?
+- No passive voice.
+
+Good: "Lets you attach photos to entries."
+Bad: "This app needs photo access."
+Bad: "Required for app functionality."
+
+The system shows the usage string verbatim in the alert. The user reads it while deciding to allow or deny — make it earn trust.
+
+**Notifications:**
+- Lead with user benefit, not app ego. "Your transfer is complete" beats "Financy has finished processing your transfer."
+- Keep the body to one sentence.
+- Do not re-state the app name — the system already shows it.
+
+---
+
+## 7. Empty-state copy
+
+Empty states are not missing UI — they are a designed state. Three things to communicate:
+
+1. **Cause** — why is it empty? (No items added yet, no results matched the filter, connection failed.)
+2. **Next action** — what can the user do? (Add an item, clear the filter, retry.)
+3. **Tone** — encouraging for no-content-yet; neutral and direct for error-driven empty.
+
+Never ship "No items" as a final empty state. It names a fact; it does not help the user.
+
+**Good example:**
+Title: "No Entries Yet"
+Body: "Start by adding your first entry."
+Button: "Add Entry"
+
+**Bad example:**
+"No items"
+
+A bare fact with no cause and no path forward. This is anti-slop tell #13 in the hub.
+
+**Filter-driven empty state:**
+Title: "No Results"
+Body: "Try adjusting your filters or search terms."
+
+Full decision tree for choosing between inline empty states, error states, and alerts: see `empty-error-states.md`.
+
+---
+
+## 8. macOS deltas
+
+Mac copy differs from iOS in a few specific ways:
+
+**Capitalization:** macOS menu bar menus (File, Edit, View) and all contextual menu items use Title Case. "Move to Trash", "Show in Finder", "Open With" — all Title Case. This matches the hub's capitalization table, which lists menu items under Title Case.
+
+**Ellipsis in menus:** Append an ellipsis ("…") — the single Unicode character U+2026, not three periods — to any menu item that opens a dialog or sheet before the action completes. "Export…" opens a save panel. "Delete" completes immediately, no ellipsis.
+
+**Pointer and keyboard copy:** On macOS you can say "Click", "Right-click", "Control-click", "Drag", and "Press Command-S" (or "⌘S"). On iOS say "Tap", "Long press", "Swipe", and spell out key combos only where an external keyboard applies (iPadOS multitasking, keyboard shortcuts sheet). Do not use "Click" in iOS copy.
+
+**Window-level context:** macOS copy can reference windows by title. iOS copy avoids "screen" where possible — "in the app" is often clearer.
+
+**Otherwise:** the voice, tone, error-message structure, button verb rules, and capitalization sentence-case rules are identical across platforms.
+
+---
+
+See the hub: ../SKILL.md
+
+<!-- END SKILL: apple-design-language -->
+
+---
+
 <!-- BEGIN SKILL: apple-foundation-models -->
 
 # apple-foundation-models
@@ -4796,6 +5360,7 @@ NEXT STEPS
 | `apple-cleanup` | Engineering + Compliance | Review → fix ALL → TestFlight | Code hardening |
 | `apple-review` | All 4 panels | Review only (no fixes) | Full audit |
 | `apple-design` | SwiftUI design patterns | Reference only | While coding |
+| `apple-design-language` | Copy, interaction/empty/error states, HIG-deviation taste | Reference only | Writing UX copy, designing states, deciding when to break HIG |
 | `ios-accessibility` | VoiceOver + Dynamic Type | Reference only | Accessibility audit |
 
 ---
@@ -5660,6 +6225,7 @@ check for hardcoded font sizes vs Dynamic Type, verify contrast ratios.
 - Permissions denied? Is there a recovery flow?
 - Extremely long text input?
 - User interrupts a flow midway?
+- Copy, empty/error states, interaction states, and HIG-deviation judgment: evaluate against `apple-design-language` and call out any anti-slop tells by number (the hub lists them 1-14).
 
 ### Mechanical Audits (run these grep checks)
 - Count `accessibilityLabel` / `accessibilityHint` vs total interactive views
@@ -11975,6 +12541,7 @@ For debugging sessions that need architectural context or real-world gotchas:
 |-----------|-------------|-----------------|
 | Swift 6 | `guides/expert-swift6.md` | `intel/community-swift6.md` |
 | FoundationModels | — | `intel/community-foundation-models.md` |
+| NaturalLanguage (NLEmbedding) | — | `intel/community-naturallanguage.md` |
 | Speech + Audio | — | `intel/community-speech.md` |
 
 Also available: `reference/crash-cheat-sheet.md` (universal rules) and `reference/apple-guides.md` (Apple documentation compilation).
@@ -12706,6 +13273,7 @@ Most apps combine a **soft onboarding** paywall with **contextual** triggers. Do
 ## Visual & motion craft
 
 - Apply the app's design system (see `apple-design`, `swiftui-micro-craft`) — the paywall should feel premium, because it's selling premium.
+- Get the copy right (see `apple-design-language`): value-led headline, sentence-case benefits, precise CTA verb, and a designed error state for failed/restored purchases.
 - Respect Dynamic Type and VoiceOver: the price, trial terms, and CTA must be reachable and legible at large sizes (see `ios-accessibility`). Truncated legal text is both a UX and compliance failure.
 - Subtle motion on the value prop is fine; never animate the close affordance away.
 

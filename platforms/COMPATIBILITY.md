@@ -12,6 +12,7 @@
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| apple-design-language | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-foundation-models | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-polish | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |

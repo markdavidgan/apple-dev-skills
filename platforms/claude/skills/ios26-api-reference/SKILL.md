@@ -52,6 +52,7 @@ For debugging sessions that need architectural context or real-world gotchas:
 |-----------|-------------|-----------------|
 | Swift 6 | `guides/expert-swift6.md` | `intel/community-swift6.md` |
 | FoundationModels | — | `intel/community-foundation-models.md` |
+| NaturalLanguage (NLEmbedding) | — | `intel/community-naturallanguage.md` |
 | Speech + Audio | — | `intel/community-speech.md` |
 
 Also available: `reference/crash-cheat-sheet.md` (universal rules) and `reference/apple-guides.md` (Apple documentation compilation).

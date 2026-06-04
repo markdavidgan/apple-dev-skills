@@ -8,7 +8,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 
 ## What's Included
 
-### 41 Skills
+### 42 Skills
 
 > Expanding per the [roadmap](docs/roadmap.md). Skills are grouped by `category:` (design · engineering · product · asc · quality · workflow).
 
@@ -267,7 +267,7 @@ Symlink-based installs update instantly. Copied installs require re-running `./i
 ```
 apple-dev-skills/
 ├── src/                    # Source of truth (canonical content)
-│   ├── skills/             # 41 skill directories
+│   ├── skills/             # 42 skill directories
 │   ├── agents/             # 7 agent definitions
 │   ├── commands/           # 17 command definitions
 │   └── mcp/                # MCP servers (asc, apple-docs)
@@ -318,7 +318,7 @@ See [docs/platform-compatibility.md](docs/platform-compatibility.md) for the ful
 
 | Feature | Claude | Cursor | Kimi | Antigravity | Codex | Agy |
 |---------|--------|--------|------|-------------|-------|-----|
-| Skills (all 41) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
+| Skills (all 42) | ✅ | ✅ | ✅* | ✅ | ✅ | ✅ |
 | Agents | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Commands | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | MCP Server | ✅ | ✅ | ✅** | ✅** | ❌ | ❌ |

@@ -1,10 +1,10 @@
 # Apple Dev Skills — Catalog
 
 > Version: **0.1.0**
-> Generated: 2026-06-03
+> Generated: 2026-06-04
 > Repository: https://github.com/markdavidgan/apple-dev-skills
 
-## Skills (41)
+## Skills (42)
 
 | Skill | Description | Invoke |
 |-------|-------------|--------|
@@ -16,6 +16,7 @@
 | apple-architecture-diagram | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. | `/arch-diagram [topic] — Create a self-contained HTML architecture diagram for the given topic or system.` |
 | apple-cleanup | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. | `/apple-cleanup [app] — EXHAUSTIVE cleanup: review → plan → fix ALL (P0-P2) → optimize → TestFlight alpha` |
 | apple-design | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |  |
+| apple-design-language | Apple-native design language for iOS, iPadOS, and macOS — the editorial layer above HIG plus the domains craft skills miss: UX writing, interaction/form/loading states, and empty/error states. Use when writing or reviewing user-facing copy, button/error/alert text, designing forms or input validation, loading/empty/error/permission-denied states, deciding when to follow or tastefully break HIG, or judging whether a screen feels Apple-quality versus templated AI slop. Routes to swiftui-micro-craft for quantified spacing/typography/motion and apple-design for tokens and Liquid Glass. |  |
 | apple-foundation-models | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |  |
 | apple-patterns-check | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". | `/apple-check [path] — Validate Apple patterns in modified files` |
 | apple-polish | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. | `/apple-polish [app] — Design & keynote review → select issues → fix → TestFlight` |
