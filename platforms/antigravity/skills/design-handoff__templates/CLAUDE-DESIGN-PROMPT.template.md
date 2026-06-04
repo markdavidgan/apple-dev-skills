@@ -1,7 +1,12 @@
 <!--
   Paste-in prompt for an external design reviewer (Claude Design, a human
-  designer, or any image-consuming tool). The `package` step fills the
-  {{placeholders}} from the manifest + STAMP; you complete the prose brief.
+  designer, or any image-consuming tool). `package` does NOT fill this file — it
+  writes STAMP.txt + manifest.json next to it. YOU fill every {{placeholder}}:
+    - from STAMP.txt:   {{GIT_SHA}}, {{CAPTURE_DATE}}, {{MISSING_NOTE}}
+    - from manifest.json: {{SHOT_TABLE}} (id -> caption), {{WISHLIST_AND_MISSING}}
+    - by hand:          {{APP_NAME}}, {{PLATFORM}}, {{VERSION}} (marketing+build),
+                        {{ONE_PARAGRAPH_PRODUCT_INTENT}}, {{DESIGN_LANGUAGE_BRIEF}},
+                        {{APP_SUBDIR}} — from the overlay's design-context brief.
 -->
 
 # Design review — {{APP_NAME}}

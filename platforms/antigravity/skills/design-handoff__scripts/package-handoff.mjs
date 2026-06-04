@@ -27,7 +27,11 @@ function gitOut(args, cwd) {
 }
 
 // Minimal, tolerant reader for our manifest's `shots:` list (id + caption only).
-// Not a general YAML parser — it understands exactly the shape shots.yaml uses.
+// Not a general YAML parser — it reads ONLY the `shots:` list, and from each
+// entry only `id` + `caption`. Collection starts at `shots:` and stops at the
+// first top-level key after it (e.g. `devices:`, `wishlist:`), so anything
+// outside the shots block is silently ignored by design. Captions are used
+// solely for manifest.json; the seed/nav fields are intentionally not parsed.
 function readShots(file) {
   if (!file || !fs.existsSync(file)) return [];
   const lines = fs.readFileSync(file, "utf8").split(/\r?\n/);

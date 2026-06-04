@@ -27,6 +27,8 @@ elif ! xcrun simctl list runtimes 2>/dev/null | grep -qiE "iOS|watchOS|visionOS"
 else
   ram_gb=$(( $(sysctl -n hw.memsize) / 1073741824 ))   # total installed RAM
   disk_gb=$(df -g . | awk 'NR==2 {print $4}')           # free space on cwd volume
+  # ${disk_gb:-0}: if df output can't be parsed, treat free disk as 0 -> fail
+  # conservative ("insufficient") rather than risk a false "capable".
   if [ "$ram_gb" -lt "$min_ram_gb" ] || [ "${disk_gb:-0}" -lt "$min_free_disk_gb" ]; then
     echo "insufficient"                  # below the RAM or free-disk floor
   else
