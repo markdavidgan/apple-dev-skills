@@ -4,6 +4,21 @@ All notable changes to the ios26-api-reference skill.
 
 ---
 
+## 2026-06-03 — NaturalLanguage intel
+
+### Added
+- `intel/community-naturallanguage.md` — `NLEmbedding` gotchas from production debugging:
+  - The sentence-vs-word out-of-vocabulary trap: `sentenceEmbedding.vector(for:)` returns a
+    non-`nil` but meaningless vector for non-model-language text (silent corruption), whereas
+    `wordEmbedding` returns `nil` and degrades gracefully. Remedy: `NLLanguageRecognizer`
+    dominant-language guard before embedding sentences.
+  - Use canonical bare language subtags (`"en"`), not region-qualified codes (`"en-US"`), or the
+    guard rejects every note.
+  - `NLEmbedding` Sendable/`nonisolated(unsafe)` note and cosine-normalization conventions.
+- SKILL.md framework table: added NaturalLanguage (NLEmbedding) → community intel row.
+
+---
+
 ## 2026-04-08 — v2.0: Knowledge Architecture Upgrade
 
 ### Changed

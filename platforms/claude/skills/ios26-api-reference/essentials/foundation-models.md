@@ -150,7 +150,59 @@ guard !session.isResponding else { return }
 let response = try await session.respond(to: prompt)
 ```
 
-### 7. Context Window Overflow Recovery
+### 7. Reusing Cached Sessions Safely (Actor Isolation)
+
+Creating a new `LanguageModelSession` for every call wastes context window and adds latency. Caching is correct, but sessions are **not thread-safe** and must be accessed from a single actor. Use an actor wrapper with `isResponding` guards:
+
+```swift
+private actor SessionActor {
+    private var session: LanguageModelSession?
+
+    var currentSession: LanguageModelSession {
+        if let existing = session { return existing }
+        let newSession = LanguageModelSession(instructions: "You are a helpful assistant.")
+        session = newSession
+        Task { try? await newSession.prewarm() }
+        return newSession
+    }
+
+    func recreateSession() -> LanguageModelSession {
+        session = nil
+        return currentSession
+    }
+}
+
+// Usage — always check isResponding before reusing a cached session
+func generate(prompt: String) async throws -> String {
+    let session = await actor.currentSession
+    guard !session.isResponding else { return "" }
+    let response = try await session.respond(to: prompt)
+    return response.content
+}
+```
+
+Tool-enabled sessions should be cached separately — tool state persists for the session lifetime:
+
+```swift
+private actor SessionActor {
+    private var toolSession: LanguageModelSession?
+
+    func toolSession(tools: [any Tool]) -> LanguageModelSession {
+        if let existing = toolSession { return existing }
+        let newSession = LanguageModelSession(tools: tools, instructions: { "Use tools." })
+        toolSession = newSession
+        Task { try? await newSession.prewarm() }
+        return newSession
+    }
+
+    func recreateToolSession(tools: [any Tool]) -> LanguageModelSession {
+        toolSession = nil
+        return toolSession(tools: tools)
+    }
+}
+```
+
+### 8. Context Window Overflow Recovery
 
 ```swift
 // WRONG -- retrying on same session after overflow
@@ -168,7 +220,7 @@ catch LanguageModelSession.GenerationError.exceededContextWindowSize {
 }
 ```
 
-### 8. Guardrail Violations: Do NOT Retry Same Prompt
+### 9. Guardrail Violations: Do NOT Retry Same Prompt
 
 ```swift
 // WRONG -- retrying the same prompt
@@ -182,7 +234,7 @@ catch LanguageModelSession.GenerationError.guardrailViolation {
 }
 ```
 
-### 9. De-duplicating tool calls: Count > 1, NOT > 0
+### 10. De-duplicating tool calls: Count > 1, NOT > 0
 
 There is no `ToolCallContext` type and no `call(arguments:context:)` overload. To detect repeat calls, inspect the session transcript — the current invocation is **already recorded** in it, so guard on `> 1`, not `> 0`.
 
@@ -210,6 +262,8 @@ if myCalls.count > 1 { return "duplicate" }
 - **Streaming structured output uses `PartiallyGenerated`:** All properties are optional. The final emission is NOT the full type -- you need non-streaming `respond()` for that.
 - **Model version coupling:** Custom LoRA adapters are tied to a single model version. OS updates require retraining.
 - **`@unknown default` is mandatory:** Apple may add new `GenerationError` cases or `UnavailabilityReason` values between betas.
+- **Siri language blocks model download:** Model assets may never download if the Siri language is set to a non-English locale, even on eligible hardware with Apple Intelligence enabled. Check `Locale.preferredLanguages` as a secondary guard if you observe silent `modelNotReady` failures.
+- **Swift 6 strict concurrency:** If you see Sendability warnings on `LanguageModelSession`, use `@preconcurrency import FoundationModels` to suppress framework-level concurrency gaps.
 - **Conditional compilation:** Use `#if canImport(FoundationModels)` for code that must compile on platforms without the framework (e.g., watchOS, older deployment targets).
 
 ---
@@ -351,21 +405,56 @@ class SuggestionGenerator {
 
 ## Conditional Compilation
 
+Production code needs **three layers** of gating working together:
+
 ```swift
 #if canImport(FoundationModels)
 import FoundationModels
 
+// Layer 1: Compile-time — the framework exists on this platform
 @available(iOS 26.0, *)
 func generateSuggestion() async throws -> String {
+    // Layer 2: Runtime — the model is downloaded and ready
     guard SystemLanguageModel.default.isAvailable else { return "" }
     let session = LanguageModelSession()
     let response = try await session.respond(to: "Suggest something")
     return response.content
 }
 #else
+// Layer 3: Fallback — the framework is absent (watchOS, older OS)
 func generateSuggestion() async throws -> String {
-    return ""  // Fallback for unsupported platforms
+    return ""
 }
+#endif
+```
+
+**When to use which gate:**
+
+| Gate | Use for | Example |
+|------|---------|---------|
+| `#if canImport(FoundationModels)` | Compile-time framework import | Wrap the entire `import` and all `FoundationModels` types |
+| `@available(iOS 26.0, *)` | API availability on types/methods | Mark `ViewModel` methods that call `LanguageModelSession` |
+| `SystemLanguageModel.default.isAvailable` | Runtime model readiness | Guard inside the method before creating a session |
+
+**Common mistake — runtime-only gate:**
+
+```swift
+// WRONG — will not compile on watchOS or older deployment targets
+func generate() async {
+    guard SystemLanguageModel.default.isAvailable else { return }
+    // LanguageModelSession does not exist at compile time here
+}
+
+// RIGHT — three-layer gate
+#if canImport(FoundationModels)
+@available(iOS 26.0, *)
+func generate() async {
+    guard SystemLanguageModel.default.isAvailable else { return }
+    let session = LanguageModelSession()
+    // ...
+}
+#else
+func generate() async { /* fallback */ }
 #endif
 ```
 
@@ -454,15 +543,18 @@ do {
 ## Quick Checklist
 
 - [ ] `#if canImport(FoundationModels)` for cross-platform compilation
+- [ ] `@available(iOS 26.0, *)` on types that use FoundationModels APIs
 - [ ] `SystemLanguageModel.default.isAvailable` before creating sessions
 - [ ] Handle all `UnavailabilityReason` cases + `@unknown default`
 - [ ] `session.isResponding == false` before calling `respond()`
+- [ ] Cached sessions accessed from a single actor with `isResponding` guards
 - [ ] Tool method is `call(arguments:)` -- never `invoke()`
 - [ ] `@Generable` on struct/enum only -- never class
 - [ ] Streaming partials accumulate (replace, don't append)
 - [ ] `@unknown default` on all `GenerationError` switches
 - [ ] `prewarm()` called early (`.task` modifier) for latency
 - [ ] Context window budget: instructions + prompts + responses <= 4,096 tokens
+- [ ] `@preconcurrency import FoundationModels` if Swift 6 Sendability warnings appear
 
 ---
 

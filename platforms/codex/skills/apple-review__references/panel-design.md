@@ -82,6 +82,7 @@ check for hardcoded font sizes vs Dynamic Type, verify contrast ratios.
 - Permissions denied? Is there a recovery flow?
 - Extremely long text input?
 - User interrupts a flow midway?
+- Copy, empty/error states, interaction states, and HIG-deviation judgment: evaluate against `apple-design-language` and call out any anti-slop tells by number (the hub lists them 1-14).
 
 ### Mechanical Audits (run these grep checks)
 - Count `accessibilityLabel` / `accessibilityHint` vs total interactive views

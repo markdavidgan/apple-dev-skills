@@ -621,6 +621,7 @@ NEXT STEPS
 | `apple-cleanup` | Engineering + Compliance | Review → fix ALL → TestFlight | Code hardening |
 | `apple-review` | All 4 panels | Review only (no fixes) | Full audit |
 | `apple-design` | SwiftUI design patterns | Reference only | While coding |
+| `apple-design-language` | Copy, interaction/empty/error states, HIG-deviation taste | Reference only | Writing UX copy, designing states, deciding when to break HIG |
 | `ios-accessibility` | VoiceOver + Dynamic Type | Reference only | Accessibility audit |
 
 ---

@@ -62,6 +62,7 @@ Most apps combine a **soft onboarding** paywall with **contextual** triggers. Do
 ## Visual & motion craft
 
 - Apply the app's design system (see `apple-design`, `swiftui-micro-craft`) — the paywall should feel premium, because it's selling premium.
+- Get the copy right (see `apple-design-language`): value-led headline, sentence-case benefits, precise CTA verb, and a designed error state for failed/restored purchases.
 - Respect Dynamic Type and VoiceOver: the price, trial terms, and CTA must be reachable and legible at large sizes (see `ios-accessibility`). Truncated legal text is both a UX and compliance failure.
 - Subtle motion on the value prop is fine; never animate the close affordance away.
 
