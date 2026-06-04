@@ -24,13 +24,13 @@ Each leaf is a distinct cause with a distinct fix. Never collapse them into a si
 
 The user has never added content. The collection is empty because nothing has happened yet, not because something went wrong.
 
-**What to show:** a centered layout with an SF Symbol or simple illustration, a brief title, and one primary action button. `ContentUnavailableView` is the modern SwiftUI API — use it; it handles layout, Dynamic Type, and dark mode automatically.
+**What to show:** a centered layout with an SF Symbol or simple illustration, a brief title, and one primary action button. `ContentUnavailableView` is the modern SwiftUI API — use it; it provides the standard centered layout and adapts to dark mode via system colors.
 
 **What to say:** explain the value in one line. Tell the user what this space is for, then invite them to fill it. "Your trips will appear here. Add your first flight." Not a marketing pitch — one sentence of orientation, one sentence of direction.
 
 **What to offer:** a single primary action that starts the creation flow. "Add Flight." No secondary distractions.
 
-The first-run state is also the right moment for pre-permission priming if the feature needs a system permission — explain the benefit once, before triggering the system prompt (see `ux-writing.md` section 6 on notifications and permission prompts).
+The first-run state is also the right moment for pre-permission priming if the feature needs a system permission — explain the benefit once, before triggering the system prompt (see the "Notifications and permission prompts" section of `ux-writing.md`).
 
 ---
 
@@ -50,7 +50,7 @@ The user has used the app before but has deleted or archived all items, or this 
 
 A search or filter has returned zero matches. The collection is not empty — the query just didn't find anything in it. This is a different cause and requires a different message.
 
-**What to show:** `ContentUnavailableView` with a search-specific icon (e.g., `magnifyingglass`). Do not reuse the same layout as the no-data state — users who see "No items" after a search can't tell whether the collection is empty or the query failed.
+**What to show:** `ContentUnavailableView` with a search-specific icon (e.g., `magnifyingglass`). Do not reuse the same layout as the no-data state — after a search, users can't tell whether the collection is empty or the query failed.
 
 **What to say:** confirm what they searched for, then suggest broadening. "No results for 'Paris'." Body: "Try a different keyword or adjust your filters."
 
@@ -80,7 +80,7 @@ The user has denied a system permission the feature depends on. This is not an e
 
 **What to say:** state the capability, not a guilt trip. "Location access is off. Enable it in Settings to see places near you." Not "You denied location — the app needs this to work."
 
-**What to offer:** an "Open Settings" button that launches `UIApplication.openSettingsURLString`. If a degraded-but-useful path exists, offer it too: "You can still search by city name." Pre-permission priming (see `ux-writing.md` section 6) reduces how often you reach this state — a well-primed user grants the permission before you need to recover from a denial.
+**What to offer:** an "Open Settings" button that launches `UIApplication.openSettingsURLString`. If a degraded-but-useful path exists, offer it too: "You can still search by city name." Pre-permission priming (see the "Notifications and permission prompts" section of `ux-writing.md`) reduces how often you reach this state — a well-primed user grants the permission before you need to recover from a denial.
 
 Never nag. Show this state once per session at most. If the user dismisses it without going to Settings, respect that decision until the next time they invoke the feature.
 
@@ -95,7 +95,7 @@ An operation failed: a network call returned an error, a write failed, a sync co
 - **Transient failure** (network timeout, 5xx, rate limit) — inline error state using `ContentUnavailableView`, with a Retry button. No `.alert` required.
 - **Data loss or destructive outcome** — use `.alert`. Non-modal banners or overlays can be dismissed, partially obscured, or missed; data-loss confirmation requires a blocking decision surface. This is anti-slop tell #11 (Overlay for the critical). The `.alert` must use the `.destructive` button role and name the real action verb.
 
-**What to say:** three-part error copy — what happened, why, how to fix it. Full structure is in `ux-writing.md` section 4. Example: "Couldn't upload the photo. The file may be too large — try a smaller photo or check your connection." Do not say "An error occurred." That is the text equivalent of anti-slop tell #13: a bare fact with no cause and no path forward.
+**What to say:** three-part error copy — what happened, why, how to fix it. Full structure is in the "Error messages" section of `ux-writing.md`. Example: "Couldn't upload the photo. The file may be too large — try a smaller photo or check your connection." Do not say "An error occurred." That is the text equivalent of anti-slop tell #13: a bare fact with no cause and no path forward.
 
 **What to offer:**
 
@@ -103,7 +103,7 @@ An operation failed: a network call returned an error, a write failed, a sync co
 - Preserve the user's input. If a form submission failed, the fields must still contain what the user typed — never reset on error.
 - For permanent or unrecoverable failures, say so plainly and tell the user what you'll do: "We couldn't recover this file. Your other notes are safe."
 
-Tie the choice of surface to the cause: recoverable → inline state with Retry; data loss → `.alert`. Never use a toast or floating banner for anything in the error/failure category that requires a user decision.
+Tie the choice of surface to the cause: recoverable → inline state with Retry; data loss → `.alert`. Never use a non-modal banner or overlay for anything in the error/failure category that requires a user decision.
 
 ---
 

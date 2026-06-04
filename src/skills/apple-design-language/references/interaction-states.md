@@ -28,7 +28,7 @@ Validate on submit for required-field and format errors. The user should not see
 
 Validate inline only for rules the user can fix while typing — for example, password strength rules — and only after the field has lost focus at least once (first blur). Never fire inline validation on every keystroke from an empty field; that produces a cascade of red text the moment the form renders.
 
-Show the error message adjacent to the field that triggered it, in sentence case, and say how to fix it: "Enter a valid email address, like name@example.com." not "Invalid input." For the full error-message structure (what happened + why + how to fix), see `ux-writing.md` section 4.
+Show the error message adjacent to the field that triggered it, in sentence case, and say how to fix it: "Enter a valid email address, like name@example.com." not "Invalid input." For the full error-message structure (what happened + why + how to fix), see the "Error messages" section of `ux-writing.md`.
 
 ---
 
