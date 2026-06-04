@@ -124,7 +124,10 @@ function syncOne(overlay, descriptor) {
   let existed = fs.existsSync(outFile);
   if (existed) {
     const existing = fs.readFileSync(outFile, "utf8");
-    const exEnd = existing.match(END_MARKER_RE);
+    // Match THIS engine's END marker, not any engine's — so a marker-like string
+    // a user pasted into the preserved tail can't truncate their own notes.
+    const esc = engine.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const exEnd = existing.match(new RegExp(`<!--\\s*END\\s+${esc}:managed\\s*-->`));
     const preservedTail = exEnd ? existing.slice(exEnd.index + exEnd[0].length) : renderedTail;
     finalContent = renderedManaged + preservedTail;
   } else {

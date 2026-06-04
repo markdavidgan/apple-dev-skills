@@ -141,6 +141,13 @@ function doZip() {
     console.error(`latest dir not found: ${latestDir}`);
     process.exit(1);
   }
+  // Refuse to ship an empty bundle: a wrong --zip path would otherwise produce a
+  // plausibly-named zero-image zip and hand it to a reviewer.
+  const pngs = fs.readdirSync(latestDir).filter((f) => /\.png$/i.test(f));
+  if (!pngs.length) {
+    console.error(`no PNGs in ${latestDir} — run \`package\` first (did you point --zip at the latest/ dir?)`);
+    process.exit(1);
+  }
   const repoRoot = gitOut(["rev-parse", "--show-toplevel"], latestDir) || process.cwd();
   const sha = gitOut(["rev-parse", "--short", "HEAD"], repoRoot) || "nogit";
   // App label = parent of the design-handoff dir (…/<app>/design-handoff/latest).
