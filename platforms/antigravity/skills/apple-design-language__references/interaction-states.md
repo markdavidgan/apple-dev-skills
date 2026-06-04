@@ -16,7 +16,7 @@ Disabled is not the same as hidden. Hide a control only when it is irrelevant in
 
 Group related fields using `Form` and `Section`. One logical idea per section; keep sections short rather than stacking twelve fields in one block.
 
-Use **persistent labels**, never placeholder-as-label (anti-slop #9: Placeholder-as-label — relying on `TextField` placeholder text instead of a persistent field label). When the placeholder is the only label, it disappears on first tap and the user loses context mid-entry. Put the label above or beside the field with a separate `Text`, or use a `LabeledContent` pattern.
+Use **persistent labels**, never placeholder-as-label (anti-slop tell #9: Placeholder-as-label — relying on `TextField` placeholder text instead of a persistent field label). When the placeholder is the only label, it disappears on first tap and the user loses context mid-entry. Put the label above or beside the field with a separate `Text`, or use a `LabeledContent` pattern.
 
 Match the keyboard to the content: `.keyboardType(.emailAddress)` for email, `.keyboardType(.decimalPad)` for prices and measurements, `.keyboardType(.numberPad)` for whole-number quantities or PINs, `.textContentType(.username)` and `.textContentType(.password)` for credential fields so the system can offer autofill. Field order should follow logical reading sequence — name before email, street before city before zip.
 
@@ -56,7 +56,7 @@ Choose the pattern by what you know about duration and layout:
 - **Skeleton / redacted placeholder** (`.redacted(reason: .placeholder)`) — use when you know the layout of the content and the wait is likely longer than roughly 1 second. Feeds, list rows, profile screens. Avoids layout shift when real content arrives because the placeholders already occupy the correct space.
 - **Spinner** (`ProgressView()`, indeterminate) — use only for short, unpredictable waits where you have no layout to skeleton. A spinner on a transient network call is fine; a spinner that owns the whole screen for an indeterminate period is not.
 
-Anti-slop #10: never use an indeterminate spinner where a skeleton or determinate progress fits, and never ship a loading surface with no empty and no error variant designed. Every loading surface needs all three reachable states: loading, loaded (or empty), and error. Design them together.
+Anti-slop tell #10: never use an indeterminate spinner where a skeleton or determinate progress fits, and never ship a loading surface with no empty and no error variant designed. Every loading surface needs all three reachable states: loading, loaded (or empty), and error. Design them together.
 
 Avoid layout shift when content arrives. If content will push other elements around on load, use a placeholder that reserves the space.
 
@@ -68,7 +68,7 @@ Confirm destructive actions with an `.alert` using a button in the `.destructive
 
 Where feasible, prefer an **undo affordance** over a confirmation-only prompt: it is less friction for users who intended the action and a safety net for those who did not. Archive with an undo banner (a non-destructive, non-blocking surface) beats a modal confirm-then-no-recovery pattern.
 
-Never use a non-modal banner or overlay for destructive confirmation (anti-slop #11: a non-modal banner or overlay where an `.alert` is required for data loss or destructive confirmation). Banners can be dismissed accidentally, partially obscured, or missed. Destructive confirmation requires a blocking decision surface.
+Never use a non-modal banner or overlay for destructive confirmation (anti-slop tell #11: a non-modal banner or overlay where an `.alert` is required for data loss or destructive confirmation). Banners can be dismissed accidentally, partially obscured, or missed. Destructive confirmation requires a blocking decision surface.
 
 ---
 
