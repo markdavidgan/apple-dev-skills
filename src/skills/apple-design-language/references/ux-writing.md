@@ -45,7 +45,7 @@ Explanatory label below it (sentence case): "This moves the file to the trash an
 Button: "Move To Trash" — wrong. "To" is a preposition, not capitalized in Title Case unless it's a verb.
 Label: "This Moves The File To The Trash." — wrong. Labels are sentence case.
 
-Correct Title Case: capitalize the first word, last word, all nouns, verbs, adjectives, adverbs. Do not capitalize articles (a, an, the), coordinating conjunctions (and, but, or), or prepositions (to, for, in, on, at, with) unless they open the title.
+Correct Title Case: capitalize the first word, last word, all nouns, pronouns, verbs, adjectives, and adverbs. Do not capitalize articles (a, an, the), coordinating conjunctions (and, but, or), or short prepositions (to, for, in, on, at, with) unless they open the title. Pronouns are capitalized, so "Got It" is correct.
 
 ---
 
@@ -62,7 +62,7 @@ The user cares what happens, not how the system achieves it.
 
 **OK is the default of last resort.** Use a specific verb whenever one fits. "Got It" is acceptable for dismissing informational alerts where no action is being taken. Never label a destructive confirmation button "OK" — the real verb (Delete, Remove, Discard) must appear.
 
-**One primary call-to-action per screen.** If two equal-weight buttons appear, one is probably wrong. The primary verb drives the screen's purpose; the secondary is Cancel or Done.
+**One primary call-to-action per screen.** If two equal-weight buttons appear, one is probably wrong. The primary verb drives the screen's purpose; the secondary is Cancel (discards) or Done (keeps changes already applied) — these are not interchangeable.
 
 | Do | Do not |
 |---|---|
@@ -167,7 +167,7 @@ Empty states are not missing UI — they are a designed state. Three things to c
 2. **Next action** — what can the user do? (Add an item, clear the filter, retry.)
 3. **Tone** — encouraging for no-content-yet; neutral and direct for error-driven empty.
 
-Never ship "No items." as a final empty state. It names a fact; it does not help the user.
+Never ship "No items" as a final empty state. It names a fact; it does not help the user.
 
 **Good example:**
 Title: "No Entries Yet"
@@ -175,9 +175,9 @@ Body: "Start by adding your first entry."
 Button: "Add Entry"
 
 **Bad example:**
-"No items."
+"No items"
 
-One sentence with no cause and no path forward. This is anti-slop tell #13 in the hub.
+A bare fact with no cause and no path forward. This is anti-slop tell #13 in the hub.
 
 **Filter-driven empty state:**
 Title: "No Results"
