@@ -24,6 +24,7 @@
 | complete-feature | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | cross-platform-adaptivity | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | design-contract | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| design-handoff | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | ios-accessibility | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-asc | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | ios-build | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -34,6 +35,7 @@
 | localization | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | merge-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | networking | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| overlay-sync | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | paywall-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | performance-instruments | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | preview-capture | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

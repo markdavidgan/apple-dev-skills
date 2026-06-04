@@ -1,0 +1,39 @@
+# design-handoff manifest — single source of truth for "which states matter for review".
+# Copy to <app screenshots dir>/shots.yaml and edit. One entry per shot.
+#
+# Each shot MUST map to a state the app can already reach deterministically
+# (an existing seeder case + the existing screenshot UITest target). Do NOT
+# invent launch flags or a parallel harness — reference what the app already has.
+
+scheme: AppName-Screenshots          # the EXISTING fastlane snapshot scheme
+seedMechanism: launchArgScenario     # documentation only: how this app stages state
+locale: en-US                        # subfolder fastlane writes PNGs into
+
+shots:
+  - id: "01_TimerIdle"               # MUST equal snapshot("<id>") in the UITest method
+    title: "Timer — idle"
+    caption: "Resting dial at 25:00; first-run hint visible."   # doubles as reviewer caption
+    scenario: "freshInstall"         # an EXISTING seeder enum case, not a new one
+    nav: []                          # accessibility-id taps after launch, in order
+
+  - id: "02_TimerRunning"
+    title: "Timer — running"
+    caption: "Active session, ~12 min elapsed, atmosphere in motion."
+    scenario: "midSession"
+    nav: []
+
+  - id: "03_QuickCapture"
+    title: "Capture — typing"
+    caption: "Thought-parking sheet open with sample text."
+    scenario: "multipleCaptures"
+    # nav supports plain ids (tap) and "type:<id>:<text>" (tap then type):
+    nav: ["captureButton", "type:captureTextField:Email the team"]
+
+devices: ["iPhone 17 Pro Max"]       # informational; the Snapfile owns the real device list
+
+# States worth reviewing but NOT yet reachable in the UITest target.
+# Listed so `package` reports them as missing rather than silently dropping them.
+# Add them by extending the existing seeder + UITest target, then promote to `shots`.
+wishlist:
+  - "Completion moment (session ends)"
+  - "Session detail view"

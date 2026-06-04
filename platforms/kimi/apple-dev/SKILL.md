@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 42 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 44 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -32,28 +32,30 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 | 18 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
 | 19 | cross-platform-adaptivity | Workflow | Adapt one SwiftUI codebase across iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro — size classes, adaptive navigation, multi-window/scenes, platform conditionals, and idiomatic per-platform behavior. Use when supporting iPad alongside iPhone, bringing an app to macOS or visionOS, fixing a layout that only works on one device, choosing adaptive navigation, or sharing code across platforms. Trigger on "iPad", "macOS", "Mac Catalyst", "visionOS", "watchOS", "tvOS", "size class", "adaptive layout", "multiplatform", "NavigationSplitView", or "responsive". |
 | 20 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
-| 21 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 22 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
-| 23 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 24 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
-| 25 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
-| 26 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
-| 27 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
-| 28 | localization | Workflow | Localize and internationalize an app with String Catalogs (.xcstrings), correct pluralization and grammar agreement, RTL layout, locale-aware formatting, and pseudolocalization testing. Use when adding languages, translating UI, fixing plurals or gendered strings, supporting right-to-left languages, formatting dates/numbers/currency per locale, or producing localized screenshots. Trigger on "localization", "internationalization", "i18n", "String Catalog", ".xcstrings", "translate", "RTL", "plural", or "locale". |
-| 29 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
-| 30 | networking | Workflow | Modern Swift networking with URLSession and async/await — typed requests, Codable decoding, HTTP status & error handling, retry with backoff, offline/connectivity handling, and a Sendable API client. Use when calling a REST/JSON API, building an API client/service layer, decoding responses, handling network errors or timeouts, adding retry logic, or detecting offline state. Trigger on "URLSession", "API client", "networking", "fetch data", "JSONDecoder", "retry", or "offline". |
-| 31 | paywall-design | Workflow | Design high-converting, App Review-compliant paywalls and subscription upsell screens — value framing, plan presentation, trial/intro-offer design, and required legal elements. Use when building or improving a paywall, subscription screen, upsell, or "go Pro" flow, choosing trial framing, or fixing low conversion or a 3.1.2 rejection. Trigger on "paywall", "subscription screen", "upsell", "go premium", "free trial design", or "purchase screen". Bridges app-store-pricing (economics) and storekit-purchases (code). |
-| 32 | performance-instruments | Workflow | Diagnose and fix iOS performance — launch time, main-thread hangs and scroll hitches, memory growth and leaks, and energy, using Instruments, os_signpost, and MetricKit field data. Use when the app is slow, janky, or battery-hungry, when investigating launch time, frame drops, retain cycles, or memory warnings, or when profiling with Instruments. Trigger on "slow", "laggy", "hang", "hitch", "memory leak", "Instruments", "Time Profiler", "launch time", "MetricKit", or "battery drain". |
-| 33 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
-| 34 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
-| 35 | product-spec | Workflow | Write a clear product spec / PRD for an app feature — problem, goals and non-goals, user stories, testable acceptance criteria, success metrics, scope, and open questions. Use when defining a feature before building, writing a PRD or spec, turning a vague idea into buildable requirements, or producing acceptance criteria. Trigger on "PRD", "product spec", "requirements", "acceptance criteria", "user stories", "scope this feature", or "write a spec". Feeds verify-against-spec. |
-| 36 | push-notifications | Workflow | Apple push notifications (APNs) and local notifications — authorization, device tokens, payload structure, rich/actionable notifications, notification service & content extensions, interruption levels, and Live Activity push. Use when implementing push, "remote notifications", APNs, "notification not showing", rich media notifications, notification actions, silent/background push, or pushing Live Activity updates. Trigger on "APNs", "UNUserNotificationCenter", "device token", "notification extension", or "silent push". |
-| 37 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
-| 38 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
-| 39 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
-| 40 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 41 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
-| 42 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 21 | design-handoff | Workflow | Produce a current, labeled screenshot package of a whole app experience for an external design reviewer (Claude Design, a human designer, or any image-consuming tool), reusing the project's existing screenshot UITest target and fastlane snapshot lane. Use when you need an up-to-date visual handoff of an iOS app's UI states, refresh a stale handoff after UI changes, or bundle screenshots plus design context for upload. Has an authoritative simulator-capability guard so it never tries to capture on a machine that may not run the simulator. |
+| 22 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 23 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
+| 24 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
+| 25 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
+| 26 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
+| 27 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
+| 28 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
+| 29 | localization | Workflow | Localize and internationalize an app with String Catalogs (.xcstrings), correct pluralization and grammar agreement, RTL layout, locale-aware formatting, and pseudolocalization testing. Use when adding languages, translating UI, fixing plurals or gendered strings, supporting right-to-left languages, formatting dates/numbers/currency per locale, or producing localized screenshots. Trigger on "localization", "internationalization", "i18n", "String Catalog", ".xcstrings", "translate", "RTL", "plural", or "locale". |
+| 30 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
+| 31 | networking | Workflow | Modern Swift networking with URLSession and async/await — typed requests, Codable decoding, HTTP status & error handling, retry with backoff, offline/connectivity handling, and a Sendable API client. Use when calling a REST/JSON API, building an API client/service layer, decoding responses, handling network errors or timeouts, adding retry logic, or detecting offline state. Trigger on "URLSession", "API client", "networking", "fetch data", "JSONDecoder", "retry", or "offline". |
+| 32 | overlay-sync | Workflow | Scaffold, sync, and update a project's per-project overlay skills from a single descriptor, idempotently. Use when you want to bind generic engine skills (like design-handoff) to a specific Apple project, refresh those overlays after the descriptor or an engine template changes, or check in CI that committed overlays are in sync. Runs in any Apple-development project and is safe to run any number of times. |
+| 33 | paywall-design | Workflow | Design high-converting, App Review-compliant paywalls and subscription upsell screens — value framing, plan presentation, trial/intro-offer design, and required legal elements. Use when building or improving a paywall, subscription screen, upsell, or "go Pro" flow, choosing trial framing, or fixing low conversion or a 3.1.2 rejection. Trigger on "paywall", "subscription screen", "upsell", "go premium", "free trial design", or "purchase screen". Bridges app-store-pricing (economics) and storekit-purchases (code). |
+| 34 | performance-instruments | Workflow | Diagnose and fix iOS performance — launch time, main-thread hangs and scroll hitches, memory growth and leaks, and energy, using Instruments, os_signpost, and MetricKit field data. Use when the app is slow, janky, or battery-hungry, when investigating launch time, frame drops, retain cycles, or memory warnings, or when profiling with Instruments. Trigger on "slow", "laggy", "hang", "hitch", "memory leak", "Instruments", "Time Profiler", "launch time", "MetricKit", or "battery drain". |
+| 35 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
+| 36 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
+| 37 | product-spec | Workflow | Write a clear product spec / PRD for an app feature — problem, goals and non-goals, user stories, testable acceptance criteria, success metrics, scope, and open questions. Use when defining a feature before building, writing a PRD or spec, turning a vague idea into buildable requirements, or producing acceptance criteria. Trigger on "PRD", "product spec", "requirements", "acceptance criteria", "user stories", "scope this feature", or "write a spec". Feeds verify-against-spec. |
+| 38 | push-notifications | Workflow | Apple push notifications (APNs) and local notifications — authorization, device tokens, payload structure, rich/actionable notifications, notification service & content extensions, interruption levels, and Live Activity push. Use when implementing push, "remote notifications", APNs, "notification not showing", rich media notifications, notification actions, silent/background push, or pushing Live Activity updates. Trigger on "APNs", "UNUserNotificationCenter", "device token", "notification extension", or "silent push". |
+| 39 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
+| 40 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
+| 41 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
+| 42 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
+| 43 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
+| 44 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -7634,6 +7636,278 @@ The contract is living until V1 ships, then it freezes and the mockup is archive
 
 ---
 
+<!-- BEGIN SKILL: design-handoff -->
+
+# design-handoff
+
+# Design Handoff
+
+> **Purpose:** Turn an app's real UI states into a current, captioned screenshot package that an external reviewer can consume — without inventing a parallel screenshot mechanism, and without ever capturing on a machine that may not run the simulator.
+> **Trigger:** You need to hand an app's UI to Claude Design / a designer / an image-consuming tool, and the committed screenshots are missing or stale.
+
+This skill is the generic **engine**. A project binds it through a thin overlay skill (generated by `overlay-sync`) that supplies the app list, schemes, paths, and a design-context brief. The engine never hard-codes a project.
+
+## Core principle: reuse, never duplicate
+
+Most iOS apps already have a screenshot path — a UITest target driven by `fastlane snapshot` (`capture_ios_screenshots`), a seeding mechanism for deterministic states, and stable accessibility identifiers. **This skill drives that existing path. It does not create a second harness, a second seeding system, or a `-STATE` enum.** If the app's deterministic states live in a seeder enum, the manifest references those enum cases by name. If a needed state is missing, you extend the existing seeder/UITest target — you do not start a parallel one. (See the "never keep multiple versions of a feature" rule that most Apple projects in this org enforce.)
+
+## Phases
+
+```
+/design-handoff <app> [phase] [--dest <dir>]
+```
+
+| Phase | Where it may run | Does |
+|-------|------------------|------|
+| `prepare` | any host (incl. capture-forbidden) | Reconcile the manifest against the app's screenshot UITest target — report/author the test methods that produce each manifest shot. No simulator. |
+| `capture` | **capture-capable host only** | Run the host guard, then the project's existing fastlane screenshot lane → raw PNGs. |
+| `package` | any host | Collect the raw PNGs into `latest/`, archive the previous set, write captions + design context + the reviewer prompt, stamp provenance. |
+| `bundle` | any host | Zip `latest/` and copy it to `--dest`. |
+| `all` | capture-capable host | `capture` then `package` (then `bundle` if `--dest` is given). |
+
+Default phase is `package` if raw screenshots already exist, otherwise the skill tells you to run `capture` on a capable host first.
+
+## Step 1 — Simulator-capability guard (REQUIRED before `capture`/`all`)
+
+You cannot reliably probe whether the simulator will destabilize *this* machine. An explicit opt-out therefore always wins over any hardware probe. Run the shipped guard, which echoes one of `forbidden | unavailable | insufficient | capable`:
+
+```bash
+bash "<skill-dir>/scripts/host-guard.sh"
+```
+
+| Result | Action |
+|--------|--------|
+| `forbidden` | A marker (`.claude/NO_SIMULATOR.md`, `$AETHER_NO_SIMULATOR`, `~/.config/no-simulator`) opts this machine out. **Stop. Never override.** Tell the user to run `capture` on a capture-capable Mac, then `package` anywhere. |
+| `unavailable` | Not macOS, no Xcode, or no installed runtime. Cannot capture here. |
+| `insufficient` | Below the RAM/disk floor. Warn; prefer a capable host. |
+| `capable` | Proceed to capture. |
+
+> The marker is authoritative. If unsure, treat as `forbidden`. This is the same ladder `preview-capture` uses — one convention across the toolkit.
+
+## Step 2 — The manifest (`<app screenshots dir>/shots.yaml`)
+
+Single source of truth for "which states matter for review." One entry per shot. The manifest **maps each shot to the app's existing deterministic state mechanism** — do not invent launch flags the app does not already read.
+
+```yaml
+# Captions double as the reviewer's per-image context.
+scheme: AppName-Screenshots          # the existing fastlane snapshot scheme
+seedMechanism: launchArgScenario      # how this app stages state (documentation only)
+shots:
+  - id: "01_TimerIdle"               # MUST equal the snapshot("<id>") name in the UITest
+    title: "Timer — idle"
+    caption: "Resting dial at 25:00; first-run hint visible."
+    scenario: "freshInstall"          # an existing seeder case, not a new one
+    nav: []                           # accessibility-id taps after launch, in order
+  - id: "03_QuickCapture"
+    title: "Capture — typing"
+    caption: "Thought-parking sheet open with sample text."
+    scenario: "multipleCaptures"
+    nav: ["captureButton", "type:captureTextField:Email the team"]
+devices: ["iPhone 17 Pro Max"]        # informational; the Snapfile owns the real device list
+# States worth adding later but not yet in the UITest target — never silently dropped:
+wishlist:
+  - "Completion moment"
+  - "Session detail / ThoughtVerse"
+```
+
+A template lives at `<skill-dir>/templates/shots.example.yaml`.
+
+## Step 3 — `prepare`: reconcile manifest ↔ UITest target
+
+1. Read `shots.yaml` and the app's existing screenshot UITest file (the one the `scheme` builds).
+2. For every shot whose `id` has no matching `snapshot("<id>")` call, author one test method following the file's established pattern (seed the `scenario`, launch, apply `nav`, wait on the relevant accessibility id, then `snapshot("<id>")`). Reuse the existing seeding helper (e.g. `TestDataSeeder`/`setupSnapshot`) — do not introduce a new one.
+3. Report a diff: shots **added**, **updated**, **already present**, and any manifest `id` you could not map (with why). `prepare` is idempotent — an unchanged manifest produces no edits.
+4. Commit the UITest changes. Never run the UITests here (capture happens in its own phase, on a capable host).
+
+If the app has **no** screenshot UITest target yet, say so and point the user at the project's UITest conventions; scaffold one only with explicit approval.
+
+## Step 4 — `capture` (capable host only)
+
+After the guard passes, run the project's existing lane (the overlay supplies the exact command), e.g.:
+
+```bash
+cd <app dir> && bundle exec fastlane ios_screenshots
+```
+
+Raw PNGs land wherever the project's Snapfile/lane writes them (commonly `fastlane/screenshots/<locale>/`). Do not reimplement capture; if the project also has a Watch lane and the manifest has Watch shots, run that too. **Never run plain UI tests as part of this** — capture is a render pass, not a test pass.
+
+## Step 5 — `package`
+
+Run the shipped packager, then write the prose:
+
+```bash
+node "<skill-dir>/scripts/package-handoff.mjs" \
+  --raw "<dir of captured PNGs>" \
+  --out "<app dir>/design-handoff" \
+  --scheme "<scheme>" \
+  --shots "<app screenshots dir>/shots.yaml"
+```
+
+The packager (deterministic file plumbing only):
+- Archives the current `design-handoff/latest/` into `design-handoff/archive/<date>-<sha>/` (gitignored history).
+- Copies the captured PNGs into `design-handoff/latest/`.
+- Writes `latest/STAMP.txt` — git SHA, marketing + build version (best-effort), capture date, scheme, image count — so a stale set can never again pass as current.
+- Emits `latest/manifest.json` (id → caption) for downstream tools.
+
+Then **you** write the prose into `latest/` (the packager does not fabricate these):
+- `manifest.md` — each image mapped to its caption.
+- `<app>-design-context.md` — a code-grounded brief (design tokens, per-screen intent). The overlay supplies the app's design language; ground every claim in the actual code, never invent palette/spacing.
+- `CLAUDE-DESIGN-PROMPT.md` — the paste-in reviewer prompt + the explicit upload list + "point the reviewer at the scoped `<app dir>/` subdirectory, not the whole monorepo." Start from `<skill-dir>/templates/CLAUDE-DESIGN-PROMPT.template.md`.
+
+**Honesty rule:** if some manifest shots were not captured (forbidden host, wishlist states), `package` lists them as missing rather than shipping a handoff that looks complete. Never claim visual parity you cannot see.
+
+## Step 6 — `bundle` (optional)
+
+```bash
+node "<skill-dir>/scripts/package-handoff.mjs" --zip "<app dir>/design-handoff/latest" --dest "<dir>"
+```
+
+Zips `latest/` to `<app>-handoff-<version>-<sha>.zip` and copies it to `--dest` (default `~/Desktop/<project>-handoffs/`). The zip is transient — gitignore it.
+
+## Output layout
+
+```
+<app dir>/design-handoff/
+  latest/                      # committed, canonical upload target
+    01_TimerIdle.png ...
+    manifest.json              # generated (id -> caption)
+    manifest.md                # authored
+    <app>-design-context.md    # authored, code-grounded
+    CLAUDE-DESIGN-PROMPT.md     # authored
+    STAMP.txt                  # generated provenance
+  archive/<date>-<sha>/        # gitignored history
+```
+
+Recommended `.gitignore`: `**/design-handoff/archive/` and `*-handoff-*.zip`.
+
+## Error handling
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Guard returns `capable` on a known-bad machine | Marker missing | Create `.claude/NO_SIMULATOR.md`; the marker is authoritative |
+| `capture` invoked on `forbidden` host | Wrong machine | Refuse; run `capture` on a capable Mac, `package` anywhere |
+| Manifest `id` not found in UITest | Test method missing | Run `prepare`; author the method against the existing pattern |
+| Missing PNG for a manifest `id` | Capture skipped/failed | `package` lists it as missing — do not hand-fill |
+| STAMP older than HEAD | `latest/` is stale | Re-run `capture`+`package` on a capable host |
+
+## Cross-references
+
+- Generated per-project overlay + descriptor sync: `overlay-sync`
+- Simulator-capability convention shared here: `preview-capture`
+- Device selection / simctl: `ios-simulate`
+- Why UI-test execution is gated: `ios-test`
+
+<!-- REFERENCE: design-handoff/templates/CLAUDE-DESIGN-PROMPT.template.md -->
+
+<!--
+  Paste-in prompt for an external design reviewer (Claude Design, a human
+  designer, or any image-consuming tool). The `package` step fills the
+  {{placeholders}} from the manifest + STAMP; you complete the prose brief.
+-->
+
+# Design review — {{APP_NAME}}
+
+You are reviewing the **current** UI of {{APP_NAME}} ({{PLATFORM}}). The goal is a
+critique + concrete improvement suggestions across the whole experience, screen
+by screen and as a system.
+
+## What this app is
+
+{{ONE_PARAGRAPH_PRODUCT_INTENT}}
+
+## Design language (ground truth — do not invent palette/spacing)
+
+{{DESIGN_LANGUAGE_BRIEF}}
+<!-- tokens, type ramp, color roles, motion principles, any hard constraints
+     (e.g. dark-mode-only). Pulled from the overlay's design-context brief and
+     grounded in the actual code. -->
+
+## The screens (attached, in order)
+
+{{SHOT_TABLE}}
+<!-- generated: each image id -> caption -->
+
+## How to read these
+
+- These are real renders from the build at commit `{{GIT_SHA}}` ({{VERSION}}), captured {{CAPTURE_DATE}}.
+- {{MISSING_NOTE}}  <!-- e.g. "All manifest states captured." or "N states not yet captured — see Not captured below." -->
+
+## What I want from you
+
+1. Per-screen critique: hierarchy, spacing, type, color, affordances, state clarity.
+2. System-level: consistency across screens, navigation, cohesion of the design language.
+3. Top 5 highest-leverage changes, ranked, each with the why.
+4. Anything that reads as off-brand against the design language above.
+
+## Scope
+
+Point your codebase context at the scoped **`{{APP_SUBDIR}}/`** subdirectory only,
+not the whole monorepo (large repos lag and dilute relevance).
+
+## Not captured (if any)
+
+{{WISHLIST_AND_MISSING}}
+<!-- honest list of states the reviewer is NOT seeing, so absence is never read
+     as "this state doesn't exist". -->
+
+<!-- REFERENCE: design-handoff/templates/overlay-template.md -->
+
+---
+name: {{overlayName}}
+description: {{overlayDescription}}
+---
+
+<!-- GENERATED by overlay-sync from .claude/apple-overlays.json. The region
+     between the BEGIN/END managed markers is regenerated on every sync — DO NOT
+     hand-edit it. Add project notes BELOW the END marker; those are preserved. -->
+
+# {{overlayTitle}}
+
+> Thin **project overlay** over the generic `design-handoff` engine. The engine
+> owns the pipeline (prepare → capture → package → bundle), the host guard, the
+> manifest schema, and the packager. This overlay only binds the engine to
+> **{{projectName}}** — apps, schemes, paths, and the design-context brief.
+>
+> Run the `design-handoff` skill; apply the bindings below.
+
+<!-- BEGIN design-handoff:managed — generated by overlay-sync, do not edit -->
+
+## Apps in this project
+
+{{appsTable}}
+
+## Per-app bindings
+
+{{appBindings}}
+
+## Capture command
+
+On a capture-capable host (the engine's host guard must return `capable`):
+
+```bash
+{{captureCommand}}
+```
+
+## Output home
+
+Each app's handoff lives at `{{handoffPathPattern}}`. The committed upload target
+is `latest/`; history is archived under `archive/` (gitignored).
+
+## Host policy
+
+{{hostPolicy}}
+
+<!-- END design-handoff:managed -->
+
+## Project notes (preserved across syncs)
+
+<!-- Add project-specific design-context guidance, gotchas, or links here.
+     overlay-sync never touches anything outside the managed markers. -->
+
+<!-- END SKILL: design-handoff -->
+
+---
+
 <!-- BEGIN SKILL: ios-accessibility -->
 
 # ios-accessibility
@@ -13208,6 +13482,118 @@ Honor a `Retry-After` header on 429/503 when present instead of your own backoff
 - **Testing:** inject a stub `URLProtocol` or a protocol-abstracted client so tests don't hit the network — see `swift-testing`.
 
 <!-- END SKILL: networking -->
+
+---
+
+<!-- BEGIN SKILL: overlay-sync -->
+
+# overlay-sync
+
+# Overlay Sync
+
+> **Purpose:** Keep a project's thin **overlay skills** (`.claude/skills/<prefix>-<engine>/SKILL.md`) generated from one declarative descriptor, so they never drift and never get hand-maintained. Idempotent — run it any time, in any Apple-dev project.
+> **Trigger:** You added an engine→project binding, changed the descriptor, an engine shipped a new overlay template, or you want a CI check that committed overlays match.
+
+## Why this exists
+
+The toolkit uses a **two-layer pattern**: a generic *engine* skill in `apple-dev-skills` (e.g. `design-handoff`, `swiftui-micro-craft`) plus a thin *overlay* in each project that binds it to that project's apps, schemes, and paths. Hand-writing and hand-updating those overlays is exactly the kind of duplicated, drift-prone work CLAUDE.md's "one source of truth" rules forbid. `overlay-sync` makes the overlay a **generated artifact** of one descriptor — one source, many consumers.
+
+## How it works
+
+```
+.claude/apple-overlays.json   →   node sync.mjs   →   .claude/skills/<prefix>-<engine>/SKILL.md
+   (you author this)              (this skill)         (generated; managed region only)
+```
+
+1. You author `.claude/apple-overlays.json` once — which engines to overlay, and the project bindings (apps, schemes, dirs, design language).
+2. `sync.mjs` finds each engine's shipped `overlay-template.md` (it lives beside this skill in the same plugin), fills `{{placeholders}}` from the descriptor, computes the apps table/bindings, and writes each overlay SKILL.md.
+3. It regenerates **only the managed region** (top of file through the `<!-- END <engine>:managed -->` marker). Anything you write *after* that marker (project notes, gotchas) is preserved across syncs.
+
+**Idempotent:** unchanged descriptor + unchanged template ⇒ byte-identical output, reported `unchanged`. Re-running is always safe.
+
+## Usage
+
+```bash
+# Generate/refresh all overlays declared in the descriptor:
+node "<skill-dir>/sync.mjs"
+
+# Custom descriptor path:
+node "<skill-dir>/sync.mjs" --descriptor path/to/apple-overlays.json
+
+# CI / pre-commit: no writes, exit 1 if any overlay is out of sync:
+node "<skill-dir>/sync.mjs" --check
+```
+
+Run from the **project root** (the script writes under `./.claude/skills/`). It needs Node 18+ and has zero external dependencies.
+
+## The descriptor — `.claude/apple-overlays.json`
+
+JSON (not YAML) so it parses with zero dependencies. Start from `<skill-dir>/templates/apple-overlays.example.json`.
+
+```json
+{
+  "project": "Aether",
+  "prefix": "aether",
+  "overlays": [
+    {
+      "engine": "design-handoff",
+      "vars": {
+        "captureCommand": "cd apps/<app> && bundle exec fastlane ios_screenshots",
+        "handoffPathPattern": "apps/{app}/design-handoff/",
+        "hostPolicy": "…",
+        "apps": [
+          { "name": "ember", "scheme": "AetherEmber-Screenshots", "dir": "apps/ember",
+            "screenshotsDir": "apps/ember/design-handoff",
+            "designLanguage": "Dark-mode-only; brass dial; sunset/amber arc; …" }
+        ]
+      }
+    }
+  ]
+}
+```
+
+| Field | Meaning |
+|-------|---------|
+| `project` | Human project name (used in titles/descriptions). |
+| `prefix` | Overlay name prefix → `.claude/skills/<prefix>-<engine>/`. |
+| `overlays[].engine` | Engine skill to overlay (must be installed in this plugin and ship `templates/overlay-template.md`). |
+| `overlays[].name` | Optional explicit overlay name; default `<prefix>-<engine>`. |
+| `overlays[].vars` | Values for the engine template's `{{placeholders}}`. `apps` is rendered into the table + bindings automatically. |
+
+Unspecified template vars fall back to sensible defaults, so a minimal descriptor still produces a valid overlay.
+
+## Adding a new overlay to a project
+
+1. Add an entry to `overlays[]` (engine + vars).
+2. Run `node "<skill-dir>/sync.mjs"`.
+3. Commit the descriptor **and** the generated `.claude/skills/<prefix>-<engine>/SKILL.md` together.
+
+## Authoring an engine so it can be overlaid
+
+Any engine skill becomes overlay-able by shipping `templates/overlay-template.md` with:
+- YAML frontmatter using `{{overlayName}}` / `{{overlayDescription}}`,
+- a managed block delimited by `<!-- BEGIN <engine>:managed … -->` … `<!-- END <engine>:managed -->`,
+- `{{placeholders}}` inside the managed block,
+- a free tail after the END marker for project notes (preserved across syncs).
+
+`design-handoff` is the reference implementation.
+
+## Error handling
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `descriptor not found` | No `.claude/apple-overlays.json` | Copy the example template and edit |
+| `engine template not found for "<x>"` | Engine not installed, or it ships no overlay template | Install the engine plugin / add `templates/overlay-template.md` to it |
+| `--check` exits 1 | Committed overlay drifted from descriptor/template | Run without `--check`, commit the result |
+| Unresolved `{{placeholder}}` warning | Template var not supplied and no default | Add it to the overlay's `vars` |
+| Hand edits to an overlay disappeared | They were inside the managed region | Move them below the `END … managed` marker |
+
+## Cross-references
+
+- Reference engine that ships an overlay template: `design-handoff`
+- The two-layer convention this generalizes: `swiftui-micro-craft` ↔ project micro-craft overlays
+
+<!-- END SKILL: overlay-sync -->
 
 ---
 

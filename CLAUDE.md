@@ -30,9 +30,9 @@ This is the standalone Apple development skill repository. It is **not** part of
 
 ```
 src/
-├── skills/          # 42 skill directories, each with SKILL.md
+├── skills/          # 44 skill directories, each with SKILL.md
 ├── agents/          # 7 agent definitions
-├── commands/        # 17 command definitions
+├── commands/        # 19 command definitions
 └── mcp/             # MCP servers (TypeScript)
     ├── asc/         # App Store Connect MCP server
     └── apple-docs/  # Apple developer docs MCP server

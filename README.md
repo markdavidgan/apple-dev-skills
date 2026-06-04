@@ -8,7 +8,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 
 ## What's Included
 
-### 42 Skills
+### 44 Skills
 
 > Expanding per the [roadmap](docs/roadmap.md). Skills are grouped by `category:` (design · engineering · product · asc · quality · workflow).
 
@@ -55,6 +55,8 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `design-contract` | Design | Turn a mockup into a machine-readable design contract + co-located preview/capture |
 | `preview-capture` | Design | Render named SwiftUI `#Preview`s to PNG at canonical device resolution |
 | `swiftui-micro-craft` | Design | Quantified rules + mechanical auditor for Apple-grade SwiftUI micro-craft |
+| `design-handoff` | Design | Current, labeled screenshot package for an external design reviewer, reusing the existing screenshot UITest + fastlane lane |
+| `overlay-sync` | Meta | Idempotently scaffold/sync a project's overlay skills from one `.claude/apple-overlays.json` descriptor |
 
 ### 7 Agents
 
@@ -68,7 +70,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `explore` | Fast | Fast codebase exploration and pattern search |
 | `ios-code-reviewer` | Standard | Changed-files-only review against iOS 26 crash patterns |
 
-### 17 Commands
+### 19 Commands
 
 | Command | Skill | Purpose |
 |---------|-------|---------|
@@ -89,6 +91,8 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `/regression-test` | `regression-test` | Failing test → fix → sibling pattern check |
 | `/setup-asc` | — | ASC MCP server authentication setup |
 | `/swift6-fix` | `swift6-concurrency` | Diagnose & fix Swift 6 concurrency errors |
+| `/design-handoff` | `design-handoff` | Build a current screenshot package for design review |
+| `/overlay-sync` | `overlay-sync` | Scaffold/sync project overlay skills from the descriptor |
 
 ### MCP Servers
 
