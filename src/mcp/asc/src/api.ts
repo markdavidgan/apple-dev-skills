@@ -76,17 +76,17 @@ export async function createWorkflow(options: {
   clean?: boolean;
   containerFilePath?: string;
   branchStartCondition?: {
-    source: { branchName: string; isAllMatch: boolean };
+    source: { isAllMatch: boolean; patterns: Array<{ pattern: string; isPrefix: boolean }> };
     filesAndFoldersRule?: { mode: string };
     autoCancel?: boolean;
   };
   tagStartCondition?: {
-    source: { tagName: string; isAllMatch: boolean };
+    source: { isAllMatch: boolean; patterns: Array<{ pattern: string; isPrefix: boolean }> };
     filesAndFoldersRule?: { mode: string };
     autoCancel?: boolean;
   };
   manualBranchStartCondition?: {
-    source: { branchName: string; isAllMatch: boolean };
+    source: { isAllMatch: boolean; patterns: Array<{ pattern: string; isPrefix: boolean }> };
   };
   actions: Array<{
     name: string;
@@ -95,6 +95,10 @@ export async function createWorkflow(options: {
     scheme: string;
     platform?: string; // IOS, MACOS, WATCHOS, TVOS
     isRequiredToPass?: boolean;
+    testConfiguration?: {
+      testPlanName?: string;
+      testDestinationName?: string;
+    } | null;
   }>;
   environment?: {
     variables?: Array<{
@@ -103,6 +107,8 @@ export async function createWorkflow(options: {
       isSecret?: boolean;
     }>;
   };
+  xcodeVersionId?: string;
+  macOsVersionId?: string;
 }) {
   const attributes: any = {
     name: options.name,
@@ -118,6 +124,7 @@ export async function createWorkflow(options: {
       scheme: a.scheme,
       platform: a.platform ?? "IOS",
       isRequiredToPass: a.isRequiredToPass ?? true,
+      testConfiguration: a.testConfiguration ?? null,
     })),
   };
 
@@ -134,20 +141,33 @@ export async function createWorkflow(options: {
     attributes.environment = options.environment;
   }
 
+  const relationships: any = {
+    product: {
+      data: { type: "ciProducts", id: options.productId },
+    },
+    repository: {
+      data: { type: "scmRepositories", id: options.repositoryId },
+    },
+  };
+
+  if (options.xcodeVersionId) {
+    relationships.xcodeVersion = {
+      data: { type: "ciXcodeVersions", id: options.xcodeVersionId },
+    };
+  }
+  if (options.macOsVersionId) {
+    relationships.macOsVersion = {
+      data: { type: "ciMacOsVersions", id: options.macOsVersionId },
+    };
+  }
+
   return ascFetch("/ciWorkflows", undefined, {
     method: "POST",
     body: {
       data: {
         type: "ciWorkflows",
         attributes,
-        relationships: {
-          product: {
-            data: { type: "ciProducts", id: options.productId },
-          },
-          repository: {
-            data: { type: "scmRepositories", id: options.repositoryId },
-          },
-        },
+        relationships,
       },
     },
   });
@@ -162,17 +182,17 @@ export async function updateWorkflow(
     isLockedForEditing?: boolean;
     clean?: boolean;
     branchStartCondition?: {
-      source: { branchName: string; isAllMatch: boolean };
+      source: { isAllMatch: boolean; patterns: Array<{ pattern: string; isPrefix: boolean }> };
       filesAndFoldersRule?: { mode: string };
       autoCancel?: boolean;
     } | null;
     tagStartCondition?: {
-      source: { tagName: string; isAllMatch: boolean };
+      source: { isAllMatch: boolean; patterns: Array<{ pattern: string; isPrefix: boolean }> };
       filesAndFoldersRule?: { mode: string };
       autoCancel?: boolean;
     } | null;
     manualBranchStartCondition?: {
-      source: { branchName: string; isAllMatch: boolean };
+      source: { isAllMatch: boolean; patterns: Array<{ pattern: string; isPrefix: boolean }> };
     } | null;
     actions?: Array<{
       name: string;
@@ -181,6 +201,10 @@ export async function updateWorkflow(
       scheme: string;
       platform?: string;
       isRequiredToPass?: boolean;
+      testConfiguration?: {
+        testPlanName?: string;
+        testDestinationName?: string;
+      } | null;
     }>;
   }
 ) {
@@ -200,6 +224,14 @@ export async function deleteWorkflow(workflowId: string) {
   return ascFetch(`/ciWorkflows/${workflowId}`, undefined, {
     method: "DELETE",
   });
+}
+
+export async function listXcodeVersions() {
+  return ascFetch("/ciXcodeVersions", { limit: "25" });
+}
+
+export async function listMacOsVersions() {
+  return ascFetch("/ciMacOsVersions", { limit: "25" });
 }
 
 // --- Build Runs ---

@@ -175,6 +175,38 @@ server.tool(
       .describe(
         "Path to the Xcode project/workspace relative to repo root (e.g. 'apps/ios/MyApp.xcodeproj')"
       ),
+    xcode_version_id: z
+      .string()
+      .optional()
+      .describe(
+        "Xcode version ID (from asc_list_xcode_versions). Defaults to 'Latest Release' if omitted."
+      ),
+    macos_version_id: z
+      .string()
+      .optional()
+      .describe(
+        "macOS version ID (from asc_list_macos_versions). Defaults to 'Latest Release' if omitted."
+      ),
+    test_plan_name: z
+      .string()
+      .optional()
+      .describe(
+        "Test plan name for TEST actions (e.g. 'MyApp-UITests.xctestplan'). Only applies when action_type is TEST."
+      ),
+    test_device: z
+      .string()
+      .optional()
+      .default("iPhone 17 Pro Max")
+      .describe(
+        "Test device for TEST actions (default: 'iPhone 17 Pro Max')"
+      ),
+    test_runtime: z
+      .string()
+      .optional()
+      .default("iOS 26.5")
+      .describe(
+        "Test runtime for TEST actions (default: 'iOS 26.5')"
+      ),
   },
   async ({
     product_id,
@@ -188,7 +220,54 @@ server.tool(
     branch_name,
     manual_branch,
     container_file_path,
+    xcode_version_id,
+    macos_version_id,
+    test_plan_name,
+    test_device,
+    test_runtime,
   }) => {
+    const action: any = {
+      name: `${action_type === "ARCHIVE" ? "Archive" : action_type === "BUILD" ? "Build" : action_type === "TEST" ? "Test" : "Analyze"} - iOS`,
+      actionType: action_type,
+      scheme,
+      platform: "IOS",
+      destination: "ANY_IOS_DEVICE",
+    };
+
+    if (action_type === "TEST") {
+      const deviceMap: Record<string, string> = {
+        "iPhone 17 Pro Max": "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro-Max",
+        "iPhone 17 Pro": "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro",
+        "iPhone 17": "com.apple.CoreSimulator.SimDeviceType.iPhone-17",
+        "iPhone SE (3rd generation)": "com.apple.CoreSimulator.SimDeviceType.iPhone-SE-3rd-generation",
+        "iPad Pro 13-inch (M4)": "com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M4-8GB",
+      };
+      const runtimeMap: Record<string, string> = {
+        "iOS 26.5": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "iOS 26.4": "com.apple.CoreSimulator.SimRuntime.iOS-26-4",
+        "iOS 26.3": "com.apple.CoreSimulator.SimRuntime.iOS-26-3",
+        "iOS 17.5": "com.apple.CoreSimulator.SimRuntime.iOS-17-5",
+        "iOS 16.4": "com.apple.CoreSimulator.SimRuntime.iOS-16-4",
+      };
+
+      const testConfig: any = {
+        testDestinations: [
+          {
+            deviceTypeName: test_device,
+            deviceTypeIdentifier: deviceMap[test_device] ?? test_device,
+            runtimeName: test_runtime,
+            runtimeIdentifier: runtimeMap[test_runtime] ?? test_runtime,
+          },
+        ],
+      };
+
+      if (test_plan_name) {
+        testConfig.testPlanName = test_plan_name;
+      }
+
+      action.testConfiguration = testConfig;
+    }
+
     const options: any = {
       productId: product_id,
       repositoryId: repository_id,
@@ -197,27 +276,26 @@ server.tool(
       isEnabled: is_enabled,
       clean,
       containerFilePath: container_file_path,
-      actions: [
-        {
-          name: `${action_type === "ARCHIVE" ? "Archive" : action_type === "BUILD" ? "Build" : action_type === "TEST" ? "Test" : "Analyze"} - iOS`,
-          actionType: action_type,
-          scheme,
-          platform: "IOS",
-          destination: "ANY_IOS_DEVICE",
-        },
-      ],
+      actions: [action],
     };
+
+    if (xcode_version_id) {
+      options.xcodeVersionId = xcode_version_id;
+    }
+    if (macos_version_id) {
+      options.macOsVersionId = macos_version_id;
+    }
 
     if (branch_name) {
       options.branchStartCondition = {
-        source: { branchName: branch_name, isAllMatch: false },
+        source: { isAllMatch: false, patterns: [{ pattern: branch_name, isPrefix: false }] },
         autoCancel: true,
       };
     }
 
     if (manual_branch) {
       options.manualBranchStartCondition = {
-        source: { branchName: manual_branch, isAllMatch: false },
+        source: { isAllMatch: false, patterns: [{ pattern: manual_branch, isPrefix: false }] },
       };
     }
 
@@ -297,7 +375,7 @@ server.tool(
       attrs.branchStartCondition = null;
     } else if (branch_name) {
       attrs.branchStartCondition = {
-        source: { branchName: branch_name, isAllMatch: false },
+        source: { isAllMatch: false, patterns: [{ pattern: branch_name, isPrefix: false }] },
         autoCancel: true,
       };
     }
@@ -306,7 +384,7 @@ server.tool(
       attrs.manualBranchStartCondition = null;
     } else if (manual_branch) {
       attrs.manualBranchStartCondition = {
-        source: { branchName: manual_branch, isAllMatch: false },
+        source: { isAllMatch: false, patterns: [{ pattern: manual_branch, isPrefix: false }] },
       };
     }
 
@@ -344,6 +422,52 @@ server.tool(
         {
           type: "text" as const,
           text: `✅ Deleted workflow ${workflow_id}`,
+        },
+      ],
+    };
+  }
+);
+
+// ─── List Xcode Versions ────────────────────────────────────────────
+
+server.tool(
+  "asc_list_xcode_versions",
+  "List available Xcode versions for Xcode Cloud workflows.",
+  {},
+  async () => {
+    const result = await api.listXcodeVersions();
+    const versions = (result.data ?? []).map((v: any) => ({
+      id: v.id,
+      name: v.attributes?.name,
+    }));
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: JSON.stringify(versions, null, 2),
+        },
+      ],
+    };
+  }
+);
+
+// ─── List macOS Versions ────────────────────────────────────────────
+
+server.tool(
+  "asc_list_macos_versions",
+  "List available macOS versions for Xcode Cloud workflows.",
+  {},
+  async () => {
+    const result = await api.listMacOsVersions();
+    const versions = (result.data ?? []).map((v: any) => ({
+      id: v.id,
+      name: v.attributes?.name,
+    }));
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: JSON.stringify(versions, null, 2),
         },
       ],
     };
