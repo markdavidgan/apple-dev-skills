@@ -92,7 +92,7 @@ Each phase is a coherent, shippable slice. Phases are ordered by leverage, not d
 
 ## Ongoing / Cross-cutting
 
-- **Category backfill** — ✅ done. All 41 skills carry a `category:` (`design · engineering · product · asc · quality · workflow · reference`).
+- **Category backfill** — ✅ done. All 44 skills carry a `category:` (`design · engineering · product · asc · quality · workflow · reference`).
 - **Skill-count automation** — ✅ done. `scripts/check-counts.js` derives counts from `src/` and fails CI if README/CLAUDE.md drift (added to `.github/workflows/build.yml`).
 - **Second plugin set** — *deferred.* Only if we expand beyond Apple (see Strategic Decisions).
 - **Per-skill references** — push long material into `references/*.md` to stay under the 5,000-word guide limit as skills grow.

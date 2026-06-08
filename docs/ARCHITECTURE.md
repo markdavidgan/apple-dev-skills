@@ -19,9 +19,9 @@ This document explains how `apple-dev-skills` is structured, why it is structure
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  src/                        Canonical source of truth      │
-│  ├── skills/*                41 skill directories           │
+│  ├── skills/*                44 skill directories           │
 │  ├── agents/*                7 agent definitions            │
-│  ├── commands/*              17 command definitions         │
+│  ├── commands/*              19 command definitions         │
 │  └── mcp/{asc,apple-docs}    TypeScript MCP servers         │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -135,7 +135,7 @@ platforms/kimi/apple-dev/
     └── api-lookup.sh
 ```
 
-**Why consolidation?** Kimi Code discovers **only one `SKILL.md` per plugin**. Nested skill directories are ignored. Therefore all 41 skills are concatenated into a single master `SKILL.md` with clear section boundaries and a skill index.
+**Why consolidation?** Kimi Code discovers **only one `SKILL.md` per plugin**. Nested skill directories are ignored. Therefore all 44 skills are concatenated into a single master `SKILL.md` with clear section boundaries and a skill index.
 
 **Tools:** Because Kimi lacks commands/agents, executable tools in `plugin.json` provide interactive capabilities:
 - `pattern-check` — Runs the mechanical validation script
