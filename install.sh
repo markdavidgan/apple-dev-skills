@@ -90,16 +90,20 @@ symlink_or_copy() {
     return
   fi
 
-  # Backup existing
-  if [[ -e "$dest" && ! -L "$dest" ]]; then
-    local backup="${dest}.backup.$(date +%s)"
-    log_warn "Backing up existing file to $backup"
-    mv "$dest" "$backup"
-  fi
+  # $dest is a path this installer fully owns (e.g. <base>/.claude/skills/apple-dev),
+  # so any existing content is always a prior symlink or generated copy — re-installing
+  # IS the refresh path, and a backup would just be noise. We therefore skip the backup
+  # and prune any legacy "${dest}.backup.<ts>" dirs left by older versions of this
+  # script, so they stop accumulating across reinstalls.
+  for legacy in "${dest}".backup.*; do
+    [[ -e "$legacy" ]] || continue
+    log_warn "Removing stale backup: $legacy"
+    rm -rf "$legacy"
+  done
 
-  # Remove existing symlink
-  if [[ -L "$dest" ]]; then
-    rm "$dest"
+  # Remove existing dest (symlink or generated copy) before (re)installing
+  if [[ -e "$dest" || -L "$dest" ]]; then
+    rm -rf "$dest"
   fi
 
   mkdir -p "$(dirname "$dest")"
