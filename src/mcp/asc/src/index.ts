@@ -11,6 +11,7 @@ import { register as registerScreenshots } from "./domains/screenshots.js";
 import { register as registerIAP } from "./domains/iap.js";
 import { register as registerMisc } from "./domains/misc.js";
 import { register as registerDiagnostics } from "./domains/diagnostics.js";
+import { register as registerFeedback } from "./domains/feedback.js";
 import { execSync, spawnSync } from "child_process";
 import * as fs from "fs";
 import * as os from "os";
@@ -2219,6 +2220,7 @@ registerScreenshots(server);
 registerIAP(server);
 registerMisc(server);
 registerDiagnostics(server);
+registerFeedback(server);
 
 // ─── Start Server ───────────────────────────────────────────────────
 
