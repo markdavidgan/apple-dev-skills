@@ -14,6 +14,27 @@ Handle Swift 6 concurrency issues. Swift 6 enforces strict data isolation by def
 
 ---
 
+## Core Philosophy
+
+### Start Single-Threaded, Profile Before Optimizing
+
+Concurrency is a complexity tax. Apps should begin with all code on the main thread and only introduce concurrency when profiling data proves it's necessary.
+
+- **Use Instruments first.** Run the Time Profiler to confirm that severe hangs are genuinely caused by main-thread blocking before converting code to run concurrently.
+- **Optimize without concurrency first.** If code can be made faster algorithmically (better data structures, reduced work, caching), pursue that route before adding `async/await` or background tasks.
+- **Latency vs. throughput.** Use `async/await` to hide latency (network, disk). Use `async let` or `TaskGroup` to exploit multiple CPU cores for parallel computation. Do not conflate the two.
+
+### When to Use Each Concurrency Tool
+
+| Goal | Tool | Example |
+|------|------|---------|
+| Hide I/O latency | `async/await` | Network request, file read |
+| Parallel CPU work | `async let`, `TaskGroup` | Image processing, data parsing |
+| Isolate shared mutable state | Custom `actor` | Cache, network connection manager |
+| Update UI safely | `@MainActor` | ViewModel, ObservableObject |
+
+---
+
 ## Common Error Patterns
 
 ### 1. `static property is not concurrency-safe`
@@ -331,3 +352,38 @@ When enabling `SWIFT_STRICT_CONCURRENCY: complete` on an existing codebase:
 2. Fix errors bottom-up (models → services → viewmodels → views)
 3. Remove any prophylactic `@preconcurrency` imports; keep only those the compiler specifically demands
 4. Test each change with a build before proceeding
+
+---
+
+## Audit Checklist
+
+Use this checklist when reviewing existing code for concurrency safety or during a Swift 6 migration.
+
+### Before Adding Concurrency
+- [ ] **Profiled with Instruments.** Confirmed the bottleneck is main-thread blocking, not algorithmic inefficiency.
+- [ ] **No single-threaded optimization possible.** Cache lookups, reduced copies, or better algorithms won't solve it.
+
+### Build Settings & Compiler
+- [ ] **Swift 6 language mode enabled.** `SWIFT_STRICT_CONCURRENCY: complete` (or `SWIFT_VERSION: 6.0`).
+- [ ] **Default isolation reviewed.** If using `SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor`, avoid explicit `@MainActor` on the same declarations (nested isolation causes deinit crashes).
+- [ ] **SPM targets configured.** Packages do not inherit Xcode build settings; set `defaultIsolation: MainActor.self` in `Package.swift` if needed (Swift tools 6.2+).
+
+### Main Actor Isolation
+- [ ] **No deinit accessing MainActor state.** All `@MainActor` classes use `nonisolated deinit` and store cleanup resources in `nonisolated(unsafe)` properties when necessary.
+- [ ] **Callbacks that update UI hop to MainActor.** Framework callbacks (AVCapture, audio taps, Obj-C delegates) use `Task { @MainActor [weak self] in }`, not `MainActor.assumeIsolated`.
+- [ ] **Task isolation is explicit.** `Task { }` created inside `nonisolated` functions does NOT inherit MainActor; mark `@MainActor` inside the closure if UI state is touched.
+
+### Shared Mutable State
+- [ ] **No data races flagged by compiler.** If a race exists, ask: does this state truly need to be shared?
+- [ ] **Reference types not arbitrarily marked Sendable.** Model classes remain on the main actor or are kept non-Sendable intentionally. Do not add `Sendable` conformance to mutable reference types without proper synchronization.
+- [ ] **Value types preferred.** Structs and enums with Sendable members are the safest way to pass data across concurrency boundaries.
+- [ ] **Custom actors used for subsystem state.** Network managers, caches, and connection pools that hold mutable state are isolated to dedicated actors, not the main actor.
+
+### Framework Interop
+- [ ] **`@preconcurrency import` used only on demand.** Do not add prophylactically to first-party frameworks (EventKit, HealthKit, AVFoundation, etc.). Only apply where the compiler specifically demands it on a single import.
+- [ ] **Non-Sendable framework types isolated.** Types like `EKReminder`, `NSManagedObject`, `VNRequest` are never passed between actors; access them within their isolation domain or extract scalars first.
+
+### Build Verification
+- [ ] **Archive build passes.** Debug builds (`-Onone`) may miss strict concurrency errors. Always validate with an archive build (`Product > Archive` or `xcodebuild archive`) before pushing.
+- [ ] **Thread Sanitizer clean.** Run the test suite with TSan enabled to catch runtime races the compiler missed.
+- [ ] **Real device tested.** Simulator can miss some timing-dependent races.
