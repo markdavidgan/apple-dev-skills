@@ -1,4 +1,16 @@
-# Apple Dev Skills — Agent Guide
+<!-- GENERATED FROM CLAUDE.md by scripts/build.js — DO NOT EDIT. Edit CLAUDE.md, then run: node scripts/build.js -->
+
+# Apple Dev Skills — Agent Guide (Gemini / Antigravity / Agy)
+
+> Cross-CLI copy of the project guide, generated verbatim from `CLAUDE.md`.
+> Read by Gemini CLI, Antigravity, and Agy.
+>
+> **Tool mapping:** Claude Code's `Skill` / `Agent` / `Read` / `Edit` / `Bash` tools
+> map to your CLI's equivalents (Gemini activates skills via `activate_skill`). Skills
+> are markdown files discovered from `.agents/skills/` or `~/.gemini/...`. Subdirectories
+> are flattened with `__` separators — see "Cross-Platform Constraints" below.
+
+---
 
 This is the standalone Apple development skill repository. It is **not** part of `aether-agent-plugins`.
 

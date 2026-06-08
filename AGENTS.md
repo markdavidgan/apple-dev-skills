@@ -1,4 +1,17 @@
-# Apple Dev Skills — Agent Guide
+<!-- GENERATED FROM CLAUDE.md by scripts/build.js — DO NOT EDIT. Edit CLAUDE.md, then run: node scripts/build.js -->
+
+# Apple Dev Skills — Agent Guide (Codex / Kimi / cross-CLI)
+
+> Cross-CLI copy of the project guide, generated verbatim from `CLAUDE.md`.
+> Read by Codex CLI, Kimi Code, and any agent following the AGENTS.md convention.
+>
+> **Tool mapping:** Claude Code's `Skill` / `Agent` / `Read` / `Edit` / `Bash` tools
+> map to your CLI's equivalents. Skills are markdown `SKILL.md` files discovered from
+> your CLI's skills directory (Codex: `.agents/skills/`; Kimi: `~/.kimi-code/skills/`).
+> See "Cross-Platform Constraints" below for per-CLI limits (e.g. no agents/commands
+> on Kimi / Codex).
+
+---
 
 This is the standalone Apple development skill repository. It is **not** part of `aether-agent-plugins`.
 

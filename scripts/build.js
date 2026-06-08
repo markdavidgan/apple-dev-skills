@@ -9,8 +9,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const SRC = path.join(__dirname, '..', 'src');
-const PLATFORMS = path.join(__dirname, '..', 'platforms');
+const ROOT = path.join(__dirname, '..');
+const SRC = path.join(ROOT, 'src');
+const PLATFORMS = path.join(ROOT, 'platforms');
 
 function getVersion() {
   const pkgPath = path.join(__dirname, '..', 'package.json');
@@ -372,6 +373,62 @@ function buildAgy() {
   console.log('[agy] Done.');
 }
 
+// Cross-CLI instruction files. CLAUDE.md is the single hand-edited source of
+// truth; AGENTS.md (Codex / Kimi / any AGENTS.md-aware CLI) and GEMINI.md
+// (Gemini CLI / Antigravity / Agy) are generated VERBATIM from it with only a
+// per-CLI banner prepended. This replaces the old practice of hand-copying (and
+// blind-find/replacing) CLAUDE.md, which silently corrupted AGENTS.md.
+function buildInstructionFiles() {
+  console.log('[instructions] Generating AGENTS.md + GEMINI.md from CLAUDE.md...');
+
+  const claudePath = path.join(ROOT, 'CLAUDE.md');
+  if (!fs.existsSync(claudePath)) {
+    console.warn('[instructions] CLAUDE.md not found — skipping.');
+    return;
+  }
+
+  let body = fs.readFileSync(claudePath, 'utf8');
+  // Drop the leading H1 title; each generated file supplies its own.
+  body = body.replace(/^#\s.*\n+/, '');
+
+  const stamp = '<!-- GENERATED FROM CLAUDE.md by scripts/build.js — DO NOT EDIT. ' +
+    'Edit CLAUDE.md, then run: node scripts/build.js -->';
+
+  const targets = [
+    {
+      file: 'AGENTS.md',
+      title: '# Apple Dev Skills — Agent Guide (Codex / Kimi / cross-CLI)',
+      note:
+        '> Cross-CLI copy of the project guide, generated verbatim from `CLAUDE.md`.\n' +
+        '> Read by Codex CLI, Kimi Code, and any agent following the AGENTS.md convention.\n' +
+        '>\n' +
+        "> **Tool mapping:** Claude Code's `Skill` / `Agent` / `Read` / `Edit` / `Bash` tools\n" +
+        '> map to your CLI\'s equivalents. Skills are markdown `SKILL.md` files discovered from\n' +
+        '> your CLI\'s skills directory (Codex: `.agents/skills/`; Kimi: `~/.kimi-code/skills/`).\n' +
+        '> See "Cross-Platform Constraints" below for per-CLI limits (e.g. no agents/commands\n' +
+        '> on Kimi / Codex).',
+    },
+    {
+      file: 'GEMINI.md',
+      title: '# Apple Dev Skills — Agent Guide (Gemini / Antigravity / Agy)',
+      note:
+        '> Cross-CLI copy of the project guide, generated verbatim from `CLAUDE.md`.\n' +
+        '> Read by Gemini CLI, Antigravity, and Agy.\n' +
+        '>\n' +
+        "> **Tool mapping:** Claude Code's `Skill` / `Agent` / `Read` / `Edit` / `Bash` tools\n" +
+        '> map to your CLI\'s equivalents (Gemini activates skills via `activate_skill`). Skills\n' +
+        '> are markdown files discovered from `.agents/skills/` or `~/.gemini/...`. Subdirectories\n' +
+        '> are flattened with `__` separators — see "Cross-Platform Constraints" below.',
+    },
+  ];
+
+  for (const t of targets) {
+    const content = `${stamp}\n\n${t.title}\n\n${t.note}\n\n---\n\n${body}`;
+    fs.writeFileSync(path.join(ROOT, t.file), content);
+    console.log(`[instructions] Wrote ${t.file}`);
+  }
+}
+
 function buildRootMarketplaces() {
   console.log('[marketplace] Building root manifests...');
 
@@ -480,6 +537,7 @@ function main() {
   buildAntigravity();
   buildCodex();
   buildAgy();
+  buildInstructionFiles();
   buildRootMarketplaces();
   writeCompatibilityMatrix();
 
