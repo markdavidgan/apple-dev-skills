@@ -640,6 +640,105 @@ let capture = CapturedThought(text: "Test", timestamp: Date().addingTimeInterval
 let capture = CapturedThought(text: "Test", timestamp: Date())
 ```
 
+#### watchOS: `tap()` Is Delivered, `press(forDuration:)` Is Not
+
+**Critical (watchOS simulator):** XCUITest synthesizes a coordinate `tap()` into a SwiftUI `.onTapGesture` on a *custom* element (e.g. a `ZStack` ring with `.accessibilityElement(children: .ignore)` + `.isButton`), but it does **not** synthesize `press(forDuration:)` into that element's `.onLongPressGesture`. The long-press simply never fires, so any assertion that depends on the post-long-press state hangs until it times out.
+
+```swift
+// Custom control: a morphing ring that is the only accessible element.
+// tap starts/resumes; long press pauses/stops.
+ZStack { /* … */ }
+    .onTapGesture { viewModel.primaryAction() }
+    .onLongPressGesture { viewModel.secondaryAction() }
+    .accessibilityElement(children: .ignore)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityLabel(ringLabel)
+
+// WORKS — coordinate tap reaches .onTapGesture
+func test_tapStarts() {
+    ring.tap()
+    XCTAssertTrue(waitForRingLabel(containing: "running"))  // ✓ passes
+}
+
+// DOES NOT WORK — press(forDuration:) is not delivered to .onLongPressGesture
+func test_longPressPauses() throws {
+    try XCTSkipIf(true, "watchOS XCUITest can't deliver a long press to a custom .onLongPressGesture; cover the pause/stop logic with ViewModel unit tests instead.")
+    ring.tap()
+    ring.press(forDuration: 0.6)
+    XCTAssertTrue(waitForRingLabel(containing: "paused"))  // ✗ never satisfied → times out
+}
+```
+
+- **`.accessibilityAction` does NOT change this.** `tap()` is a *coordinate* tap, not an accessibility activation, so adding `.accessibilityAction(.default)`/`.accessibilityAction(named:)` neither helps the tap (already works) nor enables the long press. Don't reach for it as a fix — it was a tested dead end.
+- **Skip, don't fight it.** Gate undrivable-gesture tests with `try XCTSkipIf(true, "<reason>")` (a *throwing call*, so the compiler won't flag the preserved body as unreachable — unlike a bare `throw XCTSkip(...)`), and move the behavior coverage to `@MainActor` ViewModel unit tests. The gesture still works for real users; only the simulator's event synthesis is the gap.
+- The same class of limitation covers `TabView(.verticalPage)` (a `swipeDown` after `swipeUp` reports "app not running") and the double-tap *hand* gesture (`handGestureShortcut(.primaryAction)` — no XCUITest affordance at all).
+
+#### watchOS: UI Tests Share an App Group — Reset It Under a Launch Arg
+
+**Critical:** watchOS UI tests in one suite share the App Group store. A session (or any persisted UI state) that test A starts is restored into test B's launch via your "restore from shared state" hook, so tests pass alone but fail in sequence (state bleed). Reset the shared stores in the launch-once restore hook, gated by a launch argument:
+
+```swift
+// Test
+override func setUp() async throws {
+    app = XCUIApplication()
+    app.launchArguments = ["--uitesting"]
+    app.launch()
+}
+
+// App (launch-once restore hook, guarded so it never clears a live mid-test session)
+func restoreFromSharedStateIfNeeded() {
+    guard !didAttemptRestore else { return }
+    didAttemptRestore = true
+    if CommandLine.arguments.contains("--uitesting") {
+        TimerStateStore.clear()
+        WatchSessionRestoreStore.clear()
+        return                       // start every test from a clean, independent state
+    }
+    // … normal restore …
+}
+```
+
+Reset only what causes bleed. A separate **SwiftData** captures store often is *not* cleared by this hook, so a screenshot test that seeds captures leaves rows visible to a later "empty idle" test — design that later assertion to tolerate the seeded rows rather than assuming a pristine store (see below).
+
+#### watchOS WatchConnectivity: Force Independent Start Under Test
+
+If a watch screen normally begins by negotiating with the paired iPhone over `WCSession`, that round-trip stalls in the simulator (no reachable counterpart), so even `tap()`-to-start appears broken. Bypass the negotiation entirely under test:
+
+```swift
+#if os(watchOS)
+if CommandLine.arguments.contains("--uitesting") {
+    role = .independent
+    onIndependent()            // start locally, never wait on the phone
+    return
+}
+if isCounterpartReachable { /* normal WCSession path */ }
+#endif
+```
+
+Separately, any one-shot `WCSession` request needs its completion gated so it fires *exactly once* and its timeout actually fires: store a sentinel keyed by `requestID` in a lock-guarded registry, and gate every completion path (success / error / timeout) on an atomic `retrieve()` (remove-and-return). Forgetting to store the sentinel means the timeout's `retrieve()` returns nil and the timeout never fires → a permanent hang on a reachable-but-silent counterpart.
+
+#### Screenshot Tests Need Assertions, Not Just `snapshot()`
+
+A fastlane screenshot test that calls `snapshot("paused")` right after `ring.press(forDuration:)` **proves nothing about the paused state** — `snapshot()` captures whatever is on screen, with no assertion that the long press actually landed. Such a test stays green even when the gesture is silently dropped (see the watchOS long-press gotcha), giving false confidence. If a screenshot is meant to document a *state*, assert the state was reached before capturing:
+
+```swift
+ring.tap()
+XCTAssertTrue(waitForRingLabel(containing: "running"))   // assert, then…
+snapshot("running")                                       // …capture
+```
+
+#### `NavigationLink` Counts as a Button — Avoid Exact Button Counts
+
+A SwiftUI `NavigationLink` is exposed to XCUITest as a `button`. Assertions like `XCTAssertEqual(app.buttons.count, 1)` are brittle: a "View all" history link, a leaked `.swipeActions` button (swipe actions outside a `List` don't function but still leak an *empty-label* button into the tree), or any conditional link inflate the count. Assert on intent — that no *labeled* control of the forbidden kind exists — and tolerate known-benign extras:
+
+```swift
+let labels = app.buttons.allElementsBoundByIndex.map(\.label)
+let unexpected = labels.filter {
+    !$0.hasPrefix("Ember timer") && $0 != "View all" && !$0.isEmpty  // ring, history link, empty swipe-action leak
+}
+XCTAssertTrue(unexpected.isEmpty, "unexpected buttons: \(unexpected)")
+```
+
 ### Waiting for State Changes
 
 ```swift
