@@ -739,6 +739,27 @@ let unexpected = labels.filter {
 XCTAssertTrue(unexpected.isEmpty, "unexpected buttons: \(unexpected)")
 ```
 
+#### watchOS Sim Launch Flake — Launch Once, Wait, Retry Once (Don't Pre-`terminate()`)
+
+The watchOS simulator on Xcode Cloud intermittently fails to (re)launch the app under test (`"Simulator device failed to launch …watchkitapp"`). A test suite that does `app.terminate(); app.launch()` in every `setUp` makes this *worse* — `launch()` already terminates a running instance, so the explicit `terminate()` just doubles the number of fragile relaunches (~2× tests/run). Replace it with a launch-then-confirm helper that retries exactly once:
+
+```swift
+extension XCUIApplication {
+    func launchForWatchUITest(timeout: TimeInterval = 30) {
+        launch()
+        if wait(for: .runningForeground, timeout: timeout) { return }
+        terminate(); launch()
+        _ = wait(for: .runningForeground, timeout: timeout)   // wait(for:) is available on watchOS (Xcode 16.3+)
+    }
+}
+```
+
+**Then give `setUp` headroom:** the retry can spend up to `2 × timeout` (~60s) before the app is foreground, which by itself trips a `executionTimeAllowance = 60`. Raise the allowance (≥120s) on any class using the retry, or the run fails with `"Test exceeded execution time allowance of 1 minute"` even though every test is logically green (0 failures, all SUCCESS/SKIPPED).
+
+#### CI That Uses a Committed `.xcodeproj` Won't See New Files Until You Regenerate
+
+If a project commits its `.xcodeproj` and the CI clone script does **not** run `xcodegen` (check `ci_scripts/ci_post_clone.sh`), a brand-new source file added to a target is invisible to CI — the build fails with `Value of type 'X' has no member 'Y'` for the new symbol. Regenerate (`xcodegen generate`), re-apply any committed post-gen patches, and commit the `project.pbxproj`; the diff should be only the new file-reference insertions (`PBXBuildFile`, `PBXFileReference`, group, Sources phase).
+
 ### Waiting for State Changes
 
 ```swift
