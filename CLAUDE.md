@@ -30,9 +30,9 @@ This is the standalone Apple development skill repository. It is **not** part of
 
 ```
 src/
-├── skills/          # 44 skill directories, each with SKILL.md
+├── skills/          # 57 skill directories, each with SKILL.md
 ├── agents/          # 7 agent definitions
-├── commands/        # 19 command definitions
+├── commands/        # 24 command definitions
 └── mcp/             # MCP servers (TypeScript)
     ├── asc/         # App Store Connect MCP server
     └── apple-docs/  # Apple developer docs MCP server
@@ -130,7 +130,7 @@ are **disposable runtime artifacts** and are gitignored — the only committed c
 
 ### Kimi Code (Most Constrained)
 
-- **Only one `SKILL.md` per plugin.** We concatenate all 44 skills into a master skill.
+- **Only one `SKILL.md` per plugin.** We concatenate all 57 skills into a master skill.
 - **No agents or commands.** Complex multi-agent workflows must include sequential fallback instructions.
 - **Tools provide interactivity.** `pattern-check` and `api-lookup` are declared in `plugin.json`.
 - **MCP is supported** (separate from the skill bundle) via `~/.kimi-code/mcp.json` (user-global) and `<cwd>/.kimi-code/mcp.json` (project-local) — same `{ "mcpServers": { … } }` shape as Claude. Both `asc` and `apple-docs` servers run in Kimi Code; configure with the built-in `/mcp-config` skill.

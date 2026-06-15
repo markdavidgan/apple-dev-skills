@@ -121,6 +121,40 @@ If the user asks to fix the issue:
 1. **Code errors:** Locate the file, read context, apply fix, verify with a local archive build
 2. **Signing errors:** Use `asc_add_capability` to fix portal mismatches, then push to trigger a new build
 
+## Post-Release Crash Monitoring
+
+A green CI build is not the end of the story. **Crashes after release are an ASO signal, not just an engineering problem** — they tank retention, drag the rating down (which feeds App Store ranking, see `asc-aso`), and trigger 1-star "it keeps crashing" reviews that `review-management` then has to absorb. Treat the crash rate as a release gate.
+
+Pull recent crashes for a live app with `asc_list_recent_crashes_for_app`, then triage and decide whether the rollout continues.
+
+### Crash-free targets
+
+| Metric | Target | Action if missed |
+|--------|--------|------------------|
+| **Crash-free sessions** | > 99.5% | Investigate before expanding rollout |
+| **Crash-free users** | > 99.0% | Below this, pause phased release |
+
+### Severity triage
+
+| Tier | Definition | Response |
+|------|-----------|----------|
+| **P0** | Launch crash, data loss, or affects >1% of sessions | Pause rollout, hotfix + expedited review (`app-rejection-recovery` covers expedited) |
+| **P1** | Core-flow crash on a common device/OS | Fix in the next build this cycle |
+| **P2** | Edge-case crash, low volume | Backlog, batch into a routine release |
+| **P3** | Rare, non-blocking, single-device | Monitor; fix opportunistically |
+
+Sort by **volume × severity**, not raw count — a crash hitting 0.8% of sessions on the latest iOS outranks a louder one on a deprecated device.
+
+### Phased release as blast-radius control
+
+Ship major versions with **phased release** (`asc_set_phased_release`) so a regression reaches 1% → 2% → 5% → … of users over 7 days instead of everyone at once. Watch the crash-free rate at each stage:
+
+- **Crash rate rises > 0.2% absolute vs. the prior version → pause the rollout** (keep the phased release paused; do not call `asc_release_version` to go 100%).
+- Clean for 24h at the current stage → let it continue.
+- Confirmed P0 in the wild → pause, fix, submit a new build; the bad version stops spreading.
+
+This converts "we shipped a crash to 100% of users" into "we caught it at 2%."
+
 ## Entitlements Reference
 
 When checking signing, read entitlements files and map to capability types:
@@ -151,6 +185,9 @@ When checking signing, read entitlements files and map to capability types:
 | `asc_download_artifact` | Download specific artifact content |
 | `asc_trigger_build` | Manually re-trigger a build without a new commit |
 | `asc_wait_for_build` | Block + poll until a build completes, returns issues inline |
+| `asc_list_recent_crashes_for_app` | Post-release crash reports for a live app (crash-rate gate) |
+| `asc_set_phased_release` | Enable/pause phased rollout (blast-radius control) |
+| `asc_release_version` | Push a version to 100% (only after the crash rate is clean) |
 
 ### Developer Portal / Signing Tools
 

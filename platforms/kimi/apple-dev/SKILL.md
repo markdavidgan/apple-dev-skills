@@ -5,7 +5,7 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 # Apple Dev Skills — Master Reference
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All 44 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
+> **Platform Note:** This is a consolidated skill for Kimi Code. All 57 apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
 > **Repository:** https://github.com/markdavidgan/apple-dev-skills
 
 ## Table of Contents
@@ -14,48 +14,61 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 |---|-------|--------|-------------|
 | 1 | app-analytics | Workflow | Decide what to measure and how — north-star metric, activation/retention/conversion funnels, a clean event taxonomy, App Store Connect App Analytics, StoreKit/subscription metrics, and privacy-respecting instrumentation. Use when defining product metrics, designing analytics events, measuring retention or conversion, choosing a north-star metric, or interpreting App Analytics. Trigger on "analytics", "metrics", "north star", "funnel", "retention", "activation", "conversion rate", "event tracking", or "what should we measure". |
 | 2 | app-brand-identity | Workflow | Create a complete brand identity system for Apple platform apps — wordmark, icon, design tokens, brand voice, and App Store marketing assets. Use when starting a new app, renaming/rebranding, designing a logo, choosing typography, building a design system, or preparing App Store screenshots and preview materials. |
-| 3 | app-intents | Workflow | App Intents, Shortcuts, Siri, Spotlight, interactive Widgets, Controls (Control Center / Action button), and Live Activities / Dynamic Island. Use when exposing app actions to Siri/Shortcuts/Spotlight, building an interactive or Lock Screen widget, adding a Control Center control, or showing a Live Activity / Dynamic Island. Trigger on "App Intent", "AppShortcut", "Siri", "Shortcuts", "interactive widget", "Control Widget", "Live Activity", "Dynamic Island", or "ActivityKit". |
-| 4 | app-security | Workflow | On-device app security — Keychain storage, Sign in with Apple, biometric auth (Face ID / Touch ID), CryptoKit encryption/hashing, App Attest / DeviceCheck, and certificate pinning. Use when storing tokens/secrets, adding Sign in with Apple, gating with Face ID/Touch ID, encrypting data, verifying device integrity to your server, or pinning TLS certificates. Trigger on "Keychain", "Sign in with Apple", "Face ID", "biometric", "CryptoKit", "App Attest", "encrypt", or "certificate pinning". |
-| 5 | app-store-pricing | Workflow | App Store pricing strategy, global equalization, subscription management, and regional pricing decisions using Apple's official 900-price-point system. Use when user asks about pricing tiers, IAP pricing, subscription pricing, regional pricing, price changes, App Store proceeds, base storefront selection, introductory offers, or promotional offers. |
-| 6 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
-| 7 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
-| 8 | apple-design | Quality | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
-| 9 | apple-design-language | Quality | Apple-native design language for iOS, iPadOS, and macOS — the editorial layer above HIG plus the domains craft skills miss: UX writing, interaction/form/loading states, and empty/error states. Use when writing or reviewing user-facing copy, button/error/alert text, designing forms or input validation, loading/empty/error/permission-denied states, deciding when to follow or tastefully break HIG, or judging whether a screen feels Apple-quality versus templated AI slop. Routes to swiftui-micro-craft for quantified spacing/typography/motion and apple-design for tokens and Liquid Glass. |
-| 10 | apple-foundation-models | Quality | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |
-| 11 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
-| 12 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
-| 13 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
-| 14 | asc-aso | ASC | App Store Optimization — keyword research, title/subtitle/keyword-field strategy, localized metadata, and conversion-rate optimization for App Store discoverability. Use when the user says "ASO", "app store optimization", "keywords", "improve discoverability", "rank higher", "optimize my listing", "app store keywords", "subtitle", "promotional text", or wants more organic installs. Complements asc-submission (mechanics) and app-store-pricing (economics). |
-| 15 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
-| 16 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
-| 17 | cloudkit-sync | Workflow | Sync SwiftData / Core Data across a user's devices with CloudKit, plus CKShare collaboration and conflict handling. Use when adding iCloud sync, "sync across devices", SwiftData + CloudKit, NSPersistentCloudKitContainer, sharing records between users, or debugging why data isn't syncing. Trigger on "CloudKit", "iCloud sync", "cloudKitDatabase", "CKShare", "sync not working", or "share data between users". |
-| 18 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
-| 19 | cross-platform-adaptivity | Workflow | Adapt one SwiftUI codebase across iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro — size classes, adaptive navigation, multi-window/scenes, platform conditionals, and idiomatic per-platform behavior. Use when supporting iPad alongside iPhone, bringing an app to macOS or visionOS, fixing a layout that only works on one device, choosing adaptive navigation, or sharing code across platforms. Trigger on "iPad", "macOS", "Mac Catalyst", "visionOS", "watchOS", "tvOS", "size class", "adaptive layout", "multiplatform", "NavigationSplitView", or "responsive". |
-| 20 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
-| 21 | design-handoff | Workflow | Produce a current, labeled screenshot package of a whole app experience for an external design reviewer (Claude Design, a human designer, or any image-consuming tool), reusing the project's existing screenshot UITest target and fastlane snapshot lane. Use when you need an up-to-date visual handoff of an iOS app's UI states, refresh a stale handoff after UI changes, or bundle screenshots plus design context for upload. Has an authoritative simulator-capability guard so it never tries to capture on a machine that may not run the simulator. |
-| 22 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
-| 23 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
-| 24 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
-| 25 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
-| 26 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
-| 27 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
-| 28 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
-| 29 | localization | Workflow | Localize and internationalize an app with String Catalogs (.xcstrings), correct pluralization and grammar agreement, RTL layout, locale-aware formatting, and pseudolocalization testing. Use when adding languages, translating UI, fixing plurals or gendered strings, supporting right-to-left languages, formatting dates/numbers/currency per locale, or producing localized screenshots. Trigger on "localization", "internationalization", "i18n", "String Catalog", ".xcstrings", "translate", "RTL", "plural", or "locale". |
-| 30 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
-| 31 | networking | Workflow | Modern Swift networking with URLSession and async/await — typed requests, Codable decoding, HTTP status & error handling, retry with backoff, offline/connectivity handling, and a Sendable API client. Use when calling a REST/JSON API, building an API client/service layer, decoding responses, handling network errors or timeouts, adding retry logic, or detecting offline state. Trigger on "URLSession", "API client", "networking", "fetch data", "JSONDecoder", "retry", or "offline". |
-| 32 | overlay-sync | Workflow | Scaffold, sync, and update a project's per-project overlay skills from a single descriptor, idempotently. Use when you want to bind generic engine skills (like design-handoff) to a specific Apple project, refresh those overlays after the descriptor or an engine template changes, or check in CI that committed overlays are in sync. Runs in any Apple-development project and is safe to run any number of times. |
-| 33 | paywall-design | Workflow | Design high-converting, App Review-compliant paywalls and subscription upsell screens — value framing, plan presentation, trial/intro-offer design, and required legal elements. Use when building or improving a paywall, subscription screen, upsell, or "go Pro" flow, choosing trial framing, or fixing low conversion or a 3.1.2 rejection. Trigger on "paywall", "subscription screen", "upsell", "go premium", "free trial design", or "purchase screen". Bridges app-store-pricing (economics) and storekit-purchases (code). |
-| 34 | performance-instruments | Workflow | Diagnose and fix iOS performance — launch time, main-thread hangs and scroll hitches, memory growth and leaks, and energy, using Instruments, os_signpost, and MetricKit field data. Use when the app is slow, janky, or battery-hungry, when investigating launch time, frame drops, retain cycles, or memory warnings, or when profiling with Instruments. Trigger on "slow", "laggy", "hang", "hitch", "memory leak", "Instruments", "Time Profiler", "launch time", "MetricKit", or "battery drain". |
-| 35 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
-| 36 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
-| 37 | product-spec | Workflow | Write a clear product spec / PRD for an app feature — problem, goals and non-goals, user stories, testable acceptance criteria, success metrics, scope, and open questions. Use when defining a feature before building, writing a PRD or spec, turning a vague idea into buildable requirements, or producing acceptance criteria. Trigger on "PRD", "product spec", "requirements", "acceptance criteria", "user stories", "scope this feature", or "write a spec". Feeds verify-against-spec. |
-| 38 | push-notifications | Workflow | Apple push notifications (APNs) and local notifications — authorization, device tokens, payload structure, rich/actionable notifications, notification service & content extensions, interruption levels, and Live Activity push. Use when implementing push, "remote notifications", APNs, "notification not showing", rich media notifications, notification actions, silent/background push, or pushing Live Activity updates. Trigger on "APNs", "UNUserNotificationCenter", "device token", "notification extension", or "silent push". |
-| 39 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
-| 40 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
-| 41 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
-| 42 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
-| 43 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
-| 44 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
+| 3 | app-icon-composer | Workflow | Produce Icon Composer-ready layered app icons for iOS/iPadOS/macOS/watchOS 26 (Liquid Glass .icon) — design the layer stack, generate art with the image MCPs you already have, and export a clean import bundle. Use when the user says "app icon", "Icon Composer", ".icon file", "Liquid Glass icon", "layered icon", "icon for App Store", "dark/tinted icon variant", or needs icon art produced and assembled. No third-party paid icon generator required. |
+| 4 | app-intents | Workflow | App Intents, Shortcuts, Siri, Spotlight, interactive Widgets, Controls (Control Center / Action button), and Live Activities / Dynamic Island. Use when exposing app actions to Siri/Shortcuts/Spotlight, building an interactive or Lock Screen widget, adding a Control Center control, or showing a Live Activity / Dynamic Island. Trigger on "App Intent", "AppShortcut", "Siri", "Shortcuts", "interactive widget", "Control Widget", "Live Activity", "Dynamic Island", or "ActivityKit". |
+| 5 | app-launch | Workflow | Pre-launch to post-launch playbook for shipping a new iOS/macOS app or major version. Use when user says "plan my app launch", "launch checklist", "prepare to ship", "TestFlight beta strategy", "Product Hunt launch", "phased release", "press outreach", "launch day checklist", "8-week launch plan", or wants a structured countdown from development to App Store live. |
+| 6 | app-marketing-context | Workflow | Gather and persist go-to-market context for an Apple app into app-marketing-context.md so every marketing skill reads it without re-asking questions. Use when starting ASO, launch planning, ad campaigns, or any growth work; when the user says "set up marketing context", "capture app context", "marketing brief", "GTM", "go-to-market", "positioning", or "before we do ASO". Distinct from product-spec (PRD/requirements) — this captures positioning, competitors, and KPIs that asc-aso, app-launch, apple-search-ads, app-store-pricing, app-brand-identity, and asc-submission all depend on. |
+| 7 | app-rejection-recovery | Workflow | Diagnoses App Store rejections, drafts Resolution Center responses, and plans the fix for resubmission. Use when the user says "my app was rejected", "Apple rejected my app", "App Review rejection", "guideline violation", "Resolution Center response", "guideline 2.1", "guideline 4.3", "guideline 5.1.1", "binary rejection", "metadata rejection", "appeal App Review", "App Review Board", or "expedited review request". For pre-submission health checks, see submission-preflight. For metadata copy, see asc-aso. |
+| 8 | app-security | Workflow | On-device app security — Keychain storage, Sign in with Apple, biometric auth (Face ID / Touch ID), CryptoKit encryption/hashing, App Attest / DeviceCheck, and certificate pinning. Use when storing tokens/secrets, adding Sign in with Apple, gating with Face ID/Touch ID, encrypting data, verifying device integrity to your server, or pinning TLS certificates. Trigger on "Keychain", "Sign in with Apple", "Face ID", "biometric", "CryptoKit", "App Attest", "encrypt", or "certificate pinning". |
+| 9 | app-store-featured | Workflow | Guides you through earning App Store editorial featuring — Today tab, App of the Day, category collections, and In-App Events. Use when preparing a featuring nomination, assessing featuring readiness, writing a pitch for Apple editors, planning an In-App Event for editorial consideration, or asking "how do I get featured on the App Store?" Covers the Apple tech checklist, nomination form timing, pitch writing, and a weighted readiness scorecard. |
+| 10 | app-store-pricing | Workflow | App Store pricing strategy, global equalization, subscription management, and regional pricing decisions using Apple's official 900-price-point system. Use when user asks about pricing tiers, IAP pricing, subscription pricing, regional pricing, price changes, App Store proceeds, base storefront selection, introductory offers, or promotional offers. |
+| 11 | apple-architecture-diagram | Quality | Create WWDC-Keynote-ready, self-contained HTML architecture diagrams for Apple platform apps (iOS, macOS, watchOS, tvOS, visionOS). Activates when users ask for app architecture, system design, data flow, module structure, or technical documentation for Apple apps. Produces ultra-beautiful, drill-down capable diagrams with Apple-native design language. |
+| 12 | apple-cleanup | Quality | Exhaustive engineering hardening of an iOS app. Reviews for Swift 6 compliance, crash risks, App Store rejection risks, and tech debt; builds a surgical plan; dispatches parallel subagents to fix all P0-P2 issues; then pushes an alpha to TestFlight. Use for pre-submission cleanup and code hardening, not design polish. |
+| 13 | apple-design | Quality | Apple platform design system, iOS 26 & macOS 26 Liquid Glass, design tokens, and accessibility-aware previews. Use when building or reviewing SwiftUI views, defining a theme or design tokens, applying Liquid Glass, organizing asset catalogs, or improving visual consistency. Trigger on "design system", "theme", "design tokens", "Liquid Glass", "glassEffect", "SwiftUI styling", or "make the UI consistent". |
+| 14 | apple-design-language | Quality | Apple-native design language for iOS, iPadOS, and macOS — the editorial layer above HIG plus the domains craft skills miss: UX writing, interaction/form/loading states, and empty/error states. Use when writing or reviewing user-facing copy, button/error/alert text, designing forms or input validation, loading/empty/error/permission-denied states, deciding when to follow or tastefully break HIG, or judging whether a screen feels Apple-quality versus templated AI slop. Routes to swiftui-micro-craft for quantified spacing/typography/motion and apple-design for tokens and Liquid Glass. |
+| 15 | apple-foundation-models | Quality | On-device AI with Apple's Foundation Models framework (import FoundationModels) in iOS 26 / Apple Intelligence — LanguageModelSession, guided generation with @Generable/@Guide, streaming, tool calling, and availability gating. Use when the user wants on-device LLM features, Apple Intelligence integration, "summarize/classify/extract on device", structured generation, "@Generable", or asks about the Foundation Models framework. For UI design of AI features see apple-design. |
+| 16 | apple-patterns-check | Quality | Validate iOS code against Apple's best practices. Run during /ship, before commits, or when reviewing code for Apple-specific compliance. Triggers on "check patterns", "apple check", "pre-commit check", or "validate swift code". |
+| 17 | apple-polish | Quality | Design and keynote-readiness craftsmanship review of an iOS app. Evaluates through Jony Ive (visual obsession) and Steve Jobs (demo readiness) perspectives, presents prioritized findings, then orchestrates parallel agents to fix selected issues and push a TestFlight build. Use for design polish, not engineering bugs. |
+| 18 | apple-review | Quality | Comprehensive Apple-grade review of an iOS app covering design (Apple design leader perspective), engineering (architecture and code quality), compliance (App Store rejection risks), and keynote readiness (product story and demo quality). Use when asked for a full app review, Apple-quality audit, design critique, HIG compliance check, App Store readiness assessment, or "would Apple approve this", "keynote ready", "WWDC ready". |
+| 19 | apple-router | Quality | Dispatcher that points a vague app request to the right Apple dev skill(s) and the order to run them. Use when the request is broad or you are unsure which skill applies — "help me grow my app", "get ready to ship", "improve my App Store presence", "my app isn't making money", "what should I do next", or any goal that spans discovery, conversion, lifecycle, submission, or launch. Routes; it does not do the work itself. |
+| 20 | apple-search-ads | Quality | Set up, optimize, and scale Apple Search Ads (ASA) campaigns — keyword bidding, match types, campaign structure, Custom Product Page routing, and ROAS optimization. Use when the user mentions "Apple Search Ads", "ASA", "Search Ads", "Search tab ads", "Today tab ads", "CPT", "TTR", "Search Match", "exact match", "broad match", "CPP in ads", "ASA bidding", "Search Ads budget", "keyword bids", or "App Store paid acquisition". For other paid channels (Meta, Google UAC, TikTok), see app-launch. |
+| 21 | asc-aso | ASC | App Store Optimization — keyword research, title/subtitle/keyword-field strategy, localized metadata, and conversion-rate optimization for App Store discoverability. Use when the user says "ASO", "app store optimization", "keywords", "improve discoverability", "rank higher", "optimize my listing", "app store keywords", "subtitle", "promotional text", or wants more organic installs. Complements asc-submission (mechanics) and app-store-pricing (economics). |
+| 22 | asc-build-check | ASC | Check the latest CI build status and debug failures using the App Store Connect MCP server. Use when user says "check build", "what broke", "CI status", "build failing", or asks about recent build failures. Also use for signing issues, provisioning profiles, bundle ID capabilities, or Developer Portal queries. |
+| 23 | asc-submission | ASC | Prepare an app for App Store submission or TestFlight distribution using the App Store Connect MCP server. Use when user says "prepare submission", "submit to app store", "prepare for review", "update metadata", "set what's new", "check submission readiness", "distribute to testflight", or wants to manage App Store Connect metadata, screenshots, or review submissions. |
+| 24 | cloudkit-sync | Workflow | Sync SwiftData / Core Data across a user's devices with CloudKit, plus CKShare collaboration and conflict handling. Use when adding iCloud sync, "sync across devices", SwiftData + CloudKit, NSPersistentCloudKitContainer, sharing records between users, or debugging why data isn't syncing. Trigger on "CloudKit", "iCloud sync", "cloudKitDatabase", "CKShare", "sync not working", or "share data between users". |
+| 25 | complete-feature | Workflow | Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation". |
+| 26 | cross-platform-adaptivity | Workflow | Adapt one SwiftUI codebase across iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro — size classes, adaptive navigation, multi-window/scenes, platform conditionals, and idiomatic per-platform behavior. Use when supporting iPad alongside iPhone, bringing an app to macOS or visionOS, fixing a layout that only works on one device, choosing adaptive navigation, or sharing code across platforms. Trigger on "iPad", "macOS", "Mac Catalyst", "visionOS", "watchOS", "tvOS", "size class", "adaptive layout", "multiplatform", "NavigationSplitView", or "responsive". |
+| 27 | design-contract | Workflow | Turn a visual mockup (HTML/PNG/Figma/spec) into a machine-readable design contract plus co-located mockup and #Preview/capture gates, so an executing agent cannot drift from the design. Use before writing or editing a plan that reproduces a mockup. |
+| 28 | design-handoff | Workflow | Produce a current, labeled screenshot package of a whole app experience for an external design reviewer (Claude Design, a human designer, or any image-consuming tool), reusing the project's existing screenshot UITest target and fastlane snapshot lane. Use when you need an up-to-date visual handoff of an iOS app's UI states, refresh a stale handoff after UI changes, or bundle screenshots plus design context for upload. Has an authoritative simulator-capability guard so it never tries to capture on a machine that may not run the simulator. |
+| 29 | ios-accessibility | iOS | Audit SwiftUI views for accessibility issues and apply fixes. Use whenever VoiceOver, Dynamic Type, accessibility labels, screen readers, or App Store accessibility is mentioned. Also trigger when asked to "make it accessible", improve UI quality broadly, or prepare for App Store review. |
+| 30 | ios-asc | iOS | App Store Connect MCP tools for code signing, provisioning profiles, bundle IDs, TestFlight builds, beta testers, and App Store metadata/release management. Use when signing an app, creating or repairing provisioning profiles, managing bundle ID capabilities, distributing to TestFlight, managing beta groups, editing App Store versions or localized metadata, or submitting for review. Trigger on "sign the app", "provisioning profile", "distribute to TestFlight", "add beta tester", "submit for review", or "update App Store metadata". |
+| 31 | ios-build | iOS | iOS build system patterns — the 4-layer validation pipeline (fast/full/export/upload), XcodeGen project config, archive-vs-debug concurrency checks, and common build-failure fixes. Use for build errors, validation before commit, signing/export problems, XcodeGen setup, or CI/CD configuration. Trigger on "build failing", "validate", "xcodebuild error", "XcodeGen", "archive build", or "set up CI". |
+| 32 | ios-simulate | iOS | iOS Simulator workflows via xcrun simctl — boot and shutdown devices, automate screenshots and video, install/uninstall apps, set appearance, and control device state. Use when running an app in the Simulator, capturing screenshots for the App Store or docs, or managing simulator devices. Trigger on "simulator", "simctl", "boot a device", "take a screenshot", "record video", "set dark mode", or "reset simulator". |
+| 33 | ios-standards | iOS | Swift 6.0+ standards — strict concurrency, @MainActor isolation, @Observable (not ObservableObject), and modern SwiftUI architecture for iOS 26+. Use when writing or reviewing Swift code, structuring ViewModels and services, or resolving concurrency and isolation design questions. Trigger on "Swift 6", "strict concurrency", "@MainActor", "@Observable", "SwiftUI architecture", or "code standards". |
+| 34 | ios-test | iOS | XCTest patterns for unit tests, UI tests, and SwiftData testing with in-memory containers under Swift 6 strict concurrency, plus test performance budgets. Use when writing or fixing tests, setting up test targets, testing SwiftData models, or planning CI test suites. Trigger on "write a test", "unit test", "XCTest", "test SwiftData", "UI test", "flaky test", or "test coverage". Note: never run UI tests without explicit approval. |
+| 35 | ios26-api-reference | iOS | Authoritative iOS/macOS/watchOS 26 API reference with 3-tier smart loading. Prevents crashes from hallucinated APIs. Trigger on ANY code involving FoundationModels, SpeechTranscriber, SpeechAnalyzer, @Generable, LanguageModelSession, glassEffect, SwiftData, @Observable, Live Activity, App Intents, Vision, VideoToolbox, Network.framework, AVAudioEngine, MenuBarExtra, NSPanel, WKHapticType, or WCSession. Also trigger on Swift 6 concurrency errors, Sendable warnings, or @MainActor isolation issues. |
+| 36 | localization | Workflow | Localize and internationalize an app with String Catalogs (.xcstrings), correct pluralization and grammar agreement, RTL layout, locale-aware formatting, and pseudolocalization testing. Use when adding languages, translating UI, fixing plurals or gendered strings, supporting right-to-left languages, formatting dates/numbers/currency per locale, or producing localized screenshots. Trigger on "localization", "internationalization", "i18n", "String Catalog", ".xcstrings", "translate", "RTL", "plural", or "locale". |
+| 37 | merge-check | Workflow | Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration. |
+| 38 | networking | Workflow | Modern Swift networking with URLSession and async/await — typed requests, Codable decoding, HTTP status & error handling, retry with backoff, offline/connectivity handling, and a Sendable API client. Use when calling a REST/JSON API, building an API client/service layer, decoding responses, handling network errors or timeouts, adding retry logic, or detecting offline state. Trigger on "URLSession", "API client", "networking", "fetch data", "JSONDecoder", "retry", or "offline". |
+| 39 | onboarding-optimization | Workflow | Audit and redesign first-run flows to drive activation with minimum friction. Use when a user says "too many users drop off before they do anything useful", "our Day-1 retention is bad", "we need to improve onboarding", "users aren't reaching the aha moment", "when should we ask for permissions", "can we defer sign-up", "our activation rate is low", or "audit our first-run experience". Covers tap-count audits, permission-prompt strategy, sign-up friction reduction, and measurement. |
+| 40 | overlay-sync | Workflow | Scaffold, sync, and update a project's per-project overlay skills from a single descriptor, idempotently. Use when you want to bind generic engine skills (like design-handoff) to a specific Apple project, refresh those overlays after the descriptor or an engine template changes, or check in CI that committed overlays are in sync. Runs in any Apple-development project and is safe to run any number of times. |
+| 41 | paywall-design | Workflow | Design high-converting, App Review-compliant paywalls and subscription upsell screens — value framing, plan presentation, trial/intro-offer design, and required legal elements. Use when building or improving a paywall, subscription screen, upsell, or "go Pro" flow, choosing trial framing, or fixing low conversion or a 3.1.2 rejection. Trigger on "paywall", "subscription screen", "upsell", "go premium", "free trial design", or "purchase screen". Bridges app-store-pricing (economics) and storekit-purchases (code). |
+| 42 | performance-instruments | Workflow | Diagnose and fix iOS performance — launch time, main-thread hangs and scroll hitches, memory growth and leaks, and energy, using Instruments, os_signpost, and MetricKit field data. Use when the app is slow, janky, or battery-hungry, when investigating launch time, frame drops, retain cycles, or memory warnings, or when profiling with Instruments. Trigger on "slow", "laggy", "hang", "hitch", "memory leak", "Instruments", "Time Profiler", "launch time", "MetricKit", or "battery drain". |
+| 43 | preview-capture | Workflow | Render named SwiftUI #Previews to PNG at canonical device resolution for design-contract verification, with an automatic simulator-capability check and a documented fallback for machines that cannot or must not run the simulator. Use to produce capture proof for a design contract's §9 frames. |
+| 44 | privacy-manifest | Workflow | Apple privacy manifests (PrivacyInfo.xcprivacy) and required-reason APIs — declare data collection, tracking domains, and approved reason codes to avoid App Store rejection. Use when the user mentions "privacy manifest", "PrivacyInfo.xcprivacy", "required reason API", "ITMS-91053", "ITMS-91061", "privacy nutrition label", "App Store privacy rejection", or adds an SDK/framework. Run before submission alongside asc-submission. |
+| 45 | product-spec | Workflow | Write a clear product spec / PRD for an app feature — problem, goals and non-goals, user stories, testable acceptance criteria, success metrics, scope, and open questions. Use when defining a feature before building, writing a PRD or spec, turning a vague idea into buildable requirements, or producing acceptance criteria. Trigger on "PRD", "product spec", "requirements", "acceptance criteria", "user stories", "scope this feature", or "write a spec". Feeds verify-against-spec. |
+| 46 | push-notifications | Workflow | Apple push notifications (APNs) and local notifications — authorization, device tokens, payload structure, rich/actionable notifications, notification service & content extensions, interruption levels, and Live Activity push. Use when implementing push, "remote notifications", APNs, "notification not showing", rich media notifications, notification actions, silent/background push, or pushing Live Activity updates. Trigger on "APNs", "UNUserNotificationCenter", "device token", "notification extension", or "silent push". |
+| 47 | rating-prompt-strategy | Workflow | Design and implement an ethical App Store rating prompt strategy that maximizes review volume and average rating. Use when you need to add rating prompts to an app, decide when to ask for reviews, debug why prompts are not appearing, recover a rating after a bad version, or plan a full-year review budget. Trigger phrases: "ask for ratings", "SKStoreReviewRequest", "requestReview", "improve App Store rating", "rating prompt timing", "review prompt strategy", "boost ratings", "increase reviews". |
+| 48 | regression-test | Workflow | Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence. |
+| 49 | retention-optimization | Workflow | Diagnose and fix user retention by reading cohort curves, pinpointing churn leaks, and deploying Apple-native re-engagement levers. Use when D1/D7/D30 retention is low or dropping, when users activate but do not form habits, when deciding on a notification sequence, when adding widgets or Live Activities to drive return visits, or when diagnosing the step where users churn. Trigger on "retention", "users are dropping off", "D7 curve", "cohort", "re-engagement", "hab it loop", "bring users back", or "churn diagnosis". |
+| 50 | review-management | Workflow | Pull, cluster, triage, and respond to App Store reviews via the App Store Connect MCP. Use when you need to fetch recent reviews, analyze sentiment, draft developer responses, track recurring themes as product signals, or close the loop on a rating recovery campaign. Trigger phrases: "triage reviews", "respond to reviews", "what are users complaining about", "review sentiment", "draft a review response", "App Store feedback", "bad reviews", "one-star reviews", "review themes". |
+| 51 | storekit-purchases | Workflow | StoreKit 2 in-app purchases and subscriptions in Swift — Product fetch, purchase flow, transaction verification, entitlement checks, Transaction.updates listener, restore, and SwiftUI StoreKit views. Use when implementing or debugging IAP, subscriptions, paywalls, "buy" buttons, free trials, restore purchases, receipt/transaction validation, or StoreKit testing. Pairs with app-store-pricing (strategy) and asc-aso (conversion). |
+| 52 | submission-preflight | Workflow | Pre-submission risk audit for App Store review — catch the rejection triggers (metadata, privacy, IAP, design, account, legal) BEFORE you submit, by app type. Use when the user says "preflight", "will this get rejected", "check before submitting", "review readiness", "submission checklist", "App Review guidelines", "is my app compliant", or is about to submit a build. Run after asc-build-check, before asc-submission hits submit. |
+| 53 | subscription-lifecycle | Workflow | Manage the full post-purchase subscriber journey from trial through renewal, voluntary churn, involuntary churn, and win-back. Use when diagnosing churn spikes, designing retention save flows, recovering billing failures, interpreting App Store Server Notifications, debugging grace period behaviour, building win-back offer campaigns, or auditing subscriber LTV. Also use when asked about dunning, billing retry, DID_FAIL_TO_RENEW, offer codes, or subscription metrics from ASC reports. |
+| 54 | swift-testing | Workflow | The Swift Testing framework (import Testing) — @Test functions, #expect/#require macros, @Suite, parameterized tests, traits/tags, async and throwing tests, and migrating from XCTest. Use when writing new tests in Swift 6 / Xcode 16+, when the user mentions "Swift Testing", "@Test", "#expect", "parameterized test", "test traits", or "migrate from XCTest". For XCTest harness/CI and SwiftData test setup see ios-test. |
+| 55 | swift6-concurrency | Workflow | Handle Swift 6 concurrency patterns. Use when encountering Sendable warnings, data race errors, MainActor isolation issues, or framework interop problems (EventKit, Speech, AVFoundation, etc.). Trigger on "Swift 6 error", "Sendable", "data race", "MainActor", "concurrency warning", or "strict concurrency". |
+| 56 | swiftui-micro-craft | Workflow | Quantified rules and a mechanical auditor for Apple-grade SwiftUI micro-craft — the spacing, alignment, optical centering, padding, corner-radius concentricity, SF Symbol pairing, depth, hairlines, Dynamic Type, motion, gestures, and haptics details that separate shipped Apple quality from AI-slop UI. Use when writing or reviewing any SwiftUI view, when spacing or padding or alignment feels off, when about to hardcode a size or duration, or before committing UI code. |
+| 57 | verify-against-spec | Workflow | Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification. |
 
 ---
 
@@ -509,6 +522,132 @@ A complete brand identity handoff includes:
 
 ---
 
+<!-- BEGIN SKILL: app-icon-composer -->
+
+# app-icon-composer
+
+# App Icon Composer
+
+**Design and assemble a Liquid Glass app icon Apple's Icon Composer can ingest directly — no SnapAI, no paid icon SaaS.** The *brand* decision (silhouette, signature color, what the icon means) lives in `app-brand-identity`; the *App Store listing* use lives in `asc-aso`. This skill is the production pipeline: concept → layer stack → generated art → an Icon Composer-ready bundle, built on the image MCPs already wired into this environment.
+
+> **Icon Composer is layer-first, not pixel-first.** Since iOS/iPadOS/macOS/watchOS 26, the system renders one source icon into light, dark, clear, and tinted appearances and applies Liquid Glass material, blur, specular highlights, and shadow *for* you. Your job is to hand it cleanly separated layers, not a baked 1024 PNG. A flattened raster fights the renderer and looks dead next to native icons.
+
+---
+
+## When to use vs. when not to
+
+| Use this skill | Use instead |
+|----------------|-------------|
+| Turning an approved concept into Icon Composer layers | `app-brand-identity` — to pick the concept, silhouette, signature color |
+| Generating/cleaning the actual icon art | — |
+| Producing dark + tinted + clear variants | — |
+| Exporting a `.icon` import bundle + asset-catalog fallback | `asc-submission` — to upload the built app |
+| Multi-size legacy `AppIcon.appiconset` discipline | `app-brand-identity` (its "All Sizes" section) |
+
+If there's no agreed concept yet, stop and run `app-brand-identity` first. This skill assumes you know *what* the icon is.
+
+---
+
+## The Icon Composer layer model
+
+Icon Composer (ships with Xcode 26) takes a layered source and produces the `.icon` document. Design to this model:
+
+| Layer role | What goes here | Rules |
+|------------|----------------|-------|
+| **Background** | The full-bleed ground — solid, gradient, or material | Fills the whole canvas edge-to-edge. No rounded corners — the system masks. |
+| **Midground (optional)** | Supporting shape behind the hero | Used for depth/parallax; keep subtle |
+| **Foreground** | The hero glyph/mark | Lives in the safe area; this is what reads at a glance |
+| **Specular / highlight** | Leave to the system | Do **not** paint fake gloss — Liquid Glass adds it. Painting your own double-glosses. |
+
+Design tenets:
+
+- **Separation = depth.** Each layer is its own transparent PNG (or vector). The system offsets and shadows them to create the glass parallax. One flat layer = no depth.
+- **Centered, generous safe area.** Keep the hero glyph well inside the safe region; the squircle mask and rounded glass eat the edges. Roughly the central ~80% is safe.
+- **No baked corners, no baked shadow, no baked blur.** The renderer owns all three. Ship flat, sharp art.
+- **One idea.** Same rule as `app-brand-identity` — readable at 60px Spotlight and 1024px App Store.
+- **Design the glyph as vector.** You will rasterize per slot; vector keeps small sizes crisp (see `app-brand-identity` → multi-size discipline for why faint detail dies below ~64px).
+
+---
+
+## The four appearances you must check
+
+Icon Composer renders these from your layers. Verify each:
+
+| Appearance | What it is | What to check |
+|------------|-----------|---------------|
+| **Light (default)** | Standard Home Screen | Hero reads against background; contrast OK |
+| **Dark** | Dark Home Screen | Provide a darker background layer; the glyph must not vanish. Often a transparent-ground + glowing glyph. |
+| **Clear / Liquid Glass** | Tinted glass system look | Glyph holds up as a near-monochrome glass form; avoid relying on color to carry meaning |
+| **Tinted (monochrome)** | User-tinted Home Screen | The glyph must read as a single-color silhouette. If it dissolves, simplify the foreground. |
+
+> The fastest way to a bad iOS 26 icon is designing only the light appearance. Render all four before you commit — a glyph that depends on a gradient to be legible fails tinted and clear.
+
+---
+
+## Production pipeline (the image MCPs you already have)
+
+No external CLI. Use the MCP tools in this environment. Typical flow:
+
+1. **Generate the hero glyph art** with `mcp__recraft__generate_image` — prompt for a *flat, centered, single-subject* mark on a transparent or solid background, in the signature color from `app-brand-identity`. Ask for the icon/vector-art style, not a photographic render. Generate 3–4 candidates.
+   - For a strictly geometric mark you can author SVG directly instead and skip generation.
+2. **Isolate the subject** with `mcp__recraft__remove_background` so the foreground becomes a clean transparent layer separable from the ground.
+3. **Vectorize** the chosen glyph with `mcp__recraft__vectorize_image` — gives crisp scaling for every slot and a clean silhouette for the tinted appearance.
+4. **Upscale** the master if needed with `mcp__recraft__crisp_upscale` (sharp/flat art) so the 1024 source is pristine.
+5. **Build the background layer** separately — a solid or gradient ground generated or hand-authored; keep it full-bleed and corner-free.
+6. (Optional) **Stitch/preview composition** with the `pencil` or `figma` MCP if you want to eyeball the layer stack before import, or render a quick preview grid.
+
+> Treat generated art as a *draft of the silhouette*, not the final. Run it past the `app-brand-identity` anti-AI-slop rules: no gradient blobs, no purple-blue "AI aesthetic," no fake 3D gloss. If it smells generated, redo the glyph as clean vector.
+
+---
+
+## Export: what "Icon Composer-ready" means
+
+Deliver a folder the user can drag into Icon Composer (or hand to a designer) plus a fallback. Produce:
+
+```
+<AppName>Icon/
+├─ background.png         1024×1024, full-bleed, opaque, NO corners/shadow
+├─ foreground.png         1024×1024, transparent, hero glyph centered in safe area
+├─ midground.png          (optional) 1024×1024, transparent
+├─ foreground.svg         vector source of the glyph (for crisp re-export)
+├─ dark-background.png     1024×1024 dark-appearance ground (if different)
+└─ NOTES.md               layer order, signature hex, safe-area %, appearance checks
+```
+
+Rules for every exported layer:
+
+- **1024×1024**, square, **no rounded corners**, **no drop shadow**, **no painted gloss/blur**.
+- Foreground/midground PNGs are **transparent**; background is **opaque** (or intentionally transparent for a glass-on-clear dark look).
+- sRGB color space; flatten to the signature hex from the brand tokens.
+- In `NOTES.md`, record layer order, the four-appearance check results, and the safe-area assumption so the import is reproducible.
+
+### Asset-catalog fallback (pre-26 / non-layered targets)
+
+If the app must support OS versions before the layered system, also produce a single flattened `1024×1024` opaque master for a classic `AppIcon.appiconset`, and follow the **multi-size "All Sizes" discipline** in `app-brand-identity` (bolder art in the small slots; alpha stripped to avoid ITMS rejection). The layered `.icon` and the flattened catalog coexist — newer OS uses the layers, older OS uses the raster.
+
+---
+
+## Output checklist (`/icon-composer`)
+
+When producing an icon, report:
+
+- [ ] **Concept confirmed** (from `app-brand-identity`, or flagged as missing).
+- [ ] **Layers separated** — background / foreground (+ midground) each its own file.
+- [ ] **No baked corners, shadow, gloss, or blur** in any layer.
+- [ ] **Safe area respected** — hero inside ~central 80%.
+- [ ] **Four appearances checked** — light, dark, clear, tinted all legible.
+- [ ] **Tinted silhouette holds** — glyph reads as one color.
+- [ ] **Vector glyph source** included for crisp re-export.
+- [ ] **Export bundle** assembled with `NOTES.md`.
+- [ ] **Fallback raster** produced if pre-26 support is needed (+ multi-size per `app-brand-identity`).
+- [ ] **Anti-slop pass** — no gradient blob / AI-gradient / fake 3D.
+
+> **Smell test before you ship:** render the foreground glyph as a flat monochrome silhouette at 60px. If you can't tell what the app does, the tinted and clear appearances will fail review-of-taste even if they pass App Review. Simplify the foreground until the silhouette alone carries the idea.
+
+<!-- END SKILL: app-icon-composer -->
+
+---
+
 <!-- BEGIN SKILL: app-intents -->
 
 # app-intents
@@ -668,6 +807,862 @@ UI is a `Widget` whose body is an `ActivityConfiguration` with a Lock Screen vie
 
 ---
 
+<!-- BEGIN SKILL: app-launch -->
+
+# app-launch
+
+# App Launch
+
+**Ship a new app or major version with a disciplined 8-week countdown — from final positioning to post-launch phased rollout.**
+
+This skill owns the end-to-end launch process. It delegates asset work to `app-brand-identity`, listing copy to `asc-aso`, submission mechanics to `asc-submission`, risk checks to `submission-preflight`, pricing to `app-store-pricing`, featuring pursuit to `app-store-featured`, build health to `asc-build-check`, and paid acquisition to `apple-search-ads`.
+
+---
+
+## The 8-Week Launch Countdown
+
+### Week 8 — Lock Positioning
+
+**Goal:** Nail the single sentence that explains why your app exists.
+
+- [ ] Write the positioning statement: "For [audience] who [need], [App] is the [category] that [key differentiator]. Unlike [alternatives], we [unique proof point]."
+- [ ] Confirm your monetization model and price tier — see `app-store-pricing`
+- [ ] Define the one launch metric that declares success (downloads, revenue, rating count)
+- [ ] Identify your 3–5 target keywords (seed for `asc-aso` later)
+- [ ] Decide your release type: full release or phased? (See [Release Strategy](#release-strategy))
+
+---
+
+### Week 7 — Brand and Store Assets
+
+**Goal:** Hand off all visual deliverables so nothing blocks the listing later.
+
+- [ ] App icon finalized at 1024×1024 px — hand off to `app-brand-identity`
+- [ ] Screenshots designed for every required device size (iPhone 6.9", 6.5", iPad 13")
+- [ ] App Preview video scripted and recorded (optional but strongly recommended for featuring)
+- [ ] Feature graphic / promotional image ready
+- [ ] Press kit: icon (1024px), screenshots (3 hero), brief (150 words), founder photo
+
+> Screenshots convert. Spend disproportionate time here. Lead with the emotional outcome, not the interface. Show text large enough to read on a phone-sized thumbnail in search results.
+
+---
+
+### Week 6 — TestFlight Beta
+
+**Goal:** Real signal from real people before GA.
+
+#### Set up the beta group via ASC MCP
+
+```
+1. asc_list_apps          → get your app ID
+2. asc_create_beta_group  → create "External Beta – Week 6" (external, requires review)
+3. asc_set_beta_notes     → set "What to Test" focus areas
+4. asc_invite_beta_tester → add testers by email (up to 10,000 external)
+```
+
+#### Beta testing focus areas (by week)
+
+| Day Range | Focus |
+|-----------|-------|
+| 1–4 | Core happy path — does the main flow work end-to-end? |
+| 5–9 | Edge cases — empty states, no connectivity, sign-in errors |
+| 10–14 | Onboarding — first-run experience, paywall clarity |
+
+- [ ] Monitor crash reports daily — hand off any crash pattern to `asc-build-check`
+- [ ] Collect structured feedback: what confused testers, what delighted them
+- [ ] Fix P0 and P1 bugs; ship updated build with `asc_set_beta_notes` changelog
+- [ ] Confirm the build that will ship to production is identical to your final beta build
+
+#### Internal vs. external beta
+
+| Type | Max Testers | Review Required | Best For |
+|------|-------------|----------------|---------|
+| Internal | 100 | No | Team, QA, stakeholders |
+| External | 10,000 | Yes (first build per group) | Real users, press, creators |
+
+---
+
+### Week 5 — Press and Creator Outreach
+
+**Goal:** Line up coverage to publish on launch day.
+
+#### Press tier strategy
+
+| Tier | Outlets | Pitch Style | Lead Time |
+|------|---------|-------------|-----------|
+| Top-tier | TechCrunch, The Verge, 9to5Mac, MacStories | News angle, exclusives, founder story | 3–4 weeks |
+| Mid-tier | AppAdvice, iMore, TouchArcade (games) | Feature request, category angle | 2–3 weeks |
+| Niche | Vertical blogs, subreddits, newsletters | Use-case specific, deep dive | 1–2 weeks |
+
+#### Pitch outline (adapt per outlet)
+
+```
+Subject: [App Name] — [One-line hook, no buzzwords]
+
+[Reporter first name],
+
+[1 sentence: what it does and for whom.]
+[1 sentence: what makes it novel or timely — tie to something they covered recently.]
+[1 sentence: launch timing and platform.]
+
+Happy to provide early access, a demo call, or exclusive screenshots.
+
+[Your name]
+```
+
+- [ ] Send top-tier pitches with TestFlight invite and embargo date
+- [ ] Follow up once, 5 days before embargo lifts — never more
+
+#### Creator / UGC seeding
+
+- [ ] Identify 10–20 creators in your niche (YouTube, TikTok, X, Reddit)
+- [ ] Offer early access, no strings attached — never ask for positive review
+- [ ] Give creators a direct line to you for questions
+- [ ] Brief creators on your launch date so their content can drop simultaneously
+
+---
+
+### Week 4 — ASO Baseline
+
+**Goal:** Optimize the listing before the App Store spider indexes it.
+
+Hand off to `asc-aso` for full keyword research and copy. Launch-week minimums:
+
+- [ ] Title: app name + 1–2 high-volume keywords (30 char max)
+- [ ] Subtitle: secondary value prop + supporting keyword (30 char max)
+- [ ] Keyword field: 100 chars, comma-separated, no spaces, no repeats from title
+- [ ] Description: 4000 chars, lead with value prop, CTA in first two lines (truncated above the fold)
+- [ ] Localize at minimum for English (US) and your next-largest market
+
+> Do not duplicate keywords between title, subtitle, and keyword field — Apple indexes all three independently.
+
+---
+
+### Week 3 — Submit for Review With Buffer
+
+**Goal:** Clear App Review with time to fix rejections before your launch date.
+
+- [ ] Run `submission-preflight` checklist before submitting
+- [ ] Verify all metadata, screenshots, and privacy details are complete via `asc-submission`
+- [ ] Set pricing and availability in `app-store-pricing`
+- [ ] Submit via `asc_submit_for_review` — do NOT use "Manual Release" if you want same-day control; use "Scheduled Release" set to your launch day, or hold with "Manual Release" and release via `asc_release_version`
+
+```
+asc_submit_for_review → triggers App Review queue
+```
+
+**Buffer math:** App Review averages 1–2 days; rejections add 1–5 days per round trip. Plan for worst-case 10 days. If your hard launch date is Tuesday Week 1, submit no later than Friday Week 3.
+
+#### If rejected
+
+1. Read the rejection reason in App Store Connect
+2. Fix only what's cited — do not make unrelated changes
+3. Reply in Resolution Center if you disagree; include the specific guideline and your counter-argument
+4. Resubmit with `asc_submit_for_review` once fixed
+
+---
+
+### Week 2 — Build Anticipation
+
+**Goal:** Warm the audience so launch day has momentum.
+
+- [ ] "Coming Soon" posts on your channels (X, Mastodon, LinkedIn, Instagram)
+- [ ] Tease screenshots and app clips in stories format
+- [ ] Pre-launch landing page with email capture (if applicable)
+- [ ] Submit Apple featuring nomination — hand off to `app-store-featured`
+- [ ] Prepare launch-day content calendar (see [Launch-Day Checklist](#launch-day-checklist))
+- [ ] Set up Apple Search Ads campaign targeting brand keywords — hand off to `apple-search-ads`
+- [ ] Confirm with press contacts that embargo holds and articles are drafted
+
+---
+
+### Week 1 — Final Checks
+
+**Goal:** Verify the approved build is production-ready.
+
+- [ ] Confirm App Review status is "Ready for Sale" or "Pending Manual Release"
+- [ ] Smoke-test the App Store-signed build on a clean device (not a simulator)
+- [ ] Verify in-app purchases and subscriptions in production environment (Sandbox → Production ladder)
+- [ ] Confirm analytics and crash reporting are initialized and sending
+- [ ] Confirm support email and App Store URL are live
+- [ ] Set up response template for launch-day reviews
+
+---
+
+## Launch Day
+
+**Goal:** Maximize visibility in the first 24 hours.
+
+### Morning (7–9 AM in your largest market's timezone)
+
+- [ ] Release the build: `asc_release_version` (if held on Manual Release)
+- [ ] Verify app appears in App Store search within 5–10 minutes
+- [ ] Post across all owned channels simultaneously
+- [ ] Publish Product Hunt listing (see [Product Hunt](#product-hunt))
+- [ ] Send launch email to waitlist/early-access list
+- [ ] Alert press contacts: "Live now — embargo lifted"
+
+### Throughout the day
+
+- [ ] Respond to every review in the first 24 hours
+- [ ] Monitor crash rate via `asc-build-check`; if crash rate spikes above 1%, pause phased release immediately (see [Release Strategy](#release-strategy))
+- [ ] Engage every social mention
+- [ ] Track chart ranking every 2 hours (App Store Connect → Trends)
+- [ ] Post real-time milestones ("100 downloads in 3 hours") to keep momentum
+
+### Evening
+
+- [ ] Review day-one analytics: downloads, conversion rate, crash-free sessions %
+- [ ] Draft a post-launch retrospective note while it's fresh
+- [ ] Set reminder to respond to all reviews again in 48 hours
+
+---
+
+## Launch-Day Checklist (Printable)
+
+```
+PRE-FLIGHT
+[ ] App is in "Ready for Sale" or "Pending Manual Release"
+[ ] Production IAP verified on real device
+[ ] Analytics confirmed sending
+[ ] Support email responds
+
+RELEASE
+[ ] asc_release_version called (if Manual Release)
+[ ] App visible in App Store search
+
+DISTRIBUTION
+[ ] Social posts live
+[ ] Product Hunt submitted
+[ ] Press embargo lifted
+[ ] Email list notified
+
+MONITORING
+[ ] Crash dashboard open (asc-build-check)
+[ ] Review queue open
+[ ] Chart ranking tracked
+
+END OF DAY
+[ ] All reviews responded to
+[ ] Day-1 metrics recorded
+[ ] Phased release health check
+```
+
+---
+
+## Release Strategy
+
+### Full Release vs. Phased Release
+
+| Factor | Full Release | Phased Release |
+|--------|-------------|----------------|
+| All users get it immediately | Yes | No — 1% on day 1, scaling over 7 days |
+| Can pause if crash spike | No (app is live) | Yes — pause with one API call |
+| Good for | Coordinated launch events, embargos, small user bases | Large apps, first major update to an existing user base |
+| Downside | No rollback gate; crash spike hits everyone | Day-1 download numbers look small; press may not see it |
+
+**Recommendation:** Use phased release for any update to an app with >10,000 existing users. Use full release for a brand-new app (no existing users to protect).
+
+### Phased Release via ASC MCP
+
+```
+# Enable phased release before or at submission
+asc_set_phased_release → sets distribution to phased (7-day ramp)
+
+# Launch day: release from "Pending Developer Release"
+asc_release_version → starts the phased ramp at 1%
+
+# If crash rate spikes: pause immediately
+asc_set_phased_release (paused: true) → halts distribution
+
+# Once fix is live: resume
+asc_set_phased_release (paused: false) → resumes from current percentage
+```
+
+#### Phased release ramp schedule
+
+| Day | Approximate Users |
+|-----|-----------------|
+| 1 | 1% |
+| 2 | 2% |
+| 3 | 5% |
+| 4 | 10% |
+| 5 | 20% |
+| 6 | 50% |
+| 7 | 100% |
+
+**Pause trigger:** Crash-free session rate drops below 99.5% in production, or any P0 regression confirmed in crash logs. Hand off crash investigation to `asc-build-check`.
+
+---
+
+## Product Hunt
+
+Product Hunt is worth pursuing for consumer apps, developer tools, and productivity apps. Not worth it for enterprise-only or highly niche B2B tools.
+
+### How to maximize a PH launch
+
+- [ ] Submit at 12:01 AM Pacific (competition resets midnight)
+- [ ] Hunter should be an established PH user with followers — ask a community member, not yourself
+- [ ] Tagline: one concrete value statement, no em-dashes, no "the", under 60 chars
+- [ ] First comment from maker: personal story, what problem you solved and why
+- [ ] Prepare 5–7 product screenshots and a 2-min video walkthrough
+- [ ] Brief your community to upvote and comment organically on launch day — do not coordinate mass upvoting schemes (PH detects and penalizes)
+- [ ] Respond to every comment within the first 4 hours
+
+**Realistic PH outcomes:** A top-5 product of the day gives 500–2,000 visits. Conversion to downloads varies wildly (5–30%). Treat PH as awareness and backlink, not primary distribution.
+
+---
+
+## Post-Launch (Weeks 1–4 After GA)
+
+### Week 1 post-launch
+
+- [ ] Analyze keyword ranking baseline — hand off to `asc-aso` for optimizations
+- [ ] Compile user feedback from reviews and TestFlight crash submissions
+- [ ] File bug reports for any issues surfaced in reviews
+- [ ] Confirm phased release has reached 100% (or manually complete it)
+- [ ] Launch Apple Search Ads brand defense campaign — hand off to `apple-search-ads`
+
+### Weeks 2–4 post-launch
+
+- [ ] Ship a 1.0.1 patch with day-one fixes (fast turnaround signals quality to App Review)
+- [ ] Respond to every review, especially 1–3 star reviews with specific complaints
+- [ ] Evaluate featuring eligibility now that you have a live app with ratings — hand off to `app-store-featured`
+- [ ] Review conversion funnel: impression → product page view → download. Optimize the weakest link.
+- [ ] Run a retrospective against your launch metric. Did you hit it? Why or why not?
+
+---
+
+## Launch Plan Output Template
+
+When a user asks to "create a launch plan," produce a doc in this structure:
+
+```
+# [App Name] Launch Plan
+
+## Positioning
+- One-liner:
+- Target audience:
+- Key differentiator:
+
+## Launch Date: [DATE]
+- Submission date (target): [DATE - 10 days buffer]
+- Embargo date for press: [DATE - 1 day]
+- Product Hunt day: [DATE]
+
+## Metrics
+- Primary launch metric:
+- Day-1 target:
+- 30-day target:
+
+## Phased Release: Yes / No
+- Pause threshold: crash-free sessions < 99.5%
+
+## Channel Plan
+- Press contacts: [list tier 1, 2, 3]
+- Creators: [list]
+- Community: [subreddits, forums, Slack groups]
+- Owned: [email list size, social followers]
+
+## Week-by-Week Tasks
+[Populate from the 8-week countdown above]
+
+## Open Questions
+[Dependencies, decisions not yet made]
+```
+
+---
+
+## Cross-References
+
+| Skill | When to Hand Off |
+|-------|-----------------|
+| `app-brand-identity` | Week 7: icon, screenshots, press kit, visual system |
+| `asc-aso` | Week 4: keyword research, title/subtitle/description copy |
+| `asc-submission` | Week 3: metadata completeness, screenshots, submit for review |
+| `submission-preflight` | Week 3: pre-submission risk check before submitting |
+| `app-store-pricing` | Week 3: price tiers, IAP setup, regional pricing |
+| `app-store-featured` | Week 2: featuring nomination, editorial guidelines |
+| `asc-build-check` | Launch day + phased rollout: crash monitoring, build health |
+| `apple-search-ads` | Week 2 onward: brand defense, category campaigns |
+
+<!-- END SKILL: app-launch -->
+
+---
+
+<!-- BEGIN SKILL: app-marketing-context -->
+
+# app-marketing-context
+
+# App Marketing Context
+
+**Produce a single persistent brief that every marketing skill reads first, so you never answer the same questions twice.**
+
+This is the foundation skill for the growth cluster. Run it once per app (or when positioning shifts); every downstream skill — `asc-aso`, `app-launch`, `apple-search-ads`, `app-store-pricing`, `app-brand-identity` — checks for this file before asking you anything.
+
+> **This is not a PRD.** `product-spec` captures what to build and why; `app-marketing-context` captures how to position, price, and grow what you've built. If you need both, run `product-spec` first.
+
+---
+
+## When to Run
+
+- Starting any growth or marketing work on an Apple app for the first time.
+- Onboarding to a new client's app — capture the landscape before touching metadata.
+- Positioning has shifted (new audience, rebrand, major feature, pricing change).
+- Another skill says "load app-marketing-context.md" and the file doesn't exist.
+
+### Before creating, check for an existing file
+
+```
+Does app-marketing-context.md exist in the project root or .claude/?
+  YES → Offer to review and update specific sections rather than recreate.
+  NO  → Proceed with the full template below.
+```
+
+When updating, ask which sections changed. Don't overwrite data that's still accurate.
+
+---
+
+## The Context Document Template
+
+Save the completed file to `.claude/app-marketing-context.md` (preferred) or the project root. Use this skeleton verbatim — downstream skills parse it by section heading.
+
+````markdown
+# App Marketing Context
+<!-- Generated by app-marketing-context skill. Update don't recreate. -->
+
+## App Overview
+
+| Field | Value |
+|-------|-------|
+| App name | |
+| Apple App ID | |
+| Primary category | |
+| Secondary category | |
+| Platforms | iOS / iPadOS / macOS / watchOS / visionOS |
+| Price model | Free / Freemium / Paid / Paymium |
+| Launch date | |
+| Current version | |
+| App Store URL | https://apps.apple.com/app/id<APP_ID> |
+
+## Value Proposition
+
+**Problem:** Who has what pain, and what evidence proves it (reviews, support tickets, churn)?
+
+**Target audience:** Primary persona (one paragraph: demographics, device habits, Jobs To Be Done).
+
+**Differentiator:** What do you do that the top 3 competitors don't — and why does it matter to that persona?
+
+**One-line pitch:** "For [audience], [App] is the [category] that [unique benefit] — unlike [alternative]."
+
+## Competitor Landscape
+
+| App | App ID | Strengths | Weaknesses | Our angle |
+|-----|--------|-----------|------------|-----------|
+| | | | | |
+| | | | | |
+| | | | | |
+
+> Tip: Use `asc_get_app_info` on each competitor's App ID to pull current ratings and review counts without leaving Claude.
+
+## Current ASO State
+
+Pull live data via ASC MCP before filling these in:
+
+```
+asc_get_metadata(appId: "<APP_ID>", platform: "IOS")
+asc_get_app_info(appId: "<APP_ID>")
+```
+
+| Field | Current value | Char limit | Notes |
+|-------|--------------|:----------:|-------|
+| Title | | 30 | |
+| Subtitle | | 30 | |
+| Keyword field | | 100 | |
+| Promotional text | | 170 | editable without review |
+| Average rating | | — | pull from asc_get_app_info |
+| Rating count | | — | |
+| Last metadata update | | — | |
+
+## Goals & KPIs
+
+Focus on three. More dilutes accountability.
+
+| # | Goal | Metric | Target | Date |
+|---|------|--------|--------|------|
+| 1 | | | | |
+| 2 | | | | |
+| 3 | | | | |
+
+## Resources & Constraints
+
+| Resource | Detail |
+|----------|--------|
+| Budget (paid UA) | |
+| Team size | |
+| ASO tool | App Store Connect / third-party |
+| Design capacity | |
+| Release cadence | |
+| Key constraint | |
+
+## Markets & Localization
+
+| Market | Priority | Languages | Notes |
+|--------|----------|-----------|-------|
+| | Primary | | |
+| | Secondary | | |
+
+````
+
+---
+
+## Gathering the Data
+
+Work through sections in this order — it's the dependency chain:
+
+1. **App Overview** — Apple App ID unlocks everything else (ASC MCP calls, App Store URL, competitor cross-reference). Get it first.
+2. **Value Proposition** — Write the one-line pitch before looking at competitors; otherwise competitors anchor your framing.
+3. **Competitor Landscape** — Now look outward. Pull their App IDs, run `asc_get_app_info` on each, read their top reviews for recurring complaints (those are your wedge).
+4. **Current ASO State** — Run `asc_get_metadata` to get the live title/subtitle/keyword field. Don't transcribe from memory — the live state is the only truth that matters for gap analysis.
+5. **Goals & KPIs** — Force a priority order. If everything is #1, nothing is.
+6. **Resources & Constraints** — Honest constraints prevent wasted strategies. A solo dev with no paid UA budget needs a different playbook than a funded team.
+7. **Markets** — Localization is the highest-ROI ASO lever most teams underuse. Name it explicitly.
+
+### ASC MCP quick reference
+
+| What you need | Tool call |
+|---------------|-----------|
+| App name, rating, subtitle | `asc_get_app_info(appId: "…")` |
+| Live title / subtitle / keywords / promo text | `asc_get_metadata(appId: "…", platform: "IOS")` |
+| Same for macOS | `asc_get_metadata(appId: "…", platform: "MAC_OS")` |
+
+> These calls require the ASC MCP server (`src/mcp/asc/`) to be configured. If it isn't, fill the ASO State section manually and note the date so you know when to refresh.
+
+---
+
+## Output Step
+
+After the file is written:
+
+1. **Save** to `.claude/app-marketing-context.md` (create `.claude/` if it doesn't exist).
+2. **Summarize** in this format:
+
+```
+Saved: .claude/app-marketing-context.md
+
+Strengths identified:
+- …
+
+Gaps to address:
+- …
+
+Recommended next skills (in order):
+1. asc-aso        — keyword and metadata strategy
+2. app-brand-identity — if visual identity is undefined
+3. app-launch     — if launch or relaunch is upcoming
+4. apple-search-ads — if paid UA budget exists
+5. app-store-pricing — if price model is unsettled
+```
+
+3. **Do not run** those skills automatically — let the user choose the order.
+
+---
+
+## Distinction: This Skill vs. Siblings
+
+| Skill | What it captures | When to run it |
+|-------|-----------------|----------------|
+| `product-spec` | PRD: problem, user stories, acceptance criteria, non-goals | Before building a feature |
+| **`app-marketing-context`** | Go-to-market: positioning, competitors, KPIs, ASO state, markets | Before any growth or marketing work |
+| `asc-aso` | Keyword strategy and metadata execution | After this file exists |
+| `app-launch` | Launch plan: timeline, channels, press, ratings prompt | After positioning is locked |
+| `apple-search-ads` | Paid UA campaigns on Apple Search Ads | After context and ASO baseline exist |
+| `app-store-pricing` | Price tier selection, in-app purchases, subscription design | When monetization model is in question |
+| `app-brand-identity` | Visual identity: icon, wordmark, design tokens | When brand is undefined or being refreshed |
+
+`product-spec` and `app-marketing-context` are complementary, not competing. A well-run app has both: the spec tells engineers what to build; this file tells the growth team how to sell it.
+
+---
+
+## Keeping It Fresh
+
+Stale context is worse than no context — other skills will make decisions on bad assumptions.
+
+**Update triggers:**
+
+- Major version release (new features change the value proposition and keyword opportunities).
+- Price model change (affects every downstream skill).
+- New primary market or localization push.
+- Competitive landscape shift (a major competitor launches or shuts down).
+- KPIs are hit or reset (new goals need a new brief).
+
+Add the update date to the file header comment so you always know how old the data is.
+
+<!-- END SKILL: app-marketing-context -->
+
+---
+
+<!-- BEGIN SKILL: app-rejection-recovery -->
+
+# app-rejection-recovery
+
+# App Rejection Recovery
+
+**Diagnose Apple App Review rejections fast, write a response that gets re-reviewed within 24 hours, and ship the fix before your launch window closes.**
+
+---
+
+## Step 1 — Triage before you type a single word
+
+Do not draft anything until you have answers to all of the following:
+
+1. **Paste the full rejection verbatim** — every sentence, including the guideline number(s). Paraphrasing loses signal.
+2. **First submission or update?** First submissions face higher scrutiny; updates that regress on a previously approved flow are a separate failure mode.
+3. **What changed in this version?** A clean diff of what's new (features, SDKs, entitlements, Info.plist keys) narrows root cause immediately.
+4. **Is this time-sensitive?** Marketing tied to a date, a live event, or a partner launch — that changes the escalation path.
+5. **App category and monetization model** — required to assess 3.x IAP and 5.x privacy exposure.
+
+Use `asc_get_review_detail` (App Store Connect MCP) to pull the current review state and any inline reviewer notes if the user hasn't already copied them.
+
+---
+
+## Apple Rejection Taxonomy
+
+| Guideline | Bucket | Typical Fix |
+|-----------|--------|-------------|
+| 2.1 | Performance / completeness | Reproduce crash on reviewer's device + iOS; ship fixed binary with demo account |
+| 2.3.x | Accurate metadata | Screenshots must match live binary; no unsupported device mentions |
+| 2.5.x | Software requirements | Remove private API use; correct HealthKit / CallKit / SiriKit misuse |
+| 3.1.1 | IAP — digital goods | All digital content sold through StoreKit; no external payment links |
+| 3.1.2 | IAP — subscriptions | Auto-renewal disclosure on screen; restore purchases button; terms link |
+| 3.2.2 | Unacceptable business model | MLM, lottery without license, or misleading monetization |
+| 4.0 | Design | Broken layout, non-functional UI, copycat shell |
+| 4.2 | Minimum functionality | Web wrapper, thin brochureware, or single-static-page app |
+| 4.3 | Spam / duplicate | Substantive differentiation from your own or competitor portfolio required |
+| 4.5.x | Apple sites and services | Correct Apple logo usage; no push-notification abuse |
+| 5.1.1 | Privacy — data collection | Privacy policy URL live; App Privacy labels accurate; ATT copy specific |
+| 5.1.2 | Data use and sharing | Privacy nutrition labels must reflect every SDK's collection, not just first-party |
+| 5.1.5 | Location services | "Always" permission must be demonstrably necessary; "When In Use" for most apps |
+| 5.1.7 | Health and medical | Disclaimers required; no diagnostic claims without regulatory clearance |
+| 5.2.x | Intellectual property | Trademark or copyright holder permission in writing |
+| 5.3.x | Gaming and gambling | Valid regional license required for real-money wagering |
+| 5.6.1 | Developer code of conduct | Fake reviews, review manipulation, spam across apps |
+
+---
+
+## Common Rejection Playbooks
+
+### Guideline 2.1 — Crash or incomplete functionality
+
+The reviewer hit a crash or a dead-end flow you didn't catch internally.
+
+**Fix sequence:**
+1. Read the device model and iOS version Apple tested on — reproduce on that exact config or the closest available in Simulator.
+2. If the crash is environment-dependent (account state, region, backend flag), provide a seeded demo account with a numbered walkthrough in the Resolution Center response. A Loom-style screen recording uploaded to a public URL eliminates ambiguity.
+3. Ship a new binary. Never reply with "we couldn't reproduce it" without also providing the demo account — reviewers don't retry without a reproduction path.
+4. Reference the exact crash location (view controller, function, or error log line) in your response to signal that you traced it fully.
+
+### Guideline 2.3.10 — Inaccurate metadata or screenshots
+
+Screenshots show UI that doesn't exist in the submitted binary, or device frames claim support that isn't declared.
+
+**Fix sequence:**
+1. Audit every screenshot: does every screen shown exist in this exact build?
+2. Remove any iPad screenshots if `UIDeviceFamily` doesn't include iPad.
+3. Strip third-party trademarks, logos, or app icons from promotional art unless you hold rights.
+4. Replace placeholder copy ("Lorem ipsum", "Coming soon") anywhere visible in screenshots.
+5. Cross-reference with `asc-aso` for listing-copy accuracy.
+
+### Guideline 3.1.1 — IAP required for digital goods
+
+An external payment link, a "Buy on web" CTA, or a reader-app workaround applied incorrectly.
+
+**Fix sequence:**
+1. Audit every purchase surface — in-app, settings, onboarding — for external payment references.
+2. Implement StoreKit for all digital goods and premium features.
+3. Note: the US External Purchase Link Entitlement (post-Epic ruling) allows a single outbound link for eligible developers — it requires an explicit entitlement request via ASC and does **not** apply globally. Don't apply it without verifying eligibility first.
+4. See `paywall-design` for compliant purchase screen patterns and `app-store-pricing` for price tier mechanics.
+
+### Guideline 4.3 — Spam or duplicate app
+
+Apple is comparing your app to another in your portfolio or to a near-identical competitor.
+
+This is the hardest bucket to recover from. No Resolution Center response fixes it — only the binary does.
+
+**Fix sequence:**
+1. Identify which app(s) the reviewer is comparing yours to. If it's your own portfolio, seriously consider consolidating.
+2. Add a genuinely differentiated feature — not a UI reskin. The reviewer will compare the two side by side again on resubmission.
+3. Update metadata to emphasize the unique value clearly — see `asc-aso`.
+4. If this is the second 4.3 rejection for the same app: stop resubmitting. Appeal with concrete differentiation evidence, or retire the app.
+5. Do not appeal a first-time 4.3 — fix and resubmit is faster than the App Review Board queue.
+
+### Guideline 5.1.1 — Privacy: data collection disclosure
+
+The privacy policy is missing, dead-linked, or the App Privacy labels underreport what your SDKs collect.
+
+**Fix sequence:**
+1. Privacy policy URL must be live, HTTPS, and contain app-specific language — not a generic company policy.
+2. Open ASC → App Privacy and audit every data type against every SDK in your dependency tree. Analytics, attribution, and crash-reporting SDKs commonly over-collect relative to what developers declare.
+3. ATT prompt string (`NSUserTrackingUsageDescription`) must name a specific use — "to show you relevant ads from our partners" — not "to improve your experience."
+4. All `NSUsageDescription` strings must explain the user benefit in plain language, not describe the permission mechanism.
+5. See `privacy-manifest` for the PrivacyInfo.xcprivacy required API declaration process.
+
+### Guideline 5.1.5 — Location: "Always" not justified
+
+Your app requests `Always` location authorization but the reviewer can't confirm a legitimate background need.
+
+**Fix sequence:**
+1. Audit whether your app genuinely requires background location. Navigation, delivery tracking, and geo-fencing are valid. Most apps don't need it.
+2. Downgrade to `WhenInUse` if background location isn't a core feature.
+3. If `Always` is legitimately required: add a prominent in-app explanation screen before the system prompt, update `NSLocationAlwaysAndWhenInUseUsageDescription` with a specific justification, and note the user scenario in your Resolution Center response.
+
+---
+
+## Resolution Center Response Template
+
+A well-structured response gets your app into the re-review queue within 24 hours. A defensive or vague response does not.
+
+```
+Hello App Review Team,
+
+Thank you for the detailed feedback on guideline [X.Y.Z].
+
+UNDERSTANDING
+We understand the issue is [one sentence describing exactly what was flagged — do not paraphrase the guideline, describe the specific instance].
+
+CHANGES MADE
+1. [Specific change — what was removed, added, or fixed, and where in the app]
+2. [Specific change]
+3. [Specific change if applicable]
+
+DEMO INFORMATION
+  Username: demo@yourapp.com
+  Password: [password]
+  Reproduction steps:
+    1. [Step]
+    2. [Step]
+    3. [Step]
+  Screen recording: [URL — optional but strongly recommended for 2.1 rejections]
+
+We have submitted build [version (build number)] containing these changes. Please let us know if you need any additional information.
+
+Thank you,
+[Your name]
+```
+
+**Hard rules:**
+- Never argue the guideline. Acknowledge it and address it.
+- Never resubmit the same binary as a response to a binary rejection — you must ship a new build.
+- Always state the exact new build number. Reviewers will not hunt for it.
+- Provide demo credentials for every response, even if the rejection isn't login-related. Reduce friction at every point.
+- One response per issue. If multiple guidelines were cited, address each in a numbered list under CHANGES MADE.
+
+---
+
+## Appeal vs. Fix Decision
+
+| Situation | Action |
+|-----------|--------|
+| Reviewer applied the guideline to the wrong feature | Appeal via App Review Board — be factual, brief, include screenshots |
+| Reviewer tested on wrong device or account state | Respond in Resolution Center with exact reproduction steps; no formal appeal needed |
+| First-time 4.3 spam rejection | Fix substantively and resubmit; appealing is slower and rarely wins |
+| Guideline you demonstrably comply with | Appeal with evidence: code references, screenshots, privacy policy sections |
+| Second or third rejection on same issue | Escalate to App Review Board; re-review is unlikely to go differently |
+| 5.6.1 account threat or developer suspension | Appeal immediately with full context; do not ignore or delay |
+
+**App Review Board** (developer.apple.com/contact/app-store/) — expect 5–10 business days. Reserve appeals for genuine reviewer error. Frivolous appeals slow your account's review velocity.
+
+---
+
+## Expedited Review
+
+Request via ASC → Help → Contact Us → App Review → Request Expedited App Review.
+
+**Valid reasons Apple accepts:**
+- Critical bug fix affecting existing users in a live build
+- Security vulnerability disclosed and patched
+- Time-sensitive event with a contractual or public commitment (conference, launch partner, media coverage date)
+
+**Not valid:**
+- Marketing deadlines you set internally
+- "We need this for our investors"
+- Competitive pressure
+
+Abuse of expedited requests is noted on your account. Use it once per meaningful situation.
+
+---
+
+## Diagnosis Output Template
+
+Use this structure when presenting findings to the user:
+
+```
+REJECTION DIAGNOSIS — [App Name] [Version]
+
+REJECTION TYPE
+  Guideline:   [number and title]
+  Bucket:      [from taxonomy table]
+  Complexity:  Low / Medium / High
+
+ROOT CAUSE
+  [One clear paragraph in plain English explaining what triggered the rejection
+   and why the reviewer flagged it]
+
+FIX PLAN
+  Binary changes:        [list]
+  Metadata changes:      [list]
+  ASC configuration:     [list — entitlements, App Privacy, etc.]
+  Estimated effort:      [hours]
+
+RESOLUTION CENTER RESPONSE
+  [Completed template from above]
+
+RESUBMISSION CHECKLIST
+  [ ] Reproduced on device/OS Apple tested
+  [ ] Demo account seeded and verified
+  [ ] Build number incremented (version or build)
+  [ ] App Privacy labels reconciled with all SDKs
+  [ ] Resolution Center response posted before resubmission
+  [ ] Expedited review requested if time-sensitive (and justified)
+
+ESCALATION PATH
+  If rejected again on same guideline: [specific next step — appeal, redesign, or retire]
+```
+
+---
+
+## Prevention: Stop the Next Rejection Before It Happens
+
+After the current rejection is resolved, run through `submission-preflight` before every future submission. High-signal checks specific to the rejection types above:
+
+- [ ] Every screenshot matches the exact binary being submitted — no future UI, no placeholder states
+- [ ] All `NSUsageDescription` keys written for users, not engineers
+- [ ] Privacy policy URL returns HTTP 200 from an external network (not just localhost)
+- [ ] App Privacy labels audited against every third-party SDK's published privacy manifest
+- [ ] No "BETA", "BUG FIXES", or generic What's New copy in the version release notes
+- [ ] Sign in with Apple offered alongside every third-party social login option
+- [ ] Demo account seeded with realistic content and credentials documented before submission
+- [ ] If the app has a paywall, review `paywall-design` for 3.1.1 and 3.1.2 compliance before each update
+
+---
+
+## Cross-Skill Handoffs
+
+| Need | Skill |
+|------|-------|
+| Full pre-submission checklist | `submission-preflight` |
+| App Privacy labels and PrivacyInfo.xcprivacy | `privacy-manifest` |
+| Listing copy, screenshots, keywords after approval | `asc-aso` |
+| Paywall compliance (3.1.1, 3.1.2) | `paywall-design` |
+| Price tiers and subscription configuration | `app-store-pricing` |
+| Build upload and submission mechanics | `asc-submission` |
+
+Use `asc_check_submission` and `asc_get_review_detail` (App Store Connect MCP) to pull live review state, current build status, and any reviewer attachments without leaving the agent.
+
+<!-- END SKILL: app-rejection-recovery -->
+
+---
+
 <!-- BEGIN SKILL: app-security -->
 
 # app-security
@@ -807,6 +1802,309 @@ Don't pin if you can't operationally manage rotation — a stale pin bricks ever
 - [ ] Required-reason/privacy declarations current — see `privacy-manifest`.
 
 <!-- END SKILL: app-security -->
+
+---
+
+<!-- BEGIN SKILL: app-store-featured -->
+
+# app-store-featured
+
+# App Store Featuring
+
+**Win editorial placement by building the app Apple's editors want to champion — then telling them about it at exactly the right moment.**
+
+---
+
+## What Apple's Editors Actually Reward
+
+Apple does not feature apps for marketing partnerships or install volume. Editorial decisions are made by humans who care about craft. The signal they look for:
+
+- **Exemplary adoption of recent OS features** — widgets, Live Activities, App Intents, App Clips, Dynamic Island, Apple Intelligence integration. Apps that ship day-one support for a new API stand out.
+- **Outstanding visual and interaction design** — feels native, uses SF Symbols, respects the HIG, animations are purposeful.
+- **Strong accessibility** — VoiceOver fully functional, Dynamic Type supported, sufficient contrast, no accessibility blockers. Editors use assistive technology.
+- **Deep localization** — App Store product page and in-app strings localized into the languages of the regions being pitched.
+- **Stability** — crash-free sessions above 99.5 % in the relevant App Store Connect metrics. Editors check.
+- **A timely story** — cultural moment, seasonal hook, new feature launch, major update, awareness event. The pitch needs a "why now."
+- **Product page quality** — screenshots that communicate value in three seconds, a preview video, a compelling short description.
+
+---
+
+## Featuring Surfaces
+
+| Surface | What it is | Typical lead time |
+|---|---|---|
+| Today tab story | Full-page editorial card written by Apple | 3-6 weeks |
+| App of the Day | Single-app spotlight, Today tab | 3-6 weeks |
+| Game of the Day | Same as above, Games tab | 3-6 weeks |
+| Category collections | "Apps We Love Right Now," genre lists | 2-4 weeks |
+| In-App Events | Timed event card inside the App Store | 14 days minimum before event start |
+| Seasonal / moment collections | Holiday, back-to-school, awareness months | 4-8 weeks |
+
+---
+
+## Featuring-Readiness Scorecard
+
+Score your app before submitting a nomination. Target 80+ before pitching a major surface.
+
+### 1. Latest-API Adoption (30 pts)
+
+| Item | Points |
+|---|---|
+| Widgets (WidgetKit) — at least one useful widget | 6 |
+| Live Activities — relevant real-time content | 6 |
+| App Intents — Siri / Shortcuts / Spotlight actions | 6 |
+| App Clips — low-friction discovery flow | 4 |
+| Apple Intelligence — Writing Tools, Image Playground, or Siri integration where contextually appropriate | 5 |
+| Dynamic Island — compact / expanded presenter | 3 |
+
+### 2. Design Quality (25 pts)
+
+| Item | Points |
+|---|---|
+| Follows current HIG — no deprecated patterns | 8 |
+| SF Symbols used throughout (not custom icon soup) | 5 |
+| Supports all relevant screen sizes without layout breaks | 5 |
+| Animations feel native, not janky or overdone | 4 |
+| Dark Mode fully supported | 3 |
+
+### 3. Accessibility (20 pts)
+
+See `ios-accessibility` for the full audit checklist. Score here is a gate, not a detail.
+
+| Item | Points |
+|---|---|
+| VoiceOver: all interactive elements labeled and reachable | 8 |
+| Dynamic Type: no truncated or clipped text at any size | 6 |
+| Contrast ratio passes WCAG AA (4.5:1 text, 3:1 UI) | 4 |
+| Reduce Motion respected | 2 |
+
+### 4. Localization (10 pts)
+
+See `localization` for string extraction and locale coverage guidance.
+
+| Item | Points |
+|---|---|
+| App Store product page localized in pitched region's language(s) | 5 |
+| In-app strings localized (no hardcoded English visible to non-English users) | 3 |
+| RTL layout works correctly (Arabic, Hebrew) | 2 |
+
+### 5. Stability and Metrics (10 pts)
+
+Use `asc-build-check` to pull crash and engagement data.
+
+| Item | Points |
+|---|---|
+| Crash-free sessions ≥ 99.5 % (last 30 days) | 6 |
+| No pending rejection or metadata warning in ASC | 3 |
+| App has been live ≥ 90 days (unless pitching a new launch) | 1 |
+
+### 6. Product Page Quality (5 pts)
+
+See `asc-aso` for screenshots, preview, and metadata best practices.
+
+| Item | Points |
+|---|---|
+| Preview video present and current | 2 |
+| Screenshots use device frames and communicate the core value prop | 2 |
+| Short description (170 chars) reads well without truncation | 1 |
+
+---
+
+**Score interpretation**
+
+| Score | Readiness |
+|---|---|
+| 90-100 | Strong candidate — nominate now |
+| 80-89 | Ready — address any 0-pt items before pitching |
+| 65-79 | Not yet — ship the missing APIs and re-audit |
+| Below 65 | Significant gaps — focus on API adoption and accessibility first |
+
+---
+
+## The Apple Tech Checklist
+
+These are the specific capabilities Apple highlights in editorial consideration. Tick every box that applies to your app's category.
+
+**Universal (all apps)**
+- [ ] Supports latest iOS SDK (same-year release target)
+- [ ] Uses SF Symbols 6+ (or current release)
+- [ ] Runs natively on iPhone and iPad without letterboxing
+- [ ] Supports Stage Manager on iPad if a productivity app
+- [ ] WidgetKit widget with useful glanceable content
+- [ ] Siri / Shortcuts via App Intents framework
+
+**Contextual (tick if relevant)**
+- [ ] Live Activities for real-time state (sports, delivery, workouts, timers)
+- [ ] App Clip for first-use or physical-world trigger
+- [ ] SharePlay for co-experience apps
+- [ ] StoreKit 2 for In-App Purchases (not legacy StoreKit)
+- [ ] PassKit / Wallet integration
+- [ ] HealthKit, ARKit, RealityKit, MapKit, Core ML — relevant to category
+- [ ] Apple Intelligence: Writing Tools opt-in (text editors), Image Playground, visual search
+
+**Product page**
+- [ ] App Preview video (15-30 seconds, no voiceover required)
+- [ ] Custom product page variants created for key use cases
+- [ ] In-App Events configured in ASC (at least one past or active event)
+
+---
+
+## In-App Events as a Featuring Surface
+
+In-App Events appear directly on the App Store product page and in search results. They are one of the lowest-friction paths to editorial visibility because Apple actively promotes them in the "Events" tab and in algorithmic recommendations.
+
+**What qualifies as an In-App Event**
+
+- Challenges and competitions
+- Live events (concerts, sports seasons, real-time content drops)
+- Premiers (new content launches)
+- Major updates (new feature or significant version)
+- Seasonal moments tied to cultural events
+
+**Copy and asset brief for each event**
+
+| Field | Spec |
+|---|---|
+| Event name | 30 chars max. Specific, not generic ("Summer Training Challenge" not "New Update") |
+| Short description | 50 chars. Appears in list views. |
+| Long description | 120 chars. Appears on event detail card. |
+| Event card image | 1920 x 1080 px, no alpha. Text must not be placed in bottom 20 % (obscured by gradient). |
+| Start / end dates | Must be live in the app by the start date — Apple will test it |
+| Event type | Select from ASC enum: challenge, competition, live event, premier, major update, special event |
+
+**Submission timeline**
+
+Submit the event in App Store Connect at least 14 days before the event start date. For seasonal moments (New Year's, summer, etc.) submit 3-4 weeks early — Apple's editorial calendar fills up.
+
+**Editorial boost signals**
+
+Events that get featured share these traits:
+- Image is original, high-production art (not a screenshot)
+- Name and description communicate a clear time-bound benefit
+- Event is genuinely interactive, not just a sale
+- The app itself has strong recent ratings and stability metrics
+
+---
+
+## The Nomination Form
+
+**Where to submit:** App Store Connect → [Your App] → App Store tab → scroll to "Promote Your App" → "Submit for Feature Consideration."
+
+Separate forms exist for:
+- New app launch (submit 3+ weeks before launch)
+- Major update / new feature (submit 3+ weeks before release date)
+- Seasonal / cultural moment (submit 4-8 weeks before the moment)
+- In-App Event (submit in ASC event editor, not the nomination form)
+
+**Form fields and what Apple is really asking**
+
+| Field | What to write |
+|---|---|
+| Tell us about your app | The 2-sentence pitch: what it does + who it's for. Concrete, not fluffy. |
+| What makes your app unique | Specific differentiators. Mention the latest API features you've adopted. |
+| Why should we feature it now | The hook: a cultural moment, launch date, major update, awareness event. Be explicit about dates. |
+| Supported platforms | List every platform you ship: iPhone, iPad, Mac (Catalyst or native), Apple Watch, Apple TV, Vision Pro. |
+| Accessibility features | List them specifically: VoiceOver support, Dynamic Type, Reduce Motion. Don't be vague. |
+| Localization | List locale codes, e.g., "en, es, fr, de, ja, zh-Hans, ar." |
+| Contact | Use the email of someone who can respond same-day if Apple's editorial team follows up. |
+
+**Lead time rule of thumb**
+
+- App of the Day / Today tab story: 4-6 weeks minimum
+- Category collection: 2-4 weeks
+- Seasonal editorial (App Store seasonal campaigns): 6-8 weeks — Apple's calendar locks early
+
+---
+
+## Writing a Pitch That Gets Read
+
+Apple editors read hundreds of nominations. A pitch that works:
+
+1. **Opens with the story, not the features.** "We built Tempo for athletes who train alone but want to feel coached" — not "Tempo is a fitness app with AI."
+2. **States the "why now" in the first paragraph.** A date, a moment, a launch. No moment = no urgency = deprioritized.
+3. **Mentions the specific Apple technologies by name.** "Live Activities for real-time split tracking, App Intents for Siri workout commands, WidgetKit complication for glanceable pace." Editors verify these are actually in the app.
+4. **Cites one human story or use case.** A real user scenario, not a demographic segment.
+5. **Is short.** 150-250 words total. Editors are not reading essays.
+
+---
+
+## Nomination Pitch Template
+
+```
+App Name: [Name]
+Bundle ID: [com.company.app]
+Current version: [x.x]
+Platform(s): [iPhone / iPad / Mac / Watch / TV / Vision Pro]
+Proposed feature date or window: [e.g., "Week of September 22" or "Back-to-school, late August"]
+Feature type requested: [Today tab story / App of the Day / Category collection / Seasonal]
+
+--- The Story (2-3 sentences) ---
+[Who built it, who it's for, and the one thing it does better than anything else.]
+
+--- Why Now ---
+[The specific moment, launch date, awareness event, or cultural hook. Include exact dates.]
+
+--- Apple Technology Highlights ---
+- [Technology 1]: [how it's used]
+- [Technology 2]: [how it's used]
+- [Technology 3]: [how it's used]
+
+--- Accessibility & Localization ---
+Accessibility: [e.g., VoiceOver fully supported, Dynamic Type, Reduce Motion]
+Locales: [e.g., en, es-MX, fr, de, ja, zh-Hans, ar]
+
+--- Metrics (optional but recommended) ---
+Crash-free sessions (30-day): [e.g., 99.7 %]
+Average rating: [e.g., 4.8 (12,000 ratings)]
+
+Contact: [name, email, timezone]
+```
+
+---
+
+## Readiness Output Template
+
+When asked to assess featuring readiness, output this summary after scoring:
+
+```
+## Featuring Readiness: [App Name]
+
+**Total score: [X] / 100**
+
+### Strengths
+- [Top 2-3 scoring areas with specifics]
+
+### Gaps to close before nominating
+- [Each 0-pt or low-pt item with a concrete fix]
+
+### Recommended nomination window
+[Earliest realistic date based on gaps + lead time, or "ready now"]
+
+### Suggested feature type
+[App of the Day / Today tab story / Category collection — based on score and story strength]
+
+### Next steps
+1. [Highest-impact fix]
+2. [Second fix]
+3. Submit nomination at App Store Connect → [App] → Promote Your App
+```
+
+---
+
+## Related Skills
+
+| Need | Skill |
+|---|---|
+| Accessibility audit before nomination | `ios-accessibility` |
+| Localization coverage and string extraction | `localization` |
+| App Intents / Shortcuts implementation | `app-intents` |
+| Product page optimization (screenshots, preview, ASO) | `asc-aso` |
+| Crash-free rate and build metrics | `asc-build-check` |
+| App review risk and submission strategy | `apple-review` |
+| Launch planning and phased rollout | `app-launch` |
+| Brand identity and visual consistency | `app-brand-identity` |
+
+<!-- END SKILL: app-store-featured -->
 
 ---
 
@@ -6575,6 +7873,370 @@ STOP and write your review.
 
 ---
 
+<!-- BEGIN SKILL: apple-router -->
+
+# apple-router
+
+# Apple Router
+
+**Turn a fuzzy goal into the right skill, in the right order.** When a request is broad ("grow my app", "get ready to launch", "why is revenue flat"), don't guess — map the goal to the lifecycle stage, hand off to the specific skill(s), and sequence them. This skill *routes*; the named skills do the work.
+
+> If the request already names a clear task (e.g. "audit my keywords", "fix this rejection"), skip the router and go straight to that skill. Use this only to disambiguate.
+
+---
+
+## How to route
+
+1. **Classify the intent** into a stage (table below).
+2. **If foundational context is missing**, run the foundation skill first: `app-marketing-context` for any growth/marketing work, `product-spec` for a feature.
+3. **Dispatch** to the matched skill(s).
+4. **If the goal spans stages**, run them in the order given and tell the user the sequence up front.
+
+---
+
+## Intent → skill map
+
+### Discovery & growth ("more installs", "rank higher", "grow")
+
+| The user wants… | Route to |
+|-----------------|----------|
+| Set up reusable marketing context first | `app-marketing-context` (do this before the rest) |
+| Rank for more / better keywords, audit the listing | `asc-aso` |
+| Run paid acquisition on the App Store | `apple-search-ads` |
+| Plan a launch or major-version release | `app-launch` |
+| Get featured by Apple editors | `app-store-featured` |
+| Brand, icon, screenshots, marketing assets | `app-brand-identity` → `app-icon-composer` |
+
+### Conversion & money ("more revenue", "improve the paywall")
+
+| The user wants… | Route to |
+|-----------------|----------|
+| Design / fix the paywall | `paywall-design` |
+| Set or restructure pricing | `app-store-pricing` |
+| Implement purchases in code | `storekit-purchases` |
+| Manage the subscriber journey (trials, churn, win-back) | `subscription-lifecycle` |
+
+### Activation & retention ("users drop off", "keep users")
+
+| The user wants… | Route to |
+|-----------------|----------|
+| Fix the first-run / onboarding flow | `onboarding-optimization` |
+| Improve D1/D7/D30 retention | `retention-optimization` |
+| Decide what to measure | `app-analytics` |
+| Get more / better ratings | `rating-prompt-strategy` |
+| Respond to and learn from reviews | `review-management` |
+| Re-engage with notifications | `push-notifications` |
+
+### Ship & compliance ("get ready to submit", "rejected")
+
+| The user wants… | Route to |
+|-----------------|----------|
+| Check CI build / signing | `asc-build-check` |
+| Risk-audit before submitting | `submission-preflight` |
+| Privacy manifest / required-reason APIs | `privacy-manifest` |
+| Actually submit / TestFlight | `asc-submission` |
+| Recover from a rejection | `app-rejection-recovery` |
+| Monitor post-release crashes / phased release | `asc-build-check` |
+
+### Build & craft ("write the feature", "review my code")
+
+Engineering and design requests route to the existing skills — e.g. `apple-design`, `ios-accessibility`, `swift6-concurrency`, `performance-instruments`, `apple-review`, `complete-feature`. These are usually named directly; the router only needs to catch the growth/ship side above.
+
+---
+
+## Common multi-skill sequences
+
+When a goal spans stages, run in this order and say so up front:
+
+- **"Help me grow my app"** → `app-marketing-context` → `asc-aso` → (`apple-search-ads` if budget) → `rating-prompt-strategy` + `review-management`.
+- **"Get ready to launch"** → `app-marketing-context` → `app-brand-identity`/`app-icon-composer` → `asc-aso` → `submission-preflight` → `asc-submission` → `app-launch` → `app-store-featured`.
+- **"Revenue is flat"** → `app-analytics` (find the leak) → `paywall-design` or `subscription-lifecycle` or `app-store-pricing` (fix the identified stage).
+- **"Users churn"** → `app-analytics` → `onboarding-optimization` (if early drop) or `retention-optimization` (if later) → `push-notifications`.
+- **"I got rejected"** → `app-rejection-recovery` → fix → `submission-preflight` → `asc-submission`.
+
+---
+
+## Disambiguation rules
+
+- **`product-spec` vs `app-marketing-context`** — product requirements vs. go-to-market positioning. A feature request → `product-spec`; a growth request → `app-marketing-context`.
+- **`asc-aso` vs `apple-search-ads`** — organic discoverability vs. paid placement. They share keyword research; do ASO first.
+- **`paywall-design` vs `app-store-pricing` vs `storekit-purchases`** — the screen vs. the economics vs. the code.
+- **`onboarding-optimization` vs `retention-optimization`** — Day-0 activation vs. Day-7+ return.
+- **`submission-preflight` vs `asc-submission`** — will-it-pass-review audit vs. the actual submission mechanics. Preflight first.
+- **`app-icon-composer` vs `app-brand-identity`** — producing the layered icon files vs. deciding the brand/concept. Concept first.
+
+When two skills genuinely both apply, run the upstream one first and name the sequence rather than picking one silently.
+
+<!-- END SKILL: apple-router -->
+
+---
+
+<!-- BEGIN SKILL: apple-search-ads -->
+
+# apple-search-ads
+
+# Apple Search Ads
+
+**Run the highest-intent paid acquisition channel available to iOS apps — directly inside the App Store, where users are already searching to download.**
+
+Apple Search Ads is structurally unlike every other UA channel. Users are not scrolling social feeds or watching videos; they are standing in the App Store with fingers ready to tap Install. That intent advantage means ASA delivers installs that behave more like organic users than paid users on any other network.
+
+---
+
+## Why ASA Is Different
+
+| Property | ASA | Every other paid channel |
+|----------|-----|--------------------------|
+| User intent | Actively searching to download | Interrupted from another activity |
+| Targeting axis | Keyword only | Audience (demo, interest, behavioral) |
+| ATT / SKAN gap | None — Apple owns the conversion signal | Significant signal loss post-iOS 14 |
+| Ad appearance | Indistinguishable from organic results | Clearly an ad unit |
+| Conversion data | First-party, deterministic | Modeled or probabilistic |
+
+The no-ATT gap is the most underrated advantage. Every CPI, CVR, and ROAS figure you read out of ASA is real — not a model estimate. That makes optimization decisions reliable in a way that Meta/Google campaigns rarely are post-iOS 14.
+
+---
+
+## Campaign Placements
+
+| Placement | Where it appears | Best use |
+|-----------|-----------------|----------|
+| **Search Results** | Immediately below the first organic result when a user searches | Primary driver — highest intent, most controllable |
+| **Search Tab** | Top of the Search tab before any query is typed | Broad awareness; reach users before they form intent |
+| **Today Tab** | App Store home page | Brand moments, major launches |
+| **Product Pages** | Below the listing of a competitor or related app | Competitive conquesting |
+
+Start with Search Results only. It is the most measurable and most efficient placement at every stage of scale. Layer in other placements only after Search Results is profitable and stable.
+
+---
+
+## Account Structure
+
+One app per ASC app record; one ASA account per app. Build four campaigns from day one — they serve different intents and must not share budgets.
+
+```
+Account
+└── App
+    ├── Campaign: Brand         (protect branded searches)
+    │   └── Ad Group: exact brand terms
+    ├── Campaign: Competitor    (conquesting)
+    │   └── Ad Group: exact competitor names
+    ├── Campaign: Category      (generic intent)
+    │   └── Ad Group: broad + exact category terms
+    └── Campaign: Discovery     (find new terms)
+        └── Ad Group: Search Match ON, no explicit keywords
+```
+
+### Why Four Separate Campaigns
+
+- **Budget isolation** — Brand spend cannot be cannibalized by generic discovery.
+- **Separate bid floors** — Brand keywords should almost always win; competitor and category keywords warrant lower, more measured bids.
+- **Clean attribution** — Performance is readable by intent type. Blending campaign types hides which keyword class is actually driving installs.
+- **Surgical pausing** — You can pause Discovery without touching Brand during a budget crunch.
+
+---
+
+## Match Types
+
+| Match type | Trigger logic | Where to use |
+|------------|--------------|--------------|
+| **Exact** | Only the keyword as typed (or very close) | Proven high-value terms; Brand campaign |
+| **Broad** | Variations, plurals, related phrases | Category campaign initial seeding |
+| **Search Match** | Apple automatically maps your app to relevant queries | Discovery campaign only — leave keyword list empty |
+
+### Discovery-to-Exact Workflow
+
+1. Run Discovery campaign with Search Match ON and no keywords.
+2. Pull the Search Terms report weekly.
+3. Identify terms with TTR above 5% and CVR above 30%.
+4. Graduate those terms to your Category campaign as exact-match keywords with raised bids.
+5. Add poor performers (high taps, zero installs) as negatives immediately.
+
+This pipeline continuously finds keywords you would never have thought to bid on manually.
+
+---
+
+## Keyword Seeding
+
+### Brand Campaign
+- Your exact app name
+- Common misspellings of the app name
+- Your developer/studio name
+- Any well-known sub-brand or feature name
+
+### Competitor Campaign
+- Top 5–10 direct competitor app names (exact match)
+- Note: competitor CVR is structurally lower — users searching a competitor brand are often loyalists. Bid conservatively and track CVR carefully before scaling.
+
+### Category Campaign
+Seed with high-volume generic terms relevant to your category, then expand:
+
+- High-volume head terms: "meditation app", "habit tracker", "budget planner"
+- Long-tail modifiers: "meditation for sleep", "daily habit tracker free", "budget planner couples"
+
+For keyword volume and difficulty research, use the `asc-aso` skill (keyword strategy) or run a WebSearch for category benchmarks. Do not rely on guesswork for head-term volume — the investment in validation pays off immediately.
+
+### Negative Keywords
+
+Add negatives at the account level so they propagate across all campaigns:
+- Competitor names you are not actively targeting in your Competitor campaign (avoids accidental wins with poor CVR)
+- Irrelevant terms surfacing in Search Match (review weekly)
+- Any term accumulating 100+ taps with zero installs
+
+---
+
+## Bidding
+
+### Starting Bids by Campaign
+
+| Campaign | Starting bid range | Rationale |
+|----------|--------------------|-----------|
+| Brand | $2–5 CPT | You must win your own brand terms — underbidding here is a strategic error |
+| Competitor | $1–2 CPT | Lower CVR expected; keep CPI math positive |
+| Category | $0.80–1.50 CPT | Test volume before scaling |
+| Discovery | $0.50–0.80 CPT | Exploration budget; hold bids low while finding signal |
+
+These are starting points only. Every category has different competitive pressure — a finance app competes differently from a casual game.
+
+### Target CPT Formula
+
+```
+Target CPT = Target CPI × Historical CVR (installs ÷ taps)
+```
+
+If your target CPI is $4.00 and your measured CVR is 45%, your target CPT is $1.80. This formula anchors every bid decision to your unit economics rather than to what competitors are bidding.
+
+### Bid Optimization Signals
+
+| Signal | What it means | Action |
+|--------|--------------|--------|
+| Impression share below 50% | Losing auctions — bid is too low | Raise bid 20–30% and reassess in 48 hours |
+| High TTR, low CVR | Users tap the ad but don't install | Improve the product page or paywall — see `paywall-design` and `asc-aso` |
+| Low TTR (below 3%) | Ad creative or keyword relevance mismatch | Test a Custom Product Page matched to the keyword intent |
+| High CVR but spend not scaling | You are winning at the current bid but capped | Raise bid or raise daily budget |
+| CPT rising with flat or falling CVR | Auction is heating up around you | Reduce bid or pause the keyword; it is no longer profitable |
+
+### Automated Bidding
+
+ASA offers automated bidding targeting a goal CPA or ROAS. Use it only after:
+- The campaign has 50+ conversions per ad group per week (Apple's minimum for signal quality)
+- Manual bidding has produced a stable baseline CPT over at least two weeks
+
+Switching to automated bidding before these thresholds hands the algorithm too little data and produces erratic results. Earn the right to automate.
+
+---
+
+## Custom Product Page Routing
+
+Custom Product Pages (CPPs) let you show different screenshots, preview video, and promotional text to different ad groups — without changing your default App Store listing.
+
+```
+Ad Group: "yoga app"            → CPP: yoga-studio screenshots + yoga copy
+Ad Group: "sleep sounds"        → CPP: night-sky screenshots + sleep copy
+Ad Group: Competitor keywords   → CPP: head-to-head comparison screenshots
+```
+
+**Why it works.** A user searching "yoga app" who sees yoga-specific screenshots instead of your generic default listing immediately understands the app is relevant. TTR and CVR both lift — typically 15–30% on well-matched CPPs.
+
+**Setup path:** App Store Connect → Custom Product Pages → create and submit pages → ASA Campaign Manager → Ad Group → Creative → select CPP.
+
+For CPP creative strategy and screenshot principles, use the `asc-aso` skill. For paywall placement and subscription copy on the product page, use `paywall-design`.
+
+---
+
+## Metrics and Benchmarks
+
+| Metric | Formula | Healthy | Investigate if |
+|--------|---------|---------|----------------|
+| **TTR** | Taps / Impressions | Above 5% | Below 3% |
+| **CVR** | Installs / Taps | Above 50% | Below 30% |
+| **CPT** | Spend / Taps | Category-dependent | Rising with flat CVR |
+| **CPI** | Spend / Installs | Below your LTV threshold | Above 3× target |
+| **ROAS** | Revenue / Spend | Above 100% (break-even); target 150%+ | Below 80% after 30 days |
+
+TTR and CVR are the two levers you control most directly. TTR is a creative and keyword-relevance problem; CVR is a product page and paywall problem. Fix them independently — mixing the diagnoses leads to wrong solutions.
+
+For app-store pricing strategy that affects CVR on paid installs, use `app-store-pricing`.
+
+---
+
+## Weekly Optimization Checklist
+
+```
+- [ ] Pull Search Terms report — graduate top terms to exact match in Category campaign
+- [ ] Add new negatives from irrelevant or zero-install search terms
+- [ ] Review impression share per keyword — raise bids where below 50%
+- [ ] Pause any keyword with 100+ taps and 0 installs
+- [ ] Check TTR per ad group — if below 3%, test a new CPP
+- [ ] Verify no campaign is hitting daily budget cap before noon (cap blocks afternoon traffic)
+- [ ] Compare CVR across campaign types: Brand vs Category vs Competitor
+- [ ] Confirm CPI is within target for each campaign
+```
+
+---
+
+## Scaling Checklist
+
+Before raising budgets or expanding to new placements:
+
+```
+- [ ] CVR above 30% on primary campaigns
+- [ ] CPI below 3× your target
+- [ ] Negative keyword list is maintained and current
+- [ ] At least two CPP variants have been tested and best performer selected
+- [ ] Bid strategy is manual and stable (not thrashing week-over-week)
+- [ ] Discovery campaign is producing a consistent flow of new exact-match graduates
+```
+
+Scaling a campaign that fails these checks amplifies problems, not results.
+
+---
+
+## Campaign Audit Output Template
+
+When a user shares their ASA data, structure the audit like this:
+
+```
+Account: [App Name]
+Audit period: [date range]
+
+Campaign Structure
+  [✓/✗] Brand campaign
+  [✓/✗] Competitor campaign
+  [✓/✗] Category campaign
+  [✓/✗] Discovery campaign
+  [✓/✗] CPP assigned to at least one ad group
+
+Performance Summary
+  Impressions:  [N]
+  Taps:         [N]   (TTR: [X]%)
+  Installs:     [N]   (CVR: [X]%)
+  Spend:        $[N]
+  CPI:          $[N]
+  ROAS:         [X]%
+
+Top Issues
+  1. [issue] — [specific fix]
+  2. [issue] — [specific fix]
+
+Priority Actions (ordered by expected impact)
+  1. [action] — rationale: [why this moves the needle]
+  2. [action] — rationale: [why this moves the needle]
+```
+
+---
+
+## Related Skills
+
+- `asc-aso` — Keyword research and App Store listing optimization; use before seeding any keyword list
+- `paywall-design` — Improve CVR from install to subscription (the conversion that makes ROAS positive)
+- `app-store-pricing` — Subscription pricing strategy that affects CPI payback period
+- `app-launch` — Full launch strategy including non-ASA paid channels (Meta, Google UAC, TikTok)
+
+<!-- END SKILL: apple-search-ads -->
+
+---
+
 <!-- BEGIN SKILL: asc-aso -->
 
 # asc-aso
@@ -6677,6 +8339,49 @@ When auditing an existing listing, pull current metadata via `asc-submission`'s 
 - [ ] **Ratings prompt** wired to a delight moment, not app launch.
 
 Report findings as: ✅ good / ⚠️ leaving value on the table / ❌ rule violation (e.g. keyword repetition, over-limit), each with the specific fix.
+
+---
+
+## The ASO Score Card (0–100)
+
+For an audit, don't just list issues — score the listing so the user sees where they stand and what moves the needle most. Rate each factor 0–10, multiply by its weight, sum to 100.
+
+| # | Factor | Weight | What a 10 looks like |
+|---|--------|:------:|----------------------|
+| 1 | **Title** | 15% | ≤30 chars, brand + 1 high-value keyword, zero waste |
+| 2 | **Subtitle** | 12% | ≤30 chars, benefit-led, distinct keywords (no title overlap) |
+| 3 | **Keyword field** | 12% | 100/100 chars used, no spaces, no repeats, no app/category name |
+| 4 | **Localization coverage** | 12% | en-US + en-GB filled, all top-revenue locales localized |
+| 5 | **Screenshots (first 3)** | 13% | Benefit-captioned hero shots, not bare UI; hook in slot 1 |
+| 6 | **App preview video** | 6% | Present, shows the app in use, hooks in 3s |
+| 7 | **Icon** | 8% | High contrast, legible at thumbnail, distinct from competitors |
+| 8 | **Ratings & reviews** | 10% | Healthy volume + recency; ≥4.5 avg; prompt at delight moment |
+| 9 | **Conversion levers** | 7% | Promo text current; PPO running; CPPs for paid traffic |
+| 10 | **Keyword relevance/targeting** | 5% | Ranking for terms the app genuinely satisfies, long-tail first |
+
+> **Score = Σ(factor ÷ 10 × weight).** Report the number, the band (0–40 *needs overhaul* / 41–70 *solid, leaking value* / 71–100 *optimized*), and the three lowest-weighted-score factors as the priority fixes.
+
+### Tiered recommendations
+
+After scoring, structure the output into three tiers so the user knows what to do **today** vs. **this quarter**:
+
+- **🟢 Quick Wins** — no-update, no-cost edits: keyword field rewrite, en-GB fill, promo text, subtitle tweak. Ship today.
+- **🟡 High-Impact** — needs an app/version update or asset work: screenshot redesign, preview video, icon test (PPO). Ship this cycle.
+- **🔵 Strategic** — sustained effort: full localization rollout, ratings-velocity program, CPP-per-campaign for Apple Search Ads (see `apple-search-ads`).
+
+### Competitor comparison
+
+Discoverability is relative. Pull 2–3 direct competitors and compare side by side:
+
+| Field | You | Competitor A | Competitor B |
+|-------|-----|--------------|--------------|
+| Title keywords | … | … | … |
+| Subtitle angle | … | … | … |
+| Visible keyword themes | … | … | … |
+| Rating (count / avg) | … | … | … |
+| Screenshot hook | … | … | … |
+
+Use this to find the **gap terms** — relevant, lower-difficulty keywords competitors under-target — and the conversion ideas worth borrowing. Gather competitor metadata via WebSearch / the public App Store listing, or ask the user; for your own live fields use `asc_get_metadata` / `asc_get_app_info`.
 
 ---
 
@@ -6814,6 +8519,40 @@ If the user asks to fix the issue:
 1. **Code errors:** Locate the file, read context, apply fix, verify with a local archive build
 2. **Signing errors:** Use `asc_add_capability` to fix portal mismatches, then push to trigger a new build
 
+## Post-Release Crash Monitoring
+
+A green CI build is not the end of the story. **Crashes after release are an ASO signal, not just an engineering problem** — they tank retention, drag the rating down (which feeds App Store ranking, see `asc-aso`), and trigger 1-star "it keeps crashing" reviews that `review-management` then has to absorb. Treat the crash rate as a release gate.
+
+Pull recent crashes for a live app with `asc_list_recent_crashes_for_app`, then triage and decide whether the rollout continues.
+
+### Crash-free targets
+
+| Metric | Target | Action if missed |
+|--------|--------|------------------|
+| **Crash-free sessions** | > 99.5% | Investigate before expanding rollout |
+| **Crash-free users** | > 99.0% | Below this, pause phased release |
+
+### Severity triage
+
+| Tier | Definition | Response |
+|------|-----------|----------|
+| **P0** | Launch crash, data loss, or affects >1% of sessions | Pause rollout, hotfix + expedited review (`app-rejection-recovery` covers expedited) |
+| **P1** | Core-flow crash on a common device/OS | Fix in the next build this cycle |
+| **P2** | Edge-case crash, low volume | Backlog, batch into a routine release |
+| **P3** | Rare, non-blocking, single-device | Monitor; fix opportunistically |
+
+Sort by **volume × severity**, not raw count — a crash hitting 0.8% of sessions on the latest iOS outranks a louder one on a deprecated device.
+
+### Phased release as blast-radius control
+
+Ship major versions with **phased release** (`asc_set_phased_release`) so a regression reaches 1% → 2% → 5% → … of users over 7 days instead of everyone at once. Watch the crash-free rate at each stage:
+
+- **Crash rate rises > 0.2% absolute vs. the prior version → pause the rollout** (keep the phased release paused; do not call `asc_release_version` to go 100%).
+- Clean for 24h at the current stage → let it continue.
+- Confirmed P0 in the wild → pause, fix, submit a new build; the bad version stops spreading.
+
+This converts "we shipped a crash to 100% of users" into "we caught it at 2%."
+
 ## Entitlements Reference
 
 When checking signing, read entitlements files and map to capability types:
@@ -6844,6 +8583,9 @@ When checking signing, read entitlements files and map to capability types:
 | `asc_download_artifact` | Download specific artifact content |
 | `asc_trigger_build` | Manually re-trigger a build without a new commit |
 | `asc_wait_for_build` | Block + poll until a build completes, returns issues inline |
+| `asc_list_recent_crashes_for_app` | Post-release crash reports for a live app (crash-rate gate) |
+| `asc_set_phased_release` | Enable/pause phased rollout (blast-radius control) |
+| `asc_release_version` | Push a version to 100% (only after the crash rate is clean) |
 
 ### Developer Portal / Signing Tools
 
@@ -12591,6 +14333,126 @@ let capture = CapturedThought(text: "Test", timestamp: Date().addingTimeInterval
 let capture = CapturedThought(text: "Test", timestamp: Date())
 ```
 
+#### watchOS: `tap()` Is Delivered, `press(forDuration:)` Is Not
+
+**Critical (watchOS simulator):** XCUITest synthesizes a coordinate `tap()` into a SwiftUI `.onTapGesture` on a *custom* element (e.g. a `ZStack` ring with `.accessibilityElement(children: .ignore)` + `.isButton`), but it does **not** synthesize `press(forDuration:)` into that element's `.onLongPressGesture`. The long-press simply never fires, so any assertion that depends on the post-long-press state hangs until it times out.
+
+```swift
+// Custom control: a morphing ring that is the only accessible element.
+// tap starts/resumes; long press pauses/stops.
+ZStack { /* … */ }
+    .onTapGesture { viewModel.primaryAction() }
+    .onLongPressGesture { viewModel.secondaryAction() }
+    .accessibilityElement(children: .ignore)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityLabel(ringLabel)
+
+// WORKS — coordinate tap reaches .onTapGesture
+func test_tapStarts() {
+    ring.tap()
+    XCTAssertTrue(waitForRingLabel(containing: "running"))  // ✓ passes
+}
+
+// DOES NOT WORK — press(forDuration:) is not delivered to .onLongPressGesture
+func test_longPressPauses() throws {
+    try XCTSkipIf(true, "watchOS XCUITest can't deliver a long press to a custom .onLongPressGesture; cover the pause/stop logic with ViewModel unit tests instead.")
+    ring.tap()
+    ring.press(forDuration: 0.6)
+    XCTAssertTrue(waitForRingLabel(containing: "paused"))  // ✗ never satisfied → times out
+}
+```
+
+- **`.accessibilityAction` does NOT change this.** `tap()` is a *coordinate* tap, not an accessibility activation, so adding `.accessibilityAction(.default)`/`.accessibilityAction(named:)` neither helps the tap (already works) nor enables the long press. Don't reach for it as a fix — it was a tested dead end.
+- **Skip, don't fight it.** Gate undrivable-gesture tests with `try XCTSkipIf(true, "<reason>")` (a *throwing call*, so the compiler won't flag the preserved body as unreachable — unlike a bare `throw XCTSkip(...)`), and move the behavior coverage to `@MainActor` ViewModel unit tests. The gesture still works for real users; only the simulator's event synthesis is the gap.
+- The same class of limitation covers `TabView(.verticalPage)` (a `swipeDown` after `swipeUp` reports "app not running") and the double-tap *hand* gesture (`handGestureShortcut(.primaryAction)` — no XCUITest affordance at all).
+
+#### watchOS: UI Tests Share an App Group — Reset It Under a Launch Arg
+
+**Critical:** watchOS UI tests in one suite share the App Group store. A session (or any persisted UI state) that test A starts is restored into test B's launch via your "restore from shared state" hook, so tests pass alone but fail in sequence (state bleed). Reset the shared stores in the launch-once restore hook, gated by a launch argument:
+
+```swift
+// Test
+override func setUp() async throws {
+    app = XCUIApplication()
+    app.launchArguments = ["--uitesting"]
+    app.launch()
+}
+
+// App (launch-once restore hook, guarded so it never clears a live mid-test session)
+func restoreFromSharedStateIfNeeded() {
+    guard !didAttemptRestore else { return }
+    didAttemptRestore = true
+    if CommandLine.arguments.contains("--uitesting") {
+        TimerStateStore.clear()
+        WatchSessionRestoreStore.clear()
+        return                       // start every test from a clean, independent state
+    }
+    // … normal restore …
+}
+```
+
+Reset only what causes bleed. A separate **SwiftData** captures store often is *not* cleared by this hook, so a screenshot test that seeds captures leaves rows visible to a later "empty idle" test — design that later assertion to tolerate the seeded rows rather than assuming a pristine store (see below).
+
+#### watchOS WatchConnectivity: Force Independent Start Under Test
+
+If a watch screen normally begins by negotiating with the paired iPhone over `WCSession`, that round-trip stalls in the simulator (no reachable counterpart), so even `tap()`-to-start appears broken. Bypass the negotiation entirely under test:
+
+```swift
+#if os(watchOS)
+if CommandLine.arguments.contains("--uitesting") {
+    role = .independent
+    onIndependent()            // start locally, never wait on the phone
+    return
+}
+if isCounterpartReachable { /* normal WCSession path */ }
+#endif
+```
+
+Separately, any one-shot `WCSession` request needs its completion gated so it fires *exactly once* and its timeout actually fires: store a sentinel keyed by `requestID` in a lock-guarded registry, and gate every completion path (success / error / timeout) on an atomic `retrieve()` (remove-and-return). Forgetting to store the sentinel means the timeout's `retrieve()` returns nil and the timeout never fires → a permanent hang on a reachable-but-silent counterpart.
+
+#### Screenshot Tests Need Assertions, Not Just `snapshot()`
+
+A fastlane screenshot test that calls `snapshot("paused")` right after `ring.press(forDuration:)` **proves nothing about the paused state** — `snapshot()` captures whatever is on screen, with no assertion that the long press actually landed. Such a test stays green even when the gesture is silently dropped (see the watchOS long-press gotcha), giving false confidence. If a screenshot is meant to document a *state*, assert the state was reached before capturing:
+
+```swift
+ring.tap()
+XCTAssertTrue(waitForRingLabel(containing: "running"))   // assert, then…
+snapshot("running")                                       // …capture
+```
+
+#### `NavigationLink` Counts as a Button — Avoid Exact Button Counts
+
+A SwiftUI `NavigationLink` is exposed to XCUITest as a `button`. Assertions like `XCTAssertEqual(app.buttons.count, 1)` are brittle: a "View all" history link, a leaked `.swipeActions` button (swipe actions outside a `List` don't function but still leak an *empty-label* button into the tree), or any conditional link inflate the count. Assert on intent — that no *labeled* control of the forbidden kind exists — and tolerate known-benign extras:
+
+```swift
+let labels = app.buttons.allElementsBoundByIndex.map(\.label)
+let unexpected = labels.filter {
+    !$0.hasPrefix("Ember timer") && $0 != "View all" && !$0.isEmpty  // ring, history link, empty swipe-action leak
+}
+XCTAssertTrue(unexpected.isEmpty, "unexpected buttons: \(unexpected)")
+```
+
+#### watchOS Sim Launch Flake — Launch Once, Wait, Retry Once (Don't Pre-`terminate()`)
+
+The watchOS simulator on Xcode Cloud intermittently fails to (re)launch the app under test (`"Simulator device failed to launch …watchkitapp"`). A test suite that does `app.terminate(); app.launch()` in every `setUp` makes this *worse* — `launch()` already terminates a running instance, so the explicit `terminate()` just doubles the number of fragile relaunches (~2× tests/run). Replace it with a launch-then-confirm helper that retries exactly once:
+
+```swift
+extension XCUIApplication {
+    func launchForWatchUITest(timeout: TimeInterval = 30) {
+        launch()
+        if wait(for: .runningForeground, timeout: timeout) { return }
+        terminate(); launch()
+        _ = wait(for: .runningForeground, timeout: timeout)   // wait(for:) is available on watchOS (Xcode 16.3+)
+    }
+}
+```
+
+**Then give `setUp` headroom:** the retry can spend up to `2 × timeout` (~60s) before the app is foreground, which by itself trips a `executionTimeAllowance = 60`. Raise the allowance (≥120s) on any class using the retry, or the run fails with `"Test exceeded execution time allowance of 1 minute"` even though every test is logically green (0 failures, all SUCCESS/SKIPPED).
+
+#### CI That Uses a Committed `.xcodeproj` Won't See New Files Until You Regenerate
+
+If a project commits its `.xcodeproj` and the CI clone script does **not** run `xcodegen` (check `ci_scripts/ci_post_clone.sh`), a brand-new source file added to a target is invisible to CI — the build fails with `Value of type 'X' has no member 'Y'` for the new symbol. Regenerate (`xcodegen generate`), re-apply any committed post-gen patches, and commit the `project.pbxproj`; the diff should be only the new file-reference insertions (`PBXBuildFile`, `PBXFileReference`, group, Sources phase).
+
 ### Waiting for State Changes
 
 ```swift
@@ -13490,6 +15352,320 @@ Honor a `Retry-After` header on 429/503 when present instead of your own backoff
 
 ---
 
+<!-- BEGIN SKILL: onboarding-optimization -->
+
+# onboarding-optimization
+
+# Onboarding Optimization
+
+**Get every new user to their first moment of real value — fast, frictionlessly, and without a rejection from App Store Review.**
+
+---
+
+## The Core Goal: Activation, Not Completion
+
+Onboarding is not a tutorial. It is a funnel with one exit condition: the user experiences the activation event — the moment they understand why this app exists for them.
+
+Everything before that event is pure overhead. Every screen that does not directly advance the user toward activation is a drop-off risk.
+
+### Define the Activation Event First
+
+Before auditing a single screen, name the activation event for your app type:
+
+| App type | Activation event |
+|---|---|
+| Task manager | First task created and checked off |
+| Finance / budgeting | First transaction categorized |
+| Social | First connection made or first post published |
+| Fitness | First workout logged or first plan started |
+| Streaming / media | First piece of content played for 30+ seconds |
+| Shopping | First item saved or first purchase completed |
+| Utility (e.g., scanner) | First scan completed and exported |
+| Developer tool | First successful build or first API call |
+
+Write this event down. Every onboarding decision is evaluated by a single question: does this step bring the user closer to that event, or does it delay it?
+
+---
+
+## First-Run Flow Audit
+
+### Count Everything
+
+Instrument or walk through the current onboarding manually. Record:
+
+- Total screens from cold launch to activation event
+- Total taps required (including "Next", "Continue", "Allow", "Skip")
+- Screens that require user input (text fields, toggles, selections)
+- Screens that are pure marketing or feature explanation with no user action
+
+A healthy first-run flow reaches activation in **5 taps or fewer** for simple apps; under 10 for complex ones. If you are beyond that, you are losing users.
+
+### The Cut List
+
+Apply these rules in order:
+
+1. **Remove feature tours.** If the screen says "Here is what you can do", cut it. Show the user by letting them do it.
+2. **Remove welcome screens that aren't personalization.** A splash with your tagline is not onboarding; it is friction.
+3. **Collapse multi-step questionnaires.** More than 3 personalization questions before first value is too many. Reduce, or move them post-activation.
+4. **Cut all permissions not needed for the activation event.** Notifications, contacts, tracking — these do not belong on screen 2 of a utility app.
+5. **Defer account creation.** (See sign-up friction section below.)
+
+### The Defer Heuristic
+
+If removing a step would still allow the user to reach the activation event, defer it. If deferring it would break the core loop, keep it and make it as fast as possible.
+
+---
+
+## Permission-Prompt Strategy
+
+Getting rejected by users on system prompts is permanent for some permissions (ATT, notifications on iOS 16+). A denial cannot be undone without the user visiting Settings manually. One bad permission screen early in onboarding can destroy the rest of the flow.
+
+### The Rule: Contextual Timing Only
+
+Never request multiple permissions in sequence on the same screen or in the first 60 seconds. Request each permission at the moment the user needs the feature it enables.
+
+| Permission | When to ask |
+|---|---|
+| Notifications (`push-notifications`) | After user completes a task that has a time dimension, or after they enable a reminder feature |
+| Location | When user taps a map, a nearby search, or a feature that is clearly location-dependent |
+| Camera / microphone | When user taps the camera button or a record action |
+| Contacts | When user taps "Find friends" or "Invite", never before |
+| ATT (App Tracking Transparency) | After the user has experienced value — Day 1 retention improves when ATT is requested post-activation |
+| Health / HealthKit | When user navigates to the health integration section |
+| Photos | When user attempts to import or export a photo |
+
+### Pre-Permission Priming Screens
+
+Before every system permission prompt, show a custom priming screen. This is a single screen — not a modal — that explains:
+
+- What the permission is for (one sentence, plain language)
+- What the user will gain by granting it
+- That they are about to see an iOS prompt
+
+**Effective priming screen anatomy:**
+
+```
+[Icon representing the feature, not the permission]
+
+"[App name] uses your location to show nearby [things]."
+
+"We never store your location or share it with third parties."
+
+[Allow button — primary, full width]
+[Not now — secondary, text link]
+```
+
+Then immediately trigger the system prompt. The user who taps "Allow" on your screen will almost always allow the system prompt too.
+
+### NSUsageDescription Strings
+
+Short, honest, specific. Review rejects vague strings.
+
+Bad: `"This app needs your location."`
+Good: `"Your location is used to show [Feature Name] results near you. It is never stored on our servers."`
+
+For ATT specifically, the `NSUserTrackingUsageDescription` must not imply tracking is optional when it is required for core function, and must not make claims about sharing that you cannot enforce. See `privacy-manifest` for the full list of required reasons API declarations.
+
+---
+
+## Sign-Up Friction
+
+### Default Position: Let Users Try First
+
+Unless your app has zero utility without an account (real-time multiplayer, sync-first tools), let users reach the activation event without signing in. Require an account only when they want to save, sync, or share.
+
+Implementation options in order of preference:
+
+1. **Anonymous account (preferred)** — Create a silent, unauthenticated session on first launch. Persist local data. Prompt to "save your progress" with Sign in with Apple when the user has something worth saving.
+2. **Guest mode** — Explicit "Continue without account" path. Data is device-local. Prompt to sign in at a natural save point.
+3. **Deferred sign-up wall** — Force sign-in only when the user attempts a feature that requires a server-side identity (share, sync, leaderboard).
+
+Never put a sign-in wall before the activation event unless the app is inherently identity-first (social, banking).
+
+### Sign In With Apple
+
+Offer Sign in with Apple as the primary option on every sign-up screen. Apple requires it when any third-party social login is offered. Beyond compliance:
+
+- Zero-friction for users already authenticated on device
+- Built-in Hide My Email reduces friction for privacy-conscious users
+- Apple handles two-factor; you inherit that trust
+
+Ordering on the sign-up screen: Sign in with Apple first, other social options second, email/password last.
+
+### Minimize Required Fields
+
+If you have a traditional form, audit each field:
+
+| Field | Keep? |
+|---|---|
+| Email | Only if required for account; skip if using Sign in with Apple |
+| Password | Skip if using Sign in with Apple or passkey |
+| Full name | Almost never needed at sign-up; ask post-activation |
+| Phone number | Only if SMS verification is core to your security model |
+| Birthday / age | Only if required for legal compliance (COPPA, etc.) |
+| Profile photo | Defer; never required at sign-up |
+
+If you need more than email + password for a traditional account, question why.
+
+### Passkeys
+
+Offer Passkeys (`AuthenticationServices`) as the credential type for new accounts. Passkeys eliminate password fatigue, have zero phishing surface, and are the direction Apple is explicitly pushing. For new apps, passkeys + Sign in with Apple covers nearly all users.
+
+---
+
+## Onboarding Paywall Placement
+
+If the app has a free trial or a hard paywall, placement matters enormously. Two models work:
+
+**Post-activation paywall** — Show the paywall after the user has experienced the activation event. They understand the value; conversion rates are higher; App Store Review has no reason to flag the flow as deceptive. Hand off to `paywall-design` for screen anatomy and StoreKit 2 integration.
+
+**Soft-gate model** — Let users access a subset of features indefinitely. Surface the paywall contextually when they attempt a premium feature. This performs best for utility and productivity apps.
+
+Avoid: paywalls on screen 1 or 2 before the user has done anything. This is increasingly flagged in App Store Review as "misleading" and user reviews will mention it.
+
+---
+
+## Copy and Empty States
+
+### Onboarding Copy Principles
+
+Align with `apple-design-language` voice guidelines:
+
+- Lead with benefit, not feature name. "See what is near you" not "Location Feature Enabled".
+- Use second-person, present tense. "You are set up." not "Setup complete."
+- Avoid exclamation marks. Apple's own onboarding does not use them; they undercut authority.
+- Permission priming copy: state the user benefit first, data handling second.
+
+### First Empty State
+
+The state the user sees immediately after completing sign-up or activating an account is the most important empty state in the app. It must:
+
+1. Confirm they are in the right place
+2. Show exactly one clear call to action that leads to the activation event
+3. Not list every feature the app has
+
+See `apple-design-language` for illustration, icon, and layout guidance on empty states.
+
+### Accessibility of the Onboarding Flow
+
+Run every onboarding screen through VoiceOver before shipping. Common failures:
+
+- Images without `accessibilityLabel`
+- Custom "Allow" / "Skip" buttons not reachable by VoiceOver
+- Progress indicators (dots) not announcing step count
+- Priming screen dismiss gestures not supported by Switch Control
+
+See `ios-accessibility` for the full audit checklist and Dynamic Type compliance requirements. The onboarding flow is the first experience a user with accessibility needs has with your product; a broken flow causes immediate uninstalls.
+
+---
+
+## Measurement
+
+Instrument the onboarding funnel before shipping. Without data you cannot improve it. See `app-analytics` for event schema and funnel setup.
+
+### Events to Track
+
+| Event | Properties |
+|---|---|
+| `onboarding_started` | app version, device model, iOS version |
+| `onboarding_step_viewed` | step index, step name |
+| `onboarding_step_completed` | step index, step name, time on step |
+| `permission_priming_viewed` | permission type |
+| `permission_system_prompt_shown` | permission type |
+| `permission_granted` | permission type |
+| `permission_denied` | permission type |
+| `signup_started` | method (apple, email, guest) |
+| `signup_completed` | method, time to complete |
+| `onboarding_skipped` | step where user tapped skip |
+| `activation_event` | (your custom event name) |
+
+### Metrics That Matter
+
+- **Day-1 activation rate** — percentage of installs that reach the activation event within 24 hours. Target varies by app type; under 40% for a simple utility is a red flag.
+- **Step-by-step drop-off** — waterfall chart from `onboarding_started` to `activation_event`. Any single step with more than 20% drop-off is a problem.
+- **Permission grant rates** — track per permission type. Below 50% for notifications or ATT usually means the priming screen is weak.
+- **Time to activation** — median minutes from first launch to activation event. Long times (over 5 minutes for a simple app) indicate friction.
+- **D1 / D7 / D30 retention** — see `retention-optimization` for cohort analysis and benchmarks.
+
+---
+
+## Onboarding Audit Output Template
+
+Use this as a deliverable when auditing an existing flow.
+
+```
+ONBOARDING AUDIT — [App Name] — [Date]
+
+ACTIVATION EVENT
+Defined: [yes / no — state the event]
+
+FLOW SUMMARY
+Total screens: [n]
+Total taps to activation: [n]
+Required input screens: [n]
+Pure marketing screens (recommend cut): [n]
+
+PERMISSION PROMPTS
+Permissions requested before activation event: [list]
+Priming screens present: [yes / no per permission]
+NSUsageDescription quality: [pass / fail per permission]
+ATT request timing: [before / after activation]
+
+SIGN-UP FRICTION
+Sign in with Apple offered: [yes / no]
+Account required before activation: [yes / no]
+Guest / anonymous mode available: [yes / no]
+Required fields at sign-up: [list]
+
+COPY AUDIT
+Benefit-led copy on key screens: [yes / no]
+Empty state CTA clarity: [1–5]
+Accessibility labels present: [yes / no]
+
+MEASUREMENT
+Funnel events instrumented: [yes / no]
+Activation event tracked: [yes / no]
+Permission grant rates visible: [yes / no]
+
+TOP 3 RECOMMENDATIONS
+1. [Highest-impact change]
+2. [Second change]
+3. [Third change]
+
+HANDOFFS
+- Paywall screen: paywall-design
+- Privacy / ATT declarations: privacy-manifest
+- Push priming: push-notifications
+- Accessibility audit: ios-accessibility
+- Analytics schema: app-analytics
+- Retention cohorts: retention-optimization
+- App Intents for re-engagement: app-intents
+- Copy and empty state design: apple-design-language
+```
+
+---
+
+## Quick Checklist
+
+- [ ] Activation event defined and tracked
+- [ ] Flow reaches activation in 10 taps or fewer
+- [ ] Welcome / feature-tour screens removed or cut
+- [ ] Account creation deferred; guest or anonymous mode available
+- [ ] Sign in with Apple offered as primary option
+- [ ] No permission requested before it is contextually needed
+- [ ] Priming screen precedes every system permission prompt
+- [ ] NSUsageDescription strings are specific and honest
+- [ ] ATT prompt fires post-activation
+- [ ] Paywall placement is post-activation (hand off to `paywall-design`)
+- [ ] Empty state has exactly one CTA pointing at activation
+- [ ] VoiceOver navigates all onboarding screens correctly (hand off to `ios-accessibility`)
+- [ ] Full funnel instrumented; Day-1 activation rate baseline captured (hand off to `app-analytics`)
+- [ ] Retention cohorts set up to measure onboarding changes over time (hand off to `retention-optimization`)
+
+<!-- END SKILL: onboarding-optimization -->
+
+---
+
 <!-- BEGIN SKILL: overlay-sync -->
 
 # overlay-sync
@@ -14256,6 +16432,286 @@ Test locally: `xcrun simctl push <device> <bundle-id> payload.apns`.
 
 ---
 
+<!-- BEGIN SKILL: rating-prompt-strategy -->
+
+# rating-prompt-strategy
+
+# Rating Prompt Strategy
+
+**Prompt at the right moment, earn the rating you deserve — Apple controls the rest.**
+
+You get at most three system-managed prompts per 365 days per device. Apple may suppress every one of them. Your only lever is *when* you ask and *who* you ask. Done right, you surface prompts to users who are genuinely delighted, maximize the probability Apple actually shows the dialog, and grow your average rating without ever gaming the system.
+
+---
+
+## Apple's Rules, Precisely
+
+| Constraint | Detail |
+|---|---|
+| API | `SKStoreReviewRequest.requestReview(in:)` (UIKit) / `requestReview` environment action (SwiftUI) / `AppStore.requestReview(in:)` (iOS 18+) |
+| Throttle | System enforces ~3 prompts per 365 days per device; calls beyond that are silently ignored |
+| Display guarantee | None. Apple may suppress the prompt entirely — especially if the user has already rated, if they dismissed recently, or based on undisclosed internal signals |
+| Custom star gates | Forbidden. You may not show a custom 1–5 star UI that routes low scores away from the App Store and only sends happy users to rate. Guideline 1.1 and Review Guideline 5.6.1 both prohibit this |
+| Incentivized reviews | Forbidden. Never offer rewards, currency, or features in exchange for a rating |
+| Timing control | Entirely yours — call the API whenever you want, but Apple decides whether to render the prompt |
+
+**Takeaway:** treat each of your three annual calls as a budget line. Spend them on your most satisfied users at your most confident moments.
+
+---
+
+## The Modern Swift API
+
+### SwiftUI (recommended)
+
+```swift
+import StoreKit
+import SwiftUI
+
+struct TaskCompleteView: View {
+    @Environment(\.requestReview) private var requestReview
+    @AppStorage("lastReviewedVersion") private var lastReviewedVersion = ""
+    @AppStorage("promptsThisYear") private var promptsThisYear = 0
+    @AppStorage("firstPromptDate") private var firstPromptDate = 0.0
+
+    var body: some View {
+        VStack { /* … */ }
+            .onAppear { maybeRequestReview() }
+    }
+
+    private func maybeRequestReview() {
+        let currentVersion = Bundle.main.appVersion
+        guard lastReviewedVersion != currentVersion else { return }
+        guard promptsThisYear < 3 else { return }
+
+        let now = Date.now.timeIntervalSinceEpoch
+        if promptsThisYear == 0 { firstPromptDate = now }
+        let yearInSeconds: Double = 365 * 24 * 3600
+        guard now - firstPromptDate < yearInSeconds else {
+            // Reset annual budget
+            promptsThisYear = 0
+            firstPromptDate = now
+            return
+        }
+
+        requestReview()
+        lastReviewedVersion = currentVersion
+        promptsThisYear += 1
+    }
+}
+```
+
+### UIKit / iOS 18+
+
+```swift
+// iOS 18+
+import StoreKit
+
+func promptIfEligible(scene: UIWindowScene) {
+    AppStore.requestReview(in: scene)
+}
+
+// iOS 16–17 fallback
+func promptLegacy(scene: UIWindowScene) {
+    SKStoreReviewController.requestReview(in: scene)
+}
+```
+
+Keep a `Bundle` extension for `appVersion` (`CFBundleShortVersionString`). Do not use build number — minor builds should not reset version-gating.
+
+---
+
+## Timing: When to Call
+
+### The Rule
+
+Prompt only after a user completes a meaningful, positive action. The system prompt should feel like a natural pause, not an interruption.
+
+### High-Signal Trigger Moments
+
+| Moment | Signal Strength | Notes |
+|---|---|---|
+| Completed a core task for the Nth time (N = 3–5) | Very high | User has formed a habit |
+| Hit a streak milestone | High | Emotional peak, not mid-task |
+| Finished onboarding successfully | Medium-high | Only if onboarding delivers clear value |
+| First purchase confirmed | High | Post-transaction, after success screen |
+| Returned after 7+ days away | Medium | Re-engagement moment |
+| Reached a goal or level | High | Celebratory context |
+
+### Hard Prohibitions
+
+- Never prompt on cold launch (App Store guidelines, and users are not yet in a positive frame)
+- Never prompt after an error, crash, or failed action
+- Never prompt mid-task (during a flow, modal, or form)
+- Never prompt during a paywall interaction
+- Never prompt the same app version twice per device
+
+---
+
+## Pre-Prompt Gating: Detect Satisfaction Without a Custom Star Screen
+
+You cannot build a "are you enjoying the app?" 1–5 screen and only send 4–5 stars to the App Store. That is guideline-violating dark pattern territory.
+
+What you *can* do: use behavioral signals to determine satisfaction before spending a prompt call.
+
+```swift
+struct SatisfactionGate {
+    static func isSatisfied(engagement: EngagementTracker) -> Bool {
+        engagement.sessionsThisWeek >= 3
+        && engagement.lastActionSucceeded
+        && !engagement.hadErrorInLastSession
+        && !engagement.isFirstWeek
+    }
+}
+```
+
+If a user does not pass the gate, do not call `requestReview`. Optionally surface a passive, non-intrusive feedback path — a "Send Feedback" button in Settings, a shake-to-report gesture, or a support link — so dissatisfied users can reach you without leaving a bad review out of frustration.
+
+This is the correct pattern: satisfied users get the prompt, dissatisfied users get a support path. You are not routing based on predicted star rating; you are routing based on readiness.
+
+---
+
+## Version-Gating and Budget Planning
+
+### Version Gate
+
+Track the last app version that triggered a prompt. Do not re-prompt on the same version. Reset when a new version ships.
+
+```swift
+let versionKey = "lastReviewPromptVersion"
+let current = Bundle.main.appVersion
+guard UserDefaults.standard.string(forKey: versionKey) != current else { return }
+// … call requestReview …
+UserDefaults.standard.set(current, forKey: versionKey)
+```
+
+### Spreading the 3-Per-Year Budget
+
+| Prompt | Recommended Timing | Target User State |
+|---|---|---|
+| Prompt 1 | ~30 days post-install (or after 5 completed core tasks) | Early adopters who stuck around |
+| Prompt 2 | ~90 days post-install, or after major feature use | Retained, habitual users |
+| Prompt 3 | ~180–240 days (or after a significant milestone) | Power users, loyalists |
+
+Avoid clustering prompts. If you release frequently, hold prompt 2 and 3 for versions with meaningful feature additions — users who just updated and see value are more likely to rate 5 stars.
+
+---
+
+## Rating Recovery After a Bad Version
+
+A bad release — crashes, data loss, broken flows — will spike 1-star reviews. The recovery playbook:
+
+1. **Fix first, prompt never.** Do not call `requestReview` on the bad version. Suppress prompts until the fix ships.
+2. **Ship the fix rapidly.** Expedited review is available for critical bug fixes.
+3. **Reply to negative reviews.** Use the `review-management` skill to craft developer responses that acknowledge the issue and announce the fix. Responses are public and visible to prospective users.
+4. **Resume prompting on the fix version.** Target users who update and then complete a successful core task — they have lived through the bad version and seen you fix it, which is itself a trust signal.
+5. **Monitor the trend.** Use `app-analytics` to watch your rolling average rating and `asc-aso` to track keyword ranking impact (ratings affect ranking). Give the recovery 2–4 weeks before assessing.
+6. **Do not manufacture reviews.** Never solicit reviews from friends/family accounts or use review exchange services.
+
+---
+
+## Unhappy User Path
+
+Do not suppress the App Store prompt for users you think will rate low. Do build a *parallel* feedback path so dissatisfied users can reach you before they decide to vent in a review.
+
+Recommended placements:
+
+- **Settings screen**: "Send Feedback" → `mailto:support@yourapp.com` or a support form
+- **Shake to report**: `UIFeedbackGenerator` pattern, present a support sheet
+- **Post-error**: show a "Something went wrong — let us know" banner with a feedback link, not a rating prompt
+
+This is not a gate. Both paths exist independently. You are increasing the probability that a frustrated user contacts you rather than reviewing, while giving satisfied users the system prompt.
+
+---
+
+## Integration with Other Skills
+
+| Skill | Integration Point |
+|---|---|
+| `review-management` | Reply to reviews surfaced by prompts; coordinate messaging after bad-version recovery |
+| `app-analytics` | Track rating trends, session depth, retention curves to calibrate trigger thresholds |
+| `asc-aso` | Monitor how rating average and volume affect keyword ranking and conversion on the product page |
+| `retention-optimization` | Share engagement signals — streak data, session frequency, task completion — to power the satisfaction gate |
+
+---
+
+## Output Template: Rating Strategy Plan
+
+Use this when shipping a new app or resetting strategy for a new year:
+
+```
+App: [name] | Version: [x.y] | Date: [yyyy-mm-dd]
+
+TRIGGER MOMENTS
+---------------
+Prompt 1: [event] at [milestone] — target [user segment]
+Prompt 2: [event] at [milestone] — target [user segment]
+Prompt 3: [event] at [milestone] — target [user segment]
+
+SATISFACTION GATE CONDITIONS
+-----------------------------
+- Sessions this week >= [N]
+- No error in last session
+- Core task completed >= [N] times total
+- App installed >= [N] days
+
+UNHAPPY USER PATH
+-----------------
+- Settings > Feedback: [mailto / form URL]
+- Shake-to-report: [yes / no]
+- Post-error banner: [yes / no]
+
+BUDGET TRACKING (reset annually)
+---------------------------------
+Prompt 1 fired: [date / not yet]
+Prompt 2 fired: [date / not yet]
+Prompt 3 fired: [date / not yet]
+
+RECOVERY PLAN (if applicable)
+------------------------------
+Bad version: [x.y] | Issue: [description]
+Fix version: [x.y] | Ship date: [date]
+Reviews replied to: [yes / partial / no]
+Resume prompting on version: [x.y]
+
+EXPECTED LIFT
+-------------
+Baseline rating: [current]
+Target rating in 90 days: [goal]
+Review volume goal (monthly): [N]
+Conversion rate assumption: [~0.5–2% of prompted users]
+```
+
+---
+
+## Common Mistakes
+
+| Mistake | Why It Matters | Fix |
+|---|---|---|
+| Calling `requestReview` on app launch | Interrupts user before any positive experience; Apple likely suppresses it anyway | Move to a post-task moment |
+| Building a custom 1–5 star gate | Violates App Store guidelines, risk of removal | Use behavioral gating, not self-reported sentiment |
+| Prompting the same version repeatedly | Wastes budget; Apple deduplicates by version internally | Track `lastReviewedVersion` in `UserDefaults` |
+| Not tracking the annual budget | Can silently exhaust all 3 calls on low-signal moments | Store `promptsThisYear` and `firstPromptDate` |
+| Prompting immediately after a crash fix | Users may still distrust the app | Wait for 1+ successful session post-update |
+| Ignoring negative reviews after prompting | Prompting raises visibility; unanswered negative reviews hurt conversion | Use `review-management` to reply within 48 hours |
+
+---
+
+## Checklist
+
+- [ ] Using `SKStoreReviewRequest` / `requestReview` environment action — no third-party prompt SDKs
+- [ ] Version gate implemented: same version never triggers twice
+- [ ] Annual budget tracked: no more than 3 calls per 365-day window
+- [ ] Trigger moments are post-success, never on launch or post-error
+- [ ] Satisfaction gate uses behavioral signals, not a custom star screen
+- [ ] Unhappy user path exists independently (Settings feedback link at minimum)
+- [ ] Bad-version suppression: prompts off during known defect window
+- [ ] `review-management` workflow connected for reply cadence
+- [ ] `app-analytics` monitoring rating trend and review volume post-launch
+
+<!-- END SKILL: rating-prompt-strategy -->
+
+---
+
 <!-- BEGIN SKILL: regression-test -->
 
 # regression-test
@@ -14471,6 +16927,505 @@ func test_[ui]_[action]_should[updateState]() {
 
 ---
 
+<!-- BEGIN SKILL: retention-optimization -->
+
+# retention-optimization
+
+# Retention Optimization
+
+**Turn one-time openers into users who come back, form habits, and stay.**
+
+---
+
+## The retention framework
+
+Retention is not a single number — it is a pipeline with three stages. Fix them in order; adding notifications before the activation event is fixed is noise.
+
+```
+Activation  →  Habit formation  →  Long-term engagement
+```
+
+**Activation** — the moment the user gets undeniable value for the first time. Every app has exactly one activation event. Find yours: it is the action that, when users take it on day 0, predicts they will still be present on day 7.
+
+**Habit loop** — four steps that repeat:
+
+| Step | What it means in your app |
+|------|---------------------------|
+| Trigger | External (push, widget) or internal (urge, cue) |
+| Action | The lowest-friction path to value |
+| Variable reward | An outcome that feels good and is slightly uncertain |
+| Investment | Data, content, or personalization the user puts in, raising switching cost |
+
+**Long-term engagement** — the loop runs without constant external prodding. The user has made your app part of their routine.
+
+> Implication: if activation is broken, fix `onboarding-optimization` first. If the habit loop is thin, redesign the core action before wiring up notifications.
+
+---
+
+## Reading retention curves
+
+Pull cohort data from **App Store Connect App Analytics** (the `app-analytics` skill covers the full query flow). Navigate to **Analytics → Retention** and select cohort size (weekly is most actionable) and time window.
+
+### What "good" looks like by app type
+
+| App type | D1 | D7 | D30 | Characteristic shape |
+|----------|----|----|-----|----------------------|
+| Casual / hypercasual game | 35–45% | 15–25% | 6–12% | Steep drop, flat tail |
+| Puzzle / mid-core game | 40–55% | 20–35% | 10–20% | Slower drop |
+| Social / messaging | 60–75% | 45–60% | 30–45% | High floor |
+| Utility / productivity | 30–50% | 20–35% | 12–25% | Slow decay, high if habit forms |
+| Health / fitness | 30–45% | 18–28% | 8–18% | Spikes around resolution dates |
+| Finance / subscription | 50–65% | 35–50% | 20–35% | Step-function drops at billing |
+
+These are competitive benchmarks, not ceilings. What matters most is **where the curve flattens** — your retained core — and **where it drops sharply** — your biggest leak.
+
+### Diagnosing the curve shape
+
+- **Near-vertical D0→D1 drop:** onboarding is not delivering the activation event. Fix onboarding first (see `onboarding-optimization`).
+- **D1–D7 slide without flattening:** no habit loop has formed. The trigger or reward is missing.
+- **Step-function drop at D30:** often a subscription billing moment; check involuntary churn and `subscription-lifecycle`.
+- **Curve that flattens early (low but stable):** you have a retained core — grow it, don't over-optimize for the churned majority.
+
+---
+
+## Churn diagnosis: fix the leak before adding re-engagement
+
+Adding notifications to a leaky funnel accelerates churn by annoying the users who might have stayed.
+
+**Step 1 — Identify the drop-off step.** In ASC Analytics, compare the actions users take before and after each major retention milestone. Segment by acquisition source if volumes allow.
+
+**Step 2 — Instrument it.** Place analytics events at every screen transition and key action in the first session and the second session. Use `app-analytics` to capture and query these events. You cannot diagnose what you cannot measure.
+
+**Step 3 — Form a hypothesis.** Common root causes:
+
+- Missing activation event — user never got the "aha."
+- Too many steps before value — trim `onboarding-optimization`.
+- App opened once for a specific task, then nothing else pulls the user back — the trigger is absent.
+- Core action is too slow or confusing — see `performance-instruments` and `apple-design`.
+- Content or data goes stale — the variable reward disappears.
+
+**Step 4 — Fix the leak, then measure.** Re-pull the cohort curve two weeks after the fix ships. If D7 moved, the hypothesis was correct.
+
+---
+
+## Re-engagement levers (Apple-native only)
+
+Apply these in the order they are listed — each one reaches users at progressively higher commitment.
+
+### 1. Notification sequences (Days 0/1/3/7)
+
+Well-timed, low-volume notifications are the most direct re-engagement lever. Design them with restraint.
+
+**Permission timing:** Never ask on launch. Ask at a moment of high intent — after the activation event, after the user voluntarily completes a meaningful action. Delegate the permission ask to `onboarding-optimization`, which owns the first-session flow.
+
+**Sequence template:**
+
+| Day | Purpose | Tone | Content example |
+|-----|---------|------|-----------------|
+| 0 (evening, ~6 h after install) | Completion / reinforce activation | Warm, encouraging | "You tracked your first 3 habits. You're on a roll." |
+| 1 | Habit trigger — remind them why they downloaded the app | Direct, low friction | "Your 8 am check-in is ready." |
+| 3 | Variable reward / social proof | Curious, slightly surprising | "You're in the top 20% of new users this week." |
+| 7 | Investment reinforcement | Value-framing | "You've built 7 days of data. Here's what it shows." |
+
+Rules:
+- Maximum 1 notification per day in the first 7 days, then back off to what the user opted into.
+- Every notification must be actionable — tap it and land on the exact relevant screen, never the app root.
+- Use `interruption-level: .timeSensitive` only when the content is genuinely time-sensitive. Use `.passive` for informational nudges that do not need to interrupt a Focus.
+- Respect Focus filters (see below) — a notification that fires during a user's Work Focus and has no relevance to work will be silenced and may be permanently disabled.
+- If the user silences your notifications in Settings, the next best path is widgets.
+
+See `push-notifications` for APNs payload, interruption levels, and notification service/content extensions.
+
+### 2. Home Screen and Lock Screen widgets
+
+Widgets create passive re-engagement without requiring the user to act on a notification. A widget that surfaces a useful at-a-glance value keeps your app present in the user's daily visual field.
+
+Design for widgets:
+- Show the user's most personally relevant metric — not generic marketing copy.
+- Update via `WidgetKit` timelines on a sensible schedule; don't thrash the battery.
+- Small widget: one number or status. Medium: context + CTA. Large: summary + multiple entry points.
+- Lock Screen widgets (iOS 16+): small, glanceable, monochrome-friendly.
+
+Lock Screen placement is high-value real estate. Users who add a Lock Screen widget have dramatically higher 30-day retention than those who do not — because the app appears before they even unlock.
+
+See `app-intents` for widget intents and App Shortcuts that make widgets interactive.
+
+### 3. Live Activities and Dynamic Island
+
+For apps with time-bound sessions (workouts, timers, deliveries, game events), Live Activities keep users engaged without an app launch.
+
+- Start a Live Activity when the user begins a session, not proactively.
+- Update via push (ActivityKit push token) to reflect real-time state.
+- End the activity promptly — stale Live Activities damage trust.
+- Dynamic Island compact/expanded/minimal views are the highest-visibility placements on supported hardware.
+
+Pairs with `app-intents` for intent-driven Live Activity actions.
+
+### 4. App Shortcuts and Spotlight
+
+Users who reach your app through Siri or Spotlight show higher retention because the app integrates into their workflow rather than requiring deliberate launch.
+
+- Define `AppShortcutsProvider` with at least one shortcut that completes the core action in one step.
+- Donate intents when the user performs repeating actions so Siri Suggestions surface them proactively.
+- Spotlight deep links (via `NSUserActivity` and `CoreSpotlight`) let users jump directly to content.
+
+See `app-intents` for the full AppIntents API surface.
+
+### 5. Focus filters
+
+iOS 16+ Focus filters let users configure which apps are relevant during a given Focus (Work, Personal, Sleep). Opt in by implementing `SetFocusFilterIntent`.
+
+- An app that respects Focus filters will not be blocked by them — it adapts.
+- Surface only the relevant subset of content during each Focus context.
+- Users who configure your app with a Focus filter have a strong signal of intent to use it habitually.
+
+### 6. Email (if applicable)
+
+Email is Apple-native in the sense that it respects user preference and is not dependent on push authorization. Use for:
+- Subscription billing receipts and trial-ending reminders (see `subscription-lifecycle`).
+- Weekly or monthly digest if your app produces data worth summarizing.
+- Win-back campaigns for users who have not opened the app in 30+ days.
+
+Email is not an excuse to avoid fixing in-app triggers. It is a fallback for users who revoked push authorization.
+
+---
+
+## Rating prompts and retention signal
+
+Users who rate your app 4–5 stars are a proxy for your retained, satisfied core. Trigger the system prompt only after a demonstrable success moment — not on a timer, and never during onboarding.
+
+See `rating-prompt-strategy` for timing rules and App Review guidelines on `SKStoreReviewRequest`. A well-timed prompt also surfaces users who are happy enough to write a review, which feeds ASO (see `asc-aso`).
+
+---
+
+## Subscription churn and retention
+
+Involuntary churn (failed billing) is one of the largest, most underestimated retention killers. ASC provides billing-retry status and grace period data.
+
+Tactics:
+- Implement a **grace period** (up to 16 days on App Store) — the subscription stays active while Apple retries the charge, so the user never feels interrupted.
+- Surface an **in-app billing recovery prompt** at next launch when the grace period is active.
+- Track **monthly recurring revenue (MRR) churn rate** separately from user churn — a user can stay active but let the subscription lapse.
+
+See `subscription-lifecycle` for the full billing-state machine and grace-period implementation.
+
+---
+
+## Retention audit output template
+
+Run this audit after every major release and after any significant D1/D7 curve movement.
+
+```
+## Retention Audit — [App Name] — [Date]
+
+### Cohort curve (last 4 weeks, all sources)
+D1: ___%   D7: ___%   D14: ___%   D30: ___%
+
+Curve shape: [ ] steep-then-flat  [ ] still falling at D30  [ ] flat early
+
+### Biggest leak
+Step where the curve drops most sharply: _______________
+Hypothesis for cause: _______________
+Instrumented? [ ] Yes  [ ] No (instrument before fixing)
+
+### Top 3 fixes
+1. _______________  Owner: ___  Target: ___
+2. _______________  Owner: ___  Target: ___
+3. _______________  Owner: ___  Target: ___
+
+### Re-engagement levers in place
+[ ] Notification sequence (Day 0/1/3/7 — restraint-checked)
+[ ] Widget (Home Screen and/or Lock Screen)
+[ ] Live Activity (if time-bound sessions exist)
+[ ] App Shortcut / Spotlight donation
+[ ] Focus filter opt-in
+[ ] Email fallback (subscription apps)
+
+### Cross-skill dependencies
+[ ] onboarding-optimization — activation event confirmed
+[ ] push-notifications — APNs payload and interruption levels reviewed
+[ ] app-intents — widget/shortcut intents wired
+[ ] subscription-lifecycle — grace period and billing recovery active
+[ ] rating-prompt-strategy — prompt timing set to post-success moment
+[ ] app-analytics — all key events instrumented and queryable in ASC
+```
+
+---
+
+## Skill cross-references
+
+| Skill | Handoff point |
+|-------|--------------|
+| `onboarding-optimization` | Activation event definition; notification permission timing |
+| `push-notifications` | APNs registration, payload, interruption levels, extensions |
+| `app-intents` | Widgets, Live Activities, App Shortcuts, Focus filters |
+| `app-analytics` | Cohort curve data, event instrumentation, ASC App Analytics |
+| `subscription-lifecycle` | Grace period, billing-retry state machine, involuntary churn |
+| `rating-prompt-strategy` | Post-success prompt timing, SKStoreReviewRequest rules |
+
+<!-- END SKILL: retention-optimization -->
+
+---
+
+<!-- BEGIN SKILL: review-management -->
+
+# review-management
+
+# Review Management
+
+**Turn App Store reviews from noise into signal — and respond in a way that recovers ratings, surfaces real bugs, and builds reviewer trust.**
+
+---
+
+## MCP Tools at a Glance
+
+| Tool | What it does |
+|---|---|
+| `asc_list_reviews` | Fetch reviews by app, territory, rating, or date range |
+| `asc_get_review_detail` | Load full body + metadata for a single review |
+| `asc_respond_review` | Post a new developer response |
+| `asc_update_response` | Edit an existing response |
+| `asc_delete_response` | Remove a response (rarely needed; prefer editing) |
+
+All tools accept the app's `appId` (the numeric App Store ID, not the bundle ID).
+
+---
+
+## Core Workflow: List → Cluster → Triage → Respond → Ship
+
+### Step 1 — Pull Recent Reviews
+
+```
+asc_list_reviews(appId, territory="US", rating=null, limit=200, sort="mostRecent")
+```
+
+Start broad. Pull the last 200 reviews from your primary territory, unsorted by rating so you see the real chronological stream. Repeat for secondary territories if your user base is multilingual.
+
+**Filters to use situationally:**
+
+- `rating=1` or `rating=2` — when a new build caused a spike in low ratings
+- `territory="JP"` — when localizing or debugging region-specific issues
+- `sort="mostCritical"` — when you want to prioritize damage control
+
+### Step 2 — Cluster by Theme
+
+Read each review body and assign one primary bucket. Quantify:
+
+| Bucket | Signal it maps to |
+|---|---|
+| Crash / hang | Engineering — pair with `asc-build-check`, `performance-instruments` |
+| Bug / broken feature | Engineering backlog |
+| Missing feature | Product roadmap |
+| Pricing / paywall | Monetization — pair with `paywall-design` |
+| UX confusion | Onboarding, IA, copy |
+| Praise | Nothing to fix; optionally use in ASO copy (`asc-aso`) |
+
+A review can touch two buckets; assign it to the dominant one.
+
+### Step 3 — Triage by Priority
+
+Not all one-star reviews are equal. Score each cluster:
+
+1. **Volume** — how many reviews mention this theme?
+2. **Recency** — is this cluster growing week-over-week?
+3. **Rating weight** — crashes skew 1-star; UX confusion often lands at 2–3.
+4. **Respondability** — can you fix it now, acknowledge it honestly, or only apologize?
+
+Clusters with high volume + high recency + no existing response = respond first.
+
+### Step 4 — Draft Responses
+
+Use the HEAR framework (see below). Call `asc_get_review_detail` on representative reviews from each cluster to read the full text before drafting.
+
+```
+asc_get_review_detail(reviewId)
+```
+
+Draft one canonical response per cluster theme. Personalize lightly — swap in the specific feature name the reviewer mentioned.
+
+### Step 5 — Post Responses
+
+```
+asc_respond_review(reviewId, responseBody)
+```
+
+Apple's guidelines: responses are public, cannot be longer than 5,970 characters, and are moderated. Responses go live within minutes but can be rejected for policy violations.
+
+To edit a live response after a fix ships:
+
+```
+asc_update_response(responseId, responseBody)
+```
+
+Update to close the loop: "Update: this is fixed in 4.2, available now."
+
+---
+
+## The HEAR Response Framework
+
+| Step | What you do |
+|---|---|
+| **H**ear | Restate what the reviewer experienced — show you actually read their review |
+| **E**mpathize | Validate the frustration without being sycophantic |
+| **A**cknowledge or Apologize | Own the problem if it's yours; acknowledge if it's a limitation |
+| **R**esolve | Give a concrete next step: a fix ETA, a workaround, or a support link |
+
+Every response must end with a next step. "We're looking into it" is not a next step.
+
+---
+
+## Response Do / Don't Rules
+
+**Do:**
+- Respond within 48 hours of a 1–2 star review appearing
+- Use the reviewer's language register (casual app = casual tone)
+- Give a version number when a fix is live
+- Invite the reviewer to contact support with a direct link
+- Update old responses when the underlying issue is resolved
+
+**Never:**
+- Argue, defend aggressively, or correct the reviewer's perception
+- Ask happy 5-star reviewers to do anything (no "rate us again!", no prompts)
+- Reveal personal data or order information
+- Promise a specific ship date you cannot guarantee
+- Write a response that sounds like a press release
+
+---
+
+## Response Templates
+
+### Crash / Bug
+
+> Thank you for the report — this is clearly not the experience [App Name] should deliver. We've identified a crash affecting [iOS version / device / scenario] and a fix is in review now. In the meantime, [workaround if any]. If you'd like to help us validate the fix before it ships, reach out at [support link] — we'd love to get you on TestFlight.
+
+### Missing Feature
+
+> We hear you — [feature] is one of our most-requested additions. It's on our roadmap, and your feedback moves it up. If you want to be notified when it lands (and get early access), drop us a line at [support link]. We appreciate you taking the time to tell us.
+
+### Pricing / Paywall Complaint
+
+> Fair feedback. [App Name]'s subscription supports [brief honest value statement — e.g., "continuous server costs and weekly content updates"]. We know that doesn't work for everyone. If you'd like to discuss your specific situation, our support team at [link] has options. We want you to feel the value before you pay for it.
+
+### Confused User
+
+> Sorry the [feature / flow] wasn't clear — that's on us to fix. Here's the quick path: [1–2 sentence workaround or explanation]. We're also revising that part of the UI in our next update. If you get stuck, [support link] connects you directly with our team.
+
+### 5-Star Praise
+
+> Thank you — this genuinely means a lot to the team. More good things coming.
+
+Keep praise responses short. Do not solicit anything.
+
+---
+
+## Sentiment Breakdown Output Template
+
+After running the triage workflow, produce this summary before posting any responses:
+
+```
+REVIEW TRIAGE — [App Name] — [Date Range]
+
+Total reviews pulled: N
+Primary territory: US (+ any others)
+
+SENTIMENT BREAKDOWN
+  5-star:  N  (N%)
+  4-star:  N  (N%)
+  3-star:  N  (N%)
+  2-star:  N  (N%)
+  1-star:  N  (N%)
+
+THEME CLUSTERS
+  Crash / hang:          N reviews  — [top device/OS combo]
+  Bug / broken feature:  N reviews  — [top feature affected]
+  Missing feature:       N reviews  — [most requested]
+  Pricing / paywall:     N reviews  — [specific objection]
+  UX confusion:          N reviews  — [screen or flow]
+  Praise:                N reviews  — [most-cited positive]
+
+TOP 3 RECURRING ISSUES (by volume + recency)
+  1. [Issue] — N mentions, avg rating N.N — Action: [engineering/product/response]
+  2. [Issue] — N mentions, avg rating N.N — Action: [engineering/product/response]
+  3. [Issue] — N mentions, avg rating N.N — Action: [engineering/product/response]
+
+RESPONSES QUEUED
+  - [reviewId] — [1-line summary] — [template used]
+  - ...
+
+PRODUCT ACTIONS
+  - Bug clusters → engineering backlog ticket
+  - Crash cluster → asc-build-check + performance-instruments
+  - Paywall cluster → paywall-design
+  - Rating trend → rating-prompt-strategy
+```
+
+---
+
+## Turning Reviews into a Backlog
+
+Reviews are unstructured user research. Make them structured:
+
+**Crash clusters** — Export review bodies mentioning crash/freeze/hang. Hand them to `asc-build-check` to correlate with build diagnostics and to `performance-instruments` for profiling targets. Include the iOS version and device model that appear most often in the reviews.
+
+**Bug clusters** — File one engineering ticket per distinct bug pattern. Attach the review IDs as evidence. Set priority by cluster size and rating impact.
+
+**Missing feature clusters** — Add each to the product backlog with a review count as the demand signal. Revisit quarterly.
+
+**Paywall / pricing clusters** — Route to `paywall-design` for a conversion audit. A pricing objection in reviews often reflects a paywall UX problem, not a price point problem.
+
+**UX confusion clusters** — Flag the specific screen or flow to design. UX confusion reviews are free usability tests.
+
+**Praise clusters** — Extract the phrases users reach for when describing what they love. Feed these into ASO keywords and screenshots via `asc-aso`.
+
+---
+
+## Rating Recovery Loop
+
+A rating dip after a release follows a predictable arc. Work it explicitly:
+
+1. **Detect** — `asc_list_reviews(sort="mostRecent", rating=1)` immediately after a build ships. A spike within 24 hours means the build broke something.
+2. **Diagnose** — Cross-reference with `asc-build-check` crash rates and `performance-instruments` regression data.
+3. **Fix + Expedite** — Ship a hotfix. Request expedited review in App Store Connect if the regression is severe.
+4. **Respond** — Update every unanswered 1-star review in the affected cohort with the fix version once it's live. Use `asc_update_response` on any responses you already posted.
+5. **Prompt recovered users** — After the fix ships, use `rating-prompt-strategy` to surface a re-rating prompt to users who experienced the bug and have since used the fixed version. Never prompt users who haven't opened the fixed build.
+
+Average rating recovery time with this loop: 2–4 weeks after a hotfix ships, assuming active response and a properly timed prompt.
+
+---
+
+## App Rejection Edge Case
+
+If a review mentions behavior that triggers an App Store guideline concern (e.g., "the app charged me without showing a price"), cross-reference with `app-rejection-recovery`. A pattern of reviews describing a guideline violation can precede a removal notice.
+
+---
+
+## Cross-Skill Integration Map
+
+| Situation | Skill to invoke |
+|---|---|
+| Crash spike in reviews | `asc-build-check`, `performance-instruments` |
+| Paywall / pricing objections | `paywall-design` |
+| Rating dip recovery | `rating-prompt-strategy` |
+| Praise language for ASO | `asc-aso` |
+| Guideline-risk review patterns | `app-rejection-recovery` |
+
+---
+
+## Checklist: Weekly Review Cadence
+
+- [ ] Pull last 7 days of reviews (`asc_list_reviews`, limit=100, sort="mostRecent")
+- [ ] Assign every review to a theme bucket
+- [ ] Respond to all 1–2 star reviews within 48 hours
+- [ ] Update stale responses where a fix has shipped
+- [ ] Escalate crash / bug clusters to engineering with review IDs
+- [ ] Update product backlog with feature request counts
+- [ ] Check if any cluster warrants a `rating-prompt-strategy` campaign
+- [ ] Spot-check ASO keywords against praise language (`asc-aso`)
+
+<!-- END SKILL: review-management -->
+
+---
+
 <!-- BEGIN SKILL: storekit-purchases -->
 
 # storekit-purchases
@@ -14661,6 +17616,1474 @@ See `swift-testing` for the test-authoring patterns and `ios-test` for the harne
 | Free trial offered to ex-subscribers | Not checking `isEligibleForIntroOffer` | Gate the trial on eligibility |
 
 <!-- END SKILL: storekit-purchases -->
+
+---
+
+<!-- BEGIN SKILL: submission-preflight -->
+
+# submission-preflight
+
+# Submission Preflight
+
+**Catch the rejection before Apple does.** This is the adversarial pass you run *before* `asc-submission` submits — it simulates App Review and finds the guideline violations that cost you a 1–3 day rejection cycle each. Build/upload mechanics live in `asc-build-check` and `asc-submission`; privacy-manifest specifics live in `privacy-manifest`; this skill is the *will-it-pass-review* gate.
+
+App Review rejects on patterns, not vibes. The rejection reasons cluster into six buckets, and each app type adds its own. This skill checks the universal buckets, then loads the rule pack for the app's type.
+
+---
+
+## How to run a preflight
+
+1. **Identify the app type** — pick the closest from the table below. An app can match several; load each relevant pack.
+2. **Pull live state** via the App Store Connect MCP: `asc_get_app_info`, `asc_get_metadata` (name/subtitle/description/keywords/URLs), `asc_get_privacy` (nutrition label), `asc_get_age_rating`, `asc_list_iaps` / `asc_list_subscriptions`, `asc_check_submission` (what's blocking right now). If MCP access isn't configured, ask the user to paste each field.
+3. **Run the universal rule packs** (`references/rule-*.md`) — six buckets, every app.
+4. **Run the app-type pack(s)** (`references/type-*.md`).
+5. **Report** as a triaged checklist: ❌ will-reject / ⚠️ likely-flag / ✅ clear — each with the guideline number and the concrete fix.
+6. **Hand off**: privacy-manifest gaps → `privacy-manifest`; if already rejected → `app-rejection-recovery`; listing/keyword issues → `asc-aso`.
+
+---
+
+## App-type router
+
+| If the app… | Load pack | Highest-risk guideline |
+|-------------|-----------|------------------------|
+| Any app (always) | `references/type-all-apps.md` | 2.1, 2.3.x, 5.1.1 |
+| Sells subscriptions / IAP | `references/type-subscription-iap.md` | 3.1.1, 3.1.2 |
+| Social / user-generated content | `references/type-social-ugc.md` | 1.2 |
+| Targets or appeals to kids | `references/type-kids.md` | 1.3, 5.1.4 |
+| Health / fitness / medical | `references/type-health-fitness.md` | 1.4.1, 5.1.3 |
+| Games (esp. loot/gambling-adjacent) | `references/type-games.md` | 3.1.1, 5.3 |
+| macOS app | `references/type-macos.md` | 2.4.5, 2.5 |
+| Uses AI / generative / chatbot | `references/type-ai-apps.md` | 1.2, 4.3, 5.1.1 |
+| Crypto / finance / trading | `references/type-crypto-finance.md` | 3.1.5, 3.2.1 |
+| VPN / network / privacy tool | `references/type-vpn-utility.md` | 5.4, 2.5.1 |
+
+---
+
+## The six universal buckets
+
+Each has a rule pack under `references/rules/`. The rule schema is: **What to check → How to detect → Resolution → Example rejection.**
+
+| Bucket | Pack | Catches |
+|--------|------|---------|
+| **Metadata & assets** | `references/rule-metadata.md` | Inaccurate screenshots, placeholder text, wrong category, beta language, mentioning other platforms, broken support URL (2.3.x) |
+| **Privacy** | `references/rule-privacy.md` | Missing privacy policy, nutrition label mismatch, ATT prompt, data collection without consent, missing manifest (5.1.1, 5.1.2) |
+| **Purchases** | `references/rule-subscription.md` | IAP not using StoreKit, missing restore, subscription terms, external-purchase steering (3.1.1, 3.1.2) |
+| **Design & function** | `references/rule-design.md` | Crashes, broken links, login walls with no demo account, web-wrapper apps, minimum functionality (2.1, 4.2) |
+| **Account & legal** | `references/rule-entitlements.md` | Sign in with Apple parity, account deletion, entitlement misuse, export compliance (5.1.1(v), 5.6) |
+| **Demo & reviewability** | `references/rule-metadata.md` | No demo credentials, gated content review can't reach, App Review Notes empty |
+
+---
+
+## The highest-ROI checks (if you only do five)
+
+1. **Demo account + App Review Notes.** Any login wall without working demo credentials in App Review Information = automatic 2.1 rejection. Free, 30 seconds, most common avoidable reject.
+2. **Account deletion.** If the app supports account creation, it **must** offer in-app account deletion (5.1.1(v)). Settings-only or "email us" fails.
+3. **Privacy policy URL + nutrition label truth.** A reachable privacy policy is mandatory; the nutrition label must match what the app actually collects (cross-check with `privacy-manifest`).
+4. **Subscription paywall completeness.** Price, period, what's included, restore button, and links to Terms (EULA) + Privacy on the purchase screen (3.1.2). See `paywall-design`.
+5. **Screenshots match the current build.** Outdated/marketing-only screenshots that don't show the actual UI are 2.3.10. Re-shoot after UI changes.
+
+---
+
+## Output template
+
+```
+## Preflight: <App Name> — <build/version>
+App type(s): <e.g. subscription + AI>
+
+### ❌ Will reject (fix before submitting)
+- [Guideline X.Y] <issue> → <fix>
+
+### ⚠️ Likely to be flagged
+- [Guideline X.Y] <issue> → <fix>
+
+### ✅ Clear
+- <bucket> — checked, no issues
+
+### Demo & reviewability
+- Demo account: <present / MISSING>
+- App Review Notes: <adequate / MISSING>
+
+Recommendation: <SAFE TO SUBMIT / FIX BLOCKERS FIRST>
+```
+
+> A preflight that says "safe to submit" and is wrong costs the user a review cycle. Bias toward flagging. When a rule is ambiguous, surface it as ⚠️ with the guideline number rather than silently passing it.
+
+<!-- REFERENCE: submission-preflight/references/rule-design.md -->
+
+# Preflight Rules — Design & Functionality
+
+---
+
+### App Crashes or Bugs on Review  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** The app must be stable on all devices and OS versions declared in the submission. Crashes at launch, during core flows, or on specific device classes (iPhone vs iPad, older hardware) are the most common single cause of rejection.
+- **How to detect:** `asc_check_submission` for any pre-submission validation warnings. Run the app on the oldest supported OS (check `MinimumOSVersion` in `Info.plist`) using a physical device or Simulator. Review crash logs from TestFlight via `asc_list_beta_feedback`. Cross-ref `performance-instruments` for profiling steps.
+- **Resolution:** Fix all crashes and major bugs before submission. Pay special attention to edge cases reviewers will hit: fresh install on a clean account, low-memory conditions, and background-to-foreground transitions.
+- **Example rejection:** "We discovered a crash when we tapped the 'Sign Up' button on an iPhone 14 running iOS 17. Please resolve the crash and resubmit."
+
+---
+
+### Broken Links or Placeholder Content in App  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** All in-app links (support, help, social, legal), embedded webviews, and displayed content must be live and functional at review time. Placeholder copy, dummy images, or hardcoded "example.com" links fail review.
+- **How to detect:** Manual walkthrough of every navigable screen. Tap every outbound link. Inspect embedded webviews for connectivity to a live server. Grep source for "example.com", "TODO", "placeholder", "dummy".
+- **Resolution:** Replace all placeholder content with final production content. Ensure backend endpoints referenced by the app are live and accessible from Apple's review network (not behind a VPN or IP allow-list without a workaround for review).
+- **Example rejection:** "When we tapped the 'Help' link, it led to a page that returned a 404 error. All links within the app must be functional."
+
+---
+
+### Login Wall with No Reviewer Path  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** If the app requires login before showing any functionality, reviewers must be provided with working demo credentials. Apps that show only a login screen with no guest mode and no working credentials are rejected on first review.
+- **How to detect:** Fresh-install the app and confirm the very first user-facing screen is reachable without an account, or that `reviewInformation.demoAccountName` / `demoAccountPassword` are present and valid in `asc_check_submission`. Cross-ref `rule-metadata.md` → Missing Demo Account Credentials.
+- **Resolution:** Provide demo credentials in App Review Information, or add a guest/browse mode that allows reviewers to see core functionality without creating an account.
+- **Example rejection:** "We were unable to evaluate your app because it requires a login and no demo account was provided. Please add demo account credentials in App Review Information."
+
+---
+
+### Minimum Functionality / Too Simple  ·  Guideline 4.2  ·  REJECTION
+- **What to check:** The app must provide a meaningful, lasting user experience. Apps that are effectively a single static screen, a countdown timer with no other features, or a simple wrapper around a single webpage do not meet the minimum functionality bar.
+- **How to detect:** Count distinct, purposeful user interactions and screens. If the entire app can be fully experienced in under 30 seconds with one tap, it likely fails 4.2. Compare the stated description with actual app features.
+- **Resolution:** Add substantive features, content, or interactivity. If the concept is inherently simple, consider distributing it as a widget, App Clip, or iMessage extension instead of a standalone app.
+- **Example rejection:** "Your app provides limited functionality and does not offer enough lasting value to remain on the App Store. We encourage you to expand the app's feature set before resubmitting."
+
+---
+
+### Web Wrapper / Pure Webview App  ·  Guideline 4.2  ·  REJECTION
+- **What to check:** Apps that are primarily a WKWebView or SFSafariViewController pointed at a website with no native UI, offline capability, or value-add beyond the mobile browser experience are rejected as web wrappers.
+- **How to detect:** Review main view controllers — if `UIViewController` hierarchy is dominated by a single `WKWebView` filling the screen and loading a remote URL with no native chrome beyond a back button, it is a web wrapper. Check `AppDelegate` / `SceneDelegate` for any native screen construction.
+- **Resolution:** Add native UI, offline content, device integration (notifications, widgets, Siri, etc.), or a curated native UX layer. Alternatively, consider App Clips for lightweight web-enhanced experiences, or direct users to your website via Safari.
+- **Example rejection:** "Your app appears to be a simple web view of your website and does not provide the native iOS experience users expect from an App Store app."
+
+---
+
+### Sign-In Required for Features That Don't Need an Account  ·  Guideline 5.1.1(i)  ·  REJECTION
+- **What to check:** Users must be able to access the app's core features without being forced to create an account if account functionality is not intrinsic to the service. Forcing sign-up to view a read-only content feed or use a non-personalised feature violates minimum functionality and privacy rules simultaneously.
+- **How to detect:** Fresh-install walkthrough: can the user reach any meaningful functionality without creating an account or logging in? If every entry point routes to an account gate, this is a violation.
+- **Resolution:** Implement a guest or browse mode for features that do not require server-side personalisation or data sync. Defer sign-in to the moment it is genuinely required (e.g., saving progress, syncing, purchasing).
+- **Example rejection:** "Your app requires users to register or log in before they are able to access any content or features. Apps should not require user registration prior to allowing access to app content and features that do not require a personal account."
+
+---
+
+### Spam / Duplicate of Your Own App  ·  Guideline 4.3  ·  REJECTION
+- **What to check:** Submitting multiple apps with the same or very similar functionality, or apps that differ only in minor cosmetic details (different colour scheme, different language for the same content), is treated as spam and all versions may be removed.
+- **How to detect:** Search your own developer account (or `asc_list_apps`) for existing apps with overlapping feature sets. Identify if the new submission is substantively different in functionality, target audience, or content.
+- **Resolution:** Consolidate functionality into a single app using in-app features, localisation, or conditional logic. If differentiation is genuine, document it clearly in App Review Notes.
+- **Example rejection:** "Your app appears to be a duplicate of another app in your account. Please review guideline 4.3 and consolidate your apps or differentiate them with unique content or functionality."
+
+---
+
+### Copycat UI or Intellectual Property Infringement  ·  Guideline 4.1  ·  REJECTION
+- **What to check:** The app must not replicate the UI, name, icon, or branding of another well-known app in a way that could mislead users or infringe trademarks/copyrights. This includes clone apps of Apple's built-in apps.
+- **How to detect:** Visual review of icon, app name, and core UI patterns. Legal review if the design closely resembles a third-party app. `asc_get_metadata` → `name` — search App Store for similar names.
+- **Resolution:** Redesign UI elements, rename the app, and ensure the icon is original. If using open-source UI components, verify licences permit App Store distribution.
+- **Example rejection:** "Your app's icon and name are confusingly similar to an existing App Store app. Please update your app's branding to differentiate it."
+
+---
+
+### Hidden or Undocumented Features  ·  Guideline 2.3.1  ·  REJECTION
+- **What to check:** All features in the binary must be disclosed in the app description and to the reviewer. Features hidden behind server flags that are invisible to reviewers but visible to end users post-approval ("bait and switch") result in removal and potential developer account action.
+- **How to detect:** Diff the feature set accessible with the review account versus a normal user account. Identify any runtime checks that disable features when running on Apple's review network (IP-based or account-based gating of features).
+- **Resolution:** Either include all features in the review build or explicitly document feature-flag differences in App Review Notes. Never hide features from reviewers that will be shown to users.
+- **Example rejection:** "Your app appears to have features that were not available to us during review. Please ensure all app functionality is accessible to App Review and described in your metadata."
+
+---
+
+### Uses Private or Undocumented APIs  ·  Guideline 2.5.1  ·  REJECTION
+- **What to check:** Any use of private Apple frameworks, undocumented selectors, or reverse-engineered APIs results in automatic rejection and may trigger static analysis at upload time (ITMS error at binary validation).
+- **How to detect:** `asc_check_submission` catches some violations at upload. Static analysis: `nm -gU <binary>` or `otool -ov` to inspect symbol references. Search for known private API names (`UIApplication._sendAction`, `SpringBoard`, `_UIAlertManager`, etc.).
+- **Resolution:** Replace all private API usage with supported public equivalents. If no public API exists, the feature must be removed.
+- **Example rejection:** "Your app uses the private API _UIConstraintBasedLayoutPlaySoundForceAutolayoutTrace which is not permitted on the App Store."
+
+---
+
+### Placeholder Push Notifications or Non-Working Features  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** If the app requests push notification permission, push must be wired to a real backend. Requesting permission and never sending a notification, or sending only hardcoded local notifications without server-side triggers, when the metadata implies a real notification system, is flagged during review.
+- **How to detect:** Manual test: grant push permission in review flow and verify that the stated notification use case functions. Check APNs certificate/key configuration in `asc_check_submission`. Confirm server-side push infrastructure is live.
+- **Resolution:** Ensure push is fully operational end-to-end before submission. If push is not yet implemented, remove the permission request until it is. Cross-ref `asc-build-check` for APNs capability verification.
+- **Example rejection:** "Your app requests permission to send push notifications, but we did not receive any notifications during our review. Please ensure push notifications are working correctly before resubmitting."
+
+---
+
+> Cross-ref: `asc-build-check` for binary validation and build inspection; `performance-instruments` for profiling crashes and performance issues.
+
+<!-- REFERENCE: submission-preflight/references/rule-entitlements.md -->
+
+# Preflight Rules — Entitlements & Compliance
+
+---
+
+### Sign In with Apple Required When Third-Party Social Login Is Offered  ·  Guideline 4.8  ·  REJECTION
+- **What to check:** If your app offers any third-party social or federated sign-in (Google, Facebook, Twitter/X, GitHub, etc.) as an authentication option, you must also offer Sign in with Apple as an equivalent alternative. This applies to all apps — not just those that exclusively use third-party login. Exemptions exist for government, enterprise, and education apps that use specific credentialing systems, and for apps where the login is only for accessing non-personal accounts (e.g., business system credentials).
+- **How to detect:** Review all authentication entry points. If `ASAuthorizationAppleIDProvider` is not present in the codebase alongside any third-party OAuth SDK (GoogleSignIn, FacebookLogin, etc.), the requirement is unmet. `asc_get_metadata` → `reviewNotes` should describe available sign-in options.
+- **Resolution:** Integrate `AuthenticationServices` framework and `ASAuthorizationAppleIDButton`. Handle `ASAuthorizationAppleIDCredential` for both initial sign-in and credential-state verification on subsequent launches. Ensure the Sign in with Apple button is visually equivalent in prominence to other sign-in options.
+- **Example rejection:** "Your app offers Sign in with Google but does not offer Sign in with Apple. Apps that offer third-party authentication must also offer Sign in with Apple."
+
+---
+
+### In-App Account Deletion Mandatory  ·  Guideline 5.1.1(v)  ·  REJECTION
+- **What to check:** Any app that allows users to create an account must provide a clearly discoverable, in-app mechanism to fully delete that account and its associated data. Deactivation, suspension, or "contact support to delete" flows are not sufficient. The deletion must be initiatable from within the app without requiring a browser redirect or email request.
+- **How to detect:** Navigate to Settings / Profile / Account in the app and confirm a "Delete Account" option exists and initiates deletion. Verify that Sign in with Apple token revocation (`ASAuthorizationAppleIDProvider.revokeToken`) is called for Apple-ID-based accounts. Cross-ref `rule-privacy.md` → Account Deletion rule.
+- **Resolution:** Implement an in-app delete account flow. For Sign in with Apple accounts, call the token revocation API. Ensure deletion purges or schedules purge of all user-generated data per applicable privacy laws. Document the path in App Review Notes if it is non-obvious.
+- **Example rejection:** "Your app allows users to create an account but does not offer a way to delete the account from within the app. Please add in-app account deletion."
+
+---
+
+### Export Compliance / Encryption Declaration  ·  Guideline 2.5 / US Export Law  ·  REJECTION
+- **What to check:** Every app that uses any encryption — including HTTPS/TLS, secure storage, or third-party SDKs that use encryption — must make an accurate export compliance declaration. If `ITSAppUsesNonExemptEncryption` is `YES` in `Info.plist` or in App Store Connect, a valid ERN (Encryption Registration Number) or equivalent exemption documentation is required.
+- **How to detect:** Check `Info.plist` for `ITSAppUsesNonExemptEncryption`. Use `asc_set_encryption` (or the equivalent submission API) to declare compliance status. Most apps qualify for the standard exemption (uses only HTTPS and Apple-framework encryption) and should set `ITSAppUsesNonExemptEncryption` to `NO`. Confirm with legal counsel if your app implements custom cryptographic algorithms.
+- **Resolution:** Set `ITSAppUsesNonExemptEncryption` to `NO` in `Info.plist` if the app uses only standard encryption (HTTPS via `URLSession`, Apple `CryptoKit`, `Security.framework`, etc.). If non-exempt encryption is used, obtain an ERN from the US Bureau of Industry and Security and upload documentation in App Store Connect before submission.
+- **Example rejection:** "Your app uses encryption but has not provided an export compliance declaration. Please select the appropriate export compliance option in App Store Connect."
+
+---
+
+### Entitlements Requested but Unused or Unjustified  ·  Guideline 2.5.x  ·  REJECTION
+- **What to check:** Every entitlement in the `.entitlements` file and every capability enabled in the provisioning profile must correspond to an active, reviewer-visible feature in the app. Unused entitlements (e.g., `com.apple.developer.healthkit` in a calculator app) trigger rejection.
+- **How to detect:** `codesign -d --entitlements :- <app.ipa>` to list all entitlements. Cross-reference against actual feature usage in code. Common offenders: HealthKit, HomeKit, Associated Domains, Push Notifications, Background Modes when the corresponding feature is stubbed or removed.
+- **Resolution:** Remove entitlements and capabilities that are not actively used. For any entitlement that requires usage justification (e.g., HealthKit clinical records, Network Extensions), document the feature in App Review Notes.
+- **Example rejection:** "Your app includes the HealthKit entitlement but does not appear to use HealthKit functionality. Please remove unused entitlements from your app."
+
+---
+
+### Background Modes Misuse  ·  Guideline 2.5.4  ·  REJECTION
+- **What to check:** Background mode declarations in `Info.plist` (`UIBackgroundModes`) must only be present if the app actively uses them for their declared purpose. Declaring `audio` to prevent suspension without playing meaningful background audio, or declaring `location` for always-on location without a user-facing reason, is a violation.
+- **How to detect:** Inspect `Info.plist` → `UIBackgroundModes`. For each declared mode, verify a corresponding real feature exists: `audio` → active audio playback API; `location` → continuous location tracking with explicit user benefit; `fetch` → actual background fetch logic in `application(_:performFetchWithCompletionHandler:)` or `BGAppRefreshTask`.
+- **Resolution:** Remove background modes that do not correspond to active features. For legitimate always-on location use, ensure `NSLocationAlwaysAndWhenInUseUsageDescription` is set and the user-facing benefit is clear. Document in App Review Notes.
+- **Example rejection:** "Your app declares the audio background mode but does not appear to play audio in the background. Background modes must be used only for their declared purpose."
+
+---
+
+### Entitlement / Capability Mismatch with Functionality  ·  Guideline 2.5.x  ·  REJECTION
+- **What to check:** The capabilities enabled in Xcode (and thus in the provisioning profile) must match the entitlements in the signed binary and the features actually present in the app. A mismatch — e.g., Associated Domains enabled but no `apple-app-site-association` on the server, or Sign in with Apple entitlement present but the feature is not implemented — causes build validation failures or rejections.
+- **How to detect:** `asc_check_submission` surfaces binary validation errors at upload time. Manually verify: for Associated Domains, that `apple-app-site-association` is reachable at `https://<domain>/.well-known/apple-app-site-association`; for Push Notifications, that the APNs certificate matches the bundle ID; for Sign in with Apple, that the entitlement matches the App ID configuration.
+- **Resolution:** Synchronise entitlements, provisioning profile capabilities, App ID configuration in the Apple Developer portal, and actual in-app feature usage. Re-export the archive after any capability change.
+- **Example rejection:** "The app has the Associated Domains entitlement enabled, but we could not find a valid apple-app-site-association file at the domain specified. Please ensure your server is correctly configured."
+
+---
+
+### Data-Collection Consent for Sign-In  ·  Guideline 5.1.1  ·  WARNING
+- **What to check:** When using Sign in with Apple or any other federated identity provider, any profile data received (name, email) that is stored server-side or used for analytics must be declared in the App Privacy nutrition label and handled in accordance with the stated privacy policy.
+- **How to detect:** `asc_get_privacy` → check that "Name" and "Email Address" are declared if collected at sign-in. Verify that the privacy policy covers identity data received from Apple or other providers. Confirm the app does not silently share identity data with third parties.
+- **Resolution:** Update the App Privacy label to include any identity data collected during sign-in. Ensure the privacy policy describes how sign-in data is stored, used, and can be deleted (per the account deletion rule above). Cross-ref `rule-privacy.md`.
+- **Example rejection:** "Your app collects email addresses at sign-in but this data type is not declared in your App Privacy responses. Please update your privacy information to reflect all data collected."
+
+---
+
+> Cross-ref: `privacy-manifest` for PrivacyInfo.xcprivacy, required-reason APIs, and ITMS-91053/91061; `asc-submission` for the full submission checklist including encryption and export compliance steps.
+
+<!-- REFERENCE: submission-preflight/references/rule-metadata.md -->
+
+# Preflight Rules — Metadata & Assets
+
+---
+
+### Inaccurate Screenshots  ·  Guideline 2.3.10  ·  REJECTION
+- **What to check:** Every screenshot and App Preview must accurately represent the current build. Device frames, UI, and features shown must exist in the submitted binary at the same screen shown.
+- **How to detect:** Pull current screenshots with `asc_get_metadata` and compare against the app as built. Look for screens from older versions, unreleased features, or mocked-up marketing composites.
+- **Resolution:** Capture fresh screenshots directly from the submitted build (or the most recent build targeting that OS/device). Update via App Store Connect or `asc_update_metadata`.
+- **Example rejection:** "Your screenshots do not sufficiently reflect the app in use. Screenshot 3 shows a feature not present in the submitted version."
+
+---
+
+### Non-App / Marketing-Only Screenshots  ·  Guideline 2.3.10  ·  REJECTION
+- **What to check:** Screenshots must show the actual app UI, not lifestyle photography, pure marketing text overlays with no UI, or stock imagery that fills the frame with no in-app content visible.
+- **How to detect:** Visual review of assets returned by `asc_get_metadata`. Any image where real app chrome is absent or cropped to invisibility is a violation.
+- **Resolution:** Overlay marketing copy on a real screenshot background, or present pure in-app UI. Apple allows caption text on top of actual screens.
+- **Example rejection:** "Your screenshots appear to show only marketing imagery without the app interface. Screenshots must accurately represent the content and functionality of your app."
+
+---
+
+### Placeholder / Lorem Ipsum Text  ·  Guideline 2.3.8  ·  REJECTION
+- **What to check:** Description, subtitle, keywords, and What's New must contain real, final copy — no "lorem ipsum," filler text, or developer-facing notes.
+- **How to detect:** `asc_get_metadata` → inspect `description`, `whatsNew`, `subtitle`. Grep for "lorem", "placeholder", "TBD", "coming soon".
+- **Resolution:** Replace all placeholder copy with production content before submission.
+- **Example rejection:** "Your app's description contains placeholder text. Please revise to accurately describe your app."
+
+---
+
+### Beta / Test / Coming Soon Language  ·  Guideline 2.2  ·  REJECTION
+- **What to check:** No field (name, subtitle, description, What's New, screenshots, keywords) may contain "beta," "test," "demo," "coming soon," "early access," or equivalent language implying the app is not finished.
+- **How to detect:** `asc_get_metadata` → string-search all text fields for these terms.
+- **Resolution:** Remove or rephrase. If the feature genuinely isn't ready, remove it from the build.
+- **Example rejection:** "Your app description states this is a beta version. Apps submitted to the App Store must be final versions."
+
+---
+
+### Competitor Platform / External Pricing Mentions  ·  Guideline 2.3.10 / 3.1.1  ·  REJECTION
+- **What to check:** Metadata must not name Android, Google Play, or any competing platform. It must not reference prices in dollar amounts (use "free" or tier language only) or direct users to purchase outside the App Store.
+- **How to detect:** `asc_get_metadata` → full-text scan of description and What's New for "Android," "Google Play," "Play Store," "$", "€", "buy on," "visit our website to subscribe."
+- **Resolution:** Remove all such references. Pricing mentions belong only in IAP display prices managed via App Store Connect.
+- **Example rejection:** "Your app description references purchasing options outside the App Store, which is not permitted."
+
+---
+
+### Wrong Primary Category  ·  Guideline 2.3.x  ·  WARNING
+- **What to check:** The selected primary category must reflect the app's dominant use case. Miscategorized apps surface in wrong store charts, and reviewers may flag deliberate mis-selection as a metadata violation.
+- **How to detect:** `asc_get_metadata` → `primaryCategory`. Compare against app functionality.
+- **Resolution:** Update the category via App Store Connect before submission. Use the secondary category for secondary use cases.
+- **Example rejection:** "Your app is categorized as Games but does not appear to offer game functionality as its primary purpose."
+
+---
+
+### Broken Support / Marketing URL  ·  Guideline 1.5  ·  REJECTION
+- **What to check:** Support URL and marketing URL must load a real, publicly accessible page (no login wall, no 404, no domain-parking page) at submission time.
+- **How to detect:** `asc_get_metadata` → retrieve `supportUrl` and `marketingUrl`. Fetch each with `curl -I` (or equivalent) and verify HTTP 200 with publicly readable content.
+- **Resolution:** Fix or replace the URLs. Common causes: staging domain, expired domain, maintenance mode.
+- **Example rejection:** "The Support URL you provided does not link to a functioning webpage. Please update with a valid URL."
+
+---
+
+### App Name / Subtitle Keyword Stuffing  ·  Guideline 2.3.7  ·  REJECTION
+- **What to check:** App name and subtitle must not contain lists of keywords, repeated terms, or any text that functions as a keyword dump (e.g., "MyApp — Tracker, Planner, Journal, Habit, Reminder").
+- **How to detect:** `asc_get_metadata` → inspect `name` and `subtitle` for comma-separated keyword lists, repetition, or generic category terms appended purely for search benefit. Cross-ref `asc-aso` skill for keyword strategy.
+- **Resolution:** Rewrite to a clean, descriptive name and subtitle. Keywords belong in the Keywords field only.
+- **Example rejection:** "Your app name includes excessive keywords. Please revise your app name to remove terms that are not part of your app's brand."
+
+---
+
+### Missing Demo Account Credentials  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** If the app requires account creation or login to access any functionality, fully working demo credentials (username + password) must be provided in App Review Information.
+- **How to detect:** `asc_check_submission` or `asc_get_metadata` → inspect `reviewInformation.demoAccountName` and `demoAccountPassword`. Also check `reviewNotes`.
+- **Resolution:** Create a permanent, non-expiring sandbox account and enter credentials in App Review Information. Ensure the account is pre-populated with data if the app requires it.
+- **Example rejection:** "We were unable to sign in using the demo account credentials provided. Please update your Review Notes with working login information."
+
+---
+
+### Empty / Inadequate App Review Notes for Gated Features  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** Any non-obvious feature, hardware requirement, server-side flag, or gated flow must be explained in App Review Notes so the reviewer can reach and test it.
+- **How to detect:** `asc_check_submission` → `reviewInformation.reviewNotes`. Evaluate whether the notes cover: AR/location features, backend feature flags, required physical hardware, non-obvious navigation paths.
+- **Resolution:** Add step-by-step instructions. Attach a review-only configuration or test environment URL if needed.
+- **Example rejection:** "We were unable to locate the in-app purchase flow mentioned in your metadata. Please provide steps to access this feature in the App Review Notes."
+
+---
+
+### Age Rating Mismatch  ·  Guideline 2.3.6  ·  REJECTION
+- **What to check:** The age rating questionnaire responses must match actual app content. Under-rating mature themes, violence, or user-generated content is a common cause of rejection or removal.
+- **How to detect:** `asc_get_metadata` → `ageRatingDeclaration`. Compare each category (violence, sexual content, gambling, unrestricted web access, UGC) against the actual feature set in the build.
+- **Resolution:** Re-complete the age rating questionnaire in App Store Connect accurately. If UGC is present, ensure moderation controls are in place to justify the selected rating.
+- **Example rejection:** "Your age rating indicates no mature content, but the app contains user-generated content without moderation controls, which requires a minimum rating of 17+."
+
+---
+
+> Cross-ref: `asc-aso` for keyword and listing optimisation; `app-rejection-recovery` if already in a rejected state.
+
+<!-- REFERENCE: submission-preflight/references/rule-privacy.md -->
+
+# Preflight Rules — Privacy
+
+---
+
+### Missing or Unreachable Privacy Policy URL  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** All apps must link to a publicly accessible privacy policy. The URL must load without login, without a 404, and must clearly describe data collection/use. Apps targeting children (Kids category or age rating 4+) have stricter requirements.
+- **How to detect:** `asc_get_metadata` → `privacyPolicyUrl`. Verify it resolves to a real, crawlable page (not gated, not parking, not localhost). Manually confirm the policy text is substantive — not a placeholder.
+- **Resolution:** Host a complete privacy policy and enter the URL in App Store Connect. For Kids category apps, ensure the policy complies with COPPA and CCPA requirements.
+- **Example rejection:** "Your app does not include a privacy policy URL. All apps must provide a link to a privacy policy on the App Store and within the app."
+
+---
+
+### App Privacy Nutrition Label Mismatch  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** The App Privacy questionnaire (Data Types collected, purposes, data-linked-to-user status) must exactly match what the app actually collects. Omitting a collected data type or mis-classifying purpose (e.g., marking analytics data as "not linked to user" when it is linked via fingerprinting) triggers rejection.
+- **How to detect:** `asc_get_privacy` → compare declared data types and purposes against a code audit of analytics SDKs, crash reporters, advertising SDKs, and first-party collection points. Check SDK privacy manifests.
+- **Resolution:** Update the nutrition label via App Store Connect → App Privacy, or audit and remove data collection that exceeds what's declared. Every third-party SDK that collects data must be reflected.
+- **Example rejection:** "Your app collects email addresses for account creation, but this data type is not declared in your App Privacy responses. Please update your privacy information."
+
+---
+
+### Data Collected Before Consent  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** No personal data or device identifiers may be collected or transmitted before the user has seen and accepted the privacy policy and any required permission prompts. This includes analytics and crash data at cold launch.
+- **How to detect:** Manual review / network traffic inspection (Charles Proxy or equivalent). Check that analytics SDKs are initialized after consent is granted, not at `application(_:didFinishLaunchingWithOptions:)` unconditionally.
+- **Resolution:** Defer SDK initialization until after the user's consent flow completes. Use SDK-level opt-in APIs where available (e.g., Firebase `analyticsCollectionEnabled`).
+- **Example rejection:** "Upon review, your app begins transmitting user data before any consent is obtained. Data collection must begin only after the user has given explicit consent."
+
+---
+
+### Missing ATT Prompt When Tracking / IDFA Is Used  ·  Guideline 5.1.2  ·  REJECTION
+- **What to check:** Any use of `ASIdentifierManager.advertisingIdentifier` (IDFA) or cross-app/cross-website tracking must be preceded by an ATT prompt (`ATTrackingManager.requestTrackingAuthorization`). `NSUserTrackingUsageDescription` must be present in `Info.plist` with a meaningful description.
+- **How to detect:** Grep source for `advertisingIdentifier`, `ATTrackingManager`, and any ad network SDKs (Meta Audience Network, Google AdMob, etc.). Confirm `NSUserTrackingUsageDescription` exists and is non-generic. Verify the prompt is shown before any IDFA access.
+- **Resolution:** Add a well-worded `NSUserTrackingUsageDescription`. Present `requestTrackingAuthorization` before accessing the IDFA or initialising tracking-dependent SDKs. If tracking is not used, audit SDKs to confirm and remove IDFA access.
+- **Example rejection:** "Your app uses the Advertising Identifier (IDFA) but does not include NSUserTrackingUsageDescription in its Info.plist. This key is required."
+
+---
+
+### Missing or Generic Purpose Strings  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** Every sensitive permission used must have a corresponding `NS*UsageDescription` key in `Info.plist` with a user-intelligible, specific explanation of why the app needs it. Generic strings like "This app requires access to your camera." are routinely rejected.
+- **How to detect:** Grep `Info.plist` for `NSCameraUsageDescription`, `NSMicrophoneUsageDescription`, `NSLocationWhenInUseUsageDescription`, `NSContactsUsageDescription`, `NSPhotoLibraryUsageDescription`, etc. Validate each value is specific and truthful.
+- **Resolution:** Rewrite each purpose string to name the concrete feature: "Used to scan QR codes on your boarding pass." Ensure every entitlement/capability used has a corresponding description.
+- **Example rejection:** "Your app's NSCameraUsageDescription does not provide sufficient information about how the camera will be used. Please revise the purpose string to explain the specific use."
+
+---
+
+### Data Collected Beyond Core Function  ·  Guideline 5.1.1(i)  ·  REJECTION
+- **What to check:** Apps may only request access to data that is necessary for the app's advertised core functionality. Requesting contacts for a flashlight app, or location for a tip calculator, are textbook violations.
+- **How to detect:** Map each permission request to a documented user-facing feature. If no feature justifies the data, it should not be requested. `asc_get_privacy` can surface declared collection; cross-check with actual permission requests in code.
+- **Resolution:** Remove the permission request, or add and document the feature that requires it.
+- **Example rejection:** "Your app requests access to Contacts, but we were unable to identify a feature in the app that requires this data. Please remove the permission request or provide a clear explanation."
+
+---
+
+### Account Deletion Not Available for Account-Creating Apps  ·  Guideline 5.1.1(v)  ·  REJECTION
+- **What to check:** Any app that allows users to create an account must provide an in-app mechanism to delete that account (not just deactivate it). The deletion flow must be easily discoverable — typically in account/profile settings.
+- **How to detect:** Manual review: navigate to Settings / Profile and confirm a "Delete Account" option exists. Verify it initiates actual deletion (not just logout). `asc_get_metadata` → `reviewNotes` should document the path if it is non-obvious.
+- **Resolution:** Implement an in-app account deletion flow that deletes all associated data or initiates a documented deletion request per applicable privacy regulations. Cross-ref `rule-entitlements.md` for Sign in with Apple deletion requirements.
+- **Example rejection:** "Your app allows users to create an account but does not offer a way to delete the account from within the app. Please add an in-app account deletion option."
+
+---
+
+### Sign In with Apple Not Offered as Alternative  ·  Guideline 5.x  ·  REJECTION
+- **What to check:** If the app exclusively requires login via a third-party social provider (Google, Facebook, etc.) with no alternative, it must also offer Sign in with Apple. See `rule-entitlements.md` for the complete sign-in rule.
+- **How to detect:** Review all sign-in entry points. If any third-party social login is offered as the sole identity option, Sign in with Apple must be present. `asc_get_metadata` → `reviewNotes` should note the sign-in flows available.
+- **Resolution:** Add Sign in with Apple as an equivalent login option alongside any third-party social sign-in. Cross-ref `rule-entitlements.md`.
+- **Example rejection:** "Your app offers login via Facebook but does not offer Sign in with Apple. Apps that offer third-party social login must also offer Sign in with Apple."
+
+---
+
+> For `PrivacyInfo.xcprivacy`, required-reason APIs, ITMS-91053, and ITMS-91061 compliance, hand off to the `privacy-manifest` skill — those details are not duplicated here.
+
+<!-- REFERENCE: submission-preflight/references/rule-subscription.md -->
+
+# Preflight Rules — Subscriptions & In-App Purchases
+
+---
+
+### Digital Goods Must Use IAP  ·  Guideline 3.1.1  ·  REJECTION
+- **What to check:** Any digital content, features, or services consumed within the app must be purchased through Apple's In-App Purchase system. This includes premium features, virtual currency, extra content, and subscriptions. Physical goods, person-to-person services, and business-to-business enterprise software are exempt.
+- **How to detect:** `asc_list_iaps` to enumerate existing IAPs. Review app flows for any premium feature access that does not go through StoreKit. Test with a reviewer-facing account to confirm IAP is the only path to unlocking content.
+- **Resolution:** Implement StoreKit purchases for all applicable digital goods. Remove any payment flows that bypass IAP.
+- **Example rejection:** "Your app offers digital content for purchase through a mechanism other than In-App Purchase. Digital goods must be sold using Apple's In-App Purchase API."
+
+---
+
+### Missing Restore Purchases  ·  Guideline 3.1.1  ·  REJECTION
+- **What to check:** Any app offering non-consumable IAPs or auto-renewable subscriptions must provide a clearly accessible "Restore Purchases" mechanism so users can recover purchases on a new device or after reinstalling.
+- **How to detect:** Manual review: search for a restore button in Settings, purchase flow, or paywall UI. Verify it calls `StoreKit.AppStore.sync()` (StoreKit 2) or `SKPaymentQueue.default().restoreCompletedTransactions()` (StoreKit 1). `asc_list_iaps` confirms which non-consumable or subscription products exist.
+- **Resolution:** Add a visible "Restore Purchases" button in the paywall or settings screen. Wire it to the appropriate StoreKit restore API.
+- **Example rejection:** "Your app offers In-App Purchases but does not include a mechanism for users to restore previous purchases."
+
+---
+
+### Paywall Missing Required Disclosure  ·  Guideline 3.1.2  ·  REJECTION
+- **What to check:** The subscription paywall or purchase screen must clearly display: (1) price and billing period, (2) what is included in the subscription, (3) that it auto-renews, (4) how to cancel, (5) links to Terms of Service / EULA and Privacy Policy.
+- **How to detect:** Manual review of every paywall screen. Confirm StoreKit `Product.displayPrice` and `subscriptionPeriod` are shown. Verify "Cancel anytime in App Store Settings" or equivalent language is visible. Check that EULA and Privacy Policy links are tappable and resolve.
+- **Resolution:** Update the paywall UI to include all required disclosures. Apple provides a recommended subscription disclosure template in the Human Interface Guidelines.
+- **Example rejection:** "Your subscription paywall does not clearly state the subscription price, duration, and auto-renewal terms before purchase. Please update your paywall to include this information."
+
+---
+
+### Anti-Steering: Directing Users to External Purchase  ·  Guideline 3.1.1 / 3.1.3  ·  REJECTION
+- **What to check:** The app must not contain language or UI that encourages users to purchase outside the App Store (e.g., "Buy on our website for a lower price," "Subscribe at example.com," or buttons/links that navigate to an external checkout for digital goods).
+- **How to detect:** Full UI walkthrough and text search of the binary / source for "website," "web," "cheaper," "subscribe at," "visit us to" in contexts adjacent to purchase flows. `asc_get_metadata` → description and What's New should also be checked.
+- **Resolution:** Remove steering language and external purchase links for digital goods. Note: a limited US StoreKit External Purchase Entitlement and EU DMA-based entitlement exist but require explicit Apple approval and have specific disclosure requirements — do not use without that entitlement in place.
+- **Example rejection:** "Your app includes a link to purchase a subscription on your website. Apps may not include buttons, links, or other calls to action that direct users to purchase digital goods or services outside of the App Store."
+
+---
+
+### Reader App / Multiplatform Service Exemption Misapplied  ·  Guideline 3.1.3  ·  WARNING
+- **What to check:** Reader apps (streaming media, digital magazines, newspapers, books, audio, cloud storage) and multiplatform services may allow users to access previously purchased content or subscriptions without offering IAP — but may NOT promote, link to, or assist in external purchases within the app.
+- **How to detect:** Confirm your app's category qualifies as a Reader under 3.1.3. Verify no "Sign up" or "Subscribe" links to external web flows exist within the app. Account creation for a Reader app must not be possible from within the iOS app itself unless it is free.
+- **Resolution:** Remove in-app sign-up or subscribe links for Reader apps. Only link to Apple-approved external management if the Reader entitlement is held. Cross-ref `subscription-lifecycle` skill.
+- **Example rejection:** "Your app includes a link to subscribe to your service on your website. Reader apps may not include links or calls to action for purchasing content outside the App Store."
+
+---
+
+### Free Trial Disclosure Missing  ·  Guideline 3.1.2  ·  REJECTION
+- **What to check:** If a free trial is offered, the paywall must disclose the trial length, what happens at trial end (price and billing period), and how to cancel before being charged. The disclosure must appear before the user initiates the trial purchase.
+- **How to detect:** Review paywall screens that surface introductory offers via `Product.subscriptionInfo.introductoryOffer`. Confirm trial duration, post-trial price, and cancellation instructions are shown before the purchase CTA.
+- **Resolution:** Add explicit trial disclosure text adjacent to or above the subscribe button. Use StoreKit's `introductoryOffer` data to populate it dynamically.
+- **Example rejection:** "Your app offers a free trial but does not clearly inform users of the trial duration and the price they will be charged when the trial ends."
+
+---
+
+### IAP Metadata Incomplete or Inconsistent  ·  Guideline 3.1.1  ·  REJECTION
+- **What to check:** Each IAP product must have a display name, description, and at least one screenshot (for subscriptions: a subscription group screenshot) submitted for review. The IAP display name in the storefront must match how the product is described in the app UI.
+- **How to detect:** `asc_list_iaps` → check each product's `name`, `description`, `state`, and attached review screenshots. Verify subscription group display names are set. Cross-check IAP names against how they appear in app paywalls.
+- **Resolution:** Complete all required IAP metadata fields in App Store Connect. Upload a screenshot showing the IAP in context within the app.
+- **Example rejection:** "One or more of your In-App Purchase products are missing required metadata. Please ensure all In-App Purchase items have a display name, description, and review screenshot."
+
+---
+
+### Price Tier Mismatch / Unexpected Price  ·  Guideline 3.1.1  ·  WARNING
+- **What to check:** The IAP price displayed in the app (if hardcoded) must match the actual StoreKit price for the user's storefront. Hardcoded price strings go stale when Apple adjusts prices in a territory or when you change tiers.
+- **How to detect:** Compare hardcoded price strings in the UI against `asc_list_iaps` → `priceTier` and against `Product.displayPrice` returned at runtime by StoreKit. Cross-ref `app-store-pricing` skill.
+- **Resolution:** Always render prices dynamically from StoreKit's `Product.displayPrice`. Never hardcode currency amounts in UI strings.
+- **Example rejection:** "The price shown in your app's paywall does not match the price of the In-App Purchase. Please ensure prices are retrieved dynamically from StoreKit."
+
+---
+
+> Cross-ref: `paywall-design` for UI layout requirements; `app-store-pricing` for tier management; `subscription-lifecycle` for renewal, cancellation, and billing-retry handling.
+
+<!-- REFERENCE: submission-preflight/references/type-ai-apps.md -->
+
+# Preflight Pack — AI & Generative Apps
+
+---
+
+### UGC / Generated Content Safeguards  ·  Guideline 1.2  ·  REJECTION
+- **What to check:** Apps that allow users to generate or share content — including AI-generated text, images, audio, or video — must implement content filtering, a mechanism to report objectionable content, a mechanism to block abusive users, and published Terms of Service.
+- **How to detect:** Use `asc_get_metadata` to review the app description and confirm it discloses AI-generation capability. Manually probe the app's generative flows for unconstrained output. Verify a report/flag button is present on generated outputs. Check that a ToS/EULA link appears in the app and in App Store Connect (EULA field).
+- **Resolution:** Integrate a content moderation layer (on-device classifier, server-side API, or both) that blocks or hides policy-violating outputs before display. Add a report button adjacent to generated content. Implement user-blocking for social or sharing features. Link to `type-social-ugc.md` for the full UGC checklist.
+- **Example rejection:** "Your app enables users to generate content using artificial intelligence but does not include adequate safeguards to filter objectionable material or a method for users to flag inappropriate content."
+
+---
+
+### Age Rating for AI-Generated Content  ·  Guideline 1.2 / Rating Requirements  ·  REJECTION
+- **What to check:** Apps capable of generating mature, violent, sexual, or disturbing content — even with filters in place — must carry a 17+ age rating. Many general-purpose AI chat or image apps are incorrectly rated 4+ or 9+.
+- **How to detect:** Use `asc_get_age_rating` and compare the declared descriptors against the app's actual output range. If the model can generate content that would require a 17+ descriptor (e.g., "Frequent/Intense Mature/Suggestive Themes") but none is declared, flag it. Check whether a parental gate is implemented for any 17+ content surfaced in a lower-rated shell app.
+- **Resolution:** Re-rate to 17+ in App Store Connect > App Information > Age Rating. If the app is intentionally designed for all ages, implement strict server-side output constraints that make 17+ generation impossible and document this in App Review notes.
+- **Example rejection:** "Your app's age rating does not reflect the type of content that can be generated. Apps capable of producing mature content must be rated 17+."
+
+---
+
+### AI Content Transparency  ·  Guideline 4.3 / 1.1  ·  WARNING
+- **What to check:** Users must be able to identify content as AI-generated when there is a reasonable risk of confusion with human-created or factual content. Deepfakes or synthetic media of real, identifiable people without their consent are prohibited.
+- **How to detect:** Manually review the app's output UI for any labeling ("Generated by AI", watermark, disclosure text). Check whether photo/video outputs of real people can be created without consent controls. Use `asc_get_metadata` to review screenshots for any synthetic-media features.
+- **Resolution:** Add visible AI-generation labels or watermarks on outputs. Prohibit the upload of third-party likenesses for face-swap or voice-clone features without explicit consent controls. Include Terms of Service clauses prohibiting non-consensual deepfakes.
+- **Example rejection:** "Your app generates synthetic media involving real people without disclosing that the content is AI-generated, which may deceive users and violates App Store Guidelines."
+
+---
+
+### Thin GPT-Wrapper Clone / Spam  ·  Guideline 4.3  ·  REJECTION
+- **What to check:** Apps that simply wrap a third-party AI API (e.g., OpenAI, Anthropic, Google) with a generic chat UI and no meaningful differentiation are rejected as low-quality or spam, especially when dozens of similar apps exist in the same category.
+- **How to detect:** Use `asc_get_metadata` to assess whether the app description articulates a specific use case, domain expertise, or unique feature beyond raw chat. If the app's entire value proposition is "ChatGPT but with a different color scheme," flag it.
+- **Resolution:** Define a narrow, valuable use case (legal drafting, recipe generation, code review). Add proprietary prompting logic, domain-specific fine-tuning, or a unique UX flow that justifies the app's existence beyond the underlying model. Document differentiation in App Review notes.
+- **Example rejection:** "Your app appears to be a simple interface to a third-party AI service with minimal functionality of its own. Apps must provide unique value beyond wrapping a third-party API."
+
+---
+
+### Privacy of Prompts and Model Provider Disclosure  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** User-entered prompts and AI responses are personal data. The app's privacy nutrition label must accurately declare data linked to the user (e.g., "User Content — used for app functionality") and data sent to third-party model providers. Undisclosed data transmission is a rejection cause.
+- **How to detect:** Use `asc_get_privacy` to retrieve the declared privacy labels. Cross-reference against the actual API calls in the binary or network layer — are prompts transmitted to a third-party endpoint? Is any prompt logging or training opt-out disclosed? Verify the privacy policy URL is populated in `asc_get_metadata`.
+- **Resolution:** Add "User Content" and any applicable "Identifiers" or "Usage Data" to the nutrition label, linking them to the correct purpose. Update the privacy policy to describe prompt handling, retention, and whether data is used to train models. If users can opt out of training, surface that control in the app.
+- **Example rejection:** "Your app collects user-generated content and sends it to a third-party service but does not disclose this data collection in your App Store privacy information."
+
+---
+
+### Medical / Legal / Financial AI Advice Disclaimers  ·  Guideline 1.1.6 / 5.1.1  ·  WARNING
+- **What to check:** AI apps that provide health, legal, or financial information must include clear disclaimers that outputs are not professional advice, are not a substitute for licensed practitioners, and should not be relied upon for consequential decisions.
+- **How to detect:** Manually test the app with queries like "Should I take this medication?" or "How do I write my will?" and inspect whether a disclaimer appears in the response UI or onboarding. Use `asc_get_metadata` to check if the app description makes any treatment/legal/financial claims. Use `asc_check_submission` for any prior rejection notes about this.
+- **Resolution:** Add a persistent disclaimer banner or per-response footnote: "This is not medical/legal/financial advice. Consult a qualified professional." Include this language in the app description and onboarding. Do not market the app with outcome-based claims ("Diagnose your symptoms").
+- **Example rejection:** "Your app provides health-related recommendations generated by artificial intelligence but does not include a disclaimer stating that the information is not a substitute for professional medical advice."
+
+---
+
+### Model Provider Endorsement Implication  ·  Guideline 4.0 / Developer Identity  ·  WARNING
+- **What to check:** App names, icons, and marketing copy must not imply official partnership with, endorsement by, or affiliation with an AI model provider (e.g., "Official ChatGPT App", "Claude Assistant Pro") unless that entity is the developer of record.
+- **How to detect:** Use `asc_get_metadata` to inspect the app name, subtitle, and description for model provider names used in ways that suggest official status. Compare against the developer name — if it is not the model provider itself, flag any branding that implies otherwise.
+- **Resolution:** Remove the model provider's name from the app name or make the third-party relationship explicit and subordinate ("Recipe Helper, powered by AI"). Consult the provider's brand guidelines and ToS for permitted usage of their name and marks.
+- **Example rejection:** "Your app's name and description imply an official relationship with [Provider] that does not exist. You may not use [Provider]'s trademarks in a way that suggests endorsement or official affiliation."
+
+---
+
+**Cross-references:** `type-social-ugc.md` (full UGC moderation checklist), `rule-privacy.md` (nutrition label setup), `rule-design.md` (UI clarity standards), `app-rejection-recovery` (responding to AI-related rejections).
+
+<!-- REFERENCE: submission-preflight/references/type-all-apps.md -->
+
+# Preflight Pack — All Apps (Baseline Triage)
+
+This is the always-load index pack. Run through this checklist for every submission regardless of app type, then open the deeper type-specific packs as needed.
+
+---
+
+## Deeper Packs — Open These as Applicable
+
+| Pack | When to open |
+|------|-------------|
+| `rule-metadata.md` | Name, subtitle, keywords, screenshots, descriptions |
+| `rule-privacy.md` | Privacy policy, data collection labels, tracking |
+| `rule-subscription.md` | Any auto-renewable subscription or IAP |
+| `rule-design.md` | UI/UX, hardware API usage, web views |
+| `rule-entitlements.md` | Capabilities, push, HealthKit, Sign in with Apple |
+| `type-subscription-iap.md` | Paywall, free trial, external payment steering |
+| `type-social-ugc.md` | User-generated content, social features |
+| `type-kids.md` | Kids Category or audience under 13 |
+| `type-health-fitness.md` | Medical claims, HealthKit, research features |
+
+---
+
+## Cross-Cutting Baseline Rules
+
+### Demo Account Present  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** If your app requires login, a valid demo username and password must be included in the App Review notes field.
+- **How to detect:** Use `asc_check_submission` to inspect the review notes field. Verify the credentials actually work in a fresh session against your staging/production environment.
+- **Resolution:** Add demo credentials in App Review Information. If login is unavailable during review (e.g., enterprise SSO), explain the authentication flow in notes and provide a demo video.
+- **Example rejection:** "We were unable to review your app because it requires a login, and no demo account credentials were provided in the App Review Information section."
+
+---
+
+### Account Deletion  ·  Guideline 5.1.1(v)  ·  REJECTION
+- **What to check:** Any app that allows account creation must also allow account deletion from within the app. Deletion must be permanent (not just deactivation), and any linked data must be purged per your privacy policy.
+- **How to detect:** Manually navigate to account/profile settings. Use `asc_get_privacy` to confirm deletion is declared. grep app source for "deleteAccount" / "deactivate" to confirm distinction.
+- **Resolution:** Implement a clearly labeled "Delete Account" option in-app. Ensure backend purges or schedules purge of personal data. Link to a web-based deletion flow only as a supplement, not a replacement.
+- **Example rejection:** "Your app allows users to create an account but does not provide the ability to initiate deletion of their account directly within the app."
+
+---
+
+### Privacy Policy Reachable  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** A privacy policy URL must be set in App Store Connect and must be accessible without login at review time. The URL must point to a policy covering this specific app (not a generic corporate page that omits the app).
+- **How to detect:** Use `asc_get_privacy` to retrieve the stored URL. Curl or visit the URL to confirm it returns HTTP 200 and is not behind auth.
+- **Resolution:** Host the policy on a stable URL (not localhost, not a Notion draft, not a redirect that breaks). Update the policy to name the app explicitly if needed.
+- **Example rejection:** "Your app's privacy policy URL is not functional. The URL must be accessible and must specifically describe how user data is handled within your app."
+
+---
+
+### Screenshots Current  ·  Guideline 2.3.10  ·  REJECTION
+- **What to check:** Screenshots must accurately reflect the current build's UI. Screenshots showing features not present in the binary, or showing a significantly different UI, are grounds for rejection.
+- **How to detect:** Use `asc_get_metadata` to pull current screenshot set. Compare visually against the app binary being submitted.
+- **Resolution:** Retake screenshots from the current build. Ensure all required device sizes are covered (6.9" and 6.5" for iPhone; 13" and 12.9" for iPad if the app supports iPad).
+- **Example rejection:** "Your app's screenshots do not sufficiently reflect the app in use. Screenshots must show the app's actual UI and must not include content that misleads users about the app's core experience."
+
+---
+
+### Crash-Free on Launch  ·  Guideline 2.1  ·  REJECTION
+- **What to check:** The app must launch and remain stable on supported OS versions and device types. Crashes during basic reviewer flow are the most common 2.1 rejection.
+- **How to detect:** Use `asc_check_submission` to review any existing crash metadata. Run the binary on minimum-deployment-target device/simulator. Check TestFlight crash feedback via `asc_list_beta_feedback` before promoting to review.
+- **Resolution:** Fix crashes before submission. If a device-specific crash is suspected, note supported devices in review notes. Attach a demo video if the reviewer flow is non-obvious.
+- **Example rejection:** "We discovered one or more bugs in your app. Specifically, the app crashed when launched on [device] running [OS version]."
+
+---
+
+### Support URL Works  ·  Guideline 1.5  ·  WARNING
+- **What to check:** The support URL in App Store Connect must be live and relevant. A broken URL or a URL pointing to a generic homepage without app-specific support options may flag a metadata warning or, in stricter reviews, a rejection.
+- **How to detect:** Use `asc_get_metadata` to retrieve the stored support URL. Visit it to confirm HTTP 200 and relevance.
+- **Resolution:** Use a dedicated support page or a help-desk URL (e.g., Zendesk, Intercom, a /support path). The page must include a way for users to contact support.
+- **Example rejection:** "The support URL you provided does not appear to offer support for your app. Please update it to a URL that provides users with a way to get help."
+
+<!-- REFERENCE: submission-preflight/references/type-crypto-finance.md -->
+
+# Preflight Pack — Crypto & Finance Apps
+
+---
+
+### Crypto Exchange / Wallet — Licensed Entity Only  ·  Guideline 3.1.5(ii)  ·  REJECTION
+- **What to check:** Apps that facilitate the exchange, purchase, or custody of cryptocurrency must be submitted by the institution or licensed entity that operates the service. Third-party clients or aggregators are not permitted without the owning institution as the developer of record.
+- **How to detect:** Use `asc_get_metadata` to compare the developer name against the service name. If the app name references a well-known exchange but the developer is a different entity, flag it. Check App Review notes for prior approval status. Confirm the app's privacy policy and ToS identify a licensed operator.
+- **Resolution:** Ensure the exchange or custodial wallet service is the registered Apple Developer account holder submitting the app. Third-party frontends must be consolidated under the primary entity's account. Document licensing credentials in the App Review Information notes.
+- **Example rejection:** "Your app provides cryptocurrency exchange services but does not appear to be submitted by a licensed financial institution or the entity that operates the service."
+
+---
+
+### No On-Device Crypto Mining  ·  Guideline 3.1.5(ii)  ·  REJECTION
+- **What to check:** Apps may not mine cryptocurrency on the device. This includes background mining, mining in response to user actions, or delegating mining work to the device's CPU/GPU on behalf of a pool.
+- **How to detect:** Inspect the binary for known mining library symbols (e.g., references to `xmrig`, `cryptonight`, `stratum+tcp://` connection strings). Review network entitlements and background mode declarations in `asc_check_submission` for signs of persistent network work consistent with pool communication. Profile the app for sustained CPU activity with no UI interaction.
+- **Resolution:** Remove all mining code. If the app is a mining pool dashboard (display only), ensure it performs zero computation and clearly states it monitors an external miner rather than performing work on-device.
+- **Example rejection:** "Your app mines cryptocurrency on the user's device, which is not permitted under App Store Review Guideline 3.1.5(ii)."
+
+---
+
+### ICO / Futures / Derivatives — Licensing per Region  ·  Guideline 3.1.5(ii) / 5.3  ·  REJECTION
+- **What to check:** Apps offering initial coin offerings, token sales, crypto futures, options, or leveraged products require regulatory licensing in every jurisdiction where the app is available. The app must geo-restrict to only licensed regions.
+- **How to detect:** Use `asc_get_metadata` to review the territory availability list. Cross-reference against the developer's disclosed jurisdictional licenses in the App Review notes. Flag any app that is available in major markets (US, EU, UK) without documented licensing for those regions. Use `asc_check_submission` for prior Apple communications on this topic.
+- **Resolution:** Restrict availability in App Store Connect to only those territories where the operator holds a valid license. Implement server-side geo-blocking as an additional layer. Submit documentation of all applicable licenses (FINRA, FCA, MAS, etc.) in the App Review Information notes.
+- **Example rejection:** "Your app offers financial derivatives or token sales and is available in regions where you have not demonstrated the required regulatory licensing."
+
+---
+
+### Banking / Financial Services — Legitimate Institution  ·  Guideline 3.2.1  ·  REJECTION
+- **What to check:** Apps that act as banking or payment services (account management, fund transfer, card issuance) must be submitted by or on behalf of a regulated financial institution. The developer must be the bank, credit union, payment processor, or a licensed agent thereof.
+- **How to detect:** Use `asc_get_metadata` to verify the developer name and organization match a licensed institution. Review the app's Terms of Service for a licensed entity. Check whether the app links to a chartered bank or FDIC/equivalent member. Use `asc_get_privacy` to confirm appropriate financial data disclosures.
+- **Resolution:** The licensed institution must be the Apple Developer account holder or must explicitly authorize a contracted agent in writing (provide this in App Review notes). Include a direct reference to the regulatory body and license number in the app's legal disclosures.
+- **Example rejection:** "Your app provides banking or financial account management services but is not submitted by a licensed financial institution or its authorized agent."
+
+---
+
+### No Unlicensed Money Transmission  ·  Guideline 3.2.1 / 5.3  ·  REJECTION
+- **What to check:** Apps that move money between users (P2P transfers, remittance, crowdfunding with disbursements) must hold or partner with a licensed money transmitter in each operating jurisdiction. Unlicensed money movement is prohibited.
+- **How to detect:** Identify P2P transfer flows in the app. Use `asc_get_metadata` to check category and description for payment/transfer language. Verify the privacy policy and legal footer name a licensed money transmitter. Confirm the developer's App Review notes document licensing or a formal partnership with a licensed partner (e.g., Stripe, Marqeta, a state-licensed MTB).
+- **Resolution:** Partner with a licensed money transmitter and disclose the relationship. Alternatively, route all transfers through an Apple-native mechanism (Apple Pay, StoreKit). Document MTB licenses by state/country in App Review notes and restrict availability to licensed jurisdictions only.
+- **Example rejection:** "Your app facilitates the transfer of funds between users without demonstrating the required money transmission licensing in the regions where the app is available."
+
+---
+
+### Regulatory Disclosures In-App  ·  Guideline 3.2.1 / 5.1.1  ·  WARNING
+- **What to check:** Finance and crypto apps must surface required regulatory disclosures within the app: investment risk warnings, "not FDIC insured" notices where applicable, crypto volatility disclaimers, and relevant jurisdiction-specific mandatory disclosures.
+- **How to detect:** Manual review — launch the app and navigate to account creation and any investment/trade screen. Verify risk disclosures appear before the user commits funds. Use `asc_get_metadata` to confirm the app description does not make unqualified return or performance promises.
+- **Resolution:** Add a risk disclosure modal during onboarding and an inline disclaimer near any trade or investment action ("Cryptocurrency is highly volatile and you may lose your investment"). Remove any guaranteed-return language from metadata and in-app copy.
+- **Example rejection:** "Your app offers investment or financial products but does not include required risk disclosures within the app experience."
+
+---
+
+### Demo / Test Account for Reviewer  ·  Guideline 2.1 / 3.1.5  ·  REJECTION
+- **What to check:** Financial and crypto apps that require real funds, KYC identity verification, or banking credentials to review must provide Apple with a demo account or sandbox mode that allows the reviewer to evaluate all features without committing real money or completing identity checks.
+- **How to detect:** Walk through the submission checklist in `asc_check_submission`. Verify that demo credentials are populated in the App Review Information > Demo Account field. Test that the demo account exposes all purchasable/tradable features in a simulated or paper-trading mode.
+- **Resolution:** Implement a sandbox/paper-trading mode toggled by the demo credentials. Pre-fund the demo account with virtual currency. Bypass KYC for accounts flagged as reviewer accounts server-side. Document the demo mode in the App Review notes explaining what the reviewer can do.
+- **Example rejection:** "We were unable to review your app because it requires financial account credentials or real-money transactions to access its features. Please provide a demo account in the App Review Information section."
+
+---
+
+**Cross-references:** `rule-entitlements.md` (entitlements for finance-category apps), `rule-metadata.md` (metadata compliance for financial claims).
+
+<!-- REFERENCE: submission-preflight/references/type-games.md -->
+
+# Preflight Pack — Games
+
+---
+
+### Loot Box Odds Disclosure  ·  Guideline 3.1.1  ·  REJECTION
+- **What to check:** Any randomized IAP (loot boxes, gacha pulls, card packs, spins) must prominently disclose the probability of each item type before purchase.
+- **How to detect:** Use `asc_list_iaps` to enumerate IAPs; flag any with "pack", "chest", "box", "spin", or "pull" in the display name. Check the app's UI screenshots and build for a disclosure screen prior to the purchase CTA. Verify disclosure is in-app, not merely in a linked web page.
+- **Resolution:** Add a probability table or interactive odds screen surfaced before the buy button. Odds must be exact (e.g., "Legendary: 0.3%"), not ranges. Link to the odds disclosure from the IAP paywall.
+- **Example rejection:** "Your app offers randomized virtual items but does not disclose the probability of receiving each item type prior to purchase, which is required by App Store Review Guideline 3.1.1."
+
+---
+
+### Real-Money Gaming / Gambling  ·  Guideline 5.3  ·  REJECTION
+- **What to check:** Apps where real currency is wagered (poker, sports betting, casino, fantasy sports with cash prizes) require explicit Apple approval, proof of licensing in each jurisdiction offered, and geo-restriction to licensed regions.
+- **How to detect:** Check `asc_get_metadata` for the primary/secondary category (Games > Casino or Sports). Use `asc_get_age_rating` to confirm 17+. Verify that the binary enforces geo-restriction (IP or device locale check) and that the Apple-approved entitlement is present. Confirm licensing documentation was submitted via App Review Notes.
+- **Resolution:** Apply for the gambling entitlement through Apple's developer portal before submitting. Implement server-side geo-blocking. Provide reviewer credentials to a demo region where gambling is licensed and testing is permitted. Document licenses in the App Review Information notes field.
+- **Example rejection:** "Your app facilitates real-money wagering. Apps that offer real money gaming, gambling, or lotteries must obtain appropriate licensing, restrict availability to licensed regions, and receive prior approval from Apple."
+
+---
+
+### In-Game Currency IAP Restorability  ·  Guideline 3.1.1  ·  WARNING
+- **What to check:** Non-consumable IAPs (permanent upgrades, ad removal) must be restorable. Consumable virtual currency is exempt, but bundles that mix consumable and non-consumable items need careful split.
+- **How to detect:** Use `asc_list_iaps` and check each IAP's `productType`. Any `NON_CONSUMABLE` that lacks a "Restore Purchases" path in the UI is a violation. Mixed bundles where a non-consumable benefit is bundled with consumable currency should be separated or treated as non-consumable.
+- **Resolution:** Implement `SKPaymentQueue.default().restoreCompletedTransactions()` (StoreKit 1) or `Transaction.currentEntitlements` (StoreKit 2) and expose a visible Restore button in Settings or Purchases screen.
+- **Example rejection:** "Your app does not provide a mechanism to restore previously purchased non-consumable in-app purchases, which is required by the App Store Review Guidelines."
+
+---
+
+### Simulated Gambling for Kids  ·  Guideline 5.3 / 1.3  ·  REJECTION
+- **What to check:** Slot machines, card games, or casino-style mechanics intended for or accessible to minors (age rating below 17+) that simulate gambling — even without real money — may be rejected if they normalize gambling behavior for children.
+- **How to detect:** Use `asc_get_age_rating` to check the rating and any content descriptors. Inspect whether the app uses slot reel animations, chip/bet mechanics, or terminology ("bet", "jackpot", "casino") in an app rated 4+ or 9+.
+- **Resolution:** Either raise the age rating to 17+ and restrict download in jurisdictions with minors-gambling laws, or redesign the mechanic to remove casino-style presentation. Do not market casino-style features in screenshots if rated below 17+.
+- **Example rejection:** "Your app contains slot machine or casino-style content but is rated for ages 4 and up. Apps with gambling-style content must be rated 17+."
+
+---
+
+### Third-Party Ad SDK Privacy Manifests  ·  Guideline 5.1.2  ·  REJECTION
+- **What to check:** Game engines and ad SDKs (Unity Ads, ironSource, AppLovin MAX, Meta Audience Network, Google AdMob) must include a privacy manifest (`PrivacyInfo.xcprivacy`) declaring required reason APIs and collected data. Missing manifests now cause upload rejection.
+- **How to detect:** Run `asc_check_submission` and inspect Transporter or Xcode upload logs for "ITMS-91053: Missing API declaration" or "ITMS-91054" errors. Check the linked frameworks in the app bundle for `PrivacyInfo.xcprivacy` presence. Escalate to the `privacy-manifest` skill for full audit.
+- **Resolution:** Update each third-party SDK to a version that ships its own `PrivacyInfo.xcprivacy`. For custom ad code, add a manifest in the main app target declaring all accessed required-reason APIs. See the `privacy-manifest` skill for full remediation steps.
+- **Example rejection:** "Your app accesses one or more required reason APIs without providing an approved reason in the app's privacy manifest. Please update your app's privacy manifest to include approved reasons."
+
+---
+
+### Clone / Spam Games  ·  Guideline 4.3  ·  REJECTION
+- **What to check:** Games that are near-identical copies of existing App Store titles, or bulk-produced from an asset template with minimal differentiation, are rejected as spam or copycats.
+- **How to detect:** Manual review — compare screenshots, gameplay loops, and metadata against obvious market leaders. Use `asc_get_metadata` to inspect title, subtitle, and keywords for keyword-stuffed clones. Flag if the developer has >10 near-identical apps in their portfolio (`asc_check_submission` reviewer notes may reference this).
+- **Resolution:** Differentiate with original mechanics, art, or narrative. Remove duplicate keyword strings. Consolidate template-derived apps into a single app with in-app level packs rather than separate submissions.
+- **Example rejection:** "Your app duplicates the content and functionality of apps already available on the App Store. Submitting duplicate apps is not acceptable."
+
+---
+
+### Age Rating Accuracy for Violent / Mature Content  ·  Guideline 4.3 / Rating Requirements  ·  REJECTION
+- **What to check:** Games with cartoon violence, realistic violence, sexual content, horror, or drug/alcohol themes must select the correct frequency descriptor during age rating setup. Under-rating causes rejection or removal.
+- **How to detect:** Use `asc_get_age_rating` and cross-check each descriptor against visible in-game content. Pay special attention to "Realistic Violence" vs "Cartoon Violence" — many games mis-select. Games with 17+ content distributed to all regions without parental gate are flagged.
+- **Resolution:** Re-rate the app via App Store Connect > App Information > Age Rating. If the correct rating is 17+, ensure the store page and marketing do not target minors.
+- **Example rejection:** "Your app's age rating does not accurately reflect its content. Apps must be rated according to the most mature content present in the app, including content generated by users or AI."
+
+---
+
+**Cross-references:** `rule-subscription.md` (subscription IAPs), `paywall-design` (paywall UI rules), `privacy-manifest` (SDK manifest audit), `rule-entitlements.md` (gambling entitlement process).
+
+<!-- REFERENCE: submission-preflight/references/type-health-fitness.md -->
+
+# Preflight Pack — Health & Fitness Apps
+
+Deep pack for Guideline 1.4.1 and 5.1.3 (HealthKit / Health & Fitness data). Open this for any app that makes health claims, uses HealthKit, conducts human-subject research, or provides medical guidance. Cross-reference: `rule-privacy.md`.
+
+---
+
+### Medical Claims Require Accuracy, Sources, and Regulatory Clearance  ·  Guideline 1.4.1  ·  REJECTION
+- **What to check:** Apps that make specific medical claims (e.g., "lowers blood pressure," "clinically proven to reduce anxiety," "FDA-cleared for X") must be able to substantiate those claims. Apps that constitute medical devices (diagnosis, treatment, cure, mitigation) typically require FDA clearance or equivalent and must reference it.
+- **How to detect:** Use `asc_get_metadata` to retrieve description, subtitle, and keywords. Search for "clinically proven," "FDA," "medically certified," "treats," "cures," "diagnoses," "clears." Cross-check against any FDA 510(k) or De Novo clearance documentation you hold.
+- **Resolution:** Remove or qualify unsubstantiated medical claims. Replace "treats" with "may support." Where regulatory clearance applies, reference it in the App Review notes and supply the clearance number. Add a disclaimer that the app is not a substitute for professional medical advice.
+- **Example rejection:** "Your app contains medical claims that are not substantiated. Apps must not claim to diagnose, cure, treat, or prevent any medical condition without appropriate regulatory clearance and supporting evidence."
+
+---
+
+### No Dosage Calculators Without Medical Credentials  ·  Guideline 1.4.1  ·  REJECTION
+- **What to check:** Features that calculate medication dosages, drug interactions, or clinical thresholds (e.g., weight-based pediatric dosing, IV drip rates) are treated as medical devices by Apple unless the app is explicitly scoped to licensed healthcare professionals and access is gated accordingly.
+- **How to detect:** Search source and UI strings for "dose," "dosage," "mg/kg," "drip rate," "interaction." Manually walk any calculator or recommendation flow. Use `asc_check_submission` to see if review notes address the professional-use scope.
+- **Resolution:** Gate dosage calculator features behind a healthcare-professional verification step (license number entry, institution verification). Add prominent disclaimers that all outputs must be verified by a qualified clinician. Add this scope to App Review notes.
+- **Example rejection:** "Your app provides medication dosage calculations without restricting access to licensed medical professionals. Apps that offer medical dosage information must be limited to healthcare providers and include appropriate safeguards."
+
+---
+
+### HealthKit Data Must Not Be Used for Advertising  ·  Guideline 5.1.3  ·  REJECTION
+- **What to check:** Data obtained via HealthKit (steps, heart rate, sleep, workouts, etc.) must not be used for advertising, marketing, or sold to data brokers. It must not be shared with third parties for purposes other than improving health and fitness functionality within the app.
+- **How to detect:** grep source for HealthKit read/write calls (`HKHealthStore`, `HKQuery`). Trace the data flow downstream — confirm no analytics or ad SDK receives HealthKit-derived values. Use `asc_get_privacy` to verify data type declarations.
+- **Resolution:** Audit every HealthKit data read and remove any path that forwards that data to an ad network, analytics platform, or third-party not strictly necessary for core app functionality. Update privacy labels accordingly.
+- **Example rejection:** "Your app accesses HealthKit data and shares it with a third-party analytics or advertising service. HealthKit data may only be used to provide health and fitness features and may not be used for advertising or marketing purposes."
+
+---
+
+### HealthKit Data Must Not Be Stored in iCloud  ·  Guideline 5.1.3  ·  REJECTION
+- **What to check:** HealthKit data must not be written to iCloud (CloudKit or iCloud Drive) in a form that could expose it outside the app's controlled sandbox. Health data may be stored on-device or on your own HIPAA-compliant server, but not in a general-purpose iCloud container.
+- **How to detect:** grep source for `CKRecord`, `NSUbiquitousKeyValueStore`, and `FileManager` paths containing `ubiquityContainerIdentifier`. Confirm no HealthKit-derived values are persisted into CloudKit containers.
+- **Resolution:** Migrate HealthKit data persistence to on-device storage (`HKHealthStore` itself is the canonical store) or your own encrypted, HIPAA-compliant backend. Remove any CloudKit writes for health values.
+- **Example rejection:** "Your app writes HealthKit data to iCloud, which is not permitted. Health data must not be stored in iCloud or shared with Apple's iCloud service."
+
+---
+
+### Human-Subject Research Requires IRB Approval and In-App Consent  ·  Guideline 5.1.3  ·  REJECTION
+- **What to check:** Apps that collect health data as part of a clinical study or human-subject research must (1) obtain IRB / ethics board approval, (2) present an informed consent flow within the app that covers study purpose, risks, voluntary participation, and data use, and (3) allow participants to withdraw.
+- **How to detect:** Review the app description and review notes for research/study language. Use `asc_check_submission` to confirm IRB documentation has been provided to Apple. Manually walk the onboarding flow to confirm a ResearchKit-style consent sequence is present.
+- **Resolution:** Obtain IRB approval before submitting to App Review. Implement a ResearchKit consent flow (or equivalent) with all required disclosure elements. Provide IRB approval documentation in App Review notes. Implement a study withdrawal mechanism.
+- **Example rejection:** "Your app conducts human subject research or a clinical study but does not provide evidence of IRB approval or a proper informed consent process within the app."
+
+---
+
+### Accurate Health Measurements and Disclaimers  ·  Guideline 1.4.1  ·  WARNING
+- **What to check:** Apps that claim to measure physiological values (heart rate via camera, SpO2, stress, blood pressure) must be accurate within published, validated tolerances. Overstated accuracy claims and missing disclaimers (e.g., "not a medical device," "not for diagnostic use") are grounds for rejection or metadata removal.
+- **How to detect:** Use `asc_get_metadata` to scan description and keywords for accuracy claims ("medical-grade," "clinical accuracy," "ECG"). Verify the disclaimer text is present on every measurement result screen in the build.
+- **Resolution:** Ground accuracy claims in published validation studies cited in review notes. Add "Not a medical device. Not intended to diagnose or treat any condition." to every screen displaying a health measurement result.
+- **Example rejection:** "Your app claims to provide medically accurate heart rate measurements using the device camera but does not include disclaimers clarifying that the feature is not a medical device and is not intended for diagnostic purposes."
+
+---
+
+### Emergency Services Disclaimer  ·  Guideline 1.4.1  ·  WARNING
+- **What to check:** Any feature that could be construed as an emergency-response tool (fall detection, SOS, seizure alerts, cardiac event detection) must clearly disclaim that it is not a substitute for calling emergency services and must not promise guaranteed alerting.
+- **How to detect:** Navigate to any emergency-adjacent feature in the build. Confirm disclaimer text is present and prominent. Use `asc_get_metadata` to check description for unqualified emergency claims.
+- **Resolution:** Add a disclaimer on the feature's primary screen: "This feature is not a substitute for emergency services. In an emergency, call [local emergency number]." Do not promise 100% detection accuracy.
+- **Example rejection:** "Your app includes an emergency alert feature but does not inform users that this feature is not a replacement for contacting emergency services."
+
+---
+
+### Mental Health Crisis Handling  ·  Guideline 1.4.1  ·  REJECTION
+- **What to check:** Apps that provide mental health support, mood tracking, or any interaction where a user may disclose suicidal ideation, self-harm, or crisis states must refer users to crisis resources (e.g., 988 Suicide & Crisis Lifeline in the U.S., Crisis Text Line). Failure to do so is a hard rejection.
+- **How to detect:** Test the app with crisis-related language in any text input (chatbot, journal, mood log). Confirm crisis resources are surfaced. Use `asc_check_submission` to verify this is addressed in review notes. Review the app description for mental health claims.
+- **Resolution:** Implement a keyword-triggered crisis resource prompt that surfaces emergency helpline numbers and links (in-app, not requiring internet for the number itself). The 988 Lifeline and local equivalents are the baseline. Surface this before any AI/LLM response in mental health chat contexts.
+- **Example rejection:** "Your app provides mental health support features but does not include information about crisis resources or emergency services for users who may be in distress or danger."
+
+<!-- REFERENCE: submission-preflight/references/type-kids.md -->
+
+# Preflight Pack — Kids Category Apps
+
+Deep pack for Guideline 1.3 and 5.1.4 (Privacy — Kids). Open this for any app in the Kids Category or any app whose primary or significant audience includes children under 13. Cross-reference: `rule-privacy.md`.
+
+---
+
+### No Third-Party Analytics or Advertising (Non-Apple, Non-Contextual)  ·  Guideline 1.3  ·  REJECTION
+- **What to check:** Kids Category apps may not use third-party advertising networks or analytics SDKs unless the vendor is on Apple's approved list or the ads are strictly contextual (no user data collected, no behavioral targeting). Behavioral advertising is categorically prohibited.
+- **How to detect:** grep the project for known analytics SDK imports: `FirebaseAnalytics`, `Amplitude`, `Mixpanel`, `AppsFlyerLib`, `Adjust`, `FacebookCore`, `GoogleMobileAds`, `MoPub`, `ironSource`. Use `asc_check_submission` to review any prior notes about SDK rejections. Check `Package.resolved` / `Podfile.lock` for suspect packages.
+- **Resolution:** Remove disqualifying SDKs entirely. Replace analytics with Apple's own privacy-preserving tools (SKAdNetwork, app install validation via your own server). For ads, use only Apple Advertising or a contextual provider explicitly approved for Kids Category.
+- **Example rejection:** "Your app is in the Kids category and integrates a third-party advertising SDK that collects user data. Third-party advertising and analytics that collect user information are not permitted in Kids category apps."
+
+---
+
+### No Behavioral Advertising  ·  Guideline 1.3 / 5.1.4  ·  REJECTION
+- **What to check:** Even if an ad network claims COPPA compliance, serving ads targeted on behavioral or interest data to an audience that includes children under 13 is prohibited. Interest-based targeting, retargeting, and lookalike audiences are all disqualifying.
+- **How to detect:** Review the ad network integration configuration. Look for targeting parameters, audience segmentation calls, or consent-management SDKs that conditionally enable tracking. Use `asc_get_age_rating` to confirm the Kids Category designation is set.
+- **Resolution:** Switch to strictly contextual ads (keyed only on app content or placement, no user identifiers). Obtain written confirmation from the ad provider that the integration is COPPA-compliant and does not pass behavioral signals.
+- **Example rejection:** "Your app serves interest-based or behavioral advertisements. Apps in the Kids category may only display contextual advertisements and may not use advertising that targets users based on personal data or browsing behavior."
+
+---
+
+### Parental Gate Before External Links  ·  Guideline 1.3  ·  REJECTION
+- **What to check:** Any link or mechanism that takes a child outside the app (to a website, another app, a social network, email, phone) must be gated behind a parental gate — a challenge that requires adult-level reasoning to pass (not a simple tap-to-confirm).
+- **How to detect:** Manually navigate all screens in the review build looking for tappable URLs, "Share" actions, "Rate Us" prompts, social media links, and "Visit our website" buttons. Confirm each triggers a parental gate challenge before opening.
+- **Resolution:** Implement a parental gate using a math problem, a text-entry question, or a similar cognitive challenge that a young child is unlikely to solve. Simple "Are you an adult? Tap Yes" dialogs do not satisfy Apple's standard.
+- **Example rejection:** "Your app contains links that take users outside the app but does not implement a parental gate prior to displaying these links, as required for apps in the Kids category."
+
+---
+
+### Parental Gate Before Account Creation and Personal Info Collection  ·  Guideline 1.3 / 5.1.4  ·  REJECTION
+- **What to check:** If the app allows or requires account creation, or collects any personal information (name, email, photo, location), a parental gate must precede those flows. This is in addition to COPPA verifiable parental consent where required by law.
+- **How to detect:** Walk the onboarding and registration flows. Confirm a parental gate challenge appears before any form requesting personal data. Use `asc_get_privacy` to verify data collection labels match what the app actually collects.
+- **Resolution:** Gate the account creation and profile-setup flows. Where COPPA applies (U.S. users under 13), implement verifiable parental consent (VPC) via an approved method (e.g., email to parent, credit card micro-charge, knowledge-based authentication).
+- **Example rejection:** "Your app collects personal information from users without first displaying a parental gate, as required for apps in the Kids category."
+
+---
+
+### No Purchases Without Parental Gate  ·  Guideline 1.3  ·  REJECTION
+- **What to check:** IAP and subscription flows in Kids Category apps must be preceded by a parental gate. The standard StoreKit authentication prompt (Face ID / Touch ID / password) is not sufficient — a parental gate must appear before the StoreKit sheet is invoked.
+- **How to detect:** Navigate to any IAP or subscription purchase point in the review build. Confirm a parental gate challenge appears before `SKPaymentQueue.add(_:)` or `Product.purchase()` is called.
+- **Resolution:** Trigger your parental gate before initiating any StoreKit purchase. Only if the gate is passed should the StoreKit payment sheet be presented.
+- **Example rejection:** "Your app offers in-app purchases without first displaying a parental gate. Apps in the Kids category must include a parental gate prior to any purchase flow."
+
+---
+
+### COPPA and Children's Privacy — No PII Collection Without Consent  ·  Guideline 5.1.4  ·  REJECTION
+- **What to check:** The app must not collect, transmit, or store personally identifiable information (PII) from children without verifiable parental consent. PII includes: full name, email, phone, photo, precise location, device identifiers tied to the child, and any data that could be used to identify or contact a child.
+- **How to detect:** Use `asc_get_privacy` to audit declared data types. grep source for calls to `CLLocationManager`, camera/photo library access, `identifierForVendor`, or any form input saving to a remote server. Confirm that privacy labels match actual data flows.
+- **Resolution:** Minimize data collection to what is strictly necessary. Obtain and record verifiable parental consent before collecting any PII. Do not use device advertising identifiers. Anonymize analytics. Update privacy labels to accurately reflect what is collected.
+- **Example rejection:** "Your app collects personal information, including precise location data, from users in the Kids category without implementing verifiable parental consent as required by Guideline 5.1.4 and applicable law."
+
+---
+
+### Age Rating Must Reflect Kids Category Placement  ·  Guideline 1.3 / Rating  ·  WARNING
+- **What to check:** Apps in the Kids Category must be rated 4+, 6+, or 9+ (the three Kids subcategories). A 12+ or 17+ rating is incompatible with Kids Category placement. Age rating must not contain flags for mature themes, violence, or sexual content.
+- **How to detect:** Use `asc_get_age_rating` to retrieve the current rating and questionnaire responses. Verify the primary and secondary category in `asc_get_metadata` includes a Kids subcategory.
+- **Resolution:** Ensure all content in the app is appropriate for the selected age band. If the app contains content suitable only for older users, it does not belong in the Kids Category.
+- **Example rejection:** "Your app is categorized under the Kids category but has an age rating that is not compatible with that category. Apps in the Kids category must be rated 4+, 6+, or 9+."
+
+---
+
+### No Links Out of App Without Parental Gate (Catch-All)  ·  Guideline 1.3  ·  REJECTION
+- **What to check:** This covers any path not covered by the External Links rule above: deep links, universal links from push notifications, in-app browsers opened via user interaction, and share sheets that could expose the child to external content.
+- **How to detect:** Audit all `UIApplication.open(_:)`, `SFSafariViewController`, and `WKWebView` call sites in source. Review push notification tap handlers. Confirm each external-navigation path is gated.
+- **Resolution:** Wrap every navigation-out-of-app code path with a parental gate check. Disable or suppress Share Sheet options (AirDrop, social sharing) or gate them.
+- **Example rejection:** "Your app allows users to navigate to external websites or content via in-app links or push notifications without passing a parental gate, which is required for apps in the Kids category."
+
+<!-- REFERENCE: submission-preflight/references/type-macos.md -->
+
+# Preflight Pack — macOS (Mac App Store)
+
+---
+
+### App Sandbox Required  ·  Guideline 2.4.5(i)  ·  REJECTION
+- **What to check:** All Mac App Store submissions must enable App Sandbox (`com.apple.security.app-sandbox = YES` in the entitlements file). Apps that disable sandboxing are rejected outright.
+- **How to detect:** Inspect the app's `.entitlements` file(s) in the built product or source. Use `asc_check_submission` logs for "ITMS-90286: Invalid Code Signing Entitlements" or Transporter errors citing sandbox. Confirm both the main target and any XPC services / helper tools carry the sandbox entitlement.
+- **Resolution:** Enable `com.apple.security.app-sandbox` in the target's entitlements. Audit all file, network, and hardware access and add only the required capability entitlements. Helpers and XPC services need their own sandboxed entitlements files.
+- **Example rejection:** "Your app does not have the App Sandbox feature enabled. The Mac App Store requires that all apps implement the App Sandbox."
+
+---
+
+### No Writes Outside the App Container  ·  Guideline 2.4.5(i)  ·  REJECTION
+- **What to check:** A sandboxed app may only write to its container (`~/Library/Containers/<bundle-id>/`), user-selected locations via security-scoped bookmarks, or shared containers declared with an App Group entitlement. Writing to arbitrary filesystem paths is a sandbox violation.
+- **How to detect:** Run the app under `fs_usage` or Instruments > File Activity and look for writes to paths outside the container. Check for hardcoded paths like `/tmp/`, `/var/folders/`, or `~/Library/Application Support/<AppName>/` without a corresponding security-scoped bookmark or group container entitlement.
+- **Resolution:** Migrate preference/cache writes into `NSApplicationSupportDirectory` within the container. Use `NSOpenPanel` / `NSSavePanel` + security-scoped bookmarks for user-chosen paths. Declare shared data via `com.apple.security.application-groups`.
+- **Example rejection:** "Your app attempts to write data outside of its sandbox container without the appropriate user permission. This is not permitted on the Mac App Store."
+
+---
+
+### Temporary Exception Entitlements Justification  ·  Guideline 2.4.5 / Entitlement Policy  ·  WARNING
+- **What to check:** Temporary exception entitlements (e.g., `com.apple.security.temporary-exception.files.absolute-path.read-write`) trigger manual Apple review and are rarely approved for MAS. Their presence signals architectural debt.
+- **How to detect:** Search entitlement files for `temporary-exception`. Use `asc_check_submission` or Xcode's Capabilities tab to list all declared entitlements. Flag any temporary exceptions and verify that a justification was included in the App Review notes.
+- **Resolution:** Replace temporary exceptions with first-class entitlements where available. For unavoidable cases, provide a detailed business justification in the App Review Information field explaining why no standard API meets the need.
+- **Example rejection:** "Your app requests the temporary exception entitlement [X] without an adequate explanation. Temporary exceptions must be justified in your App Review notes."
+
+---
+
+### No Self-Update / Sparkle on MAS  ·  Guideline 2.4.5(iv)  ·  REJECTION
+- **What to check:** MAS apps must not include self-update mechanisms such as Sparkle, in-app "Check for Updates" buttons, or code that downloads and installs new versions outside the MAS update pipeline.
+- **How to detect:** Search the binary and linked frameworks for Sparkle (`SUUpdater`, `SPUUpdater`), or any HTTP call to a `.appcast.xml` or `appcasts` endpoint. Use `asc_check_submission` or manual static analysis. Check `Info.plist` for `SUFeedURL` or related Sparkle keys.
+- **Resolution:** Remove Sparkle and all update-check logic entirely. MAS handles updates. If you need both a MAS and a direct-distribution build, gate Sparkle behind a build flag that is stripped from the MAS target.
+- **Example rejection:** "Your app includes code to update itself outside of the Mac App Store update process, which is not permitted."
+
+---
+
+### Hardened Runtime Required for Notarization  ·  Guideline 2.4.5 / Notarization Policy  ·  REJECTION
+- **What to check:** For Developer ID (direct distribution) notarization, Hardened Runtime must be enabled. For MAS, it is also enforced by code-signing policy. Unsigned or non-hardened builds are rejected at upload.
+- **How to detect:** Run `codesign -dv --verbose=4 <App.app>` and check for `flags=0x10000(runtime)`. Absence of the `runtime` flag means Hardened Runtime is off. `asc_check_submission` upload errors citing "ITMS-90338" or "invalid binary" often trace back to this.
+- **Resolution:** In Xcode, set "Enable Hardened Runtime" to YES for all targets. If the app requires a runtime exception (e.g., JIT, unsigned executable memory for game engines), add only the specific exception entitlement and justify it in App Review notes.
+- **Example rejection:** "The binary is not compiled with the Hardened Runtime, which is required for all Mac App Store submissions."
+
+---
+
+### No Requiring Admin / Root Privileges  ·  Guideline 2.4.5 / Sandboxing Policy  ·  REJECTION
+- **What to check:** Apps must not require administrator credentials or `sudo` to perform their primary function. Installer helpers and privileged helpers must use `SMJobBless` / `ServiceManagement` — not `AuthorizationExecuteWithPrivileges` (deprecated).
+- **How to detect:** Grep the source and scripts for `AuthorizationExecuteWithPrivileges`, `sudo`, or `osascript` with `do shell script … with administrator privileges`. Use `asc_check_submission` or manual binary analysis.
+- **Resolution:** Refactor privileged operations into a properly blessed `launchd` helper tool using `SMJobBless`. The helper should request only the minimum privileges needed and communicate via XPC. See `rule-entitlements.md` for SMJobBless setup.
+- **Example rejection:** "Your app uses deprecated privileged authorization APIs or requires administrator access in ways that are not permitted for Mac App Store distribution."
+
+---
+
+### File-Access Scope / Open and Save Panels  ·  Guideline 2.4.5(i)  ·  WARNING
+- **What to check:** A sandboxed app that needs broad file access (e.g., a text editor, media converter) must use `NSOpenPanel` / `NSSavePanel` to obtain user consent, then persist access with security-scoped bookmarks. Declaring `com.apple.security.files.user-selected.read-write` without the accompanying UI flow is insufficient.
+- **How to detect:** Use `asc_get_metadata` to check the app category and infer expected file-access patterns. In a local build, verify that file-open operations go through a panel and that bookmarks are persisted to UserDefaults or the container. Missing bookmark persistence means access is lost on relaunch.
+- **Resolution:** Store security-scoped bookmarks using `URL.bookmarkData(options: .withSecurityScope, ...)` after the user selects a file. Call `startAccessingSecurityScopedResource()` / `stopAccessingSecurityScopedResource()` around file operations on subsequent launches.
+- **Example rejection:** "Your app accesses files outside its container without the required user permission. File access in sandboxed apps must be obtained through Open and Save panels, and persistent access must use security-scoped bookmarks."
+
+---
+
+**Cross-references:** `rule-entitlements.md` (entitlements reference and SMJobBless guide), `asc-submission` (submission checklist and reviewer credentials).
+
+<!-- REFERENCE: submission-preflight/references/type-social-ugc.md -->
+
+# Preflight Pack — Social & UGC Apps
+
+Deep pack for Guideline 1.2 (User-Generated Content). Open this for any app that lets users post text, images, video, audio, or other content visible to other users. Cross-reference: `rule-design.md`, `app-rejection-recovery`.
+
+---
+
+## The Four Required UGC Safeguards (Guideline 1.2)
+
+Apple requires ALL FOUR of the following to be present and functional. Missing even one is grounds for rejection.
+
+### Content Filtering for Objectionable Material  ·  Guideline 1.2  ·  REJECTION
+- **What to check:** The app must have a mechanism to filter or moderate objectionable content before it is visible to other users. This can be automated (ML classifiers, hash-matching for CSAM) and/or human moderation, but must be documented and demonstrably active.
+- **How to detect:** Manually attempt to post content containing profanity, hate speech indicators, or flagged image content. Verify the moderation pipeline intercepts it. Check review notes to confirm moderation approach is described. Use `asc_check_submission` to confirm review notes field is populated with moderation details.
+- **Resolution:** Integrate a content moderation service (e.g., Apple's on-device text classifiers, a third-party API, or human review queue). Document the approach in App Review notes. Apple does not require perfection — they require a credible, active effort.
+- **Example rejection:** "Your app allows users to generate or share user-generated content without sufficient mechanisms to filter or moderate objectionable material, which is not in compliance with Guideline 1.2."
+
+---
+
+### In-App Reporting and Flagging  ·  Guideline 1.2  ·  REJECTION
+- **What to check:** Users must be able to report or flag content directly within the app. The reporting option must be accessible without leaving the content view (e.g., a long-press menu, a "..." overflow, or a dedicated report button).
+- **How to detect:** Navigate to any piece of user-generated content in the review build. Confirm a report/flag action is reachable within two taps. Check that the report flow completes without error and provides user feedback.
+- **Resolution:** Add a report action to every UGC surface (posts, comments, profiles, messages). The action must submit to a moderation queue and acknowledge receipt to the reporting user.
+- **Example rejection:** "Your app contains user-generated content but does not provide users with a way to flag or report objectionable content within the app."
+
+---
+
+### User Blocking  ·  Guideline 1.2  ·  REJECTION
+- **What to check:** Users must be able to block other users from contacting them or appearing in their feed/content views. Blocking must be persistent and must prevent further contact from the blocked account.
+- **How to detect:** Create two test accounts. From account A, block account B. Verify that account B's content is suppressed and that account B cannot message account A. Confirm the block is retained across sessions.
+- **Resolution:** Implement a block action accessible from user profiles and/or message threads. Store block relationships server-side so they persist across devices. Provide an unblock path via settings.
+- **Example rejection:** "Your app does not provide users with the ability to block other users from contacting them or interacting with their content."
+
+---
+
+### Published Terms of Use with Zero-Tolerance and 24h Response Commitment  ·  Guideline 1.2  ·  REJECTION
+- **What to check:** The app must display (or link to) Terms of Use / EULA that explicitly: (1) prohibit objectionable content, (2) state the developer will act on reported violations within 24 hours, and (3) warn that violations result in account removal.
+- **How to detect:** Use `asc_get_metadata` to check EULA URL. Visit the linked terms and search for "24 hour," "objectionable," and "terminate." If terms are shown inline, grep source for these clauses.
+- **Resolution:** Update your Terms of Use / Community Guidelines to include all three required clauses. Surface the link before or during account creation. Re-present terms when major updates are made.
+- **Example rejection:** "Your app's Terms of Use do not include a statement that you will act on reports of objectionable content within 24 hours, or that users who repeatedly post such content will be removed."
+
+---
+
+## Additional UGC Rules
+
+### Moderation Plan in Review Notes  ·  Guideline 1.2  ·  WARNING
+- **What to check:** App Review reviewers cannot verify automated moderation by inspection alone. Without a written moderation plan in the review notes, expect a follow-up information request that delays approval.
+- **How to detect:** Use `asc_check_submission` to read the current review notes. Confirm the notes describe: what moderation is used, what categories of content are filtered, escalation path for severe content (CSAM → NCMEC), and the 24h human review SLA.
+- **Resolution:** Add a moderation section to App Review notes. Be specific: "We use [service] for automated image scanning and a human review queue with a 24-hour SLA. CSAM is reported to NCMEC per legal obligation."
+- **Example rejection:** "Please provide information about your content moderation process, including how your app detects and removes objectionable user-generated content."
+
+---
+
+### Age Rating Reflects UGC Presence  ·  Guideline 1.2 / Rating  ·  WARNING
+- **What to check:** Apps with unrestricted UGC must be rated 17+ for "Frequent/Intense" mature/suggestive themes because any user can post adult content. Ratings lower than 17+ for an unmoderated or weakly moderated UGC app will be corrected by Apple — or rejected.
+- **How to detect:** Use `asc_get_age_rating` to retrieve the current rating and the answers to the rating questionnaire. Confirm "User Generated Content" toggle is set to the appropriate frequency.
+- **Resolution:** Set the UGC questionnaire answer to "Frequent/Intense" unless your moderation guarantees content is kept within a lower tier. If moderation is robust and auditable, a lower rating may be defensible — document it in review notes.
+- **Example rejection:** "Your app allows users to generate and share content with other users but is not rated 17+. Apps with user-generated content must be rated appropriately."
+
+---
+
+### Contact Information for Law Enforcement Reports  ·  Guideline 1.2  ·  WARNING
+- **What to check:** The developer must provide contact information (email or web form) that law enforcement or Apple can use to report illegal UGC (CSAM, threats, etc.). This is typically in the privacy policy or a dedicated safety page.
+- **How to detect:** Visit the privacy policy URL from `asc_get_privacy`. Search for a safety contact email or form. Confirm the link is not behind authentication.
+- **Resolution:** Add a "Safety / Law Enforcement Contact" section to your privacy policy or support page with a dedicated email (e.g., safety@yourdomain.com).
+- **Example rejection:** "Your app's privacy policy or support materials do not provide a contact mechanism for law enforcement to report illegal or harmful user-generated content."
+
+---
+
+### Account Deletion Applies to UGC Accounts  ·  Guideline 5.1.1(v)  ·  REJECTION
+- **What to check:** Social apps are account-based by nature. Account deletion must remove or anonymize all UGC posted by the deleted account (not just the profile). Users must not be forced to email support to delete — deletion must be initiatable in-app.
+- **How to detect:** Manually navigate to account settings in the review build. Use `asc_get_privacy` to verify deletion is declared in the privacy label. Post test content, then delete the test account and verify content is removed or anonymized per your privacy policy.
+- **Resolution:** Wire in-app account deletion to a backend job that purges or anonymizes all associated posts, comments, and media. Provide a confirmation screen with data deletion timeline. See `type-all-apps.md` for the baseline rule.
+- **Example rejection:** "Your app requires users to contact customer support via email to delete their account. Account deletion must be initiatable from within the app."
+
+<!-- REFERENCE: submission-preflight/references/type-subscription-iap.md -->
+
+# Preflight Pack — Subscriptions & IAP
+
+Deep pack for Guideline 3.1.1 / 3.1.2. Open this alongside `rule-subscription.md` and whenever the app offers any auto-renewable subscription, consumable, or non-consumable IAP. Cross-reference: `paywall-design`, `app-store-pricing`, `subscription-lifecycle`.
+
+---
+
+### IAP for Digital Goods  ·  Guideline 3.1.1  ·  REJECTION
+- **What to check:** All digital content, features, or services consumed within the app must be purchased through Apple's IAP system. Physical goods and services rendered outside the app are exempt.
+- **How to detect:** Use `asc_list_iaps` and `asc_list_subscriptions` to confirm every purchasable item is registered. grep source for payment SDKs (Stripe, Braintree, PayPal) not wrapped behind an entitlement check — these are disqualifying if they gate digital content.
+- **Resolution:** Route all digital-good purchases through StoreKit. Remove or server-gate any alternative payment path that affects in-app feature access.
+- **Example rejection:** "Your app includes the ability to purchase digital content or services using a payment mechanism other than in-app purchase, which is not permitted."
+
+---
+
+### Paywall Disclosure Completeness  ·  Guideline 3.1.2  ·  REJECTION
+- **What to check:** Before a user initiates an auto-renewable subscription purchase, the paywall must clearly display: price, billing period, what is included, that billing is automatic and recurring, a link to the EULA, and a link to the privacy policy.
+- **How to detect:** Manually walk the subscription purchase flow in the current build. Use `asc_get_metadata` to verify EULA URL is set in App Store Connect. Use `asc_get_privacy` to confirm the privacy policy URL is present. Screenshot the paywall for review.
+- **Resolution:** Render all required disclosure elements above the purchase CTA. Do not bury them behind a "terms" link that opens only after tapping buy. Apple expects price and period to be visually prominent.
+- **Example rejection:** "We noticed your app's subscription paywall does not clearly display the price, duration, and content included in the subscription prior to purchase initiation."
+
+---
+
+### Restore Purchases  ·  Guideline 3.1.1  ·  REJECTION
+- **What to check:** Any app selling non-consumable IAP or auto-renewable subscriptions must provide a visible "Restore Purchases" button accessible without requiring a new purchase attempt.
+- **How to detect:** Manually navigate all purchase-gated screens. grep source for `restoreCompletedTransactions` / `Transaction.currentEntitlements`. Use `asc_check_submission` to see if this is flagged.
+- **Resolution:** Place a "Restore Purchases" button on the paywall or in Settings. It must be reachable on a fresh install without prompting a new purchase.
+- **Example rejection:** "Your app does not include a mechanism to restore previously purchased in-app purchases. Please add a 'Restore Purchases' option that users can access without initiating a new purchase."
+
+---
+
+### Free Trial Terms Disclosure  ·  Guideline 3.1.2  ·  REJECTION
+- **What to check:** If the subscription offers a free trial, introductory, or promotional period, the paywall must state the trial length, what happens at the end (price + billing period), and how to cancel before being charged.
+- **How to detect:** Use `asc_list_subscriptions` to check introductory offer configuration. Manually trigger the trial-eligible purchase flow and inspect displayed text.
+- **Resolution:** Display trial terms in human-readable language adjacent to the subscribe button, e.g., "7-day free trial, then $9.99/month. Cancel anytime in Settings before trial ends."
+- **Example rejection:** "Your app offers a free trial period but does not clearly communicate the price and billing period that will apply once the trial ends, or how users can cancel before being charged."
+
+---
+
+### No External-Payment Steering  ·  Guideline 3.1.1 / Anti-Steering  ·  REJECTION
+- **What to check:** The app must not contain buttons, links, or language that direct users to purchase outside the app to avoid Apple's commission. This includes URLs to web checkout, references to "cheaper on our website," and developer emails soliciting purchases.
+- **How to detect:** grep source and all web views for "cheaper," "website," "sign up at," external checkout URLs embedded in app strings. Use `asc_get_metadata` to check description for steering language (also rejected).
+- **Resolution:** Remove all external-payment call-to-actions for digital goods. Reader apps and qualifying apps may use an external purchase link only under the specific entitlement Apple grants — do not implement without that entitlement.
+- **Example rejection:** "Your app contains a link or call-to-action that directs users to a purchase mechanism other than in-app purchase. Apps may not include buttons, external links, or other calls to action that direct customers to purchase mechanisms other than Apple's in-app purchase."
+
+---
+
+### Subscription Group / Upgrade-Downgrade Correctness  ·  Guideline 3.1.2  ·  WARNING
+- **What to check:** All tiers of a subscription product family must be in the same subscription group. Upgrade, downgrade, and crossgrade behavior must match the group ranking. Users must not be charged twice during a tier switch.
+- **How to detect:** Use `asc_list_subscriptions` to inspect group membership and rank ordering. Verify in StoreKit Testing that a downgrade defers correctly and an upgrade is immediate.
+- **Resolution:** Assign correct ranks within the group (1 = highest value). Test all switching paths in a sandbox environment. Do not create separate groups for tiers that compete.
+- **Example rejection:** "We found that users who upgrade or downgrade their subscription are being charged for both the old and new subscription simultaneously. Please review your subscription group configuration."
+
+---
+
+### Family Sharing Claims  ·  Guideline 3.1.2  ·  WARNING
+- **What to check:** If the App Store product page or paywall claims Family Sharing is supported, the IAP/subscription must have Family Sharing enabled in App Store Connect, and the app must handle the `familyShared` transaction property correctly.
+- **How to detect:** Use `asc_list_subscriptions` / `asc_list_iaps` to verify "Family Sharing" toggle state. grep source for `familyShared` handling.
+- **Resolution:** Enable Family Sharing on the relevant products in App Store Connect and implement the corresponding StoreKit entitlement check. Remove marketing claims if the feature is not configured.
+- **Example rejection:** "Your app's description states that the subscription supports Family Sharing, but the subscription product in App Store Connect does not have Family Sharing enabled."
+
+---
+
+### "Free" Claims When Paywalled  ·  Guideline 2.3.2 / 3.1.2  ·  REJECTION
+- **What to check:** If core functionality requires a subscription or IAP, the app must not be described as "free" in the name, subtitle, or description without clearly disclosing that additional purchases are required. The app metadata must not be misleading about cost.
+- **How to detect:** Use `asc_get_metadata` to retrieve name, subtitle, and description. Search for "free," "no cost," "no subscription needed." Confirm whether the app is actually usable without payment.
+- **Resolution:** Replace misleading "free" language with "free to download" or "try for free" where accurate. Ensure the description mentions required purchases prominently.
+- **Example rejection:** "Your app's description states the app is 'free,' however, users are immediately presented with a subscription paywall upon launch with no free tier available."
+
+<!-- REFERENCE: submission-preflight/references/type-vpn-utility.md -->
+
+# Preflight Pack — VPN & Network Utility Apps
+
+---
+
+### VPN Must Use NEVPNManager / NetworkExtension  ·  Guideline 5.4  ·  REJECTION
+- **What to check:** VPN apps must implement tunneling via `NEVPNManager`, `NETunnelProviderManager`, or `NEPacketTunnelProvider` from the NetworkExtension framework. Apps that attempt to route traffic through non-system-approved mechanisms (e.g., proxy-only, custom socket layer without the NE entitlement) are rejected.
+- **How to detect:** Use `asc_check_submission` for entitlement validation errors. Check the app's `.entitlements` file for `com.apple.developer.networking.vpn.api` and `com.apple.developer.networking.networkextension`. Verify the NetworkExtension bundle extension (`.appex`) is present in the app bundle and declares the correct `NSExtensionPointIdentifier` (`com.apple.networkextension.packet-tunnel` or equivalent).
+- **Resolution:** Implement the appropriate `NEProvider` subclass. Request the NetworkExtension entitlement via the Apple Developer portal. Ensure the App Extension target is included in the main app bundle. Refer to Apple's Human Interface Guidelines for VPN onboarding best practices.
+- **Example rejection:** "Your app provides VPN functionality but does not use the NetworkExtension framework as required. All VPN apps must use the approved APIs to establish VPN connections."
+
+---
+
+### VPN Provider Must Be an Enrolled Organization  ·  Guideline 5.4  ·  REJECTION
+- **What to check:** VPN services must be offered by organizations enrolled in the Apple Developer Program as a company or organization (not an individual account). The VPN service must be operated by the developer of record or an entity they represent.
+- **How to detect:** Use `asc_get_metadata` to check the seller name and developer type. Individual-account submissions offering third-party VPN services are a red flag. Verify that the App Review notes or Terms of Service identify the VPN infrastructure operator and its relationship to the developer.
+- **Resolution:** Re-enroll under an organizational developer account. Ensure the Terms of Service and privacy policy name the VPN operator and describe the service relationship. If acting as a reseller, document the formal agreement with the infrastructure provider in App Review notes.
+- **Example rejection:** "Your app provides a VPN service but is submitted under an individual developer account. VPN apps must be submitted by organizations that provide the VPN service themselves."
+
+---
+
+### No Selling or Sharing User Traffic Data  ·  Guideline 5.4  ·  REJECTION
+- **What to check:** VPN providers must commit in their privacy policy and App Store privacy nutrition label that user traffic, browsing history, and connection metadata are not sold to third parties or used for advertising targeting. Any such use is a direct guideline violation.
+- **How to detect:** Use `asc_get_privacy` to retrieve declared data types. Flag any declared use of "Browsing History" or "Identifiers" for "Third-Party Advertising" or "Developer's Advertising." Read the linked privacy policy for data-selling or data-sharing clauses. Check whether any third-party analytics SDK is embedded that receives network-level data.
+- **Resolution:** Remove any data-sale or data-sharing clauses from the privacy policy. Update the nutrition label to remove advertising-purpose data uses for traffic data. Audit embedded SDKs and disable or remove any that receive user traffic metadata. Add an explicit "We do not sell your data" statement to the privacy policy and in-app settings.
+- **Example rejection:** "Your app's privacy policy indicates that user traffic data may be shared with or sold to third parties. VPN apps must not monetize user data collected in the course of providing the VPN service."
+
+---
+
+### No Collection of Data Unrelated to VPN Function  ·  Guideline 5.4 / 5.1.1  ·  REJECTION
+- **What to check:** A VPN app may collect only the data necessary to provide the VPN service (e.g., account credentials, connection logs for troubleshooting). Collecting contact lists, photos, device sensors, or broad analytics unrelated to connectivity is prohibited.
+- **How to detect:** Use `asc_get_privacy` and compare declared data types against what a VPN service legitimately requires. Flag data types such as "Contacts," "Photos or Videos," "Location" (beyond coarse IP-based region selection), or "Health & Fitness" as almost certainly extraneous. Audit the binary for permission request strings (`NSContactsUsageDescription`, etc.) that suggest unrelated collection.
+- **Resolution:** Remove all data collection not directly required for VPN provisioning, authentication, and troubleshooting. Delete unrelated permission strings and SDK integrations. Update the nutrition label to reflect only the data that remains.
+- **Example rejection:** "Your app requests access to user data (contacts, photos) that has no clear relationship to the functionality of a VPN service. Apps may only collect data necessary for their core functionality."
+
+---
+
+### Privacy Policy Mandatory  ·  Guideline 5.1.1  ·  REJECTION
+- **What to check:** All VPN apps must include a link to a privacy policy both on the App Store product page and within the app itself. The policy must describe what data is collected, how it is used, how long it is retained, and how users can request deletion.
+- **How to detect:** Use `asc_get_metadata` to verify the privacy policy URL field is populated. Launch the app and navigate to Settings/About to confirm the in-app privacy policy link is present and resolves to a live page. Check that the policy covers VPN-specific data (connection logs, IP addresses, session timestamps).
+- **Resolution:** Draft or update a VPN-specific privacy policy that explicitly addresses connection logging practices (zero-log claim requires auditable technical controls). Populate the App Store Connect privacy policy URL field and add a tappable link within the app UI. See `rule-privacy.md` for full nutrition label guidance.
+- **Example rejection:** "Your app does not include a link to a privacy policy on its App Store product page, which is required for all apps."
+
+---
+
+### No Private APIs in Network Utilities  ·  Guideline 2.5.1  ·  REJECTION
+- **What to check:** Network and utility apps frequently attempt to use private APIs to inspect network interfaces, packet contents, or system configurations (e.g., undocumented `SystemConfiguration` calls, private `CoreTelephony` symbols, kernel extension remnants). These are rejected.
+- **How to detect:** Run `nm -u <binary>` or use MachOView to scan for symbols with `_` prefixes not present in public SDK headers. Use `asc_check_submission` for "ITMS-90338: Non-public API usage." Compare symbol names against the current iOS/macOS SDK header exports.
+- **Resolution:** Replace private API calls with documented equivalents from NetworkExtension, CoreTelephony's public interface, or CFNetwork. If no public API exists for the required capability, redesign the feature or request an entitlement through Apple's formal entitlement request process.
+- **Example rejection:** "Your app uses one or more non-public APIs: [symbol list]. The use of non-public APIs is not permitted on the App Store as it may lead to a poor user experience if those APIs change."
+
+---
+
+### Content Blockers Must Use the Proper Extension API  ·  Guideline 2.5.1 / 5.4  ·  REJECTION
+- **What to check:** Apps that block ads or trackers in Safari must use the `WKContentRuleList` / Content Blocker Extension API. Implementing content filtering by proxying all device traffic through a VPN-based DNS sinkhole without user transparency and proper VPN entitlements is a violation.
+- **How to detect:** Check the app bundle for a Content Blocker extension (`NSExtensionPointIdentifier: com.apple.Safari.content-blocker`). If the app instead establishes a local VPN or DNS-over-HTTPS profile to achieve blocking, verify it declares the `NEVPNManager` entitlement and clearly discloses this mechanism to users.
+- **Resolution:** For Safari content blocking: implement a proper `WKContentRuleListStore`-backed extension. For system-wide blocking via DNS/VPN: declare the NetworkExtension entitlement, disclose the VPN mechanism in onboarding, and obtain explicit user consent before establishing the VPN configuration.
+- **Example rejection:** "Your app installs a VPN configuration to filter network traffic but does not use the approved Content Blocker Extension API for this purpose and does not adequately disclose the VPN usage to users."
+
+---
+
+### Local Law Compliance and Regional Availability  ·  Guideline 5.4 / Legal Requirements  ·  WARNING
+- **What to check:** VPN apps may be illegal or restricted in certain jurisdictions (e.g., VPN services in China require ICP licensing and government approval). Distributing a VPN app in a region where it violates local law can result in removal from that storefront.
+- **How to detect:** Use `asc_get_metadata` to check the territory availability list. Flag availability in China, Russia, UAE, and other known VPN-restricted markets unless the developer has confirmed local compliance. Verify that the App Store Connect territory settings reflect legal availability.
+- **Resolution:** Restrict availability to territories where VPN operation is legally permitted. For China distribution, obtain the required ICP license and submit through the appropriate channel. Document legal authorizations in App Review notes. Monitor Apple's published list of country-specific guideline overrides.
+- **Example rejection:** "Your app has been removed from the [Country] App Store because it does not comply with local laws regarding VPN services. VPN apps must comply with all applicable laws in the regions where they are distributed."
+
+---
+
+### Clear Disclosure of Routed Traffic  ·  Guideline 5.4 / 5.1.1  ·  WARNING
+- **What to check:** Users must understand what traffic is routed through the VPN (all traffic, split-tunnel, only specific apps), which server regions are used, and what the VPN's logging policy is before they connect. This must be disclosed in onboarding and in the app's settings.
+- **How to detect:** Walk through the VPN onboarding flow manually. Verify a plain-language description of traffic routing appears before the VPN profile installation prompt. Use `asc_get_metadata` and review screenshots for any disclosure language. Check the privacy policy for a logging statement (no-log, minimal-log, or full-log) and verify it matches the in-app disclosure.
+- **Resolution:** Add an onboarding screen summarizing: what traffic is routed, which countries' servers are used, and the logging policy. Surface the logging policy again in Settings. Ensure the App Store description and screenshots are consistent with these disclosures.
+- **Example rejection:** "Your app does not adequately disclose to users what network traffic will be routed through the VPN or what information is logged, which is required for VPN apps under App Store Review Guideline 5.4."
+
+---
+
+**Cross-references:** `rule-privacy.md` (nutrition label and privacy policy requirements), `privacy-manifest` (SDK privacy manifest audit for embedded analytics).
+
+<!-- END SKILL: submission-preflight -->
+
+---
+
+<!-- BEGIN SKILL: subscription-lifecycle -->
+
+# subscription-lifecycle
+
+# Subscription Lifecycle
+
+**Retain every subscriber you already paid to acquire — because acquisition cost is sunk the moment they tap Subscribe.**
+
+Paywall design lives in `paywall-design`. Pricing economics live in `app-store-pricing`. StoreKit code lives in `storekit-purchases`. This skill owns everything that happens *after* the purchase: nurturing trials, renewing paid subscribers, rescuing billing failures, and winning back churned users.
+
+---
+
+## The Lifecycle Map
+
+```
+Free Trial ──► Paid (active) ──► Renewal attempt
+     │               │                  │
+     │ trial-to-paid │ voluntary         ├── Success ──► Paid (renewed)
+     │ conversion    │ cancellation      │
+     ▼               ▼                  └── Failure ──► Grace Period (16 days)
+  Expired        Cancelled                                    │
+  Trial          (voluntary                       ├── Recovered ──► Paid
+                  churn)                          └── Expired ──► Billing Retry
+                                                                   (60 days)
+                                                                        │
+                                                              ├── Recovered
+                                                              └── Lapsed ──► Win-back
+```
+
+Every state transition maps to an App Store Server Notification V2 event. Model this state machine in your backend before writing any UI.
+
+---
+
+## Trial Nurture
+
+### What Apple Gives You
+
+- `isEligibleForIntroOffer` — query via `StoreKit 2` product's `subscription.isEligibleForIntroOffer`. Gate your paywall intro-offer messaging on this flag; showing an offer to an ineligible user wastes premium paywall real estate and feels broken.
+- **Intro offer types** — Free Trial (period of $0), Pay Up Front (one-time discounted price), Pay As You Go (discounted recurring price). Each has different psychology and conversion curves; see `app-store-pricing` for the economics.
+
+### Nurture Moments During a Free Trial
+
+| Day | Touchpoint | Goal |
+|-----|-----------|------|
+| 0 (start) | Onboarding completion prompt | Activate the core value prop immediately |
+| 2–3 | First win notification | Surface a result the user got from the app |
+| Trial end minus 3 days | Conversion push | Remind, show social proof, offer frictionless cancel info |
+| Trial end minus 1 day | Final nudge | Urgency without desperation; cite what they'll lose |
+
+Implement these via `push-notifications`. Never send more than two trial-end nudges — Apple's HIG calls out "harassment patterns" and users who feel spammed cancel before the trial ends.
+
+### Free Trial vs Pay As You Go vs Pay Up Front
+
+- **Free trial** — Highest top-of-funnel conversion, lowest intent signal. Expect 40–60% of trials to cancel before paying.
+- **Pay As You Go** — Lower acquisition but higher intent; subscribers who paid even $1 churn at lower rates.
+- **Pay Up Front** — Works for premium/niche apps where perceived value is immediate. Rare in consumer apps.
+
+---
+
+## Voluntary Churn: Stop the Bleed
+
+### Cancellation Reasons (What Apple Surfaces)
+
+App Store Server Notifications V2 delivers a `DID_CHANGE_RENEWAL_STATUS` event with `cancellationReason` in the signed renewal info:
+
+| Code | Meaning |
+|------|---------|
+| 0 | Other/not specified |
+| 1 | Price increase (subscriber declined) |
+
+That's it — Apple gives you almost nothing here. Mine your own in-app cancellation flow for the real signal.
+
+### In-App Retention Save Flow
+
+Trigger a save flow when a user taps your "Manage Subscription" or "Cancel" button — *before* they leave your app for the iOS subscription management screen.
+
+**Save flow architecture:**
+
+1. Intercept the cancel intent in-app.
+2. Ask one question: "What's not working?" — offer 3–5 radio options (too expensive, not using it, missing a feature, switching apps, other).
+3. Route to the appropriate save offer based on the answer:
+   - **Too expensive** — show a downgrade tier or promotional offer code.
+   - **Not using it** — offer a pause (if you support it) or remind of pending value.
+   - **Missing feature** — collect the feedback, offer a small win-back discount.
+4. If the user still wants to cancel, deep-link to `itms-apps://apps.apple.com/account/subscriptions` — never make them hunt for the cancel button. Friction here earns a 1-star review.
+
+**Downgrade offers** — If you have multiple subscription tiers, surface a cheaper tier explicitly. A subscriber on a lower plan is worth more than a churned user.
+
+**Promotional offer codes** — Generate via ASC or the `asc_list_subscriptions` MCP tool. Offer codes can be single-use or multi-use and can unlock a discounted price or a free extension period. Present these in the save flow for high-LTV subscribers.
+
+### Win-Back Offers (iOS 18+, StoreKit 2)
+
+iOS 18 introduced first-class win-back offer support in StoreKit 2.
+
+- Create win-back offers in ASC under your subscription's Offers section (type: Win-Back).
+- StoreKit surfaces eligible offers via `product.subscription.promotionalOffers` — check `offerType == .winBack`.
+- Eligibility: the user must have previously subscribed and be currently lapsed.
+- Present win-back paywalls in your app's post-lapse re-engagement flows, or in push campaigns (see `push-notifications`).
+- Win-back offer codes can also be distributed externally (email, web) — generate them in ASC.
+
+**Win-back sequence:**
+
+```
+Day 1 post-lapse  — emotional "we miss you" push with specific value reminder
+Day 7             — concrete offer: "Come back at 40% off for 3 months"
+Day 30            — final offer or sunset message
+```
+
+Do not spam. Lapsed users who uninstall after aggressive win-back campaigns will never return.
+
+---
+
+## Involuntary Churn: The Silent Killer
+
+Involuntary churn — billing failures — typically accounts for 20–40% of total subscriber loss in mature apps. Most teams underinvest here because it's invisible until you look.
+
+### The Apple Billing Recovery Stack
+
+Apple runs its own retry logic automatically, but you need to understand each layer:
+
+#### 1. Billing Grace Period
+
+- Opt in to Billing Grace Period in ASC (Subscriptions configuration).
+- Duration: 16 days for monthly, 16 days for annual (Apple defines the period).
+- During grace period: subscription stays active, user retains access, Apple keeps retrying payment.
+- Detection: `expiresDate` is in the past but `gracePeriodExpiresDate` is in the future in the signed transaction. Server Notification: `GRACE_PERIOD_EXPIRED` fires if payment is never recovered.
+- **Always opt in.** The access-continuity alone reduces involuntary churn by 20–30% with zero engineering beyond enabling it.
+
+#### 2. App Store Billing Retry
+
+- After grace period expires, Apple enters a billing retry window of up to 60 days.
+- The subscription is expired during this window; you should restrict access.
+- Server Notification: `DID_FAIL_TO_RENEW` — fires when the original renewal attempt fails.
+- Notification: `DID_RENEW` — fires when Apple successfully recovers payment. Re-grant access immediately.
+
+#### 3. Account Hold (Google Play equivalent)
+
+Apple does not have a separate "account hold" state distinct from grace period — do not conflate with Google Play's model.
+
+### App Store Server Notifications V2 — Events to Handle
+
+Register your HTTPS endpoint in ASC (App Information). Handle at minimum:
+
+| Notification type | Subtype | Action |
+|-------------------|---------|--------|
+| `DID_FAIL_TO_RENEW` | — | Begin dunning; restrict access after grace period |
+| `GRACE_PERIOD_EXPIRED` | — | Hard restrict access; escalate dunning |
+| `DID_RENEW` | — | Restore access immediately |
+| `EXPIRED` | `VOLUNTARY` | Voluntary cancel confirmed |
+| `EXPIRED` | `BILLING_RETRY` | Billing retry exhausted; move to win-back flow |
+| `DID_CHANGE_RENEWAL_STATUS` | `AUTO_RENEW_DISABLED` | Trigger save flow if user is still in-app |
+| `OFFER_REDEEMED` | — | Log offer redemption; tag in analytics |
+
+Validate every signed payload using Apple's public key. Never trust unverified notifications.
+
+### Dunning / Recovery Messaging
+
+Dunning = communicating with users whose billing is failing. Do this via `push-notifications` and optionally email (collected at signup):
+
+**Message principles:**
+- Frame as "help us update your payment" not "your subscription failed."
+- Deep-link directly to the iOS payment update screen: `itms-apps://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions` (or the equivalent updated URL from Apple's documentation).
+- Three touches maximum during the grace period. After that, silence until win-back.
+
+**Dunning sequence during grace period:**
+
+| Day | Channel | Tone |
+|-----|---------|------|
+| 1 | Push | Friendly alert; "just checking" |
+| 5 | Push | Slightly more urgent; surface value |
+| 12 | Push | Final warning before access ends |
+
+After `GRACE_PERIOD_EXPIRED`, stop dunning pushes. Move to a win-back email sequence (outside Apple's system) if you collected email.
+
+---
+
+## Metrics That Matter
+
+Track these per cohort (acquisition channel, paywall variant, subscription tier):
+
+| Metric | Definition | Healthy range |
+|--------|-----------|---------------|
+| Trial-to-paid % | Paid conversions / trials started | 40–65% (varies by vertical) |
+| Month-1 renewal rate | Subs renewing after first period / subs who completed first period | 60–80% |
+| Monthly churn rate | Churned this month / active start of month | Under 5% for strong apps |
+| Voluntary churn % | Voluntary cancels / total churn | Should be the majority; if involuntary is over 30%, fix billing |
+| Involuntary churn % | Billing failures / total churn | Target below 20% with grace period enabled |
+| Recovery rate | Recovered billing failures / total billing failures | 50–70% is achievable with grace period + dunning |
+| Subscriber LTV | ARPU / churn rate | Model by cohort; factor in intro-offer discounts |
+| Win-back rate | Re-subscribed / total lapsed (30-day window) | 5–15% is realistic |
+
+### Where to Read These in ASC
+
+- **ASC Subscriptions report** — Revenue, proceeds, active subscribers, churned, reactivated. Available in the Reports section; also queryable via the App Store Connect MCP (`asc_list_subscriptions` for active, `asc_get_subscription_report` for historical).
+- **App Store Server API** — Pull individual subscriber status via `GET /inApps/v1/subscriptions/{transactionId}` for real-time state reconciliation.
+- **Sales and Trends** — Subscription overview with cohort graphs in the ASC web UI.
+- See `app-analytics` for cohort retention and `retention-optimization` for intervention design grounded in the data.
+
+---
+
+## Lifecycle Audit Checklist
+
+Run this against any subscription app before shipping or diagnosing a churn problem:
+
+### Trial Configuration
+- [ ] `isEligibleForIntroOffer` gates intro-offer messaging — non-eligible users see standard paywall
+- [ ] Trial length matches value-delivery timeline (users must hit the "aha moment" before trial ends)
+- [ ] At least two trial-nurture pushes scheduled (see `push-notifications`)
+
+### Voluntary Churn
+- [ ] In-app save flow intercepts cancel intent before user leaves to iOS Settings
+- [ ] Cancellation reason collected in-app (even if Apple's data is thin)
+- [ ] Downgrade tier available and surfaced in save flow
+- [ ] Win-back offers configured in ASC for each subscription product (iOS 18+ eligible)
+- [ ] Post-cancel win-back sequence defined (day 1, day 7, day 30)
+
+### Involuntary Churn
+- [ ] Billing Grace Period enabled in ASC for all subscription groups
+- [ ] App Store Server Notifications V2 endpoint registered and validated
+- [ ] `DID_FAIL_TO_RENEW` handler restricts access gracefully (not abruptly)
+- [ ] `DID_RENEW` handler restores access within seconds
+- [ ] `GRACE_PERIOD_EXPIRED` escalates to restricted access + escalated dunning
+- [ ] Dunning push sequence live (days 1, 5, 12 during grace period)
+- [ ] Deep-link to iOS payment update screen tested on physical device
+
+### Metrics
+- [ ] Trial-to-paid % tracked per paywall variant
+- [ ] Voluntary vs involuntary churn split tracked monthly
+- [ ] Recovery rate measured (billing failures recovered / total failures)
+- [ ] LTV model exists per subscription tier and acquisition cohort
+
+---
+
+## Lifecycle Audit Output Template
+
+When auditing a subscription app, produce a report in this shape:
+
+```
+## Subscription Lifecycle Audit — [App Name]
+
+### Trial Health
+- Trial-to-paid %: [X%] (benchmark: 40–65%)
+- Trial nurture: [present / missing / partial]
+- isEligibleForIntroOffer gate: [yes / no]
+
+### Voluntary Churn
+- Monthly voluntary churn: [X%]
+- In-app save flow: [present / missing]
+- Win-back offers: [configured / not configured]
+
+### Involuntary Churn (PRIORITY: HIGH / MEDIUM / LOW)
+- Billing grace period: [enabled / DISABLED]
+- Server Notifications V2: [registered / not registered]
+- DID_FAIL_TO_RENEW handler: [present / missing]
+- Recovery rate: [X%] (estimate if unknown)
+- Dunning sequence: [configured / missing]
+
+### Top 3 Actions
+1. [Highest-impact fix with expected churn improvement]
+2. [Second action]
+3. [Third action]
+```
+
+---
+
+## Cross-Skill References
+
+| Need | Skill |
+|------|-------|
+| Paywall layout and offer presentation | `paywall-design` |
+| StoreKit 2 transaction and renewal code | `storekit-purchases` |
+| Intro offer pricing and price increase strategy | `app-store-pricing` |
+| Push notification dunning and win-back campaigns | `push-notifications` |
+| Cohort retention analysis and intervention design | `retention-optimization` |
+| ASC metrics and reporting queries | `app-analytics` |
+| Subscriber sentiment and churn signals via reviews | `review-management` |
+
+<!-- END SKILL: subscription-lifecycle -->
 
 ---
 

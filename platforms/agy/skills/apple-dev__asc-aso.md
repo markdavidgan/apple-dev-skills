@@ -106,6 +106,49 @@ Report findings as: ✅ good / ⚠️ leaving value on the table / ❌ rule viol
 
 ---
 
+## The ASO Score Card (0–100)
+
+For an audit, don't just list issues — score the listing so the user sees where they stand and what moves the needle most. Rate each factor 0–10, multiply by its weight, sum to 100.
+
+| # | Factor | Weight | What a 10 looks like |
+|---|--------|:------:|----------------------|
+| 1 | **Title** | 15% | ≤30 chars, brand + 1 high-value keyword, zero waste |
+| 2 | **Subtitle** | 12% | ≤30 chars, benefit-led, distinct keywords (no title overlap) |
+| 3 | **Keyword field** | 12% | 100/100 chars used, no spaces, no repeats, no app/category name |
+| 4 | **Localization coverage** | 12% | en-US + en-GB filled, all top-revenue locales localized |
+| 5 | **Screenshots (first 3)** | 13% | Benefit-captioned hero shots, not bare UI; hook in slot 1 |
+| 6 | **App preview video** | 6% | Present, shows the app in use, hooks in 3s |
+| 7 | **Icon** | 8% | High contrast, legible at thumbnail, distinct from competitors |
+| 8 | **Ratings & reviews** | 10% | Healthy volume + recency; ≥4.5 avg; prompt at delight moment |
+| 9 | **Conversion levers** | 7% | Promo text current; PPO running; CPPs for paid traffic |
+| 10 | **Keyword relevance/targeting** | 5% | Ranking for terms the app genuinely satisfies, long-tail first |
+
+> **Score = Σ(factor ÷ 10 × weight).** Report the number, the band (0–40 *needs overhaul* / 41–70 *solid, leaking value* / 71–100 *optimized*), and the three lowest-weighted-score factors as the priority fixes.
+
+### Tiered recommendations
+
+After scoring, structure the output into three tiers so the user knows what to do **today** vs. **this quarter**:
+
+- **🟢 Quick Wins** — no-update, no-cost edits: keyword field rewrite, en-GB fill, promo text, subtitle tweak. Ship today.
+- **🟡 High-Impact** — needs an app/version update or asset work: screenshot redesign, preview video, icon test (PPO). Ship this cycle.
+- **🔵 Strategic** — sustained effort: full localization rollout, ratings-velocity program, CPP-per-campaign for Apple Search Ads (see `apple-search-ads`).
+
+### Competitor comparison
+
+Discoverability is relative. Pull 2–3 direct competitors and compare side by side:
+
+| Field | You | Competitor A | Competitor B |
+|-------|-----|--------------|--------------|
+| Title keywords | … | … | … |
+| Subtitle angle | … | … | … |
+| Visible keyword themes | … | … | … |
+| Rating (count / avg) | … | … | … |
+| Screenshot hook | … | … | … |
+
+Use this to find the **gap terms** — relevant, lower-difficulty keywords competitors under-target — and the conversion ideas worth borrowing. Gather competitor metadata via WebSearch / the public App Store listing, or ask the user; for your own live fields use `asc_get_metadata` / `asc_get_app_info`.
+
+---
+
 ## Measuring ASO
 
 Use App Store Connect **App Analytics**:

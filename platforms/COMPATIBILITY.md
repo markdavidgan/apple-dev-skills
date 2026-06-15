@@ -6,8 +6,13 @@
 |-------|:------:|:------:|:----:|:-----------:|:-----:|:---:|
 | app-analytics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-brand-identity | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-icon-composer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-intents | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-launch | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-marketing-context | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-rejection-recovery | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-security | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| app-store-featured | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | app-store-pricing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-architecture-diagram | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-cleanup | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
@@ -17,6 +22,8 @@
 | apple-patterns-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-polish | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
+| apple-router | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| apple-search-ads | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-aso | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -35,6 +42,7 @@
 | localization | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | merge-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | networking | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| onboarding-optimization | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | overlay-sync | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | paywall-design | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | performance-instruments | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -42,8 +50,13 @@
 | privacy-manifest | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | product-spec | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | push-notifications | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| rating-prompt-strategy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | regression-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| retention-optimization | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| review-management | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | storekit-purchases | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| submission-preflight | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
+| subscription-lifecycle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swift-testing | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swift6-concurrency | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | swiftui-micro-craft | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
