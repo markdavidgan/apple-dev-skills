@@ -92,6 +92,26 @@ function computeVars(overlay, descriptor) {
     hostPolicy:
       v.hostPolicy ||
       "Run `capture` only where the engine's host guard returns `capable`. If a `.claude/NO_SIMULATOR.md` marker is present this machine is opted out — capture elsewhere, package anywhere.",
+    // ASC-engine bindings (submission-preflight / asc-aso / review-management).
+    // Unused by engines whose templates don't reference them, so harmless here.
+    appName: v.appName || descriptor.project || prefix,
+    appStoreId: v.appStoreId || "_(App Store ID not yet assigned)_",
+    bundleIds: v.bundleIds || "_(bundle IDs not declared)_",
+    appTypes:
+      v.appTypes ||
+      "_No project-specific type packs declared — the universal packs still apply._",
+    demoCredsPath:
+      v.demoCredsPath ||
+      "_Demo-account location not declared. If the app has a login wall, add working demo credentials to App Review Information before submitting (2.1)._",
+    complianceNotes: v.complianceNotes || "_No project-specific compliance notes._",
+    categories: v.categories || "_(category not declared)_",
+    locales: v.locales || "_Locales not declared. At minimum optimize en-US and en-GB._",
+    keywordTargets: v.keywordTargets || "_No seed keyword themes declared yet._",
+    conversionNotes: v.conversionNotes || "_No conversion notes._",
+    territories: v.territories || "US",
+    voice: v.voice || "_Brand voice not declared — match the app's in-product tone._",
+    supportLink: v.supportLink || "_(support link not declared)_",
+    responseNotes: v.responseNotes || "_No known-issue response mappings declared._",
   };
   // Explicit vars win over computed defaults (except the structural appsTable/appBindings).
   return { ...defaults, ...v, overlayName, appsTable: defaults.appsTable, appBindings: defaults.appBindings };

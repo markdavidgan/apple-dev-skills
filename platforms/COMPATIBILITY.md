@@ -24,7 +24,7 @@
 | apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-router | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-search-ads | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| asc-aso | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| asc-aso | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | cloudkit-sync | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -53,7 +53,7 @@
 | rating-prompt-strategy | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | regression-test | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | retention-optimization | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| review-management | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| review-management | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | storekit-purchases | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | submission-preflight | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | subscription-lifecycle | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

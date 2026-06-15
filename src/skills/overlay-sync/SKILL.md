@@ -84,6 +84,28 @@ Unspecified template vars fall back to sensible defaults, so a minimal descripto
 2. Run `node "<skill-dir>/sync.mjs"`.
 3. Commit the descriptor **and** the generated `.claude/skills/<prefix>-<engine>/SKILL.md` together.
 
+### Overlay-able engines
+
+These engines ship `templates/overlay-template.md` and can be overlaid:
+
+| Engine | Binds | Key vars |
+|--------|-------|----------|
+| `design-handoff` | apps, schemes, capture host | `apps`, `captureCommand`, `handoffPathPattern`, `hostPolicy` |
+| `submission-preflight` | app identity, which type packs apply, demo creds | `appName`, `appStoreId`, `bundleIds`, `appTypes`, `demoCredsPath`, `complianceNotes` |
+| `asc-aso` | listing identity, locales, seed keywords | `appName`, `appStoreId`, `categories`, `locales`, `keywordTargets`, `conversionNotes` |
+| `review-management` | app identity, territories, response voice | `appName`, `appStoreId`, `territories`, `voice`, `supportLink`, `responseNotes` |
+
+All vars are optional — each falls back to a sensible default, so a minimal entry still produces a valid overlay.
+
+### Multi-app projects
+
+`design-handoff` renders a multi-app table from `vars.apps`. The ASC engines bind **one app per overlay** — give each its own entry with an explicit `name` so the output dirs don't collide:
+
+```json
+{ "engine": "submission-preflight", "name": "aether-ember-preflight", "vars": { "appName": "Aether Ember", … } },
+{ "engine": "submission-preflight", "name": "aether-cadence-preflight", "vars": { "appName": "Aether Cadence", … } }
+```
+
 ## Authoring an engine so it can be overlaid
 
 Any engine skill becomes overlay-able by shipping `templates/overlay-template.md` with:
@@ -107,4 +129,5 @@ Any engine skill becomes overlay-able by shipping `templates/overlay-template.md
 ## Cross-references
 
 - Reference engine that ships an overlay template: `design-handoff`
+- Other overlay-able engines: `submission-preflight`, `asc-aso`, `review-management`
 - The two-layer convention this generalizes: `swiftui-micro-craft` ↔ project micro-craft overlays
