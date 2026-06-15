@@ -10649,7 +10649,7 @@ Task { @MainActor [weak self] in
 
 ### Concurrent Archives Corrupt Shared DerivedData
 
-**Error:**
+**Error (either signature — same root cause):**
 
 ```
 error: unable to write file '.../DerivedData/.../<Target>-<hash>-VFS-iphoneos/all-product-headers.yaml':
@@ -10657,7 +10657,20 @@ error: unable to write file '.../DerivedData/.../<Target>-<hash>-VFS-iphoneos/al
 ** ARCHIVE FAILED **
 ```
 
-**Cause:** Two `xcodebuild archive` runs sharing **one** DerivedData path race on the same VFS
+```
+error: Unable to resolve module dependency: 'CoreFoundation' (in target 'MyKit' from project 'MyKit')
+error: Unable to resolve module dependency: 'Darwin' …
+error: Unable to resolve module dependency: 'UIKit' …
+** ARCHIVE FAILED **
+```
+
+The second signature is the more *misleading* one: it names **system** modules
+(`CoreFoundation`/`Darwin`/`UIKit`/`Dispatch`/`QuartzCore`) against a shared Kit/SPM target, so it
+reads like "your code references something that doesn't exist." It doesn't — the build just couldn't
+read the cached system module maps because a parallel build was rewriting/locking them. **Do not edit
+code or `rm -rf` the cache reflexively.** Confirm with `pgrep -f "xcodebuild|swift-frontend"` first.
+
+**Cause:** Two `xcodebuild` runs (archive *or* build) sharing **one** DerivedData path race on the same VFS
 overlay/header-map intermediates and clobber each other. This is **not** a code, Gemfile, or
 signing failure — it is pure build-directory contention. It bites whenever archives run in
 parallel: two terminals, two CI jobs on one runner, or two agents in a shared checkout. A custom
