@@ -8,8 +8,8 @@
 > **Tool mapping:** Claude Code's `Skill` / `Agent` / `Read` / `Edit` / `Bash` tools
 > map to your CLI's equivalents. Skills are markdown `SKILL.md` files discovered from
 > your CLI's skills directory (Codex: `.agents/skills/`; Kimi: `~/.kimi-code/skills/`).
-> See "Cross-Platform Constraints" below for per-CLI limits (e.g. no agents/commands
-> on Kimi / Codex).
+> See "Cross-Platform Constraints" below for per-CLI limits (e.g. no agents on
+> Kimi / Codex; no commands on Codex).
 
 ---
 
@@ -144,7 +144,8 @@ are **disposable runtime artifacts** and are gitignored — the only committed c
 ### Kimi Code (Most Constrained)
 
 - **Only one `SKILL.md` per plugin.** We concatenate all 57 skills into a master skill.
-- **No agents or commands.** Complex multi-agent workflows must include sequential fallback instructions.
+- **No agents.** Complex multi-agent workflows must include sequential fallback instructions.
+- **Commands are supported** — Kimi Code discovers slash commands from `~/.kimi-code/commands/` (and `<project>/.kimi-code/commands/`). The build emits any Kimi-runnable command into `platforms/kimi/apple-dev/commands/` and `install.sh` copies it there. A command that drives a bundled script (e.g. `overlay-sync`) must also ship that script + its data inside the plugin, since there are no progressive-disclosure skill dirs to load from.
 - **Tools provide interactivity.** `pattern-check` and `api-lookup` are declared in `plugin.json`.
 - **MCP is supported** (separate from the skill bundle) via `~/.kimi-code/mcp.json` (user-global) and `<cwd>/.kimi-code/mcp.json` (project-local) — same `{ "mcpServers": { … } }` shape as Claude. Both `asc` and `apple-docs` servers run in Kimi Code; configure with the built-in `/mcp-config` skill.
 

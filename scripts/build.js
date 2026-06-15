@@ -24,6 +24,33 @@ function getVersion() {
 
 const VERSION = getVersion();
 
+// Kimi Code slash command for overlay-sync. Kimi ships no progressive-disclosure
+// skill dirs, so the command invokes the script bundled inside the installed
+// plugin (scripts/overlay-sync.mjs), probing user- then project-scope installs.
+// sync.mjs self-locates its templates relative to itself — no --templates-dir.
+const KIMI_OVERLAY_SYNC_COMMAND = `---
+description: "Scaffold/sync this project's overlay skills from .claude/apple-overlays.json, idempotently. Add --check for a no-write CI drift check."
+argument-hint: "[--check] [--descriptor <path>]"
+---
+
+Run the overlay-sync script bundled with this plugin, from the project root, passing \`$ARGUMENTS\`:
+
+\`\`\`bash
+node "$(ls "\${KIMI_CODE_HOME:-$HOME/.kimi-code}/skills/apple-dev/scripts/overlay-sync.mjs" ./.kimi-code/skills/apple-dev/scripts/overlay-sync.mjs 2>/dev/null | head -1)" $ARGUMENTS
+\`\`\`
+
+It reads \`.claude/apple-overlays.json\`, fills each declared engine's bundled overlay
+template, and regenerates \`.claude/skills/<prefix>-<engine>/SKILL.md\` — regenerating the
+managed region only and preserving any hand-written tail. Idempotent: re-running with
+unchanged inputs reports \`unchanged\`. \`--check\` makes no writes and exits non-zero if the
+committed overlays have drifted (CI / pre-commit guard). The script self-locates its engine
+templates (bundled at \`apple-dev/templates/<engine>/overlay-template.md\`).
+
+Note: overlays are written to \`.claude/skills/\` (the Claude namespace). They are consumed by
+Claude Code / cimi in this repo; standalone Kimi Code reads \`~/.kimi-code/skills/\`, so it
+generates them but does not load them itself.
+`;
+
 // ─── Helpers ───
 
 function readFrontmatter(filePath) {
@@ -59,6 +86,18 @@ function copyDir(src, dest) {
   if (!fs.existsSync(src)) return;
   cleanDir(dest);
   fs.cpSync(src, dest, { recursive: true });
+}
+
+// Flattened platforms (Codex / Agy / Antigravity) copy only SKILL.md + subdirs,
+// so loose runnable files (e.g. overlay-sync/sync.mjs) would be dropped, breaking
+// script-backed skills. Copy them alongside as <dir>__<file>. The overlay-sync
+// script probes this <engine>__templates layout, so it stays runnable.
+function copyLooseScripts(skillSrcDir, dir, dest) {
+  for (const entry of fs.readdirSync(skillSrcDir, { withFileTypes: true })) {
+    if (entry.isFile() && /\.(mjs|js|sh)$/.test(entry.name)) {
+      fs.copyFileSync(path.join(skillSrcDir, entry.name), path.join(dest, `${dir}__${entry.name}`));
+    }
+  }
 }
 
 function getSkillDirs() {
@@ -293,6 +332,28 @@ For **executable validation**, use the plugin tools:
     }
   }
 
+  // ── Ship overlay-sync as a runnable command ──
+  // The consolidated SKILL.md inlines every skill's prose, but overlay-sync is a
+  // Node script that needs its engine templates as real files on disk. Ship the
+  // script (scripts/overlay-sync.mjs) + each engine's template (templates/<engine>/)
+  // + a slash command that invokes it. sync.mjs self-locates the templates via its
+  // <scriptDir>/../templates/<engine>/overlay-template.md probe — no flag needed.
+  const overlaySync = path.join(SRC, 'skills', 'overlay-sync', 'sync.mjs');
+  if (fs.existsSync(overlaySync)) {
+    fs.copyFileSync(overlaySync, path.join(dest, 'scripts', 'overlay-sync.mjs'));
+    fs.chmodSync(path.join(dest, 'scripts', 'overlay-sync.mjs'), 0o755);
+    for (const dir of skillDirs) {
+      const tpl = path.join(SRC, 'skills', dir, 'templates', 'overlay-template.md');
+      if (!fs.existsSync(tpl)) continue;
+      const tplDest = path.join(dest, 'templates', dir);
+      fs.mkdirSync(tplDest, { recursive: true });
+      fs.copyFileSync(tpl, path.join(tplDest, 'overlay-template.md'));
+    }
+    const cmdDir = path.join(dest, 'commands');
+    fs.mkdirSync(cmdDir, { recursive: true });
+    fs.writeFileSync(path.join(cmdDir, 'overlay-sync.md'), KIMI_OVERLAY_SYNC_COMMAND);
+  }
+
   console.log('[kimi] Done.');
 }
 
@@ -316,6 +377,7 @@ function buildAntigravity() {
       const subDest = path.join(dest, `${dir}__${sub}`);
       fs.cpSync(subSrc, subDest, { recursive: true });
     }
+    copyLooseScripts(path.join(SRC, 'skills', dir), dir, dest);
   }
 
   console.log('[antigravity] Done.');
@@ -342,6 +404,7 @@ function buildCodex() {
       const subDest = path.join(dest, `${dir}__${sub}`);
       fs.cpSync(subSrc, subDest, { recursive: true });
     }
+    copyLooseScripts(path.join(SRC, 'skills', dir), dir, dest);
   }
 
   console.log('[codex] Done.');
@@ -368,6 +431,7 @@ function buildAgy() {
       const subDest = path.join(dest, `${dir}__${sub}`);
       fs.cpSync(subSrc, subDest, { recursive: true });
     }
+    copyLooseScripts(path.join(SRC, 'skills', dir), dir, dest);
   }
 
   console.log('[agy] Done.');
@@ -405,8 +469,8 @@ function buildInstructionFiles() {
         "> **Tool mapping:** Claude Code's `Skill` / `Agent` / `Read` / `Edit` / `Bash` tools\n" +
         '> map to your CLI\'s equivalents. Skills are markdown `SKILL.md` files discovered from\n' +
         '> your CLI\'s skills directory (Codex: `.agents/skills/`; Kimi: `~/.kimi-code/skills/`).\n' +
-        '> See "Cross-Platform Constraints" below for per-CLI limits (e.g. no agents/commands\n' +
-        '> on Kimi / Codex).',
+        '> See "Cross-Platform Constraints" below for per-CLI limits (e.g. no agents on\n' +
+        '> Kimi / Codex; no commands on Codex).',
     },
     {
       file: 'GEMINI.md',

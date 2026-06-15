@@ -2,11 +2,12 @@
 // overlay-sync — idempotently scaffold/sync per-project overlay skills from a
 // descriptor (.claude/apple-overlays.json). Run in ANY Apple-dev project.
 //
-//   node sync.mjs [--descriptor <path>] [--check]
+//   node sync.mjs [--descriptor <path>] [--check] [--templates-dir <dir>]
 //
 // For each overlay in the descriptor it:
-//   1. locates the engine's overlay template (shipped beside this script in the
-//      same plugin: <scriptDir>/../<engine>/templates/overlay-template.md),
+//   1. locates the engine's overlay template, shipped beside this script in the
+//      same plugin. The exact layout varies per CLI, so resolveTemplate() probes
+//      every known layout (see it for the list); --templates-dir overrides.
 //   2. fills {{placeholders}} from the overlay's vars (+ computed appsTable /
 //      appBindings from vars.apps),
 //   3. writes .claude/skills/<prefix>-<engine>/SKILL.md, regenerating ONLY the
@@ -29,6 +30,42 @@ function arg(name, fallback = null) {
   return i !== -1 && i + 1 < process.argv.length ? process.argv[i + 1] : fallback;
 }
 const CHECK = process.argv.includes("--check");
+const TEMPLATES_DIR = arg("--templates-dir") || process.env.OVERLAY_SYNC_TEMPLATES_DIR || null;
+
+// Engine overlay templates ship in a different layout on each platform, because
+// every CLI's build flattens the skill tree its own way:
+//   Claude / Cursor (sibling skill dirs):  <SCRIPT_DIR>/../<engine>/templates/overlay-template.md
+//   Codex / Agy / Antigravity (flattened): <SCRIPT_DIR>/<engine>__templates/overlay-template.md
+//   Kimi (bundled beside the script):      <SCRIPT_DIR>/../templates/<engine>/overlay-template.md
+// Resolve against every known base so one script works everywhere. --templates-dir
+// (or $OVERLAY_SYNC_TEMPLATES_DIR) forces an explicit base for non-standard installs.
+function resolveTemplate(engine) {
+  const bases = [
+    TEMPLATES_DIR,
+    path.resolve(SCRIPT_DIR, ".."),
+    SCRIPT_DIR,
+    path.resolve(SCRIPT_DIR, "..", "templates"),
+    path.resolve(SCRIPT_DIR, "templates"),
+  ].filter(Boolean);
+  const rels = (e) => [
+    path.join(e, "templates", "overlay-template.md"),
+    path.join(`${e}__templates`, "overlay-template.md"),
+    path.join(e, "overlay-template.md"),
+  ];
+  const tried = [];
+  for (const base of bases) {
+    for (const rel of rels(engine)) {
+      const candidate = path.resolve(base, rel);
+      tried.push(candidate);
+      if (fs.existsSync(candidate)) return candidate;
+    }
+  }
+  fail(
+    `engine template not found for "${engine}" (is the ${engine} skill installed in this plugin?).\n` +
+      `Tried:\n${tried.map((t) => `  - ${t}`).join("\n")}\n` +
+      `Pass --templates-dir <dir> or set OVERLAY_SYNC_TEMPLATES_DIR to override.`
+  );
+}
 
 function fail(msg) {
   console.error(`overlay-sync: ${msg}`);
@@ -123,10 +160,7 @@ const titleize = (s) => s.split(/[-_]/).map(cap).join(" ");
 function syncOne(overlay, descriptor) {
   const engine = overlay.engine;
   if (!engine) fail("an overlay entry is missing `engine`");
-  const templatePath = path.resolve(SCRIPT_DIR, "..", engine, "templates", "overlay-template.md");
-  if (!fs.existsSync(templatePath)) {
-    fail(`engine template not found for "${engine}" at ${templatePath} (is the ${engine} skill installed in this plugin?)`);
-  }
+  const templatePath = resolveTemplate(engine);
   const template = fs.readFileSync(templatePath, "utf8");
   const vars = computeVars(overlay, descriptor);
   const rendered = fill(template, vars);

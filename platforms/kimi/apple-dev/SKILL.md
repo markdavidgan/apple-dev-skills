@@ -15831,6 +15831,21 @@ node "<skill-dir>/sync.mjs" --check
 
 Run from the **project root** (the script writes under `./.claude/skills/`). It needs Node 18+ and has zero external dependencies.
 
+`<skill-dir>` is wherever this skill's `sync.mjs` was installed. The script auto-locates its engine templates across every platform's layout; if you installed it somewhere non-standard, point it explicitly with `--templates-dir <dir>` (or set `OVERLAY_SYNC_TEMPLATES_DIR`).
+
+### Per-CLI invocation
+
+Each CLI flattens the skill bundle differently, so the script ships in a slightly different place — but invocation is the same idea (`node <script> [--check]`):
+
+| CLI | How to run |
+|-----|-----------|
+| **Claude Code / Cursor** | `/overlay-sync [--check]` (slash command), or `node .claude/skills/overlay-sync/sync.mjs`. |
+| **cimi** (Claude Code via Kimi API) | Same as Claude Code — it reads `.claude/`. |
+| **Kimi Code** (standalone) | `/overlay-sync [--check]` (bundled command), which runs `node ~/.kimi-code/skills/apple-dev/scripts/overlay-sync.mjs`. |
+| **Codex / Agy / Antigravity** | No commands — run the bundled script directly: `node <skills-dir>/overlay-sync__sync.mjs [--check]` (templates travel beside it as `<engine>__templates/`). |
+
+> **Output namespace:** overlays are always written to `.claude/skills/` (the Claude namespace). Claude Code / cimi consume them directly; the other CLIs read their own skills dirs, so they *generate* the overlays but don't load them. That's intended — these app repos are Claude-primary.
+
 ## The descriptor — `.claude/apple-overlays.json`
 
 JSON (not YAML) so it parses with zero dependencies. Start from `<skill-dir>/templates/apple-overlays.example.json`.

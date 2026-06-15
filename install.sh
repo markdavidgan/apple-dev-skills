@@ -169,11 +169,14 @@ install_kimi() {
   # <project>/.kimi-code/skills (project). The legacy ~/.kimi/plugins path was
   # abandoned in the 2026-05 migration to .kimi-code and is no longer read.
   local dest="$base/.kimi-code/skills/apple-dev"
+  # Kimi Code discovers slash commands from <home|project>/.kimi-code/commands.
+  local cmd_dest="$base/.kimi-code/commands"
 
   log_info "Installing for Kimi Code ($SCOPE)..."
 
   if [[ "$DRY_RUN" == true ]]; then
     echo "  [dry-run] copy: $src -> $dest"
+    echo "  [dry-run] copy: $src/commands/* -> $cmd_dest/"
     log_info "Kimi installation complete (dry-run)."
     return
   fi
@@ -185,6 +188,14 @@ install_kimi() {
   mkdir -p "$(dirname "$dest")"
   cp -R "$src" "$dest"
   log_ok "Copied: $dest"
+
+  # Install bundled slash commands (the script they invoke stays inside the
+  # plugin at skills/apple-dev/scripts/ and is self-locating).
+  if [[ -d "$src/commands" ]]; then
+    mkdir -p "$cmd_dest"
+    cp -R "$src/commands/." "$cmd_dest/"
+    log_ok "Copied commands: $cmd_dest"
+  fi
 
   log_info "Kimi Code installation complete."
   log_info "Restart Kimi Code to pick up the skill."
