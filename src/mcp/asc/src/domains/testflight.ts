@@ -618,4 +618,179 @@ export function register(server: McpServer) {
       };
     }
   );
+
+  // ─── List Build Bundles ─────────────────────────────────────────
+
+  server.tool(
+    "asc_list_build_bundles",
+    "List the bundles inside a TestFlight build — the main app bundle and, if the build embeds one, its App Clip bundle. Use this to find the App Clip's build-bundle ID and to see any beta App Clip invocation URLs already configured on it.",
+    {
+      build_id: z.string().describe("Build ID (from asc_list_tf_builds)"),
+    },
+    async ({ build_id }) => {
+      const result = await ascFetch(`/builds/${build_id}/buildBundles`, {
+        limit: "50",
+        include: "betaAppClipInvocations",
+      });
+
+      // Map included invocations (id → url) so each bundle can show what's set.
+      const invocationUrls: Record<string, string> = {};
+      for (const inc of result.included ?? []) {
+        if (inc.type === "betaAppClipInvocations") {
+          invocationUrls[inc.id] = inc.attributes?.url;
+        }
+      }
+
+      const bundles = (result.data ?? []).map((b: any) => ({
+        id: b.id,
+        bundleType: b.attributes?.bundleType,
+        bundleId: b.attributes?.bundleId,
+        fileName: b.attributes?.fileName,
+        betaAppClipInvocations: (
+          b.relationships?.betaAppClipInvocations?.data ?? []
+        ).map((ref: any) => ({ id: ref.id, url: invocationUrls[ref.id] })),
+      }));
+
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify(bundles, null, 2),
+          },
+        ],
+      };
+    }
+  );
+
+  // ─── Set Beta App Clip Invocation ───────────────────────────────
+
+  server.tool(
+    "asc_set_beta_app_clip_invocation",
+    "Configure the App Clip experience TestFlight testers launch for a build: an invocation URL plus the card title. Auto-detects the build's App Clip bundle, replaces any invocation already set on it, then creates the new one with a localized title. NOTE: this is per-build — Apple binds the invocation to a specific build bundle, so re-run it for every new build that embeds the App Clip. It affects TestFlight only; the public App Store App Clip experience is configured separately.",
+    {
+      build_id: z
+        .string()
+        .describe("Build ID (from asc_list_tf_builds) — must embed an App Clip"),
+      url: z
+        .string()
+        .describe(
+          "The invocation URL testers launch (e.g. https://example.com/invite?…). Must be a URL your App Clip's associated domains handle."
+        ),
+      title: z
+        .string()
+        .default("Open")
+        .describe("Card title shown to testers (default: 'Open')"),
+      locale: z
+        .string()
+        .default("en-US")
+        .describe("Locale for the title (default: en-US)"),
+      build_bundle_id: z
+        .string()
+        .optional()
+        .describe(
+          "Override the App Clip build-bundle ID (from asc_list_build_bundles). Omit to auto-detect the APP_CLIP bundle."
+        ),
+    },
+    async ({ build_id, url, title, locale, build_bundle_id }) => {
+      // 1. Resolve the App Clip build bundle (and read any invocations on it),
+      //    unless the caller pinned a specific bundle id.
+      const bundlesResult = await ascFetch(
+        `/builds/${build_id}/buildBundles`,
+        { limit: "50", include: "betaAppClipInvocations" }
+      );
+      const bundles = bundlesResult.data ?? [];
+      const clipBundle = build_bundle_id
+        ? bundles.find((b: any) => b.id === build_bundle_id)
+        : bundles.find((b: any) => b.attributes?.bundleType === "APP_CLIP");
+
+      if (!clipBundle) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(
+                {
+                  message: build_bundle_id
+                    ? `❌ Build bundle ${build_bundle_id} not found on build ${build_id}.`
+                    : `❌ Build ${build_id} has no App Clip bundle. The uploaded build must embed an App Clip target for a beta invocation to exist. Bundles found: ${
+                        bundles
+                          .map((b: any) => b.attributes?.bundleType)
+                          .join(", ") || "none"
+                      }.`,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+          isError: true,
+        };
+      }
+
+      // 2. Remove any beta App Clip invocation already on this bundle, so a
+      //    re-run cleanly replaces rather than stacks (Apple allows several).
+      const existing =
+        clipBundle.relationships?.betaAppClipInvocations?.data ?? [];
+      for (const ref of existing) {
+        await ascFetch(`/betaAppClipInvocations/${ref.id}`, undefined, {
+          method: "DELETE",
+        });
+      }
+
+      // 3. Create the invocation with its localized title inline. Apple links
+      //    the localization via a matching placeholder id in `included`
+      //    (the JSON:API create-with-included pattern).
+      const locRef = "new-localization";
+      const result = await ascFetch("/betaAppClipInvocations", undefined, {
+        method: "POST",
+        body: {
+          data: {
+            type: "betaAppClipInvocations",
+            attributes: { url },
+            relationships: {
+              buildBundle: {
+                data: { type: "buildBundles", id: clipBundle.id },
+              },
+              betaAppClipInvocationLocalizations: {
+                data: [
+                  { type: "betaAppClipInvocationLocalizations", id: locRef },
+                ],
+              },
+            },
+          },
+          included: [
+            {
+              type: "betaAppClipInvocationLocalizations",
+              id: locRef,
+              attributes: { locale, title },
+            },
+          ],
+        },
+      });
+
+      const invocation = result.data;
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify(
+              {
+                message: `✅ Beta App Clip invocation set on build ${build_id}`,
+                replacedExisting: existing.length,
+                buildBundleId: clipBundle.id,
+                appClipBundleId: clipBundle.attributes?.bundleId,
+                invocationId: invocation?.id,
+                url: invocation?.attributes?.url ?? url,
+                title,
+                locale,
+                note: "Per-build: re-run for each new build that embeds the App Clip. TestFlight only — the App Store App Clip experience is separate.",
+              },
+              null,
+              2
+            ),
+          },
+        ],
+      };
+    }
+  );
 }
