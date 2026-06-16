@@ -177,6 +177,25 @@ Each panel prompt enforces the same contract:
 - **Mandatory structured output** — each prompt ends by requiring the panel's
   output format before the response ends.
 
+The Keynote panel additionally grades the project's **keynote run sheet** — the
+committed `docs/keynote/run-sheet.md` artifact whose standard lives in
+`references/keynote-run-sheet.md`. A review verifies that a WWDC-worthy run sheet
+*exists and is current*; it never assesses whether the team has *rehearsed*
+(unknowable from the repo, external to the product). An absent or stale run sheet
+is a `K-` finding, and the panel's generated demo script is written in run-sheet
+shape so it can seed or refresh the artifact.
+
+The Compliance panel has the same shape. It grades the project's **submission
+package** — the committed `docs/app-store/review-notes.md` artifact whose standard
+lives in `references/app-review-submission-package.md`. And it never predicts the
+**approval verdict**, which is unknowable from the repo (it turns on a human
+reviewer, the running binary, server content, and ASC-side metadata). The
+Compliance `/10` and Risk Level reflect only the **rejection-risk surface
+detectable in the repo** plus the state of that artifact: a `LOW` band means "no
+rejection risk I can see," never "Apple will approve." An absent or stale
+submission package is a `C-` finding. Both panels grade a *checkable artifact*,
+not an *off-stage outcome* — that is the rule the two share.
+
 ---
 
 ## Correlation Phase
@@ -252,6 +271,12 @@ Write the unified report to `docs/reviews/YYYY-MM-DD-apple-review-[app].md`.
 | **Overall** | **X/10** | [one-line] |
 
 ### Submission Readiness: [READY / READY WITH CAVEATS / NOT READY]
+[Reflects rejection-risk surface detectable in the repo, NOT a prediction that
+Apple will approve. See the Compliance panel's out-of-static-scope note.]
+
+### Keynote Run Sheet: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
+
+### Submission Package: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
 
 ---
 
@@ -296,8 +321,10 @@ Write the unified report to `docs/reviews/YYYY-MM-DD-apple-review-[app].md`.
 
 ## Exit Criteria
 
-- **Submit now**: Overall ≥ 8.5/10 AND zero P0 findings AND Compliance Risk Level ∈ {LOW, MEDIUM}.
+- **Submit now**: Overall ≥ 8.5/10 AND zero P0 findings AND Compliance Risk Level ∈ {LOW, MEDIUM}. This clears the *detectable* rejection-risk surface — it is not a prediction that Apple will approve (see the Compliance out-of-static-scope note).
 - **Iterate**: Overall < 8.5 OR any P0 OR Compliance Risk ∈ {HIGH, REJECTION LIKELY}. Run the action plan and re-review once P0/P1 are closed.
+- **Submission-ready package** (smooths the review hand-off): a **PRESENT & CURRENT** submission package (`docs/app-store/review-notes.md`) — demo access, how to reach every reviewable feature, account/data deletion, export compliance. Not a gate on "Submit now," but an absent one is a `C-` finding and a common cause of avoidable round-trips.
+- **Keynote / Apple Design Award readiness** (beyond submission): also requires a **PRESENT & CURRENT** keynote run sheet (`docs/keynote/run-sheet.md`). Submission does not require it; a stage demo does.
 
 ---
 

@@ -16,8 +16,11 @@ with a demo script, scores, and specific file:line references.
 1. MUST READ: README (if exists), App entry point, Onboarding view, Home/main view
 2. MUST READ: Primary editor view, Live session view (the demo flow)
 3. MUST READ: Design system files (visual language)
-4. SHOULD READ: Key components that appear during the demo flow
-5. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
+4. MUST CHECK: the keynote run sheet artifact — `docs/keynote/run-sheet.md` (or
+   `docs/keynote/<app>-run-sheet.md`). Its presence, completeness, and currency
+   are graded in §4.7. If absent, that is itself a finding — do not skip it.
+5. SHOULD READ: Key components that appear during the demo flow
+6. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
 
 Experience the app as a NARRATIVE, not a feature list. You are reading the
 script of a demo, not auditing code.
@@ -65,11 +68,33 @@ showing this on stage?"
 - Awkward copy, confusing iconography, developer-facing language
 - Anything requiring explanation ("you have to long-press to...") is a fail
 
+### 4.7 The Run Sheet (artifact, not vibe)
+A keynote-ready project maintains a committed **run sheet** — the standard is in
+`keynote-run-sheet.md`. This is the one part of keynote readiness a review can
+verify, because it is an artifact in the repo, not an act performed off-stage.
+Do NOT grade whether the team has rehearsed (unknowable, external); grade whether
+the thing they would rehearse from exists and is WWDC-worthy.
+
+- Does `docs/keynote/run-sheet.md` (or `docs/keynote/<app>-run-sheet.md`) exist?
+- If present: does it carry all nine required sections (story, cold open, beat
+  sheet with summed timings, demo-safe state setup, "one more thing", failure &
+  recovery, projection-scale check, reset procedure, provenance)?
+- Is it **current** — validated against the current marketing version, not a
+  stale build?
+- Grade it: **ABSENT** / **THIN-or-STALE** / **PRESENT & CURRENT** (see the quality
+  bar in `keynote-run-sheet.md`). ABSENT or THIN is a `K-` finding.
+- When you write the 90-Second Demo Script below, write it in the run sheet's
+  shape so it can **seed or update** `docs/keynote/run-sheet.md` — the script is
+  a deliverable that lands in the repo, not a paragraph that dies in this report.
+
 ### Mechanical Audits (grep checks)
 - Grep for developer-facing language in views: "JSON", "API", "debug", "nil",
   "config", "TODO", "test" (case insensitive, in user-visible strings)
 - Check if onboarding uses placeholder art (SF Symbols as illustrations)
 - Check for empty states that would appear during a demo
+- Run sheet presence: `ls docs/keynote/ 2>/dev/null` and
+  `find docs -iname '*run-sheet*' -o -iname '*runsheet*'`. Zero matches → grade
+  §4.7 ABSENT and raise a `K-` finding.
 
 ## Findings Target
 Quality gate: produce 0–5 findings per bucket — do NOT invent findings to hit a
@@ -84,8 +109,15 @@ quota. If a bucket is empty, write "None observed at this depth of review."
 
 ### Demo Readiness: [READY / ALMOST / NOT READY]
 
+### Run Sheet Status: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
+[If THIN-or-STALE, name the missing/outdated sections. If ABSENT, note that the
+script below should be committed to `docs/keynote/run-sheet.md` to start one.]
+
 ### The 90-Second Demo Script
-1. [Opening shot — what the audience sees first]
+[Write this in the run sheet's beat-sheet shape (see `keynote-run-sheet.md`) so it
+can be committed as, or merged into, `docs/keynote/run-sheet.md` — not left to
+die in this report.]
+1. [Cold open — what the audience sees first, before a word]
 2. [The problem moment — show the pain point]
 3. [The solution — core action in real-time]
 4. [The payoff — result that earns applause]

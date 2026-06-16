@@ -7174,6 +7174,25 @@ Each panel prompt enforces the same contract:
 - **Mandatory structured output** — each prompt ends by requiring the panel's
   output format before the response ends.
 
+The Keynote panel additionally grades the project's **keynote run sheet** — the
+committed `docs/keynote/run-sheet.md` artifact whose standard lives in
+`references/keynote-run-sheet.md`. A review verifies that a WWDC-worthy run sheet
+*exists and is current*; it never assesses whether the team has *rehearsed*
+(unknowable from the repo, external to the product). An absent or stale run sheet
+is a `K-` finding, and the panel's generated demo script is written in run-sheet
+shape so it can seed or refresh the artifact.
+
+The Compliance panel has the same shape. It grades the project's **submission
+package** — the committed `docs/app-store/review-notes.md` artifact whose standard
+lives in `references/app-review-submission-package.md`. And it never predicts the
+**approval verdict**, which is unknowable from the repo (it turns on a human
+reviewer, the running binary, server content, and ASC-side metadata). The
+Compliance `/10` and Risk Level reflect only the **rejection-risk surface
+detectable in the repo** plus the state of that artifact: a `LOW` band means "no
+rejection risk I can see," never "Apple will approve." An absent or stale
+submission package is a `C-` finding. Both panels grade a *checkable artifact*,
+not an *off-stage outcome* — that is the rule the two share.
+
 ---
 
 ## Correlation Phase
@@ -7249,6 +7268,12 @@ Write the unified report to `docs/reviews/YYYY-MM-DD-apple-review-[app].md`.
 | **Overall** | **X/10** | [one-line] |
 
 ### Submission Readiness: [READY / READY WITH CAVEATS / NOT READY]
+[Reflects rejection-risk surface detectable in the repo, NOT a prediction that
+Apple will approve. See the Compliance panel's out-of-static-scope note.]
+
+### Keynote Run Sheet: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
+
+### Submission Package: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
 
 ---
 
@@ -7293,8 +7318,10 @@ Write the unified report to `docs/reviews/YYYY-MM-DD-apple-review-[app].md`.
 
 ## Exit Criteria
 
-- **Submit now**: Overall ≥ 8.5/10 AND zero P0 findings AND Compliance Risk Level ∈ {LOW, MEDIUM}.
+- **Submit now**: Overall ≥ 8.5/10 AND zero P0 findings AND Compliance Risk Level ∈ {LOW, MEDIUM}. This clears the *detectable* rejection-risk surface — it is not a prediction that Apple will approve (see the Compliance out-of-static-scope note).
 - **Iterate**: Overall < 8.5 OR any P0 OR Compliance Risk ∈ {HIGH, REJECTION LIKELY}. Run the action plan and re-review once P0/P1 are closed.
+- **Submission-ready package** (smooths the review hand-off): a **PRESENT & CURRENT** submission package (`docs/app-store/review-notes.md`) — demo access, how to reach every reviewable feature, account/data deletion, export compliance. Not a gate on "Submit now," but an absent one is a `C-` finding and a common cause of avoidable round-trips.
+- **Keynote / Apple Design Award readiness** (beyond submission): also requires a **PRESENT & CURRENT** keynote run sheet (`docs/keynote/run-sheet.md`). Submission does not require it; a stage demo does.
 
 ---
 
@@ -7361,6 +7388,196 @@ When evaluating HIG compliance, SwiftUI patterns, SwiftData usage, or any Apple 
 | `ios-standards/review-checklist.md` | Recent code changes | Systematic checklist | Code review |
 | `apple-patterns-check` | Code patterns only | Pattern matching with grep | Before commits |
 
+<!-- REFERENCE: apple-review/references/app-review-submission-package.md -->
+
+# App Review Submission Package — Standard & Template
+
+The compliance twin of the keynote run sheet. Every project headed for the App
+Store maintains a committed **submission package**: the artifact you hand App
+Review so a human reviewer can understand, reach, and clear the app without
+guessing. It is the part of compliance that is *in your control and checkable in
+the repo* — as opposed to the part that is not.
+
+**The review checks the artifact, not the outcome.** Whether Apple *approves* is
+unknowable from the repo: it depends on a human reviewer on a given day, the
+running binary's behaviour on their device, server-side content, the accuracy of
+ASC metadata and screenshots, and guidelines that shift. A repo-static review
+can only verify **detectable rejection-risk surface** and whether the submission
+package **exists, is complete, and is current**. A `LOW` risk band means *"no
+rejection risk I can see in the repo"* — never *"Apple will approve this."*
+
+**Location (convention):** `docs/app-store/review-notes.md` (or
+`docs/app-store/<app>-review-notes.md` in a monorepo).
+
+**Currency:** the package names the build/version it was last validated against.
+One older than the current marketing version is **stale**, not **present**.
+
+---
+
+## Required sections
+
+### 1. What the app is — in 20 seconds
+One honest paragraph a reviewer can read at a glance: what it does, who it's for,
+the one thing to try. Plain language, no marketing.
+
+### 2. Demo access
+- Credentials for any required account, **or** an explicit "no account — uses
+  iCloud / Sign in with Apple, nothing to log into."
+- If features sit behind purchase, a reviewer-comp path or a note that StoreKit
+  sandbox covers them.
+
+### 3. How to reach every reviewable feature
+The reviewer must be able to exercise everything that could be flagged —
+especially anything behind a **purchase, permission prompt, device pairing, or
+first-run-only** moment. Spell out the taps. (E.g. "to see the Live Activity:
+start a session, lock the device"; "to test sharing with one device: invite,
+then accept from Settings → …".)
+
+### 4. Account & data deletion (Guideline 5.1.1(v))
+- If the app supports account *creation*: the exact in-app path to delete the
+  account and its data.
+- If it does not (iCloud-only, no app-managed account): a one-line statement of
+  *why it's exempt*. Reviewers reject on this constantly; pre-empt it.
+
+### 5. Privacy posture
+- Where the privacy policy lives — **in-app** (required) and the URL.
+- What data leaves the device and to whom (often: nothing / no third parties).
+- How the App Privacy "nutrition label" maps to actual behaviour, and how
+  `PrivacyInfo.xcprivacy` backs it.
+
+### 6. Export compliance
+The `ITSAppUsesNonExemptEncryption` answer and its one-line rationale (standard
+HTTPS/OS crypto is exempt; declare it so the build isn't held).
+
+### 7. Sensitive-content rationale (when applicable)
+For apps near **health, crisis, finance, or user-generated content**: state
+plainly what the app *is* and *is not* — e.g. "a personal journal and companion,
+**not** a medical device; makes no diagnostic or treatment claims" — and how any
+safety/moderation surface is handled. This is what turns a 2-week 1.4.x / 5.x
+rejection round-trip into a clean pass.
+
+### 8. Provenance
+- **Last validated against:** build NNN (version X.Y.Z), date.
+- **Seeded from review:** `docs/reviews/YYYY-MM-DD-…md`.
+
+---
+
+## Quality bar (how the Compliance panel grades it)
+
+| State | Meaning | Review action |
+|-------|---------|---------------|
+| **ABSENT** | No submission package in the repo | Compliance finding — P2 by default, **P1 if submission is imminent**. Seed one from this template. |
+| **THIN / STALE** | Missing required sections (no deletion statement, no demo access, no sensitive-content rationale where needed), or older than the current version | Quality finding naming the specific gaps. |
+| **PRESENT & CURRENT** | All applicable sections present and validated against the current build | No artifact finding. |
+
+---
+
+## Out of static scope (name these so a clean risk band isn't misread)
+
+A repo-static compliance review **cannot** verify, and must not imply, the
+following — list them explicitly in the report so `LOW` risk is not read as
+"done":
+
+- The running binary's behaviour on the reviewer's device (crashes, hangs).
+- Server-side content, moderation, or anything fetched at runtime.
+- ASC-side metadata: screenshot accuracy, description claims, age rating, price.
+- The reviewer's subjective judgement (4.0 design, 4.2 minimum functionality).
+- The approval itself. No static review predicts it; it de-risks it.
+
+<!-- REFERENCE: apple-review/references/keynote-run-sheet.md -->
+
+# Keynote Run Sheet — Standard & Template
+
+Every Apple-grade project maintains a **keynote run sheet**: a committed, living
+document anyone on the team could pick up and rehearse from cold. It is the
+difference between *"we think this demos well"* (a guess) and *"here is the exact
+90 seconds, the state it runs from, and what we do if a beat misfires"* (a plan).
+
+**The review checks the artifact, not the rehearsal.** Whether the team has
+*practiced* is unknowable from the repo and external to the product — a review
+can never assert it. What a review *can* assert is whether this run sheet
+**exists, is current, and is WWDC-worthy**. Rehearsal is what you do *against*
+the run sheet; the run sheet is the thing the review actually grades.
+
+**Location (convention):** `docs/keynote/run-sheet.md`. In a monorepo with
+multiple apps, one per app: `docs/keynote/<app>-run-sheet.md`.
+
+**Currency:** a run sheet names the build/version it was last validated against.
+One older than the current marketing version is **stale**, not **present**.
+
+---
+
+## Required sections
+
+### 1. The One-Sentence Story
+The spine — the single sentence said on stage that makes the audience lean
+forward. If it needs two sentences, the story isn't found yet. (Mirrors review
+criterion §4.1.)
+
+### 2. Cold Open — the first 10 seconds
+What is on screen the instant the demo begins, before a word is spoken. The
+strongest opens show the *payoff state*, never a launch screen or an empty list.
+
+### 3. The Beat Sheet
+The ~90-second spine as a table. Each beat is one row:
+
+| # | Beat | On screen | Spoken line | Duration | Demo-safe? |
+|---|------|-----------|-------------|----------|:---------:|
+| 1 | Cold open | … | … | 0:10 | ✓ |
+| 2 | The problem | … | … | 0:15 | ✓ |
+| … | … | … | … | … | … |
+
+Durations must sum to the target (≈90s). **Demo-safe?** flags any beat carrying a
+network call, a loading state, a permission prompt, or a first-run-only moment —
+the things that embarrass on stage.
+
+### 4. Demo-Safe State Setup
+The exact starting state, reproducible by someone who has never run the demo:
+- Device & OS, orientation, appearance (light/dark).
+- The build (scheme/config) and the signed-in account.
+- Seeded data — which fixtures, which Scene, which contacts. Never live, never empty.
+- Network posture — airplane mode, a known-good network, or a recorded fixture.
+- Notifications silenced, **Low Power off**, brightness up, auto-lock off.
+- Anything pre-warmed: first sync done, caches primed, permissions pre-granted.
+
+### 5. The "One More Thing"
+The beat that earns the gasp — the moment the technology disappears and only the
+human benefit remains (a Live Activity that tells a story on the lock screen, a
+Watch hand-off, an intelligence that suggests the next move). If there isn't one
+yet, this section names the *candidate* and its status.
+
+### 6. Failure & Recovery
+The section that separates a run sheet from a script. For each beat that *could*
+misfire live: the symptom, the recovery move, and the fallback (a screenshot, a
+recorded clip, a clean skip). **A beat with no recovery has no business in a live
+demo** — either make it demo-safe or cut it.
+
+### 7. Projection-Scale Check
+Demos are seen from the back of a hall: largest readable text, contrast verified
+on the *actual* Scene/asset at worst case, pointer/touch indicators visible, no
+UI that only reads at arm's length.
+
+### 8. Reset Procedure
+How to return to the exact demo-start state between run-throughs, in under a
+minute. A demo you can't cleanly reset is a demo you can only run once.
+
+### 9. Provenance
+- **Last validated against:** build NNN (version X.Y.Z), date.
+- **Seeded from review:** `docs/reviews/YYYY-MM-DD-…md`.
+
+---
+
+## Quality bar (how the Keynote panel grades it)
+
+| State | Meaning | Review action |
+|-------|---------|---------------|
+| **ABSENT** | No run sheet artifact in the repo | Keynote finding — P2 by default, **P1 if a keynote / Apple Design Award slot is imminent**. Seed one from the demo script the panel just produced. |
+| **THIN / STALE** | Exists but missing required sections, durations don't sum, no failure/recovery plan, or older than the current version | Quality finding naming the specific gaps. |
+| **PRESENT & CURRENT** | All sections present, beats timed, recovery planned, validated against the current build | No artifact finding — grade its *craft* (story clarity, one-more-thing strength) as normal. |
+
+A run sheet is never "done" when first written. It is re-validated every time the
+demo flow changes — that is what keeps it a plan and not a relic.
+
 <!-- REFERENCE: apple-review/references/panel-compliance.md -->
 
 # Panel 3: Compliance Review — Subagent Prompt
@@ -7383,9 +7600,22 @@ references for every finding.
 2. MUST READ: Settings/preferences view (check for Privacy Policy link)
 3. MUST GREP: Services directory for protected API usage patterns
 4. MUST GREP: All views for placeholder content markers
-5. SKIP: ViewModels, DesignSystem, Extensions, Tests, Utilities
+5. MUST CHECK: the submission package artifact — `docs/app-store/review-notes.md`
+   (or `docs/app-store/<app>-review-notes.md`). Its presence, completeness, and
+   currency are graded in §3.8. If absent, that is itself a finding — do not skip it.
+6. SKIP: ViewModels, DesignSystem, Extensions, Tests, Utilities
 
 You should read ~10-12 files maximum. This is a compliance check, not a code review.
+
+## What this review can and cannot assert
+Whether Apple **approves** is unknowable from the repo — it depends on a human
+reviewer on a given day, the running binary's behaviour on their device,
+server-side content, the accuracy of ASC metadata and screenshots, and
+guidelines that shift. This review verifies only **detectable rejection-risk
+surface** and whether the submission package exists and is current. A `LOW` risk
+band means *"no rejection risk I can see in the repo,"* never *"Apple will approve
+this."* List what is out of static scope (see the closing note) so a clean band
+is not misread as an approval prediction.
 
 ## Evaluation Criteria
 
@@ -7433,10 +7663,29 @@ You should read ~10-12 files maximum. This is a compliance check, not a code rev
 - EULA if needed?
 - Copyright notice present?
 
-### 3.6 In-App Purchase (if applicable)
+### 3.7 In-App Purchase (if applicable)
 - Restore purchases implemented?
 - Subscription management accessible?
 - Clear pricing display before purchase?
+
+### 3.8 Submission Package (artifact, not outcome)
+A submission-ready project maintains a committed **submission package** — the
+standard is in `app-review-submission-package.md`. This is the part of compliance
+that is *in your control and checkable in the repo*: the notes you hand App Review
+so a human can understand, reach, and clear the app without guessing. Do NOT grade
+whether Apple will approve (unknowable, external); grade whether the artifact a
+reviewer would read exists and is complete.
+
+- Does `docs/app-store/review-notes.md` (or `docs/app-store/<app>-review-notes.md`)
+  exist?
+- If present: does it carry all applicable sections (what the app is in 20s; demo
+  access; how to reach every reviewable feature; account & data deletion
+  5.1.1(v); privacy posture; export compliance; sensitive-content rationale where
+  health/crisis/finance/UGC applies; provenance)?
+- Is it **current** — validated against the current marketing version, not a stale
+  build?
+- Grade it: **ABSENT** / **THIN-or-STALE** / **PRESENT & CURRENT** (see the quality
+  bar in `app-review-submission-package.md`). ABSENT or THIN is a `C-` finding.
 
 ### Mechanical Audits (run these grep checks)
 - `grep -rn "fatalError\|preconditionFailure" --include="*.swift"` — production crashes
@@ -7447,6 +7696,9 @@ You should read ~10-12 files maximum. This is a compliance check, not a code rev
   NSBluetoothAlwaysUsageDescription exist in Info.plist for each API used
 - Check for privacy policy URL in code (grep for "privacy")
 - `grep -rn "IntentDescription.*Apple\|IntentDescription.*iPhone\|IntentDescription.*iPad" --include="*.swift"` — App Intent trademark violations (error 90626)
+- Submission package presence: `ls docs/app-store/ 2>/dev/null` and
+  `find docs -iname '*review-notes*' -o -iname '*submission*'`. Zero matches →
+  grade §3.8 ABSENT and raise a `C-` finding.
 
 ## Findings Target
 Quality gate: produce findings within the upper bounds shown in the output
@@ -7458,9 +7710,18 @@ quota. If a bucket is empty, write "None observed."
 ## Compliance Review: [App Name]
 
 ### Submission Readiness
-[2-3 sentences: would this pass App Review today?]
+[2-3 sentences on the rejection-risk surface detectable in the repo — NOT a
+verdict on whether Apple will approve. Frame it as "no/some/serious rejection
+risk I can see," and name anything material that is out of static scope.]
 
 ### Risk Level: [LOW / MEDIUM / HIGH / REJECTION LIKELY]
+[This band reflects detectable rejection risk only. LOW = "no rejection risk I
+can see in the repo," never "approved." See the out-of-scope note at the end.]
+
+### Submission Package Status: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
+[If THIN-or-STALE, name the missing/outdated sections. If ABSENT, note that one
+should be seeded at `docs/app-store/review-notes.md` from the
+`app-review-submission-package.md` template.]
 
 ### Entitlement Cross-Check
 | Entitlement/API | In Entitlements? | Usage Description? | Actually Used in Code? | Status |
@@ -7487,6 +7748,15 @@ quota. If a bucket is empty, write "None observed."
 - [ ] Export compliance declared
 - [ ] No fatalError in production paths
 - [ ] No TODO/FIXME in user-visible code
+- [ ] Submission package present & current (`docs/app-store/review-notes.md`)
+
+### Out of Static Scope (state these so a clean band isn't misread)
+A repo-static compliance review cannot verify, and this report does not imply:
+- The running binary's behaviour on the reviewer's device (crashes, hangs).
+- Server-side content, moderation, or anything fetched at runtime.
+- ASC-side metadata: screenshot accuracy, description claims, age rating, price.
+- The reviewer's subjective judgement (4.0 design, 4.2 minimum functionality).
+- The approval itself. This review de-risks the submission; it does not predict it.
 
 ### References
 - [Specific App Store Review Guideline URLs consulted]
@@ -7822,8 +8092,11 @@ with a demo script, scores, and specific file:line references.
 1. MUST READ: README (if exists), App entry point, Onboarding view, Home/main view
 2. MUST READ: Primary editor view, Live session view (the demo flow)
 3. MUST READ: Design system files (visual language)
-4. SHOULD READ: Key components that appear during the demo flow
-5. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
+4. MUST CHECK: the keynote run sheet artifact — `docs/keynote/run-sheet.md` (or
+   `docs/keynote/<app>-run-sheet.md`). Its presence, completeness, and currency
+   are graded in §4.7. If absent, that is itself a finding — do not skip it.
+5. SHOULD READ: Key components that appear during the demo flow
+6. SKIP: Services, Models, Tests, Extensions, Utilities, migration files
 
 Experience the app as a NARRATIVE, not a feature list. You are reading the
 script of a demo, not auditing code.
@@ -7871,11 +8144,33 @@ showing this on stage?"
 - Awkward copy, confusing iconography, developer-facing language
 - Anything requiring explanation ("you have to long-press to...") is a fail
 
+### 4.7 The Run Sheet (artifact, not vibe)
+A keynote-ready project maintains a committed **run sheet** — the standard is in
+`keynote-run-sheet.md`. This is the one part of keynote readiness a review can
+verify, because it is an artifact in the repo, not an act performed off-stage.
+Do NOT grade whether the team has rehearsed (unknowable, external); grade whether
+the thing they would rehearse from exists and is WWDC-worthy.
+
+- Does `docs/keynote/run-sheet.md` (or `docs/keynote/<app>-run-sheet.md`) exist?
+- If present: does it carry all nine required sections (story, cold open, beat
+  sheet with summed timings, demo-safe state setup, "one more thing", failure &
+  recovery, projection-scale check, reset procedure, provenance)?
+- Is it **current** — validated against the current marketing version, not a
+  stale build?
+- Grade it: **ABSENT** / **THIN-or-STALE** / **PRESENT & CURRENT** (see the quality
+  bar in `keynote-run-sheet.md`). ABSENT or THIN is a `K-` finding.
+- When you write the 90-Second Demo Script below, write it in the run sheet's
+  shape so it can **seed or update** `docs/keynote/run-sheet.md` — the script is
+  a deliverable that lands in the repo, not a paragraph that dies in this report.
+
 ### Mechanical Audits (grep checks)
 - Grep for developer-facing language in views: "JSON", "API", "debug", "nil",
   "config", "TODO", "test" (case insensitive, in user-visible strings)
 - Check if onboarding uses placeholder art (SF Symbols as illustrations)
 - Check for empty states that would appear during a demo
+- Run sheet presence: `ls docs/keynote/ 2>/dev/null` and
+  `find docs -iname '*run-sheet*' -o -iname '*runsheet*'`. Zero matches → grade
+  §4.7 ABSENT and raise a `K-` finding.
 
 ## Findings Target
 Quality gate: produce 0–5 findings per bucket — do NOT invent findings to hit a
@@ -7890,8 +8185,15 @@ quota. If a bucket is empty, write "None observed at this depth of review."
 
 ### Demo Readiness: [READY / ALMOST / NOT READY]
 
+### Run Sheet Status: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
+[If THIN-or-STALE, name the missing/outdated sections. If ABSENT, note that the
+script below should be committed to `docs/keynote/run-sheet.md` to start one.]
+
 ### The 90-Second Demo Script
-1. [Opening shot — what the audience sees first]
+[Write this in the run sheet's beat-sheet shape (see `keynote-run-sheet.md`) so it
+can be committed as, or merged into, `docs/keynote/run-sheet.md` — not left to
+die in this report.]
+1. [Cold open — what the audience sees first, before a word]
 2. [The problem moment — show the pain point]
 3. [The solution — core action in real-time]
 4. [The payoff — result that earns applause]

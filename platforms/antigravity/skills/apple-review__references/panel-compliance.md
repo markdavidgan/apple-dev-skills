@@ -18,9 +18,22 @@ references for every finding.
 2. MUST READ: Settings/preferences view (check for Privacy Policy link)
 3. MUST GREP: Services directory for protected API usage patterns
 4. MUST GREP: All views for placeholder content markers
-5. SKIP: ViewModels, DesignSystem, Extensions, Tests, Utilities
+5. MUST CHECK: the submission package artifact — `docs/app-store/review-notes.md`
+   (or `docs/app-store/<app>-review-notes.md`). Its presence, completeness, and
+   currency are graded in §3.8. If absent, that is itself a finding — do not skip it.
+6. SKIP: ViewModels, DesignSystem, Extensions, Tests, Utilities
 
 You should read ~10-12 files maximum. This is a compliance check, not a code review.
+
+## What this review can and cannot assert
+Whether Apple **approves** is unknowable from the repo — it depends on a human
+reviewer on a given day, the running binary's behaviour on their device,
+server-side content, the accuracy of ASC metadata and screenshots, and
+guidelines that shift. This review verifies only **detectable rejection-risk
+surface** and whether the submission package exists and is current. A `LOW` risk
+band means *"no rejection risk I can see in the repo,"* never *"Apple will approve
+this."* List what is out of static scope (see the closing note) so a clean band
+is not misread as an approval prediction.
 
 ## Evaluation Criteria
 
@@ -68,10 +81,29 @@ You should read ~10-12 files maximum. This is a compliance check, not a code rev
 - EULA if needed?
 - Copyright notice present?
 
-### 3.6 In-App Purchase (if applicable)
+### 3.7 In-App Purchase (if applicable)
 - Restore purchases implemented?
 - Subscription management accessible?
 - Clear pricing display before purchase?
+
+### 3.8 Submission Package (artifact, not outcome)
+A submission-ready project maintains a committed **submission package** — the
+standard is in `app-review-submission-package.md`. This is the part of compliance
+that is *in your control and checkable in the repo*: the notes you hand App Review
+so a human can understand, reach, and clear the app without guessing. Do NOT grade
+whether Apple will approve (unknowable, external); grade whether the artifact a
+reviewer would read exists and is complete.
+
+- Does `docs/app-store/review-notes.md` (or `docs/app-store/<app>-review-notes.md`)
+  exist?
+- If present: does it carry all applicable sections (what the app is in 20s; demo
+  access; how to reach every reviewable feature; account & data deletion
+  5.1.1(v); privacy posture; export compliance; sensitive-content rationale where
+  health/crisis/finance/UGC applies; provenance)?
+- Is it **current** — validated against the current marketing version, not a stale
+  build?
+- Grade it: **ABSENT** / **THIN-or-STALE** / **PRESENT & CURRENT** (see the quality
+  bar in `app-review-submission-package.md`). ABSENT or THIN is a `C-` finding.
 
 ### Mechanical Audits (run these grep checks)
 - `grep -rn "fatalError\|preconditionFailure" --include="*.swift"` — production crashes
@@ -82,6 +114,9 @@ You should read ~10-12 files maximum. This is a compliance check, not a code rev
   NSBluetoothAlwaysUsageDescription exist in Info.plist for each API used
 - Check for privacy policy URL in code (grep for "privacy")
 - `grep -rn "IntentDescription.*Apple\|IntentDescription.*iPhone\|IntentDescription.*iPad" --include="*.swift"` — App Intent trademark violations (error 90626)
+- Submission package presence: `ls docs/app-store/ 2>/dev/null` and
+  `find docs -iname '*review-notes*' -o -iname '*submission*'`. Zero matches →
+  grade §3.8 ABSENT and raise a `C-` finding.
 
 ## Findings Target
 Quality gate: produce findings within the upper bounds shown in the output
@@ -93,9 +128,18 @@ quota. If a bucket is empty, write "None observed."
 ## Compliance Review: [App Name]
 
 ### Submission Readiness
-[2-3 sentences: would this pass App Review today?]
+[2-3 sentences on the rejection-risk surface detectable in the repo — NOT a
+verdict on whether Apple will approve. Frame it as "no/some/serious rejection
+risk I can see," and name anything material that is out of static scope.]
 
 ### Risk Level: [LOW / MEDIUM / HIGH / REJECTION LIKELY]
+[This band reflects detectable rejection risk only. LOW = "no rejection risk I
+can see in the repo," never "approved." See the out-of-scope note at the end.]
+
+### Submission Package Status: [PRESENT & CURRENT / THIN-or-STALE / ABSENT]
+[If THIN-or-STALE, name the missing/outdated sections. If ABSENT, note that one
+should be seeded at `docs/app-store/review-notes.md` from the
+`app-review-submission-package.md` template.]
 
 ### Entitlement Cross-Check
 | Entitlement/API | In Entitlements? | Usage Description? | Actually Used in Code? | Status |
@@ -122,6 +166,15 @@ quota. If a bucket is empty, write "None observed."
 - [ ] Export compliance declared
 - [ ] No fatalError in production paths
 - [ ] No TODO/FIXME in user-visible code
+- [ ] Submission package present & current (`docs/app-store/review-notes.md`)
+
+### Out of Static Scope (state these so a clean band isn't misread)
+A repo-static compliance review cannot verify, and this report does not imply:
+- The running binary's behaviour on the reviewer's device (crashes, hangs).
+- Server-side content, moderation, or anything fetched at runtime.
+- ASC-side metadata: screenshot accuracy, description claims, age rating, price.
+- The reviewer's subjective judgement (4.0 design, 4.2 minimum functionality).
+- The approval itself. This review de-risks the submission; it does not predict it.
 
 ### References
 - [Specific App Store Review Guideline URLs consulted]
