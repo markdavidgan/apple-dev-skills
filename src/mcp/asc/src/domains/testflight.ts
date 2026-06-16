@@ -628,28 +628,39 @@ export function register(server: McpServer) {
       build_id: z.string().describe("Build ID (from asc_list_tf_builds)"),
     },
     async ({ build_id }) => {
-      const result = await ascFetch(`/builds/${build_id}/buildBundles`, {
-        limit: "50",
-        include: "betaAppClipInvocations",
+      // The build→buildBundles relationship can't be navigated directly
+      // (Apple returns 403: "no allowed operations"), so read the bundles via
+      // an `include` on the build resource itself.
+      const result = await ascFetch(`/builds/${build_id}`, {
+        include: "buildBundles",
       });
+      const rawBundles = (result.included ?? []).filter(
+        (x: any) => x.type === "buildBundles"
+      );
 
-      // Map included invocations (id → url) so each bundle can show what's set.
-      const invocationUrls: Record<string, string> = {};
-      for (const inc of result.included ?? []) {
-        if (inc.type === "betaAppClipInvocations") {
-          invocationUrls[inc.id] = inc.attributes?.url;
+      const bundles = [];
+      for (const b of rawBundles) {
+        // Any existing invocations live behind the bundle's own relationship
+        // endpoint (the build-level include doesn't carry them). Only an App
+        // Clip bundle can hold them, so skip the call for the main app bundle.
+        let invocations: { id: string; url: string }[] = [];
+        if (b.attributes?.bundleType === "APP_CLIP") {
+          const inv = await ascFetch(
+            `/buildBundles/${b.id}/betaAppClipInvocations`
+          );
+          invocations = (inv.data ?? []).map((i: any) => ({
+            id: i.id,
+            url: i.attributes?.url,
+          }));
         }
+        bundles.push({
+          id: b.id,
+          bundleType: b.attributes?.bundleType,
+          bundleId: b.attributes?.bundleId,
+          fileName: b.attributes?.fileName,
+          betaAppClipInvocations: invocations,
+        });
       }
-
-      const bundles = (result.data ?? []).map((b: any) => ({
-        id: b.id,
-        bundleType: b.attributes?.bundleType,
-        bundleId: b.attributes?.bundleId,
-        fileName: b.attributes?.fileName,
-        betaAppClipInvocations: (
-          b.relationships?.betaAppClipInvocations?.data ?? []
-        ).map((ref: any) => ({ id: ref.id, url: invocationUrls[ref.id] })),
-      }));
 
       return {
         content: [
@@ -692,13 +703,16 @@ export function register(server: McpServer) {
         ),
     },
     async ({ build_id, url, title, locale, build_bundle_id }) => {
-      // 1. Resolve the App Clip build bundle (and read any invocations on it),
-      //    unless the caller pinned a specific bundle id.
-      const bundlesResult = await ascFetch(
-        `/builds/${build_id}/buildBundles`,
-        { limit: "50", include: "betaAppClipInvocations" }
+      // 1. Resolve the App Clip build bundle, unless the caller pinned a
+      //    specific bundle id. The build→buildBundles relationship can't be
+      //    navigated directly (Apple returns 403: "no allowed operations"), so
+      //    read the bundles via an `include` on the build resource itself.
+      const bundlesResult = await ascFetch(`/builds/${build_id}`, {
+        include: "buildBundles",
+      });
+      const bundles = (bundlesResult.included ?? []).filter(
+        (x: any) => x.type === "buildBundles"
       );
-      const bundles = bundlesResult.data ?? [];
       const clipBundle = build_bundle_id
         ? bundles.find((b: any) => b.id === build_bundle_id)
         : bundles.find((b: any) => b.attributes?.bundleType === "APP_CLIP");
@@ -729,8 +743,12 @@ export function register(server: McpServer) {
 
       // 2. Remove any beta App Clip invocation already on this bundle, so a
       //    re-run cleanly replaces rather than stacks (Apple allows several).
-      const existing =
-        clipBundle.relationships?.betaAppClipInvocations?.data ?? [];
+      //    The build-level include doesn't carry them, so read from the
+      //    bundle's own relationship endpoint (this navigation *is* allowed).
+      const existingResult = await ascFetch(
+        `/buildBundles/${clipBundle.id}/betaAppClipInvocations`
+      );
+      const existing = existingResult.data ?? [];
       for (const ref of existing) {
         await ascFetch(`/betaAppClipInvocations/${ref.id}`, undefined, {
           method: "DELETE",
@@ -738,9 +756,10 @@ export function register(server: McpServer) {
       }
 
       // 3. Create the invocation with its localized title inline. Apple links
-      //    the localization via a matching placeholder id in `included`
-      //    (the JSON:API create-with-included pattern).
-      const locRef = "new-localization";
+      //    the localization via a matching placeholder id in `included` (the
+      //    JSON:API create-with-included pattern). The placeholder id must be
+      //    wrapped as `${...}` — Apple rejects a bare string (409 INVALID_ID).
+      const locRef = "${loc1}";
       const result = await ascFetch("/betaAppClipInvocations", undefined, {
         method: "POST",
         body: {
