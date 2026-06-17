@@ -359,14 +359,18 @@ export function register(server: McpServer) {
       };
       if (business_category) attributes.businessCategory = business_category;
 
-      // Localizations ride inline in the top-level `included` array and are
-      // linked from the experience's `localizations` relationship by
-      // client-supplied temp ids. Per Apple's schema the inline localization
-      // carries only language/title/subtitle — the header image is a
-      // top-level `headerImage` relationship, NOT a per-localization one.
-      const included = localizations.map((loc) => ({
+      // Localizations ride inline in the top-level `included` array AND are
+      // referenced from a required `localizations` relationship. The link
+      // between the two uses ASC's inline-create MAGIC PLACEHOLDER id —
+      // literally `${localization-N}` (1-based) — NOT a slug, UUID, or
+      // language code (all of those, and a null/omitted id, are rejected
+      // ENTITY_ERROR.INCLUDED.INVALID_ID). The same placeholder string appears
+      // in both the included entry's `id` and relationships.localizations.data.
+      // Each inline localization carries only language/title/subtitle; the
+      // header image is the top-level `headerImage` relationship.
+      const included = localizations.map((loc, i) => ({
         type: "appClipAdvancedExperienceLocalizations",
-        id: `loc-${loc.language}`,
+        id: "${localization-" + (i + 1) + "}",
         attributes: {
           language: loc.language,
           title: loc.title,
