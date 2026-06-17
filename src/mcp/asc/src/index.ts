@@ -12,6 +12,7 @@ import { register as registerIAP } from "./domains/iap.js";
 import { register as registerMisc } from "./domains/misc.js";
 import { register as registerDiagnostics } from "./domains/diagnostics.js";
 import { register as registerFeedback } from "./domains/feedback.js";
+import { register as registerAppClips } from "./domains/appclips.js";
 import { execSync, spawnSync } from "child_process";
 import * as fs from "fs";
 import * as os from "os";
@@ -2221,6 +2222,7 @@ registerIAP(server);
 registerMisc(server);
 registerDiagnostics(server);
 registerFeedback(server);
+registerAppClips(server);
 
 // ─── Start Server ───────────────────────────────────────────────────
 
