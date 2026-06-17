@@ -127,17 +127,17 @@ export function register(server: McpServer) {
 
   server.tool(
     "asc_list_advanced_experiences",
-    "List the App Clip Advanced Experiences for an app (the standalone URL→card associations, e.g. https://keepnear.app/invite). Includes their link, status, action, and default language.",
+    "List the App Clip Advanced Experiences for a clip (the standalone URL→card associations, e.g. https://keepnear.app/invite). Includes their link, status, action, and default language. Advanced experiences hang off the App Clip, not the app — pass the appClip id from asc_list_app_clips.",
     {
-      app_id: z
+      app_clip_id: z
         .string()
-        .describe("App Store Connect app resource ID (from asc_list_apps)"),
+        .describe("The appClip resource id (from asc_list_app_clips)"),
       include_localizations: z
         .boolean()
         .default(false)
         .describe("Also fetch each experience's localizations (title/subtitle)"),
     },
-    async ({ app_id, include_localizations }) => {
+    async ({ app_clip_id, include_localizations }) => {
       const params: Record<string, string> = {
         limit: "200",
         "fields[appClipAdvancedExperiences]":
@@ -150,7 +150,7 @@ export function register(server: McpServer) {
       }
 
       const result = await ascFetch(
-        `/apps/${app_id}/appClipAdvancedExperiences`,
+        `/appClips/${app_clip_id}/appClipAdvancedExperiences`,
         params
       );
 
@@ -359,9 +359,11 @@ export function register(server: McpServer) {
       };
       if (business_category) attributes.businessCategory = business_category;
 
-      // Localizations ride inline in the top-level `included` array, each
-      // referencing the same header image, and are linked from the
-      // experience's `localizations` relationship by client-supplied temp ids.
+      // Localizations ride inline in the top-level `included` array and are
+      // linked from the experience's `localizations` relationship by
+      // client-supplied temp ids. Per Apple's schema the inline localization
+      // carries only language/title/subtitle — the header image is a
+      // top-level `headerImage` relationship, NOT a per-localization one.
       const included = localizations.map((loc) => ({
         type: "appClipAdvancedExperienceLocalizations",
         id: `loc-${loc.language}`,
@@ -369,11 +371,6 @@ export function register(server: McpServer) {
           language: loc.language,
           title: loc.title,
           ...(loc.subtitle ? { subtitle: loc.subtitle } : {}),
-        },
-        relationships: {
-          appClipAdvancedExperienceImage: {
-            data: { type: "appClipAdvancedExperienceImages", id: header_image_id },
-          },
         },
       }));
 
