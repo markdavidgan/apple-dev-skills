@@ -230,6 +230,63 @@ Task { [weak self, capturedValue] in
 }
 ```
 
+### 10. Framework callback closures inherit `@MainActor` isolation and crash at runtime
+
+Inside a `@MainActor` type or function, closures passed to framework callbacks silently inherit MainActor isolation. If the framework invokes the callback on its own queue (haptics, notifications, UIKit icon changes, audio delegates, etc.), Swift 6 isolation enforcement crashes the app rather than hopping threads.
+
+```swift
+// Wrong — closure inherits MainActor isolation, but CHHapticEngine calls it on its own queue
+@MainActor
+enum NearHaptics {
+    static func sent() {
+        let engine = try! CHHapticEngine()
+        engine.notifyWhenPlayersFinished { _ in .stopEngine }  // CRASH
+    }
+}
+
+// Correct — mark the closure @Sendable so it does not inherit MainActor isolation
+@MainActor
+enum NearHaptics {
+    static func sent() {
+        let engine = try! CHHapticEngine()
+        engine.notifyWhenPlayersFinished { @Sendable _ in .stopEngine }
+    }
+}
+```
+
+Other common offenders:
+
+```swift
+// Wrong
+UNUserNotificationCenter.current().setBadgeCount(1) { _ in }
+UIApplication.shared.setAlternateIconName("dark") { error in
+    if error != nil { /* handle */ }
+}
+
+// Correct
+UNUserNotificationCenter.current().setBadgeCount(1) { @Sendable _ in }
+UIApplication.shared.setAlternateIconName("dark") { @Sendable error in
+    Task { @MainActor in
+        if error != nil { /* handle */ }
+    }
+}
+```
+
+For delegate-style callbacks where you cannot mark the closure `@Sendable`, dispatch the work back explicitly:
+
+```swift
+// Correct
+final class AudioEndDelegate: NSObject, AVAudioPlayerDelegate {
+    private let onFinish: @MainActor () -> Void
+    init(onFinish: @escaping @MainActor () -> Void) { self.onFinish = onFinish }
+    nonisolated func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        Task { @MainActor in onFinish() }
+    }
+}
+```
+
+**Fix:** Mark framework callback closures `@Sendable` when they need no MainActor access. If they *do* need MainActor access, wrap only that work in `Task { @MainActor in ... }` rather than letting the whole closure inherit isolation.
+
 ---
 
 ## Safe Patterns
@@ -315,6 +372,7 @@ class MyImpl: MyProtocol {
 | @Model crossing async boundary | Extract scalars before `Task` or `AsyncStream` |
 | `NSManagedObject` across actors | Use `context.perform { }` — NSManagedObject is NOT Sendable |
 | Task capture data race | Explicit `[weak self, value]` capture list |
+| Framework callback inside `@MainActor` context crashes at runtime | Mark closure `@Sendable`; use `Task { @MainActor in }` only for UI work |
 
 ---
 
@@ -381,6 +439,7 @@ Use this checklist when reviewing existing code for concurrency safety or during
 
 ### Framework Interop
 - [ ] **`@preconcurrency import` used only on demand.** Do not add prophylactically to first-party frameworks (EventKit, HealthKit, AVFoundation, etc.). Only apply where the compiler specifically demands it on a single import.
+- [ ] **Framework callbacks are not over-isolated.** Inside `@MainActor` types/functions, closures passed to framework callbacks (haptics, notifications, UIKit icon APIs, audio delegates, etc.) are marked `@Sendable` or dispatch to `@MainActor` explicitly. Do not let the closure inherit MainActor isolation if the framework invokes it on its own queue.
 - [ ] **Non-Sendable framework types isolated.** Types like `EKReminder`, `NSManagedObject`, `VNRequest` are never passed between actors; access them within their isolation domain or extract scalars first.
 
 ### Build Verification
