@@ -9389,7 +9389,7 @@ xcrun cktool export-schema --team-id <TEAM> \
 
 ## Conflicts & merging
 
-- The default is **last-writer-wins** at the field level (CloudKit) / configurable merge policy (Core Data: set `viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy`).
+- The default is **last-writer-wins** at the field level (CloudKit) / configurable merge policy (Core Data: set `viewContext.mergePolicy = NSMergeByPropertyObjectTrumpPolicy`).
 - For data where lost edits matter (counters, sets), model them so concurrent edits *combine* rather than overwrite (e.g. store events and reduce, not a single mutable total).
 - Sync is **eventual** — design UI to tolerate a record appearing/updating later. Never block the UI on a sync.
 
@@ -9402,6 +9402,68 @@ For collaboration (not just same-user multi-device):
 - Create a `CKShare` for a record (or use SwiftData's sharing affordances) and present `UICloudSharingController` to invite participants.
 - Shared records live in the **shared database**; participants need the right `CKShare.ParticipantPermission` (`.readOnly` / `.readWrite`).
 - Handle the share-accept flow via the scene/app delegate `userDidAcceptCloudKitShareWith`.
+
+### CKShare invite flow: end-to-end
+
+This is the most error-prone CloudKit surface. Each step must be correct for the connection to complete.
+
+#### 1. Origination
+
+- The **owner** creates a `CKShare` from their **private** CloudKit database using `NSPersistentCloudKitContainer.share(_:to:completion:)`.
+- Set `publicPermission` if you invite by link rather than by pre-registered participant: `share.publicPermission = .readWrite`.
+- Persist the share with `persistUpdatedShare(_:in:)` so metadata updates (including `share.url`) are mirrored.
+- Wait for `share.url` to exist before showing the invite UI. If it is nil, force-save/fetch the share from the private database, or let `UICloudSharingController` mint it.
+
+#### 2. Delivery
+
+- The recommended UI entry point is `UICloudSharingController`. If you build a custom composer (e.g., `MFMessageComposeViewController`), you must manage `share.url`, permissions, and participant lifecycle yourself.
+- `MFMessageComposeViewController.recipients` expects an array of **phone-number strings** (digits plus leading `+`). Formatting characters may fail.
+- For App Clip cards in Messages, the link must be a verified associated-domain URL and App Store Connect must have a **published Default App Clip Experience**. A missing or `RECEIVED`-only experience often causes the card not to render.
+
+#### 3. App Clip hand-off
+
+- App Clips **cannot use private/shared CloudKit containers**. They cannot accept a `CKShare`.
+- The App Clip should parse the invite URL, stash the raw share URL in a shared App Group (or pass it via `NSUserActivity`), and prompt the user to install the full app.
+- The full app drains the stash on first launch and accepts the share.
+
+#### 4. Acceptance
+
+The recipient app receives the invitation through **UIKit callbacks triggered by the user tapping the link**, not by a silent CloudKit push:
+
+- `windowScene(_:userDidAcceptCloudKitShareWith:)` for raw CloudKit share URLs.
+- `onOpenURL` / universal links for wrapped URLs (e.g., `https://example.com/invite?s=ckshare...`).
+
+In both cases, accept with:
+
+```swift
+persistentContainer.acceptShareInvitations(
+    from: [metadata],
+    into: sharedStore        // the .shared-scope persistent store
+) { acceptedMetadatas, error in
+    // handle error
+}
+```
+
+**Critical:** acceptance can arrive while the persistent stores are still loading. Buffer the metadata and drain it after the shared store is ready, or the tap is silently dropped.
+
+#### 5. The sender learns acceptance only through sync
+
+CloudKit **does not push** a “recipient accepted” notification to the owner. The owner must fetch/refresh the updated `CKShare` record and inspect:
+
+```swift
+share.participants.contains { $0.role != .owner && $0.acceptanceStatus == .accepted }
+```
+
+Provide an explicit refresh affordance (pull-to-refresh, `onAppear` refresh) so the user is not stuck in “pending.”
+
+#### 6. Honest status model
+
+| State | Source | Notes |
+|---|---|---|
+| Sent | Local confirmation (`MFMessageComposeViewController` `.sent`, `UICloudSharingController` save) | Persist per-contact on-device. |
+| Received / opened | **Not available** | CloudKit exposes no such event. Do not claim it. |
+| Accepted | `CKShare.Participant.acceptanceStatus == .accepted` for a non-owner participant | Requires the owner's device to sync the updated share. |
+| Rejected | **Not available** | `CKShare.ParticipantAcceptanceStatus` has no rejected case. |
 
 ---
 
@@ -9423,6 +9485,10 @@ For collaboration (not just same-user multi-device):
 | `CKShare` create fails on a TestFlight/App Store build ("invitation couldn't be created") | Sharing schema never reached Production — a share was never originated in Development before deploy | Originate one share in a Debug build to generate the share schema, then deploy to Production |
 | Can't confirm a deploy actually reached Production (no Console access) | — | `xcrun cktool export-schema --environment production` (works on both envs) and check the `CD_*` list matches Development |
 | Edits clobber each other | Last-writer-wins | Model concurrent data as combinable events |
+| App Clip card does not appear in Messages / Safari | Missing or unpublished Default App Clip Experience in App Store Connect | Create and publish a Default App Clip Experience; re-check Advanced Experiences stuck in `RECEIVED` |
+| Both users installed and sent invites, but both still see "pending" | No on-demand refresh of `CKShare` metadata; CloudKit does not push acceptance | Add explicit refresh on Shared tab appear / pull-to-refresh; force snapshot rebuild after acceptance |
+| Share acceptance silently fails on cold launch | `acceptShareInvitations` runs before the `.shared` store is loaded | Buffer `CKShare.Metadata` in the scene delegate and drain after store load |
+| `CKShare` operations stop working after a local-only fallback | Code uses `container` directly instead of the active fallback container | Route all share operations through the active container/coordinator |
 
 <!-- END SKILL: cloudkit-sync -->
 

@@ -339,6 +339,8 @@ For **executable validation**, use the plugin tools:
   // + a slash command that invokes it. sync.mjs self-locates the templates via its
   // <scriptDir>/../templates/<engine>/overlay-template.md probe — no flag needed.
   const overlaySync = path.join(SRC, 'skills', 'overlay-sync', 'sync.mjs');
+  const cmdDir = path.join(dest, 'commands');
+  fs.mkdirSync(cmdDir, { recursive: true });
   if (fs.existsSync(overlaySync)) {
     fs.copyFileSync(overlaySync, path.join(dest, 'scripts', 'overlay-sync.mjs'));
     fs.chmodSync(path.join(dest, 'scripts', 'overlay-sync.mjs'), 0o755);
@@ -349,9 +351,28 @@ For **executable validation**, use the plugin tools:
       fs.mkdirSync(tplDest, { recursive: true });
       fs.copyFileSync(tpl, path.join(tplDest, 'overlay-template.md'));
     }
-    const cmdDir = path.join(dest, 'commands');
-    fs.mkdirSync(cmdDir, { recursive: true });
     fs.writeFileSync(path.join(cmdDir, 'overlay-sync.md'), KIMI_OVERLAY_SYNC_COMMAND);
+  }
+
+  // ── Ship generic slash commands ──
+  // Every other src/commands/*.md becomes a Kimi slash command. These invoke the
+  // matching skill inside the consolidated SKILL.md. Commands that dispatch Claude
+  // agents include the skill's Kimi adaptation (sequential fallback) inline.
+  const srcCmdDir = path.join(SRC, 'commands');
+  for (const cmdFile of fs.readdirSync(srcCmdDir).filter(f => f.endsWith('.md'))) {
+    if (cmdFile === 'overlay-sync.md') continue; // already emitted above
+    const srcCmdPath = path.join(srcCmdDir, cmdFile);
+    const { frontmatter, body } = readFrontmatter(srcCmdPath);
+    const escapeQuotes = (s) => String(s || '').replace(/"/g, '\\"');
+    const cmdFrontmatter = ['---', `description: "${escapeQuotes(frontmatter.description)}"`];
+    if (frontmatter['argument-hint'] !== undefined) {
+      cmdFrontmatter.push(`argument-hint: "${escapeQuotes(frontmatter['argument-hint'])}"`);
+    }
+    cmdFrontmatter.push('---');
+    fs.writeFileSync(
+      path.join(cmdDir, cmdFile),
+      `${cmdFrontmatter.join('\n')}\n\n${body.trim()}\n`
+    );
   }
 
   console.log('[kimi] Done.');
