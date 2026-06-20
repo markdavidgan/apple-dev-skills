@@ -162,6 +162,51 @@ install_cursor() {
   log_info "Cursor installation complete."
 }
 
+write_kimi_mcp_json() {
+  local dest="$1"
+  local repo_root="$2"
+
+  if [[ "$DRY_RUN" == true ]]; then
+    echo "  [dry-run] write: $dest"
+    return
+  fi
+
+  mkdir -p "$(dirname "$dest")"
+
+  if ! command -v python3 >/dev/null 2>&1; then
+    log_error "python3 is required to generate $dest. Please install Python 3 or create the file manually."
+    return 1
+  fi
+
+  python3 - "$repo_root" "$dest" <<'PY'
+import json, os, sys
+repo_root = sys.argv[1]
+dest = sys.argv[2]
+cfg = {
+    "mcpServers": {
+        "apple-docs": {
+            "command": "node",
+            "args": [f"{repo_root}/src/mcp/apple-docs/dist/index.js"]
+        },
+        "app-store-connect": {
+            "command": "node",
+            "args": [f"{repo_root}/src/mcp/asc/dist/index.js"],
+            "env": {
+                "ASC_KEY_ID": os.environ.get("ASC_KEY_ID", ""),
+                "ASC_ISSUER_ID": os.environ.get("ASC_ISSUER_ID", ""),
+                "ASC_KEY_PATH": os.environ.get("ASC_KEY_PATH", "")
+            }
+        }
+    }
+}
+with open(dest, "w") as f:
+    json.dump(cfg, f, indent=2)
+    f.write("\n")
+PY
+
+  log_ok "Wrote: $dest"
+}
+
 install_kimi() {
   local base="$(get_scope_base)"
   local src="$REPO_ROOT/platforms/kimi/apple-dev"
@@ -171,38 +216,65 @@ install_kimi() {
   local dest="$base/.kimi-code/skills/apple-dev"
   # Kimi Code discovers slash commands from <home|project>/.kimi-code/commands.
   local cmd_dest="$base/.kimi-code/commands"
+  # Kimi Code project-local MCP config (preferred; keeps sessions lean).
+  local mcp_dest="$base/.kimi-code/mcp.json"
 
   log_info "Installing for Kimi Code ($SCOPE)..."
 
   if [[ "$DRY_RUN" == true ]]; then
-    echo "  [dry-run] copy: $src -> $dest"
-    echo "  [dry-run] copy: $src/commands/* -> $cmd_dest/"
+    if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"skills"* ]]; then
+      echo "  [dry-run] copy: $src -> $dest"
+      echo "  [dry-run] copy: $src/commands/* -> $cmd_dest/"
+    fi
+    if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
+      write_kimi_mcp_json "$mcp_dest" "$REPO_ROOT"
+    fi
     log_info "Kimi installation complete (dry-run)."
     return
   fi
 
-  # Kimi prefers copy (not symlink) for skill discovery stability
-  if [[ -d "$dest" ]]; then
-    rm -rf "$dest"
-  fi
-  mkdir -p "$(dirname "$dest")"
-  cp -R "$src" "$dest"
-  log_ok "Copied: $dest"
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"skills"* ]]; then
+    # Kimi prefers copy (not symlink) for skill discovery stability
+    if [[ -d "$dest" ]]; then
+      rm -rf "$dest"
+    fi
+    mkdir -p "$(dirname "$dest")"
+    cp -R "$src" "$dest"
+    log_ok "Copied: $dest"
 
-  # Install bundled slash commands (the script they invoke stays inside the
-  # plugin at skills/apple-dev/scripts/ and is self-locating).
-  if [[ -d "$src/commands" ]]; then
-    mkdir -p "$cmd_dest"
-    cp -R "$src/commands/." "$cmd_dest/"
-    log_ok "Copied commands: $cmd_dest"
+    # Install bundled slash commands (the script they invoke stays inside the
+    # plugin at skills/apple-dev/scripts/ and is self-locating).
+    if [[ -d "$src/commands" ]]; then
+      mkdir -p "$cmd_dest"
+      cp -R "$src/commands/." "$cmd_dest/"
+      log_ok "Copied commands: $cmd_dest"
+    fi
+  fi
+
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
+    if [[ "$SCOPE" == "local" ]]; then
+      write_kimi_mcp_json "$mcp_dest" "$REPO_ROOT"
+      if [[ -z "${ASC_KEY_ID:-}" || -z "${ASC_ISSUER_ID:-}" || -z "${ASC_KEY_PATH:-}" ]]; then
+        log_warn "ASC_* env vars are not all set; app-store-connect was written with empty values."
+        log_warn "Set ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH and re-run, or edit $mcp_dest directly."
+      else
+        log_info "ASC credentials captured from environment."
+      fi
+      log_info "MCP servers are project-local and will only load when working in $base."
+      log_info "Make sure .kimi-code/ is gitignored so credentials and machine paths are not committed."
+    else
+      log_warn "Global MCP config (~/.kimi-code/mcp.json) loads in every Kimi session and consumes context."
+      log_info "To keep sessions lean, install with --local in each project, or manually create"
+      log_info "a project-local .kimi-code/mcp.json instead of the global one:"
+      echo "  apple-docs        -> node $REPO_ROOT/src/mcp/apple-docs/dist/index.js"
+      echo "  app-store-connect -> node $REPO_ROOT/src/mcp/asc/dist/index.js  (needs ASC_* env)"
+    fi
   fi
 
   log_info "Kimi Code installation complete."
-  log_info "Restart Kimi Code to pick up the skill."
-  log_info "To register the MCP servers (build each first — see README), add them to"
-  log_info "$base/.kimi-code/mcp.json (or run /mcp-config inside Kimi Code):"
-  echo "  apple-docs        -> node $REPO_ROOT/src/mcp/apple-docs/dist/index.js"
-  echo "  app-store-connect -> node $REPO_ROOT/src/mcp/asc/dist/index.js  (needs ASC_* env)"
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"skills"* ]]; then
+    log_info "Restart Kimi Code to pick up the skill."
+  fi
 }
 
 install_antigravity() {

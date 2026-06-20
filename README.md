@@ -153,16 +153,36 @@ Installs to `~/.cursor/skills/`, `~/.cursor/agents/`, `~/.cursor/commands/`.
 
 #### Kimi Code
 
+**Project-local (recommended — keeps sessions lean):**
+
 ```bash
-./install.sh --platform kimi
+# Run from the project where you want Apple Dev Skills available
+/path/to/apple-dev-skills/install.sh --platform kimi --local
 ```
 
-Installs the consolidated skill to `~/.kimi-code/skills/apple-dev/` (one `SKILL.md` + bundled `scripts/`), which Kimi Code auto-discovers on restart.
+Installs the skill into `./.kimi-code/skills/apple-dev/` and writes `./.kimi-code/mcp.json` with the Apple MCP servers. The servers will only load when you open that project in Kimi Code.
 
-Kimi Code **supports MCP** via `~/.kimi-code/mcp.json` (user-global) or `<project>/.kimi-code/mcp.json` (project-local) — same `{ "mcpServers": { … } }` shape as Claude. Register both Apple servers (after building each — see below):
+Add `.kimi-code/` to the project's `.gitignore` so machine paths and credentials are never committed:
+
+```gitignore
+# Kimi Code local settings, MCP config, and skill working files
+.kimi-code/
+```
+
+**User-global (loads in every session):**
+
+```bash
+./install.sh --platform kimi --global
+```
+
+Installs the skill to `~/.kimi-code/skills/apple-dev/` but does **not** write a global MCP config. Global `~/.kimi-code/mcp.json` loads in every Kimi session and consumes context; prefer project-local configs.
+
+**MCP credentials**
+
+For a project-local install, export `ASC_KEY_ID`, `ASC_ISSUER_ID`, and `ASC_KEY_PATH` before running the installer and they will be written into `./.kimi-code/mcp.json` automatically. If you prefer, you can create or edit the file manually — the shape is the same as Claude's MCP config:
 
 ```jsonc
-// ~/.kimi-code/mcp.json
+// <project>/.kimi-code/mcp.json
 {
   "mcpServers": {
     "apple-docs":        { "command": "node", "args": ["<repo>/src/mcp/apple-docs/dist/index.js"] },

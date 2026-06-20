@@ -61,9 +61,11 @@ Ask the user for:
   - Works across all projects without per-repo config
 
 - **Repo-level** (for shared/CI projects):
-  - Write or update `.mcp.json` in the project root
+  - Write or update your tool's project-local MCP config in the project root
+    (e.g., `.kimi-code/mcp.json` for Kimi Code)
   - Place key in project's `keys/` directory (add `keys/*.p8` to `.gitignore`)
   - Scoped to this repository only
+  - Make sure the tool's local config directory is gitignored so credentials and machine paths are not committed
 
 **5. Write the configuration**
 
@@ -75,7 +77,7 @@ For machine-level, create `~/.config/asc/config.json`:
 }
 ```
 
-For repo-level, create or update `.mcp.json`:
+For repo-level, create or update the project-local MCP config:
 ```json
 {
   "mcpServers": {
