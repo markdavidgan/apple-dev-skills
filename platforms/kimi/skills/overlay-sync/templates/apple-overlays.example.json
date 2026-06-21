@@ -1,0 +1,24 @@
+{
+  "$comment": "Copy to .claude/apple-overlays.json and edit. Declares which engine skills this project overlays, with project-specific bindings. `overlay-sync` reads this and regenerates .claude/skills/<prefix>-<engine>/SKILL.md idempotently. JSON (not YAML) for zero-dependency parsing.",
+  "project": "Aether",
+  "prefix": "aether",
+  "overlays": [
+    {
+      "engine": "design-handoff",
+      "vars": {
+        "captureCommand": "cd apps/<app> && bundle exec fastlane ios_screenshots",
+        "handoffPathPattern": "apps/{app}/design-handoff/",
+        "hostPolicy": "This Mac Mini cannot run the simulator (.claude/NO_SIMULATOR.md present). Run `prepare`/`package`/`bundle` here; run `capture` on a capture-capable Mac.",
+        "apps": [
+          {
+            "name": "ember",
+            "scheme": "AetherEmber-Screenshots",
+            "dir": "apps/ember",
+            "screenshotsDir": "apps/ember/design-handoff",
+            "designLanguage": "Dark-mode-only. Brass dial, sunset/amber runway arc, rising-embers atmosphere, sunset-glow accents. AetherTheme tokens; Orb identity."
+          }
+        ]
+      }
+    }
+  ]
+}

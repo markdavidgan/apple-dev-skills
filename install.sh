@@ -224,6 +224,7 @@ install_kimi() {
   if [[ "$DRY_RUN" == true ]]; then
     if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"skills"* ]]; then
       echo "  [dry-run] copy: $src -> $dest"
+      echo "  [dry-run] copy: $REPO_ROOT/platforms/kimi/skills/* -> $base/.kimi-code/skills/"
       echo "  [dry-run] copy: $src/commands/* -> $cmd_dest/"
     fi
     if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
@@ -241,6 +242,24 @@ install_kimi() {
     mkdir -p "$(dirname "$dest")"
     cp -R "$src" "$dest"
     log_ok "Copied: $dest"
+
+    # Install each skill as its own discoverable dir under ~/.kimi-code/skills/.
+    # Kimi loads each skill's description up front and pulls a body in on demand
+    # (progressive disclosure), instead of the whole concatenated reference. The
+    # `apple-dev` plugin copied above stays as the index + tool host.
+    local per_skill_src="$REPO_ROOT/platforms/kimi/skills"
+    if [[ -d "$per_skill_src" ]]; then
+      local skills_base="$base/.kimi-code/skills"
+      mkdir -p "$skills_base"
+      local n=0
+      for skill_dir in "$per_skill_src"/*/; do
+        local name; name="$(basename "$skill_dir")"
+        rm -rf "$skills_base/$name"
+        cp -R "$skill_dir" "$skills_base/$name"
+        n=$((n + 1))
+      done
+      log_ok "Installed $n individual skills: $skills_base"
+    fi
 
     # Install bundled slash commands (the script they invoke stays inside the
     # plugin at skills/apple-dev/scripts/ and is self-locating).
