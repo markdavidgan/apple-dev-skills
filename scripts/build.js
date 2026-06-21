@@ -237,52 +237,53 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
 
 ## How to Use This Reference
 
-This document contains all Apple Dev Skills concatenated in order. Use the Table of Contents above to navigate.
-Each skill is bounded by \`<!-- BEGIN SKILL: name -->\` and \`<!-- END SKILL: name -->\` markers.
+The table above indexes all ${skillDirs.length} apple-dev skills. Each one is installed as its
+**own discoverable skill** under \`~/.kimi-code/skills/<name>/\` (Kimi Code discovers every
+\`<name>/SKILL.md\` it finds there). That restores metadata-first progressive disclosure: Kimi
+loads only each skill's \`description\` up front and pulls a full skill body in on demand — the
+same model as Claude Code and Cursor — instead of carrying every skill's prose in context every
+session.
+
+To load a skill's full guidance, invoke it by name (e.g. \`swift6-concurrency\`, \`apple-review\`).
+This \`apple-dev\` entry is the index and the home of the plugin tools.
 
 For **executable validation**, use the plugin tools:
 - \`pattern-check\` — Run mechanical Swift 6 / SwiftUI / SwiftData / entitlements validation
 - \`api-lookup\` — Query iOS 26 API signatures and anti-hallucination references
 
 ---
-
 `;
 
-  // ios26-api-reference ships its (very large) reference tree via the api-lookup
-  // tool (copied to dest/reference/ above), so it must NOT be inlined here.
-  const INLINE_REF_EXCLUDE = new Set(['ios26-api-reference']);
-
-  for (const dir of skillDirs) {
-    const skillPath = path.join(SRC, 'skills', dir, 'SKILL.md');
-    if (!fs.existsSync(skillPath)) continue;
-    const { body } = readFrontmatter(skillPath);
-    masterSkill += `<!-- BEGIN SKILL: ${dir} -->\n\n# ${dir}\n\n${body.trim()}\n\n`;
-
-    // Kimi has no progressive disclosure (one SKILL.md per plugin), so any
-    // references/*.md a skill links to must travel inline or they are lost.
-    if (!INLINE_REF_EXCLUDE.has(dir)) {
-      const skillRoot = path.join(SRC, 'skills', dir);
-      const refFiles = [];
-      (function walk(d, rel) {
-        for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
-          if (entry.name === 'SKILL.md') continue;
-          const abs = path.join(d, entry.name);
-          const relPath = rel ? `${rel}/${entry.name}` : entry.name;
-          if (entry.isDirectory()) walk(abs, relPath);
-          else if (entry.name.endsWith('.md')) refFiles.push({ relPath, abs });
-        }
-      })(skillRoot, '');
-      refFiles.sort((a, b) => a.relPath.localeCompare(b.relPath));
-      for (const ref of refFiles) {
-        const refBody = fs.readFileSync(ref.abs, 'utf8').trim();
-        masterSkill += `<!-- REFERENCE: ${dir}/${ref.relPath} -->\n\n${refBody}\n\n`;
-      }
-    }
-
-    masterSkill += `<!-- END SKILL: ${dir} -->\n\n---\n\n`;
-  }
-
   fs.writeFileSync(path.join(dest, 'SKILL.md'), masterSkill);
+
+  // ── Emit each skill as its own discoverable Kimi skill dir ──
+  // Kimi Code discovers every <name>/SKILL.md under ~/.kimi-code/skills/, so we ship
+  // the skills individually rather than concatenated into one master SKILL.md. This
+  // restores metadata-first progressive disclosure (load ~100 tokens of frontmatter
+  // per skill; pull a body in only when relevant) and keeps the Kimi output
+  // structurally identical to every other platform's per-skill layout. Worst case —
+  // if Kimi were to eager-load every body — is no worse than the old concatenation.
+  const perSkillRoot = path.join(PLATFORMS, 'kimi', 'skills');
+  cleanDir(perSkillRoot);
+  let perSkillCount = 0;
+  for (const dir of skillDirs) {
+    const srcSkill = path.join(SRC, 'skills', dir);
+    if (!fs.existsSync(path.join(srcSkill, 'SKILL.md'))) continue;
+    const outDir = path.join(perSkillRoot, dir);
+    if (dir === 'ios26-api-reference') {
+      // The very large reference tree already ships via the api-lookup tool (copied
+      // to apple-dev/reference/ above); emit only the skill body here to avoid
+      // duplicating megabytes of API data into every Kimi session's skill index.
+      fs.mkdirSync(outDir, { recursive: true });
+      fs.copyFileSync(path.join(srcSkill, 'SKILL.md'), path.join(outDir, 'SKILL.md'));
+    } else {
+      // Copy verbatim: SKILL.md (name === dirname, enforced by validate.js) plus any
+      // references/ subdirs, so per-skill progressive disclosure works inside Kimi too.
+      fs.cpSync(srcSkill, outDir, { recursive: true });
+    }
+    perSkillCount++;
+  }
+  console.log(`[kimi] Emitted ${perSkillCount} individual skill dirs -> platforms/kimi/skills/`);
 
   // ── Generate plugin.json with tools ──
   const pluginJson = {

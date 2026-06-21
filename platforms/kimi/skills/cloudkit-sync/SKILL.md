@@ -1,0 +1,141 @@
+---
+name: cloudkit-sync
+category: engineering
+description: Sync SwiftData / Core Data across a user's devices with CloudKit, plus CKShare collaboration and conflict handling. Use when adding iCloud sync, "sync across devices", SwiftData + CloudKit, NSPersistentCloudKitContainer, sharing records between users, or debugging why data isn't syncing. Trigger on "CloudKit", "iCloud sync", "cloudKitDatabase", "CKShare", "sync not working", or "share data between users".
+---
+
+# CloudKit Sync (SwiftData & Core Data)
+
+**Sync a user's data across their devices with iCloud, for free, using their private database.** This is the on-ramp to multi-device; for the local store and modeling, see `ios-standards` (SwiftData/`@Model`).
+
+> CloudKit's private database is per-user, on the user's iCloud account. You don't run a server. The trade-off: the **schema must obey CloudKit's rules**, and sync is eventual (seconds to minutes), not instant.
+
+---
+
+## SwiftData + CloudKit
+
+```swift
+let config = ModelConfiguration(
+    "Main",
+    schema: Schema([Trip.self, Stop.self]),
+    cloudKitDatabase: .automatic        // or .private("iCloud.com.you.app")
+)
+let container = try ModelContainer(for: Trip.self, Stop.self, configurations: config)
+```
+
+**Enable in the project:** add the **iCloud** capability → **CloudKit**, pick/create a container, and add the **Background Modes → Remote notifications** capability (CloudKit uses silent pushes to trigger sync).
+
+### The schema rules CloudKit forces on you
+
+These are the cause of ~90% of "it won't build / won't sync" issues:
+
+- **Every non-optional property needs a default value**, or must be optional. CloudKit can't represent required-with-no-default.
+- **No `@Attribute(.unique)`** — unique constraints aren't supported with CloudKit. Enforce uniqueness in app logic instead.
+- **Relationships must be optional** and you generally need an inverse.
+- **No `.deny` delete rules** that CloudKit can't model.
+
+Violating these throws at `ModelContainer` init or silently disables sync. If a previously-local model won't sync, audit it against this list first.
+
+---
+
+## Core Data path
+
+Use `NSPersistentCloudKitContainer` instead of `NSPersistentContainer`. Set the store's `cloudKitContainerOptions` and `NSPersistentStoreRemoteChangeNotificationPostOptionKey` to observe remote changes. Same schema constraints apply. Initialize the CloudKit schema during development with `initializeCloudKitSchema(options:)` (debug builds only — never ship that call).
+
+---
+
+## Going to production
+
+CloudKit has **two environments: Development and Production.** Your dev schema changes do **not** reach production until you **deploy the schema** in the **CloudKit Console**.
+
+- Deploy schema to Production **before** you ship to TestFlight/App Store, or real users get nothing.
+- The schema is **additive-only in production** — you can add fields/record types, never rename or delete them. Model carefully up front.
+
+This is the #1 launch-day CloudKit surprise: "works in Xcode, broken in the App Store build" = schema not deployed to Production.
+
+### The Development schema only exists if a Debug build generated it
+
+Deploy can only promote what's *in* Development — and the Development schema is built **just-in-time by a running Debug build**, not by writing model code. `NSPersistentCloudKitContainer` (and SwiftData + CloudKit) lazily create the `CD_*` record types in Development the first time a **Debug build, signed into iCloud on a real device,** actually writes/syncs. Production *prohibits* this JIT creation — that's the entire reason you deploy a schema.
+
+The trap: **an app that has only ever shipped TestFlight/App Store (Production) builds and never run a Debug build has an empty Development schema.** Open **Deploy Schema Changes** and you see a **zero diff — "nothing to deploy."** That reads like "already in sync," but it actually means *both environments are empty*. Production stays empty, and every sync — and every `CKShare` — silently fails in the shipped build. A zero diff is ambiguous: it's either "in sync" or "both empty." **Disambiguate by opening Schema → Record Types** — if it's blank, you never generated the dev schema.
+
+**Fix, in order:**
+
+1. Run a **Debug build on a real device signed into iCloud** (a simulator with no iCloud account won't generate the schema). Either exercise the code paths that write each record type, **or** — more reliably — call `initializeCloudKitSchema(options:)` once inside `#if DEBUG`. **Prefer the latter:** exercising paths by hand only registers the types you actually *touch*, so it's easy to leave a **partial** schema (miss one entity and that record type is silently absent from Production). `initializeCloudKitSchema` dry-runs one record of **every** mirrored entity in a single shot, then deletes them — so all `CD_*` types appear at once. **Never ship that call** — it throws against Production.
+2. **`CKShare` record types are not generated by `initializeCloudKitSchema`.** The sharing schema (`cloudkit.share` and the shared custom zone) only appears once you **originate a share** — call `container.share(...)` once in Development.
+3. Confirm **Schema → Record Types** in Development is now non-empty and lists your `CD_*` types (and the share type, if you share).
+4. *Now* **Deploy Schema Changes** — the diff is real — and verify the same record types appear under the **Production** environment.
+
+### Generating the schema headlessly (no Xcode window)
+
+You don't have to sit in Xcode to run `initializeCloudKitSchema`. Gate it behind **both** `#if DEBUG` and a launch flag, run it off the main thread, and drive a device build from the command line:
+
+```swift
+#if DEBUG
+guard UserDefaults.standard.bool(forKey: "InitCloudKitSchema") else { return }
+DispatchQueue.global(qos: .userInitiated).async {
+    try? container.initializeCloudKitSchema(options: [])   // blocking; never on main
+}
+#endif
+```
+
+```bash
+xcodebuild -scheme YourApp -destination 'generic/platform=iOS' build
+xcrun devicectl device install app --device <UDID> /path/to/YourApp.app
+xcrun devicectl device process launch --terminate-existing --device <UDID> \
+    -- com.you.app -InitCloudKitSchema YES
+```
+
+The **`--` separator is required** — without it `devicectl` parses `-InitCloudKitSchema` as one of *its own* flags and fails (it tries to read `YES` as the value for `-t`). Everything after `--` is the bundle id and the app's own launch arguments; `-Key Value` lands in `NSArgumentDomain`, where `UserDefaults.standard.bool(forKey:)` reads it. The device must be unlocked and the app foregrounded for ~15s while it writes and deletes the temp records.
+
+### Verify the deploy from the CLI with `cktool`
+
+You don't have to eyeball the Console to confirm a deploy landed. `xcrun cktool export-schema` reads the live schema and — unlike most cktool verbs — **works against both environments**, so you can diff Development against Production *after* deploying:
+
+```bash
+xcrun cktool export-schema --team-id <TEAM> \
+    --container-id iCloud.com.you.app --environment production
+```
+
+(Needs a saved token once: `xcrun cktool save-token --type management`.) The record-type list **is** the schema truth — if Production's export matches Development's, the deploy is complete.
+
+**cktool verifies; it does not promote.** `import-schema` and `validate-schema` are **Development-only** (against Production they return "endpoint not applicable in the environment 'production'"), and **no cktool verb pushes Dev→Prod**. Promotion stays the Console's **Deploy Schema Changes** button — cktool is for generating (via the headless DEBUG path above) and verifying, never deploying.
+
+---
+
+## Conflicts & merging
+
+- The default is **last-writer-wins** at the field level (CloudKit) / configurable merge policy (Core Data: set `viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy`).
+- For data where lost edits matter (counters, sets), model them so concurrent edits *combine* rather than overwrite (e.g. store events and reduce, not a single mutable total).
+- Sync is **eventual** — design UI to tolerate a record appearing/updating later. Never block the UI on a sync.
+
+---
+
+## Sharing between users (CKShare)
+
+For collaboration (not just same-user multi-device):
+
+- Create a `CKShare` for a record (or use SwiftData's sharing affordances) and present `UICloudSharingController` to invite participants.
+- Shared records live in the **shared database**; participants need the right `CKShare.ParticipantPermission` (`.readOnly` / `.readWrite`).
+- Handle the share-accept flow via the scene/app delegate `userDidAcceptCloudKitShareWith`.
+
+---
+
+## Debugging sync
+
+- Add the launch argument `-com.apple.CoreData.CloudKitDebug 1` (and `-com.apple.CoreData.SQLDebug 1`) to see sync activity in the console.
+- Verify the device is **signed into iCloud** and iCloud Drive is on — sync silently no-ops otherwise. Surface iCloud account status (`CKContainer.accountStatus`) in the UI.
+- New devices/back-ups import in the background after first launch — give it time and a connection.
+- "Works on one device, not the other" → check both are on the same iCloud account and the schema is deployed.
+- **Look in the right database and zone.** Core Data + CloudKit writes to the **private** database in a **custom zone** named `com.apple.coredata.cloudkit.zone` — *not* the Public database, *not* `_defaultZone`. Sharing adds the **shared** database. The Console opens on the Public DB / `_defaultZone` by default, where a Core Data app stores **nothing** — see it empty there and you'll wrongly conclude sync is broken. To check actual data, switch to **Private Database → `com.apple.coredata.cloudkit.zone`**; to check the schema, use **Schema → Record Types** (which spans the whole environment).
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Throws at `ModelContainer` init | Schema breaks a CloudKit rule | Make properties optional/defaulted, drop `.unique` |
+| Builds, never syncs | Missing Remote notifications background mode, or signed out of iCloud | Add capability; check `accountStatus` |
+| Works in Xcode, not in App Store build | Schema not deployed to Production | Deploy in CloudKit Console |
+| "Deploy Schema Changes" shows nothing to deploy | Never ran a Debug build → the **Development schema is empty** (not "in sync") | Run a Debug build on-device signed into iCloud (or `initializeCloudKitSchema` in DEBUG); confirm Schema → Record Types is non-empty, then deploy |
+| Console shows no records though the app saved data | Looking at the Public DB / `_defaultZone` | Look in Private DB → `com.apple.coredata.cloudkit.zone` |
+| `CKShare` create fails on a TestFlight/App Store build ("invitation couldn't be created") | Sharing schema never reached Production — a share was never originated in Development before deploy | Originate one share in a Debug build to generate the share schema, then deploy to Production |
+| Can't confirm a deploy actually reached Production (no Console access) | — | `xcrun cktool export-schema --environment production` (works on both envs) and check the `CD_*` list matches Development |
+| Edits clobber each other | Last-writer-wins | Model concurrent data as combinable events |
