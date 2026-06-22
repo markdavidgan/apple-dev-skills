@@ -6,12 +6,12 @@
     "auth_env": ["ASC_KEY_ID", "ASC_ISSUER_ID", "ASC_KEY_PATH"],
     "setup_command": "setup-asc",
     "docs_url": "https://developer.apple.com/documentation/appstoreconnectapi",
-    "notes": "Requires npm build before first use. Auth via App Store Connect API key (.p8 file)."
+    "notes": "Ships as a self-contained bundle inside the plugin. Auth via App Store Connect API key (.p8 file): set ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH in your environment."
   },
   "mcpServers": {
     "app-store-connect": {
       "command": "node",
-      "args": ["<REPO_PATH>/apple-dev-skills/src/mcp/asc/dist/index.js"],
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/asc/index.js"],
       "env": {
         "ASC_KEY_ID": "${ASC_KEY_ID}",
         "ASC_ISSUER_ID": "${ASC_ISSUER_ID}",

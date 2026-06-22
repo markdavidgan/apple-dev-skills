@@ -6,7 +6,7 @@
       "requires_auth": false,
       "auth_env": [],
       "docs_url": "https://developer.apple.com/documentation",
-      "notes": "Requires npm build before first use. No API key. Fetches docs on demand and caches JSON under $XDG_CACHE_HOME/apple-docs-mcp."
+      "notes": "Ships as a self-contained bundle inside the plugin. No API key. Fetches docs on demand and caches JSON under $XDG_CACHE_HOME/apple-docs-mcp."
     },
     {
       "name": "App Store Connect",
@@ -19,14 +19,14 @@
       ],
       "setup_command": "setup-asc",
       "docs_url": "https://developer.apple.com/documentation/appstoreconnectapi",
-      "notes": "Requires npm build before first use. Auth via App Store Connect API key (.p8 file)."
+      "notes": "Ships as a self-contained bundle inside the plugin. Auth via App Store Connect API key (.p8 file): set ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH in your environment."
     },
     {
       "name": "Skill Search",
       "description": "Semantic/keyword search over the 57 apple-dev skills and their reference docs. Use to find the right skill or guidance without loading full SKILL.md files into context. 3 tools: search_skills (BM25 keyword search returning top chunks), list_skills (all skill names + descriptions), get_skill_section (full text of a skill or specific heading).",
       "requires_auth": false,
       "auth_env": [],
-      "notes": "Zero-auth, zero-infra. Indexes src/skills/**/*.md at startup (lazy, in-memory). Override the skills root with SKILL_SEARCH_ROOT env var. No API key required. Use search_skills to discover which skill covers a topic; use get_skill_section to read the full guidance once identified.",
+      "notes": "Zero-auth, zero-infra. Ships as a self-contained bundle inside the plugin; indexes the plugin's bundled skills/**/*.md at startup (lazy, in-memory) via SKILL_SEARCH_ROOT. No API key required. Use search_skills to discover which skill covers a topic; use get_skill_section to read the full guidance once identified.",
       "instructions": "Call search_skills(query) first whenever you need to find guidance on an Apple development topic. It returns ranked chunks with {skill, file, heading, snippet, score} so you can identify the right skill without reading entire files. Then call get_skill_section(skill, heading?) to load only the section you need."
     }
   ],
@@ -34,14 +34,14 @@
     "apple-docs": {
       "command": "node",
       "args": [
-        "<REPO_PATH>/apple-dev-skills/src/mcp/apple-docs/dist/index.js"
+        "${CLAUDE_PLUGIN_ROOT}/mcp/apple-docs/index.js"
       ],
       "env": {}
     },
     "app-store-connect": {
       "command": "node",
       "args": [
-        "<REPO_PATH>/apple-dev-skills/src/mcp/asc/dist/index.js"
+        "${CLAUDE_PLUGIN_ROOT}/mcp/asc/index.js"
       ],
       "env": {
         "ASC_KEY_ID": "${ASC_KEY_ID}",
@@ -52,9 +52,11 @@
     "skill-search": {
       "command": "node",
       "args": [
-        "<REPO_PATH>/apple-dev-skills/src/mcp/skill-search/dist/index.js"
+        "${CLAUDE_PLUGIN_ROOT}/mcp/skill-search/index.js"
       ],
-      "env": {}
+      "env": {
+        "SKILL_SEARCH_ROOT": "${CLAUDE_PLUGIN_ROOT}/skills"
+      }
     }
   }
 }

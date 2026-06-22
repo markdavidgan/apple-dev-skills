@@ -1,6 +1,6 @@
 {
   "name": "apple-dev-skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Apple platform development skills for Claude Code, Cursor, Kimi Code, Antigravity, Codex CLI, and Agy.",
   "repository": {
     "type": "git",
@@ -13,6 +13,9 @@
     "validate": "node scripts/validate.js",
     "build": "node scripts/build.js",
     "test": "npm run validate && npm run build"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
   },
   "keywords": [
     "ios",

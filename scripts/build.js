@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
 const SRC = path.join(ROOT, 'src');
@@ -120,6 +121,64 @@ function getCommandFiles() {
   return fs.readdirSync(cmdsRoot).filter(f => f.endsWith('.md')).sort();
 }
 
+// ─── MCP bundling ───
+//
+// Each src/mcp/<server> is a tiny tsc package that imports its runtime deps
+// (@modelcontextprotocol/sdk, zod, jsonwebtoken) from node_modules — ~190MB
+// across the three, far too heavy to ship in a marketplace plugin. So we bundle
+// each server into a single self-contained ESM file with esbuild and drop it at
+// platforms/claude/mcp/<server>/index.js. The per-server mcp.json references it
+// via ${CLAUDE_PLUGIN_ROOT}/mcp/<server>/index.js, so a fresh marketplace install
+// runs with zero extra steps and no node_modules.
+//
+// The createRequire banner lets bundled CJS deps (jsonwebtoken) use require()
+// from inside the ESM output — the standard esbuild ESM-bundling shim.
+function bundleClaudeMcpServers(dest) {
+  const mcpRoot = path.join(SRC, 'mcp');
+  if (!fs.existsSync(mcpRoot)) return;
+
+  let esbuild;
+  try {
+    esbuild = require('esbuild');
+  } catch {
+    throw new Error(
+      "esbuild is required to bundle the MCP servers. Run `npm install` at the repo root first."
+    );
+  }
+
+  const servers = fs.readdirSync(mcpRoot).filter((d) => {
+    const entry = path.join(mcpRoot, d, 'src', 'index.ts');
+    return fs.existsSync(entry);
+  }).sort();
+
+  for (const server of servers) {
+    const serverDir = path.join(mcpRoot, server);
+    const entry = path.join(serverDir, 'src', 'index.ts');
+
+    // esbuild resolves deps from the server's own node_modules; install if absent.
+    if (!fs.existsSync(path.join(serverDir, 'node_modules'))) {
+      console.log(`[claude]   installing ${server} deps...`);
+      execFileSync('npm', ['ci'], { cwd: serverDir, stdio: 'inherit' });
+    }
+
+    const outfile = path.join(dest, 'mcp', server, 'index.js');
+    console.log(`[claude]   bundling mcp/${server}...`);
+    esbuild.buildSync({
+      entryPoints: [entry],
+      bundle: true,
+      platform: 'node',
+      format: 'esm',
+      target: 'node18',
+      outfile,
+      absWorkingDir: serverDir,
+      logLevel: 'warning',
+      banner: {
+        js: "import { createRequire as __cr } from 'module'; const require = __cr(import.meta.url);",
+      },
+    });
+  }
+}
+
 // ─── Platform Builders ───
 
 function buildClaude() {
@@ -146,6 +205,11 @@ function buildClaude() {
       fs.writeFileSync(path.join(dest, 'mcp.json'), JSON.stringify(merged, null, 2) + '\n');
     }
   }
+
+  // Bundle each MCP server into platforms/claude/mcp/<server>/index.js so the
+  // packaged plugin is self-contained (mcp.json points at ${CLAUDE_PLUGIN_ROOT}).
+  cleanDir(path.join(dest, 'mcp'));
+  bundleClaudeMcpServers(dest);
 
   const pluginJson = {
     name: 'apple-dev-skills',

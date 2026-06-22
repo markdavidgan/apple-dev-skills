@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Apple platform development tools and knowledge for iOS, Swift, SwiftUI, and App Store Connect. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
