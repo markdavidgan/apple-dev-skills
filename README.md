@@ -8,7 +8,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 
 ## What's Included
 
-### 44 Skills
+### 58 Skills
 
 > Expanding per the [roadmap](docs/roadmap.md). Skills are grouped by `category:` (design · engineering · product · asc · quality · workflow).
 
@@ -57,6 +57,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `swiftui-micro-craft` | Design | Quantified rules + mechanical auditor for Apple-grade SwiftUI micro-craft |
 | `design-handoff` | Design | Current, labeled screenshot package for an external design reviewer, reusing the existing screenshot UITest + fastlane lane |
 | `overlay-sync` | Meta | Idempotently scaffold/sync a project's overlay skills from one `.claude/apple-overlays.json` descriptor |
+| `architecture-fit-check` | Quality | Audit a design for primitive/problem fit — catch the wrong-primitive trap (e.g. `CKShare` for one-way messages) before it costs weeks; `/fit-check` |
 
 ### 7 Agents
 
@@ -70,7 +71,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `explore` | Fast | Fast codebase exploration and pattern search |
 | `ios-code-reviewer` | Standard | Changed-files-only review against iOS 26 crash patterns |
 
-### 19 Commands
+### 25 Commands
 
 | Command | Skill | Purpose |
 |---------|-------|---------|
@@ -93,6 +94,7 @@ A comprehensive, multi-platform plugin set for Apple platform development. Cover
 | `/swift6-fix` | `swift6-concurrency` | Diagnose & fix Swift 6 concurrency errors |
 | `/design-handoff` | `design-handoff` | Build a current screenshot package for design review |
 | `/overlay-sync` | `overlay-sync` | Scaffold/sync project overlay skills from the descriptor |
+| `/fit-check` | `architecture-fit-check` | Audit a design/subsystem for primitive/problem fit |
 
 ### MCP Servers
 
@@ -291,9 +293,9 @@ Symlink-based installs update instantly. Copied installs require re-running `./i
 ```
 apple-dev-skills/
 ├── src/                    # Source of truth (canonical content)
-│   ├── skills/             # 44 skill directories
+│   ├── skills/             # 58 skill directories
 │   ├── agents/             # 7 agent definitions
-│   ├── commands/           # 19 command definitions
+│   ├── commands/           # 25 command definitions
 │   └── mcp/                # MCP servers (asc, apple-docs)
 ├── platforms/              # Generated platform outputs
 │   ├── claude/             # Claude Code bundle

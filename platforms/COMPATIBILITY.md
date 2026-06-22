@@ -24,6 +24,7 @@
 | apple-review | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | apple-router | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | apple-search-ads | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| architecture-fit-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-aso | ✅ | ✅ | ✅ | ⚠️ | ✅ | ⚠️ |
 | asc-build-check | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | asc-submission | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

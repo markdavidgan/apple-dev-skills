@@ -30,9 +30,9 @@ This is the standalone Apple development skill repository. It is **not** part of
 
 ```
 src/
-├── skills/          # 57 skill directories, each with SKILL.md
+├── skills/          # 58 skill directories, each with SKILL.md
 ├── agents/          # 7 agent definitions
-├── commands/        # 24 command definitions
+├── commands/        # 25 command definitions
 └── mcp/             # MCP servers (TypeScript)
     ├── asc/         # App Store Connect MCP server
     └── apple-docs/  # Apple developer docs MCP server
@@ -130,7 +130,7 @@ are **disposable runtime artifacts** and are gitignored — the only committed c
 
 ### Kimi Code (Most Constrained)
 
-- **Per-skill discovery, plus a thin plugin index.** Kimi Code discovers every `<name>/SKILL.md` under `~/.kimi-code/skills/`, so the build emits all 57 skills as **individual discoverable dirs** (`platforms/kimi/skills/<name>/`, copied to `~/.kimi-code/skills/<name>/`). This restores metadata-first progressive disclosure — Kimi loads each skill's `description` up front and pulls a body in only when relevant, instead of carrying every skill's prose every session. The legacy single concatenated master `SKILL.md` is gone; `platforms/kimi/apple-dev/SKILL.md` is now a **thin index** (table of contents + tool docs) and the home of the plugin tools. (One plugin folder is still read as a single skill — that's why the per-skill copies live as siblings under `~/.kimi-code/skills/`, not nested inside the `apple-dev` plugin.)
+- **Per-skill discovery, plus a thin plugin index.** Kimi Code discovers every `<name>/SKILL.md` under `~/.kimi-code/skills/`, so the build emits all 58 skills as **individual discoverable dirs** (`platforms/kimi/skills/<name>/`, copied to `~/.kimi-code/skills/<name>/`). This restores metadata-first progressive disclosure — Kimi loads each skill's `description` up front and pulls a body in only when relevant, instead of carrying every skill's prose every session. The legacy single concatenated master `SKILL.md` is gone; `platforms/kimi/apple-dev/SKILL.md` is now a **thin index** (table of contents + tool docs) and the home of the plugin tools. (One plugin folder is still read as a single skill — that's why the per-skill copies live as siblings under `~/.kimi-code/skills/`, not nested inside the `apple-dev` plugin.)
 - **No agents.** Complex multi-agent workflows must include sequential fallback instructions.
 - **Commands are supported** — Kimi Code discovers slash commands from `~/.kimi-code/commands/` (and `<project>/.kimi-code/commands/`). The build emits any Kimi-runnable command into `platforms/kimi/apple-dev/commands/` and `install.sh` copies it there. A command that drives a bundled script (e.g. `overlay-sync`) must also ship that script + its data inside the plugin, since the `apple-dev` plugin folder itself has no progressive-disclosure skill dirs to load from.
 - **Tools provide interactivity.** `pattern-check` and `api-lookup` are declared in `plugin.json`.

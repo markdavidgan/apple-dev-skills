@@ -113,7 +113,9 @@ xcrun cktool export-schema --team-id <TEAM> \
 
 ## Sharing between users (CKShare)
 
-For collaboration (not just same-user multi-device):
+> ⚠️ **Wrong-primitive check first — run `/fit-check`.** `CKShare` exists for **bidirectional co-editing of one mutable record graph** — two users changing the same records. It runs the `NSPersistentCloudKitContainer` **mirroring delegate**, whose failures (`NSCocoaError 134406` zone-share wedges, accept-side `notFound`, Dev↔Prod mismatch, clean-install freezes) are opaque and hard to observe on device. **If your cross-user data is append-only and single-author** — signals, messages, notes, a one-author document others read — that is *messaging*, not co-editing, and `CKShare` is the wrong primitive. Note a **read-only** share still runs the mirroring delegate and still wedges, so "they only read it" does not save you. Prefer an **encrypted mailbox on the public database**: each author publishes append-only records tagged with a per-connection **token** (a secret carried in the invite link, with the encryption key derived *separately* so the token reveals nothing), the reader holds a `CKQuerySubscription` on that token, and contents are AES-GCM-encrypted on-device. No mirroring delegate, observable in the Dashboard, nothing to "accept" or expire. Reach for `CKShare` **only** when two users genuinely mutate the same records.
+
+For genuine collaboration (multiple users co-editing the same records):
 
 - Create a `CKShare` for a record (or use SwiftData's sharing affordances) and present `UICloudSharingController` to invite participants.
 - Shared records live in the **shared database**; participants need the right `CKShare.ParticipantPermission` (`.readOnly` / `.readWrite`).

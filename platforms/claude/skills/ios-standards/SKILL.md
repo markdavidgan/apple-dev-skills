@@ -14,6 +14,16 @@ Swift 6.0+ patterns, strict concurrency, and modern SwiftUI architecture. **Appl
 
 ---
 
+## ☠️ FIT THE PRIMITIVE TO THE PROBLEM
+
+Match the tool to the problem's **actual shape**, not to an elegant invariant. Before adopting a powerful or opaque Apple framework (CloudKit sharing/`CKShare`, `NSPersistentCloudKitContainer` mirroring, `NSFileCoordinator`, App Intents graphs, widget timelines), name the **one job** it exists for and confirm your problem needs exactly that. Don't buy a property you want — privacy, safety — that ordinary app logic keeps for free with a heavyweight, **unobservable** mechanism. Prefer the simplest primitive that ships, is debuggable in production, and fails legibly.
+
+**Wrong-primitive signal:** you keep fighting a framework's opaque internals and each fix surfaces a new break elsewhere. That is not "one more fix" — it is the platform refusing the wrong primitive. Stop and question the foundation. (Real case: `CKShare` bent to deliver append-only one-way messages → three weeks of `NSCocoaError 134406` wedges; the fix was the right primitive, an encrypted public-DB mailbox — not a better share path.)
+
+Run **`/fit-check`** (skill `architecture-fit-check`) before committing to any such framework.
+
+---
+
 ## Swift 6 Concurrency
 
 ### @MainActor Isolation
