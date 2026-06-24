@@ -1,0 +1,58 @@
+{
+  "name": "apple-dev-skills",
+  "version": "0.2.0",
+  "description": "Apple platform development skills, reference, and MCP servers for AI coding agents. Covers Swift 6, SwiftUI, design, accessibility, concurrency, App Store Connect, testing, and App Store submission.",
+  "author": {
+    "name": "Mark David Gan",
+    "email": "mark@markdavidgan.com"
+  },
+  "homepage": "https://github.com/markdavidgan/apple-dev-skills",
+  "repository": "https://github.com/markdavidgan/apple-dev-skills.git",
+  "license": "MIT",
+  "keywords": [
+    "ios",
+    "swift",
+    "swiftui",
+    "swiftdata",
+    "xcode",
+    "apple",
+    "app-store-connect",
+    "testflight"
+  ],
+  "interface": {
+    "displayName": "Apple Dev Skills",
+    "shortDescription": "Apple platform development skills and MCP tools",
+    "longDescription": "A collection of Apple-platform Agent Skills covering Swift 6, SwiftUI, design, accessibility, concurrency, App Store Connect, testing, and App Store submission. Also exposes MCP servers for live Apple docs lookup, App Store Connect API access, and semantic search across the bundled skills.",
+    "developerName": "Mark David Gan",
+    "websiteURL": "https://github.com/markdavidgan/apple-dev-skills"
+  },
+  "skills": "./platforms/kimi/skills/",
+  "mcpServers": {
+    "apple-docs": {
+      "command": "node",
+      "args": [
+        "./src/mcp/apple-docs/dist/index.js"
+      ]
+    },
+    "app-store-connect": {
+      "command": "node",
+      "args": [
+        "./src/mcp/asc/dist/index.js"
+      ],
+      "env": {
+        "ASC_KEY_ID": "${ASC_KEY_ID}",
+        "ASC_ISSUER_ID": "${ASC_ISSUER_ID}",
+        "ASC_KEY_PATH": "${ASC_KEY_PATH}"
+      }
+    },
+    "skill-search": {
+      "command": "node",
+      "args": [
+        "./src/mcp/skill-search/dist/index.js"
+      ],
+      "env": {
+        "SKILL_SEARCH_ROOT": "./platforms/kimi/skills"
+      }
+    }
+  }
+}

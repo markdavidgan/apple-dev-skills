@@ -317,21 +317,114 @@ install_antigravity() {
   log_info "Skills will be discovered on next Antigravity startup."
 }
 
+write_codex_mcp_toml() {
+  local dest="$1"
+  local repo_root="$2"
+
+  if [[ "$DRY_RUN" == true ]]; then
+    echo "  [dry-run] write/merge: $dest"
+    return
+  fi
+
+  if ! command -v python3 >/dev/null 2>&1; then
+    log_error "python3 is required to generate $dest. Please install Python 3 or create the file manually."
+    return 1
+  fi
+
+  mkdir -p "$(dirname "$dest")"
+
+  python3 - "$repo_root" "$dest" <<'PY'
+import os, re, sys
+repo_root = sys.argv[1]
+dest = sys.argv[2]
+
+servers = {
+    "apple-docs": {
+        "command": "node",
+        "args": [f"{repo_root}/src/mcp/apple-docs/dist/index.js"],
+    },
+    "app-store-connect": {
+        "command": "node",
+        "args": [f"{repo_root}/src/mcp/asc/dist/index.js"],
+        "env": {
+            "ASC_KEY_ID": os.environ.get("ASC_KEY_ID", ""),
+            "ASC_ISSUER_ID": os.environ.get("ASC_ISSUER_ID", ""),
+            "ASC_KEY_PATH": os.environ.get("ASC_KEY_PATH", ""),
+        },
+    },
+    "skill-search": {
+        "command": "node",
+        "args": [f"{repo_root}/src/mcp/skill-search/dist/index.js"],
+        "env": {
+            "SKILL_SEARCH_ROOT": f"{repo_root}/platforms/codex/skills",
+        },
+    },
+}
+
+existing = ""
+if os.path.exists(dest):
+    with open(dest, "r") as f:
+        existing = f.read()
+
+added = []
+for name, cfg in servers.items():
+    if re.search(rf"^\[mcp_servers\.{re.escape(name)}\s*\]", existing, re.MULTILINE):
+        continue
+    added.append(name)
+    existing += f"\n[mcp_servers.{name}]\n"
+    existing += f'command = "{cfg["command"]}"\n'
+    existing += f'args = {cfg["args"]}\n'
+    if "env" in cfg:
+        existing += f"\n[mcp_servers.{name}.env]\n"
+        for k, v in cfg["env"].items():
+            existing += f'{k} = "{v}"\n'
+
+if added:
+    with open(dest, "w") as f:
+        f.write(existing)
+    print(f"Added MCP servers to {dest}: {', '.join(added)}")
+else:
+    print(f"MCP servers already present in {dest}")
+PY
+
+  log_ok "Wrote/merged: $dest"
+}
+
 install_codex() {
   local base="$(get_scope_base)"
   local src="$REPO_ROOT/platforms/codex/skills"
-  local dest
+  local skills_base
+  local mcp_dest
 
   if [[ "$SCOPE" == "local" ]]; then
-    dest="$base/.codex/skills/apple-dev"
+    skills_base="$base/.codex/skills"
+    mcp_dest="$base/.codex/config.toml"
   else
-    dest="${CODEX_HOME:-$HOME/.codex}/skills/apple-dev"
+    skills_base="${CODEX_HOME:-$HOME/.codex}/skills"
+    mcp_dest="${CODEX_HOME:-$HOME/.codex}/config.toml"
   fi
 
   log_info "Installing for Codex CLI ($SCOPE)..."
 
   if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"skills"* ]]; then
-    symlink_or_copy "$src" "$dest" false
+    mkdir -p "$skills_base"
+    local n=0
+    for skill_dir in "$src"/*/; do
+      local name; name="$(basename "$skill_dir")"
+      rm -rf "$skills_base/$name"
+      cp -R "$skill_dir" "$skills_base/$name"
+      n=$((n + 1))
+    done
+    log_ok "Installed $n individual skills: $skills_base"
+  fi
+
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
+    write_codex_mcp_toml "$mcp_dest" "$REPO_ROOT"
+    if [[ "$SCOPE" == "local" ]]; then
+      log_info "MCP config is project-local: $mcp_dest"
+    else
+      log_info "MCP config is global: $mcp_dest"
+    fi
   fi
 
   log_info "Codex CLI installation complete."

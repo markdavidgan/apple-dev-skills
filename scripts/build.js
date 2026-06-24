@@ -266,23 +266,32 @@ function buildKimi() {
 
   const skillDirs = getSkillDirs();
 
-  // ── Build master SKILL.md ──
-  let masterSkill = `---
+  // ── Build master SKILL.md (lightweight plugin-host stub) ──
+  // The full skill index is emitted to reference/all-skills.md so it is available
+  // on demand without being auto-injected into every Kimi session.
+  const masterSkill = `---
 name: apple-dev
-description: Comprehensive Apple platform development skill covering Swift 6, SwiftUI, design, accessibility, concurrency, App Store Connect, testing, and advanced workflows. Master reference for iOS 26+ development.
+description: Apple platform development plugin host for Kimi Code CLI. Provides pattern-check and api-lookup tools; load individual apple-dev skills by name.
+disable-model-invocation: true
 ---
 
-# Apple Dev Skills — Master Reference
+# Apple Dev Skills — Plugin Host
 
-> **Platform Note:** This is a consolidated skill for Kimi Code. All ${skillDirs.length} apple-dev skills are included below. For granular skill loading, use Claude Code or Cursor.
-> **Repository:** https://github.com/markdavidgan/apple-dev-skills
+This directory hosts the Kimi-specific \`apple-dev\` plugin tools.
 
-## Table of Contents
+- \`pattern-check\` — Run mechanical Swift 6 / SwiftUI / SwiftData / entitlements / safety audit
+- \`api-lookup\` — Query iOS 26 API signatures and anti-hallucination reference
 
-| # | Skill | Domain | Description |
-|---|-------|--------|-------------|
+For the full skill index, see \`reference/all-skills.md\`.
+Load a specific skill by invoking its name, e.g. \`/skill:swift6-concurrency\`.
 `;
 
+  fs.writeFileSync(path.join(dest, 'SKILL.md'), masterSkill);
+
+  // ── Build reference/all-skills.md index ──
+  let indexMd = `# Apple Dev Skills — Index
+
+| # | Skill | Domain | Description |\n|---|-------|--------|-------------|\n`;
   let idx = 1;
   for (const dir of skillDirs) {
     const skillPath = path.join(SRC, 'skills', dir, 'SKILL.md');
@@ -292,33 +301,10 @@ description: Comprehensive Apple platform development skill covering Swift 6, Sw
     }
     const { frontmatter } = readFrontmatter(skillPath);
     const domain = dir.startsWith('ios') ? 'iOS' : (dir.startsWith('asc') ? 'ASC' : (dir.startsWith('apple') ? 'Quality' : 'Workflow'));
-    masterSkill += `| ${idx} | ${dir} | ${domain} | ${frontmatter.description || ''} |\n`;
+    indexMd += `| ${idx} | ${dir} | ${domain} | ${frontmatter.description || ''} |\n`;
     idx++;
   }
-
-  masterSkill += `
----
-
-## How to Use This Reference
-
-The table above indexes all ${skillDirs.length} apple-dev skills. Each one is installed as its
-**own discoverable skill** under \`~/.kimi-code/skills/<name>/\` (Kimi Code discovers every
-\`<name>/SKILL.md\` it finds there). That restores metadata-first progressive disclosure: Kimi
-loads only each skill's \`description\` up front and pulls a full skill body in on demand — the
-same model as Claude Code and Cursor — instead of carrying every skill's prose in context every
-session.
-
-To load a skill's full guidance, invoke it by name (e.g. \`swift6-concurrency\`, \`apple-review\`).
-This \`apple-dev\` entry is the index and the home of the plugin tools.
-
-For **executable validation**, use the plugin tools:
-- \`pattern-check\` — Run mechanical Swift 6 / SwiftUI / SwiftData / entitlements validation
-- \`api-lookup\` — Query iOS 26 API signatures and anti-hallucination references
-
----
-`;
-
-  fs.writeFileSync(path.join(dest, 'SKILL.md'), masterSkill);
+  fs.writeFileSync(path.join(dest, 'reference', 'all-skills.md'), indexMd);
 
   // ── Emit each skill as its own discoverable Kimi skill dir ──
   // Kimi Code discovers every <name>/SKILL.md under ~/.kimi-code/skills/, so we ship
@@ -477,20 +463,9 @@ function buildCodex() {
   const skillDirs = getSkillDirs();
 
   for (const dir of skillDirs) {
-    const srcFile = path.join(SRC, 'skills', dir, 'SKILL.md');
-    const destFile = path.join(dest, `apple-dev__${dir}.SKILL.md`);
-    fs.copyFileSync(srcFile, destFile);
-
-    // Flatten subdirectories with __ separator (Codex doesn't discover nested
-    // dirs — referenced files must travel alongside the skill or they are lost).
-    const subdirs = fs.readdirSync(path.join(SRC, 'skills', dir))
-      .filter(f => fs.statSync(path.join(SRC, 'skills', dir, f)).isDirectory());
-    for (const sub of subdirs) {
-      const subSrc = path.join(SRC, 'skills', dir, sub);
-      const subDest = path.join(dest, `${dir}__${sub}`);
-      fs.cpSync(subSrc, subDest, { recursive: true });
-    }
-    copyLooseScripts(path.join(SRC, 'skills', dir), dir, dest);
+    const srcDir = path.join(SRC, 'skills', dir);
+    const destDir = path.join(dest, dir);
+    fs.cpSync(srcDir, destDir, { recursive: true });
   }
 
   console.log('[codex] Done.');
@@ -622,19 +597,69 @@ function buildRootMarketplaces() {
     JSON.stringify(cursorMarketplace, null, 2) + '\n'
   );
 
-  // Kimi marketplace
+  // Shared metadata for plugin manifests
+  const sharedMetadata = {
+    name: 'apple-dev-skills',
+    version: VERSION,
+    description: 'Apple platform development skills, reference, and MCP servers for AI coding agents. Covers Swift 6, SwiftUI, design, accessibility, concurrency, App Store Connect, testing, and App Store submission.',
+    author: { name: 'Mark David Gan', email: 'mark@markdavidgan.com' },
+    homepage: 'https://github.com/markdavidgan/apple-dev-skills',
+    repository: 'https://github.com/markdavidgan/apple-dev-skills.git',
+    license: 'MIT',
+    keywords: ['ios', 'swift', 'swiftui', 'swiftdata', 'xcode', 'apple', 'app-store-connect', 'testflight']
+  };
+
+  const sharedInterface = {
+    displayName: 'Apple Dev Skills',
+    shortDescription: 'Apple platform development skills and MCP tools',
+    longDescription: 'A collection of Apple-platform Agent Skills covering Swift 6, SwiftUI, design, accessibility, concurrency, App Store Connect, testing, and App Store submission. Also exposes MCP servers for live Apple docs lookup, App Store Connect API access, and semantic search across the bundled skills.',
+    developerName: 'Mark David Gan',
+    websiteURL: 'https://github.com/markdavidgan/apple-dev-skills'
+  };
+
+  // MCP server declarations (relative to plugin root) used by Kimi + Codex manifests.
+  const mcpServers = {
+    'apple-docs': {
+      command: 'node',
+      args: ['./src/mcp/apple-docs/dist/index.js']
+    },
+    'app-store-connect': {
+      command: 'node',
+      args: ['./src/mcp/asc/dist/index.js'],
+      env: {
+        ASC_KEY_ID: '${ASC_KEY_ID}',
+        ASC_ISSUER_ID: '${ASC_ISSUER_ID}',
+        ASC_KEY_PATH: '${ASC_KEY_PATH}'
+      }
+    },
+    'skill-search': {
+      command: 'node',
+      args: ['./src/mcp/skill-search/dist/index.js'],
+      env: {
+        SKILL_SEARCH_ROOT: './platforms/kimi/skills'
+      }
+    }
+  };
+
+  // Root .mcp.json (used by Codex plugin manifest and available for manual installs).
+  fs.writeFileSync(
+    path.join(__dirname, '..', '.mcp.json'),
+    JSON.stringify({ mcpServers }, null, 2) + '\n'
+  );
+
+  // Kimi marketplace + plugin manifest
   const kimiMarketplace = {
     name: 'apple-dev-skills',
     owner: { name: 'Mark David Gan', email: 'mark@markdavidgan.com' },
     metadata: {
-      description: 'Apple platform development tools and knowledge for iOS, Swift, SwiftUI, and App Store Connect. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.',
+      description: sharedMetadata.description,
       version: VERSION
     },
     plugins: [
       {
-        name: 'apple-dev',
-        source: 'platforms/kimi/apple-dev',
-        description: `Apple platform development skills (consolidated ${getSkillDirs().length} skills), pattern-check tool, and iOS 26 API lookup tool for Kimi Code.`
+        name: 'apple-dev-skills',
+        source: '.',
+        description: `Apple platform development skills (${getSkillDirs().length} individual skills), pattern-check tool, iOS 26 API lookup tool, and Apple docs / App Store Connect / skill-search MCP servers for Kimi Code.`
       }
     ]
   };
@@ -643,6 +668,28 @@ function buildRootMarketplaces() {
   fs.writeFileSync(
     path.join(kimiPluginDir, 'marketplace.json'),
     JSON.stringify(kimiMarketplace, null, 2) + '\n'
+  );
+  fs.writeFileSync(
+    path.join(kimiPluginDir, 'plugin.json'),
+    JSON.stringify({
+      ...sharedMetadata,
+      interface: sharedInterface,
+      skills: './platforms/kimi/skills/',
+      mcpServers
+    }, null, 2) + '\n'
+  );
+
+  // Codex plugin manifest
+  const codexPluginDir = path.join(__dirname, '..', '.codex-plugin');
+  fs.mkdirSync(codexPluginDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(codexPluginDir, 'plugin.json'),
+    JSON.stringify({
+      ...sharedMetadata,
+      interface: sharedInterface,
+      skills: './platforms/codex/skills/',
+      mcpServers: './.mcp.json'
+    }, null, 2) + '\n'
   );
 
   console.log('[marketplace] Done.');

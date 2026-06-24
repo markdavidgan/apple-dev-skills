@@ -5,14 +5,14 @@
     "email": "mark@markdavidgan.com"
   },
   "metadata": {
-    "description": "Apple platform development tools and knowledge for iOS, Swift, SwiftUI, and App Store Connect. Covers Swift 6, SwiftUI, design, accessibility, concurrency, Apple review auditing, CI build checks, and ASC API automation.",
+    "description": "Apple platform development skills, reference, and MCP servers for AI coding agents. Covers Swift 6, SwiftUI, design, accessibility, concurrency, App Store Connect, testing, and App Store submission.",
     "version": "0.2.0"
   },
   "plugins": [
     {
-      "name": "apple-dev",
-      "source": "platforms/kimi/apple-dev",
-      "description": "Apple platform development skills (consolidated 58 skills), pattern-check tool, and iOS 26 API lookup tool for Kimi Code."
+      "name": "apple-dev-skills",
+      "source": ".",
+      "description": "Apple platform development skills (58 individual skills), pattern-check tool, iOS 26 API lookup tool, and Apple docs / App Store Connect / skill-search MCP servers for Kimi Code."
     }
   ]
 }

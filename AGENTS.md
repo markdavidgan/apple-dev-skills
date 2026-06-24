@@ -112,7 +112,7 @@ The build script generates these from `src/`:
 | Cursor | `platforms/cursor/` | Native skills + agents + commands |
 | Kimi | `platforms/kimi/apple-dev/` | Consolidated SKILL.md + tools |
 | Antigravity | `platforms/antigravity/skills/` | Flattened, prefixed filenames |
-| Codex | `platforms/codex/skills/` | `.SKILL.md` extensions |
+| Codex | `platforms/codex/skills/` | Directory-form skills + `.codex-plugin/plugin.json` + `.mcp.json` |
 | Agy | `platforms/agy/skills/` | Flattened, prefixed filenames |
 
 ### Cross-CLI instruction files (generated)

@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "apple-docs": {
+      "command": "node",
+      "args": [
+        "./src/mcp/apple-docs/dist/index.js"
+      ]
+    },
+    "app-store-connect": {
+      "command": "node",
+      "args": [
+        "./src/mcp/asc/dist/index.js"
+      ],
+      "env": {
+        "ASC_KEY_ID": "${ASC_KEY_ID}",
+        "ASC_ISSUER_ID": "${ASC_ISSUER_ID}",
+        "ASC_KEY_PATH": "${ASC_KEY_PATH}"
+      }
+    },
+    "skill-search": {
+      "command": "node",
+      "args": [
+        "./src/mcp/skill-search/dist/index.js"
+      ],
+      "env": {
+        "SKILL_SEARCH_ROOT": "./platforms/kimi/skills"
+      }
+    }
+  }
+}

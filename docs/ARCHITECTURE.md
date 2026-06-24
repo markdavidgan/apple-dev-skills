@@ -161,16 +161,21 @@ Antigravity reads skills from `~/.gemini/antigravity/skills/`. It does not suppo
 
 ### Codex
 
-**Strategy:** Flattened skills with `.SKILL.md` extension.
+**Strategy:** Directory-form skills + plugin manifest + MCP config.
 
 ```
 platforms/codex/skills/
-├── apple-dev__apple-cleanup.SKILL.md
-├── apple-dev__apple-patterns-check.SKILL.md
+├── apple-cleanup/
+│   └── SKILL.md
+├── apple-patterns-check/
+│   └── SKILL.md
 └── ...
+
+.codex-plugin/plugin.json
+.mcp.json
 ```
 
-Codex CLI expects `.SKILL.md` extensions. Subdirectories are omitted; only top-level `SKILL.md` content is included.
+Codex CLI discovers skills from `~/.codex/skills/<name>/SKILL.md`. The `.codex-plugin/plugin.json` manifest points to the bundled skills and `.mcp.json`, which declares the `apple-docs`, `app-store-connect`, and `skill-search` MCP servers.
 
 ### Agy
 
@@ -200,7 +205,7 @@ The build script is a pure Node.js script with no external dependencies.
    - Generates `plugin.json` with tool declarations.
    - Copies shared scripts into `scripts/`.
 5. **Generate Antigravity** — Copies each `SKILL.md` to `platforms/antigravity/skills/apple-dev__<name>.md`. Flattens subdirectories with `__` separators.
-6. **Generate Codex** — Copies each `SKILL.md` to `platforms/codex/skills/apple-dev__<name>.SKILL.md`.
+6. **Generate Codex** — Copies each skill directory to `platforms/codex/skills/<name>/` and writes `.codex-plugin/plugin.json` + `.mcp.json`.
 7. **Generate Agy** — Same as Antigravity.
 
 ### Running
