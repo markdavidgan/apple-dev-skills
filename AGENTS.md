@@ -37,6 +37,21 @@ This is the standalone Apple development skill repository. It is **not** part of
 5. **YAML frontmatter is required** — Every `SKILL.md`, agent, and command must have valid frontmatter.
 6. **Stay machine-agnostic** — Never commit absolute clone paths or credentials. `src/mcp/*/mcp.json` must keep the `<REPO_PATH>` placeholder and `${ASC_*}` env-var references; real paths/keys belong only in `~/.claude.json` and `~/.kimi-code/mcp.json` (outside the repo). See README → *Machine-Agnostic Design*.
 
+## Checkpoint Compaction Protocol
+
+Before any manual `/compact`, automatic context reset, or handoff between agents,
+write a durable checkpoint in the active plan, issue, or repo note. Include:
+completed work, remaining steps, changed files, decisions made, verification already
+run, failed commands or errors, and the next exact command. Then compact if the
+current agent supports it; otherwise resume from the checkpoint after automatic
+compaction or a new session.
+
+Use this at explicit boundaries: discovery-to-plan, plan-to-implementation,
+completion of a large implementation batch, and before invoking a long execution
+workflow. Do not compact in the middle of an active debug loop, before interpreting
+fresh build errors, or for small single-file changes where the checkpoint costs
+more than the saved context.
+
 ---
 
 ## Source Structure

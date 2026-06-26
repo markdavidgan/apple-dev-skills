@@ -38,6 +38,16 @@ High severity gaps? ─► Yes ─► Fix gaps ─► Commit
                     └► No  ─► Commit
 ```
 
+## Checkpoint Compaction
+
+Before launching verification agents, after aggregating their findings, and
+before fixing any high-severity gaps, update the spec plan or verification report
+with a durable checkpoint. Include completed work, remaining steps, changed files,
+decisions made, verification already run, failures, and the next exact command.
+After compaction or a new session, re-read the checkpoint and `git status` before
+continuing. This skill exists partly because context compaction hides gaps; never
+compact before the verification findings have been written down.
+
 ## Step 1: Find the Spec
 
 Look in order:

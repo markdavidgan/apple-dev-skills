@@ -73,6 +73,16 @@ This is the complement to `/apple-cleanup`:
     Commit → push → CI → TestFlight Internal Testing
 ```
 
+## Checkpoint Compaction
+
+At every major boundary (after review, after issue selection, after the
+orchestration plan, after each implementation batch, and before verification),
+update the durable polish plan/report before compacting or handing off. Record
+completed work, remaining steps, changed files, decisions made, verification
+already run, failures, and the next exact command. After compaction, re-read that
+checkpoint and `git status` before continuing. Do not compact while actively
+interpreting a fresh build, preview, or visual-fidelity failure.
+
 ---
 
 ## Pre-Work: Build the File Manifest

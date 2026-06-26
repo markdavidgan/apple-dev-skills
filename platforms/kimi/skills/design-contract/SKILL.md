@@ -81,6 +81,12 @@ Every plan step cites the contract and requires preview-backed evidence. Open th
 
 Make **Step 1 of the plan** = "encode tokens in `<App>Tokens.swift`" with a grep gate forbidding hex literals / ad-hoc paddings in view code. This front-loads the contract into the type system.
 
+Add a **Checkpoint compaction** gate to the plan: before any `/compact`, automatic
+context reset, or agent handoff, update the plan with completed work, remaining
+steps, changed files, decisions made, verification already run, failures, and the
+next exact command. After compaction, the executor must re-read the checkpoint and
+`git status` before continuing.
+
 ### Step 5: Commit and hand off
 
 Single commit: `docs(<app>): extract design contract + harden <feature> verification gates`. In the body, explain *why* the gates exist (prevent drift during execution). Hand the plan to the execution skill.

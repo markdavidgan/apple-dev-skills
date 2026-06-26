@@ -108,6 +108,16 @@ No design reviews, no marketing narratives.
     └─► Comprehensive report with TestFlight confirmation
 ```
 
+## Checkpoint Compaction
+
+At every major boundary (after Phase 1 review, after Phase 2 plan, after each
+Phase 4 fix batch, and before Phase 5 verification), update the durable cleanup
+plan/report before compacting or handing off. Record completed work, remaining
+steps, changed files, decisions made, verification already run, failures, and the
+next exact command. After compaction, re-read that checkpoint and `git status`
+before continuing. Do not compact while actively interpreting a fresh build or
+test failure.
+
 ---
 
 ## Phase 1: Engineering & Compliance Review

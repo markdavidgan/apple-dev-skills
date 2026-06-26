@@ -30,6 +30,15 @@ Coordinator (you)
 Coordinator — Phase 5: Documentation + Phase 6: App Store Readiness
 ```
 
+## Checkpoint Compaction
+
+Before aggregating subagent results, before Phase 5 documentation, and before any
+manual or automatic context reset, write a durable checkpoint in the feature plan,
+issue, or completion report. Include completed work, remaining steps, changed
+files, decisions made, verification already run, failures, and the next exact
+command. After compaction or a new session, re-read the checkpoint and `git
+status` before continuing.
+
 ### Agent A — Build + Test (Fast tier)
 
 Spawn as `apple-dev-skills:build-agent` (or `apple-dev-skills:explore`). Prompt:
