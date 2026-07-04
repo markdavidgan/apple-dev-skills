@@ -48,6 +48,45 @@ nonisolated private func processBuffer(_ buffer: AVAudioPCMBuffer) {
 @MainActor func processBuffer(_ buffer: AVAudioPCMBuffer) { }
 ```
 
+### 3b. @Sendable on Framework Completion Closures (Executor-Check Trap)
+
+> **The single highest-frequency Swift-6 crash on iOS 26.** Under `SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor`, a completion/callback closure you pass to a framework API is inferred `@MainActor`. But EventKit, Vision, PhotoKit, `NSItemProvider`, CoreLocation, etc. invoke that closure on **their own background dispatch queue**. Swift 6's runtime executor check (`swift_task_isCurrentExecutor` → `dispatch_assert_queue`) then traps: `EXC_BREAKPOINT` / SIGTRAP. A `do/catch` cannot catch it. `@preconcurrency import` does NOT prevent it.
+
+```swift
+// WRONG — closure inferred @MainActor, runs on EventKit's background queue → SIGTRAP
+store.fetchReminders(matching: predicate) { reminders in
+    self.loops = (reminders ?? []).map(Loop.init)   // traps on entry / first hop
+}
+
+// WRONG — Vision: perform() runs the completion synchronously on the calling
+// (background) thread; the @MainActor-inferred closure traps.
+let request = VNRecognizeTextRequest { request, error in
+    self.text = (request.results ?? []).compactMap { ... }
+}
+try handler.perform([request])   // on a background queue
+
+// RIGHT — mark the closure @Sendable and flatten to Sendable OFF the actor,
+// then hop back once with a Sendable value.
+store.fetchReminders(matching: predicate) { @Sendable reminders in
+    let snapshots = Self.flatten(reminders)          // nonisolated static, off-actor
+    continuation.resume(returning: snapshots)         // only Sendable crosses back
+}
+
+// RIGHT (Vision) — drop the completion; read `request.results` AFTER a synchronous
+// `perform` inside a nonisolated function / detached task. CGImage is Sendable.
+nonisolated static func recognize(in cgImage: CGImage) -> [String] {
+    let request = VNRecognizeTextRequest()
+    try? VNImageRequestHandler(cgImage: cgImage, options: [:]).perform([request])
+    return (request.results ?? []).compactMap { $0.topCandidates(1).first?.string }
+}
+```
+
+**Rules:**
+- Any framework completion/callback closure that can run on a background queue must be `@Sendable`, or the enclosing function `nonisolated`.
+- Do the non-`Sendable` → `Sendable` flattening in a `nonisolated` context (a `nonisolated static` helper or detached task); only `Sendable` values cross back to the actor.
+- Give returned DTOs `nonisolated struct` (or `nonisolated` members) so their `Sendable` snapshots are readable off the main actor — a `Sendable` struct under MainActor-default isolation still has `@MainActor` property *reads* otherwise.
+- A static grep fence: flag `fetchReminders(matching:) {` / `VN…Request {` / `.loadItem(...) {` closures that are not `{ @Sendable`.
+
 ### 4. AVAudioEngine Tap Timing
 ```swift
 // RIGHT — install BEFORE start, remove BEFORE stop
@@ -197,6 +236,7 @@ let item = array.last!
 | `Cannot use staged migration with unknown model version` | SwiftData schema mismatch | Delete app or implement migration |
 | `Failed to fulfill faulting for relationship` | Accessing unloaded relationship | Prefetch or access on same context |
 | `Cannot start an audio tap when the engine is running` | Wrong AVAudioEngine timing | Install tap BEFORE `engine.start()` |
+| `EXC_BREAKPOINT` / SIGTRAP in `dispatch_assert_queue_fail` ← `swift_task_isCurrentExecutor` (no symbol you wrote at top of stack) | `@MainActor`-inferred framework completion closure ran on the framework's background queue | Mark the closure `{ @Sendable ... }`; flatten to `Sendable` in a `nonisolated` context (see 3b) |
 
 ---
 
@@ -219,6 +259,7 @@ SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
 - [ ] AVAudioEngine tap timing correct (install before start, remove before stop)
 - [ ] SwiftData models have default values for all non-optional properties
 - [ ] Nonisolated on audio/speech callbacks
+- [ ] `@Sendable` on framework completion closures (EventKit/Vision/PhotoKit/NSItemProvider/CoreLocation) — flatten to Sendable off-actor
 - [ ] ModelContext not passed between actors
 - [ ] nonisolated deinit on all @MainActor classes
 

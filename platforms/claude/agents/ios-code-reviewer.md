@@ -67,6 +67,10 @@ grep -n "Task {" --include="*.swift"            # Missing @MainActor?
 grep -n "^import " --include="*.swift"          # Check for prophylactic @preconcurrency (obsolete: only add where compiler demands it)
 grep -n "fatalError\|try!\|as!" --include="*.swift"  # Unsafe operations
 grep -n "\.isAvailable" --include="*.swift"     # Hardcoded availability?
+# Framework completion closure inferred @MainActor → runs on the framework's
+# background queue → EXC_BREAKPOINT/SIGTRAP (see crash-cheat-sheet 3b). Flag any
+# of these completion closures NOT marked `{ @Sendable`:
+grep -nE "(fetchReminders\(matching:[^)]*\)|VN[A-Za-z]+Request|\.loadItem\([^)]*\))[[:space:]]*\{" --include="*.swift" | grep -v "{ *@Sendable"
 ```
 
 ### Step 4: Cross-Reference APIs
