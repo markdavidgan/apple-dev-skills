@@ -272,6 +272,24 @@ UIApplication.shared.setAlternateIconName("dark") { @Sendable error in
 }
 ```
 
+**Data-fetch completion handlers are the same trap — and the highest-frequency one.** EventKit (`fetchReminders(matching:)`), Vision (`VNRequest` completions / synchronous `VNImageRequestHandler.perform`), PhotoKit, and `NSItemProvider.loadItem` all invoke their closure on a background queue. The crash presents as `EXC_BREAKPOINT`/SIGTRAP in `dispatch_assert_queue_fail` ← `swift_task_isCurrentExecutor`, with no symbol you wrote at the top of the stack. Here the closure body also usually touches **non-`Sendable`** framework objects (`EKReminder`, `VNObservation`), so `@Sendable` alone isn't enough — flatten to `Sendable` in a `nonisolated` context and cross back only the value:
+
+```swift
+// Wrong — inferred @MainActor, runs on EventKit's queue, and maps non-Sendable EKReminders
+store.fetchReminders(matching: predicate) { reminders in
+    self.loops = (reminders ?? []).map(Loop.init)   // CRASH
+}
+
+// Correct — @Sendable closure + nonisolated static flattening; only Sendable crosses back
+await withCheckedContinuation { continuation in
+    store.fetchReminders(matching: predicate) { @Sendable reminders in
+        continuation.resume(returning: Self.flatten(reminders))   // nonisolated static
+    }
+}
+```
+
+Give the returned DTO `nonisolated struct` (or `nonisolated` members): a `Sendable` struct declared under `SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor` still has `@MainActor`-isolated property *reads*, so an off-actor flattening helper can't build or read it otherwise.
+
 For delegate-style callbacks where you cannot mark the closure `@Sendable`, dispatch the work back explicitly:
 
 ```swift
