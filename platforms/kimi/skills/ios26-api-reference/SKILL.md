@@ -206,6 +206,8 @@ Task.detached {
 | Result to String | `String(result.text.characters)` | `result.text as String` (wrong type) |
 | SpeechAnalyzer | `SpeechAnalyzer(inputSequence:, modules:)` — it's an **actor** | Treating as struct |
 | Liquid Glass | `.glassEffect(.regular, in: .rect(cornerRadius: 12))` | `.background(.glass)` — **DOES NOT EXIST** |
+| Glass per platform | iOS 26: `.glassEffect(_:in:)` · visionOS: `.glassBackgroundEffect()` | `.glassBackgroundEffect()` on iOS — **visionOS-ONLY** |
+| Tab bar minimize | `.tabBarMinimizeBehavior(.onScrollDown)` | `.hideTabBarOnScrollDown()` — **DOES NOT EXIST** (pre-release name) |
 | SwiftData index | `#Index<Model>([\.prop1])` (freestanding macro) | `@Index` — wrong syntax |
 | Canvas + Observable | Wrap in `TimelineView(.animation)` | Direct Canvas (never redraws) |
 | Color providers | Precompute, `@Sendable`-safe closures | `Color(light:dark:)` inline (background crash) |

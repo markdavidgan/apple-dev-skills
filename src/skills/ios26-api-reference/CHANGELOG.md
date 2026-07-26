@@ -4,6 +4,35 @@ All notable changes to the ios26-api-reference skill.
 
 ---
 
+## 2026-07-26 — Tab bar API correction + glass platform split
+
+### Fixed
+- **`.hideTabBarOnScrollDown()` was listed as an iOS 26 API. It does not exist.** The shipped
+  API is `.tabBarMinimizeBehavior(_:)` taking a `TabBarMinimizeBehavior`
+  (`.automatic` / `.never` / `.onScrollDown`). The old spelling is a pre-release name that also
+  circulates in third-party component libraries, so it looks plausible and fails to compile —
+  exactly the class of error this skill exists to catch. Corrected in the §9.1 API summary and
+  added to the *Corrected API Signatures* table as a named hallucination.
+
+### Added
+- `reference/swiftui-reference.md` §8.10 — the glass-era tab bar, previously present only as a
+  one-line table entry:
+  - `.tabBarMinimizeBehavior(_:)` with the behaviour table and the correct attachment point
+    (the `TabView`, not a `Tab`).
+  - `.tabViewBottomAccessory { }` and reading `\.tabViewBottomAccessoryPlacement`
+    (`.expanded` / `.inline`) so an accessory can reflow when the bar minimizes.
+  - Do not add `.glassEffect()` to a bottom accessory — the system already supplies the glass,
+    and adding more stacks glass on glass.
+  - Known limitation: minimize may not trigger for tabs whose content is `NavigationStack(path:)`.
+- **iOS vs visionOS glass split** in the *Corrected API Signatures* table. `.glassEffect(_:in:)`
+  is the iOS/iPadOS/macOS 26 API; `.glassBackgroundEffect()` is **visionOS-only**. Both exist on
+  different platforms, which makes the wrong one easy to reach for — and it takes no `tint:` or
+  `displayMode:` argument on either.
+- `essentials/swiftui.md` rows 15–17: tab-bar minimize, wrong-platform glass, and glass on a tab
+  accessory.
+
+---
+
 ## 2026-06-03 — NaturalLanguage intel
 
 ### Added

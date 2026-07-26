@@ -1547,11 +1547,63 @@ extension View {
 }
 ```
 
-### 8.10 Known Issues (iOS 26.0-26.1)
+### 8.10 Tab Bar: Minimize Behavior and Bottom Accessory
+
+The glass-era tab bar floats above content, can minimize on scroll, and can carry a persistent accessory view (the pattern Apple Music uses for Now Playing).
+
+**Minimize behavior** — attach to the `TabView`, not to a tab:
+
+```swift
+TabView {
+    Tab("Today", systemImage: "sun.max") { TodayView() }
+    Tab("Library", systemImage: "books.vertical") { LibraryView() }
+}
+.tabBarMinimizeBehavior(.onScrollDown)
+```
+
+| Behavior | Effect |
+|----------|--------|
+| `.automatic` | System decides from context |
+| `.never` | Tab bar always fully visible |
+| `.onScrollDown` | Minimizes to the selected tab's icon on downward scroll |
+
+⚠️ The correct name is **`.tabBarMinimizeBehavior(_:)`** taking a `TabBarMinimizeBehavior`. `.hideTabBarOnScrollDown()` is **not** an Apple API — it is a pre-release name that also appears in third-party component libraries, and it will not compile.
+
+**Bottom accessory** — a custom view pinned above the tab bar:
+
+```swift
+TabView { /* tabs */ }
+    .tabBarMinimizeBehavior(.onScrollDown)
+    .tabViewBottomAccessory {
+        NowPlayingBar()
+    }
+```
+
+Read the placement so the accessory can reflow when the tab bar minimizes:
+
+```swift
+struct NowPlayingBar: View {
+    @Environment(\.tabViewBottomAccessoryPlacement) private var placement
+
+    var body: some View {
+        switch placement {
+        case .inline:   InlineControls()    // tab bar minimized; accessory sits inline
+        default:        ExpandedControls()  // floating above the full tab bar
+        }
+    }
+}
+```
+
+The accessory gets Liquid Glass and safe-area handling from the system — do not add `.glassEffect()` to it or you will stack glass on glass.
+
+**Known limitation:** `.tabBarMinimizeBehavior(.onScrollDown)` may not trigger for tabs whose content is a `NavigationStack(path:)`; verify per tab rather than assuming.
+
+### 8.11 Known Issues (iOS 26.0-26.1)
 
 - **Interactive shape mismatch:** `.glassEffect(.regular.interactive(), in: RoundedRectangle())` sometimes renders as Capsule. Workaround: use `.buttonStyle(.glass)` for buttons.
 - **glassProminent with Circle:** Rendering artifacts with prominent glass and circular shapes.
 - **Menu in GlassEffectContainer:** iOS 26.1 can break morphing when Menu exists in containers. Apply `.glassEffect(.regular.interactive())` directly to Menu.
+- **Tab bar minimize + NavigationStack(path:):** see 8.10.
 
 ---
 
@@ -1571,8 +1623,9 @@ extension View {
 | **Toolbar** | `.toolbarItemSharedBackgroundVisibility()` | Glass background control |
 | **Toolbar** | `.title`, `.subtitle` placements | Title toolbar items |
 | **Navigation** | `.navigationSubtitle()` | Secondary navigation title |
-| **TabView** | `.hideTabBarOnScrollDown()` | Auto-hide tab bar |
+| **TabView** | `.tabBarMinimizeBehavior(.onScrollDown)` | Minimize tab bar on scroll down |
 | **TabView** | `.tabViewBottomAccessory()` | Content above tabs |
+| **TabView** | `\.tabViewBottomAccessoryPlacement` | Env: `.expanded` / `.inline` |
 | **List** | `.sectionIndexLabel()` | Section index labels |
 | **ScrollView** | `.scrollEdgeEffect(.hard)` | Hard edge cutoff |
 | **View** | `.backgroundExtensionEffect()` | Mirrored background copies |

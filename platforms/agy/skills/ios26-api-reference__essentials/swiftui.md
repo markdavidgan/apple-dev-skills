@@ -22,6 +22,9 @@
 | 12 | Sheet environment | Assume parent environment propagates to sheet | Re-inject `.environment(obj)` on sheet content | Sheets are separate view hierarchies; `@Environment(Type.self)` crashes if not re-injected |
 | 13 | Glass on content | `.glassEffect()` on list rows / cards | `.glassEffect()` only on navigation-layer controls (toolbars, floating buttons) | Glass is for the navigation layer; applying to content causes visual noise and performance cost |
 | 14 | @Bindable placement | `@Bindable var x = env` inside VStack | `@Bindable var x = env` at **top of `body`** | Declaring inside nested containers causes linker errors |
+| 15 | Tab bar minimize | `.hideTabBarOnScrollDown()` | `.tabBarMinimizeBehavior(.onScrollDown)` on the `TabView` | `hideTabBarOnScrollDown` is a pre-release/third-party name and does not compile; see `reference/swiftui-reference.md` §8.10 |
+| 16 | Glass on the wrong platform | `.glassBackgroundEffect()` on iOS | `.glassEffect(_:in:)` on iOS; `.glassBackgroundEffect()` is **visionOS-only** | Both exist, on different platforms — mixing them fails to compile or gives the wrong material |
+| 17 | Glass on a tab accessory | `.tabViewBottomAccessory { X().glassEffect() }` | Return plain content; the system supplies the glass | The accessory is already a glass surface — adding more stacks glass on glass |
 
 ---
 
