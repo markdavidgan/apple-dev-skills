@@ -13,6 +13,7 @@ import { register as registerMisc } from "./domains/misc.js";
 import { register as registerDiagnostics } from "./domains/diagnostics.js";
 import { register as registerFeedback } from "./domains/feedback.js";
 import { register as registerAppClips } from "./domains/appclips.js";
+import { register as registerAudit } from "./domains/audit.js";
 import { execSync, spawnSync } from "child_process";
 import * as fs from "fs";
 import * as os from "os";
@@ -2223,6 +2224,7 @@ registerMisc(server);
 registerDiagnostics(server);
 registerFeedback(server);
 registerAppClips(server);
+registerAudit(server);
 
 // ─── Start Server ───────────────────────────────────────────────────
 

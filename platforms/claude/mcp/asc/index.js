@@ -6792,12 +6792,12 @@ var require_dist = __commonJS({
         throw new Error(`Unknown format "${name}"`);
       return f;
     };
-    function addFormats(ajv, list, fs4, exportName) {
+    function addFormats(ajv, list, fs5, exportName) {
       var _a2;
       var _b;
       (_a2 = (_b = ajv.opts.code).formats) !== null && _a2 !== void 0 ? _a2 : _b.formats = (0, codegen_1._)`require("ajv-formats/dist/formats").${exportName}`;
       for (const f of list)
-        ajv.addFormat(f, fs4[f]);
+        ajv.addFormat(f, fs5[f]);
     }
     module.exports = exports = formatsPlugin;
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -7113,14 +7113,14 @@ var require_buffer_equal_constant_time = __commonJS({
 var require_jwa = __commonJS({
   "node_modules/jwa/index.js"(exports, module) {
     var Buffer2 = require_safe_buffer().Buffer;
-    var crypto = __require("crypto");
+    var crypto2 = __require("crypto");
     var formatEcdsa = require_ecdsa_sig_formatter();
     var util2 = __require("util");
     var MSG_INVALID_ALGORITHM = '"%s" is not a valid algorithm.\n  Supported algorithms are:\n  "HS256", "HS384", "HS512", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "ES256", "ES384", "ES512" and "none".';
     var MSG_INVALID_SECRET = "secret must be a string or buffer";
     var MSG_INVALID_VERIFIER_KEY = "key must be a string or a buffer";
     var MSG_INVALID_SIGNER_KEY = "key must be a string, a buffer or an object";
-    var supportsKeyObjects = typeof crypto.createPublicKey === "function";
+    var supportsKeyObjects = typeof crypto2.createPublicKey === "function";
     if (supportsKeyObjects) {
       MSG_INVALID_VERIFIER_KEY += " or a KeyObject";
       MSG_INVALID_SECRET += "or a KeyObject";
@@ -7210,17 +7210,17 @@ var require_jwa = __commonJS({
       return function sign(thing, secret) {
         checkIsSecretKey(secret);
         thing = normalizeInput(thing);
-        var hmac = crypto.createHmac("sha" + bits, secret);
+        var hmac = crypto2.createHmac("sha" + bits, secret);
         var sig = (hmac.update(thing), hmac.digest("base64"));
         return fromBase64(sig);
       };
     }
     var bufferEqual;
-    var timingSafeEqual = "timingSafeEqual" in crypto ? function timingSafeEqual2(a, b) {
+    var timingSafeEqual = "timingSafeEqual" in crypto2 ? function timingSafeEqual2(a, b) {
       if (a.byteLength !== b.byteLength) {
         return false;
       }
-      return crypto.timingSafeEqual(a, b);
+      return crypto2.timingSafeEqual(a, b);
     } : function timingSafeEqual2(a, b) {
       if (!bufferEqual) {
         bufferEqual = require_buffer_equal_constant_time();
@@ -7237,7 +7237,7 @@ var require_jwa = __commonJS({
       return function sign(thing, privateKey) {
         checkIsPrivateKey(privateKey);
         thing = normalizeInput(thing);
-        var signer = crypto.createSign("RSA-SHA" + bits);
+        var signer = crypto2.createSign("RSA-SHA" + bits);
         var sig = (signer.update(thing), signer.sign(privateKey, "base64"));
         return fromBase64(sig);
       };
@@ -7247,7 +7247,7 @@ var require_jwa = __commonJS({
         checkIsPublicKey(publicKey);
         thing = normalizeInput(thing);
         signature = toBase64(signature);
-        var verifier = crypto.createVerify("RSA-SHA" + bits);
+        var verifier = crypto2.createVerify("RSA-SHA" + bits);
         verifier.update(thing);
         return verifier.verify(publicKey, signature, "base64");
       };
@@ -7256,11 +7256,11 @@ var require_jwa = __commonJS({
       return function sign(thing, privateKey) {
         checkIsPrivateKey(privateKey);
         thing = normalizeInput(thing);
-        var signer = crypto.createSign("RSA-SHA" + bits);
+        var signer = crypto2.createSign("RSA-SHA" + bits);
         var sig = (signer.update(thing), signer.sign({
           key: privateKey,
-          padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-          saltLength: crypto.constants.RSA_PSS_SALTLEN_DIGEST
+          padding: crypto2.constants.RSA_PKCS1_PSS_PADDING,
+          saltLength: crypto2.constants.RSA_PSS_SALTLEN_DIGEST
         }, "base64"));
         return fromBase64(sig);
       };
@@ -7270,12 +7270,12 @@ var require_jwa = __commonJS({
         checkIsPublicKey(publicKey);
         thing = normalizeInput(thing);
         signature = toBase64(signature);
-        var verifier = crypto.createVerify("RSA-SHA" + bits);
+        var verifier = crypto2.createVerify("RSA-SHA" + bits);
         verifier.update(thing);
         return verifier.verify({
           key: publicKey,
-          padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-          saltLength: crypto.constants.RSA_PSS_SALTLEN_DIGEST
+          padding: crypto2.constants.RSA_PKCS1_PSS_PADDING,
+          saltLength: crypto2.constants.RSA_PSS_SALTLEN_DIGEST
         }, signature, "base64");
       };
     }
@@ -38478,9 +38478,98 @@ function register9(server2) {
   );
 }
 
+// src/domains/audit.ts
+import * as crypto from "crypto";
+import * as fs3 from "fs";
+function register10(server2) {
+  server2.tool(
+    "asc_audit",
+    "Audit ASC drift (builds, testflight, release notes, metadata)",
+    {
+      app_id: external_exports3.string().describe("App Store Connect App ID"),
+      repo_build: external_exports3.string().optional().describe("Expected build number from repo"),
+      repo_version: external_exports3.string().optional().describe("Expected version from repo"),
+      runbook_path: external_exports3.string().optional().describe("Path to launch runbook for doc freshness check")
+    },
+    async ({ app_id, repo_build, repo_version, runbook_path }) => {
+      const findings = [];
+      const add = (severity, area, summary, detail) => findings.push({ severity, area, summary, detail });
+      const BLOCKER = "BLOCKER", WARN = "WARN", INFO = "INFO";
+      const versions = await ascFetch(`/v1/apps/${app_id}/appStoreVersions?limit=5&include=build`);
+      const version2 = versions.data?.[0];
+      const attachedBuild = versions.included?.find((i) => i.type === "builds")?.attributes?.version ?? null;
+      const versionId = version2?.id;
+      const state = version2?.attributes?.appStoreState;
+      const builds = await ascFetch(`/v1/builds?filter[app]=${app_id}&limit=10&sort=-version&fields[builds]=version,processingState,expired,uploadedDate`);
+      const latest = builds.data?.[0]?.attributes ?? null;
+      const latestValid = (builds.data ?? []).find((b) => b.attributes.processingState === "VALID")?.attributes ?? null;
+      if (attachedBuild && latestValid && attachedBuild !== latestValid.version) {
+        add(BLOCKER, "build", `Draft attached to ${attachedBuild}, newest VALID is ${latestValid.version}`, "Stale binary risk.");
+      } else if (attachedBuild) {
+        add(INFO, "build", `Attached build ${attachedBuild} is newest VALID.`, "");
+      }
+      if (attachedBuild && repo_build && attachedBuild !== repo_build) {
+        add(WARN, "build", `Attached ${attachedBuild} != repo ${repo_build}`, "Draft behind.");
+      }
+      if (repo_version && version2 && repo_version !== version2.attributes.versionString) {
+        add(WARN, "version", `Repo ${repo_version} != ASC ${version2.attributes.versionString}`, "");
+      }
+      const groups = await ascFetch(`/v1/apps/${app_id}/betaGroups?limit=10&fields[betaGroups]=name,isInternalGroup`);
+      const external = (groups.data ?? []).find((g) => !g.attributes.isInternalGroup);
+      if (external) {
+        const inGroup = await ascFetch(`/v1/betaGroups/${external.id}/builds?limit=50&fields[builds]=version`);
+        const groupVersions = (inGroup.data ?? []).map((b) => Number(b.attributes.version)).sort((a, b) => b - a);
+        const newestAssigned = groupVersions[0] ?? null;
+        const detailed = await ascFetch(`/v1/builds?filter[app]=${app_id}&limit=60&sort=-version&include=buildBetaDetail&fields[builds]=version,buildBetaDetail&fields[buildBetaDetails]=externalBuildState`);
+        const stateById = Object.fromEntries((detailed.included ?? []).map((i) => [i.id, i.attributes.externalBuildState]));
+        const rows = (detailed.data ?? []).map((b) => ({
+          v: Number(b.attributes.version),
+          s: stateById[b.relationships?.buildBetaDetail?.data?.id] ?? null
+        }));
+        const AVAILABLE = /* @__PURE__ */ new Set(["BETA_APPROVED", "IN_BETA_TESTING"]);
+        const distributed = rows.filter((r) => AVAILABLE.has(r.s)).map((r) => r.v).sort((a, b) => b - a)[0] ?? null;
+        if (newestAssigned && distributed && newestAssigned !== distributed) {
+          add(BLOCKER, "testflight", `Testers on ${distributed}, but ${newestAssigned} assigned and not distributed.`, "");
+        } else if (distributed) {
+          add(INFO, "testflight", `Testers on build ${distributed}.`, "");
+        }
+      }
+      const recent = (builds.data ?? []).slice(0, 6);
+      const noteHashes = [];
+      for (const b of recent) {
+        const loc = await ascFetch(`/v1/builds/${b.id}/betaBuildLocalizations?fields[betaBuildLocalizations]=whatsNew,locale`);
+        const text = loc.data?.[0]?.attributes?.whatsNew ?? "";
+        noteHashes.push({
+          version: b.attributes.version,
+          hash: crypto.createHash("md5").update(text).digest("hex").substring(0, 8),
+          empty: !text.trim()
+        });
+      }
+      const uniqueHashes = new Set(noteHashes.filter((n) => !n.empty).map((n) => n.hash));
+      if (noteHashes.length >= 3 && uniqueHashes.size === 1) {
+        add(WARN, "release-notes", `What to Test identical across ${noteHashes.length} builds.`, "");
+      }
+      if (runbook_path) {
+        try {
+          const runbook = fs3.readFileSync(runbook_path, "utf8");
+          const claimed = runbook.match(/LIVE READ (\d{4}-\d{2}-\d{2})/)?.[1];
+          if (claimed) {
+            const ageDays = Math.floor((Date.now() - new Date(claimed).getTime()) / 864e5);
+            if (ageDays > 3) add(WARN, "docs", `Runbook read is ${ageDays} days old.`, "");
+          }
+        } catch {
+        }
+      }
+      return {
+        content: [{ type: "text", text: JSON.stringify({ appId: app_id, attachedBuild, latestBuild: latest?.version ?? null, findings }, null, 2) }]
+      };
+    }
+  );
+}
+
 // src/index.ts
 import { spawnSync } from "child_process";
-import * as fs3 from "fs";
+import * as fs4 from "fs";
 import * as os from "os";
 import * as path3 from "path";
 var server = new McpServer({
@@ -39427,7 +39516,7 @@ server.tool(
     )
   },
   async ({ certificate_type, common_name, install_in_keychain }) => {
-    const tmpDir = fs3.mkdtempSync(path3.join(os.tmpdir(), "asc-cert-"));
+    const tmpDir = fs4.mkdtempSync(path3.join(os.tmpdir(), "asc-cert-"));
     const keyPath = path3.join(tmpDir, "private.key");
     const csrPath = path3.join(tmpDir, "request.csr");
     const certPath = path3.join(tmpDir, "certificate.cer");
@@ -39450,12 +39539,12 @@ server.tool(
         ],
         { stdio: "pipe" }
       );
-      if (!fs3.existsSync(csrPath)) {
+      if (!fs4.existsSync(csrPath)) {
         throw new Error(
           "Failed to generate CSR \u2014 is OpenSSL installed? (brew install openssl)"
         );
       }
-      const csrPem = fs3.readFileSync(csrPath, "utf8");
+      const csrPem = fs4.readFileSync(csrPath, "utf8");
       const result = await createCertificate(certificate_type, csrPem);
       const certData = result.data;
       const certId = certData?.id;
@@ -39468,7 +39557,7 @@ server.tool(
           `Apple returned no certificate content. Full response: ${JSON.stringify(result)}`
         );
       }
-      fs3.writeFileSync(certPath, Buffer.from(certContent, "base64"));
+      fs4.writeFileSync(certPath, Buffer.from(certContent, "base64"));
       let keychainResult = "";
       if (install_in_keychain) {
         const keyImport = spawnSync(
@@ -39519,7 +39608,7 @@ Private key saved at: ${keyPath}
       };
     } finally {
       try {
-        fs3.rmSync(tmpDir, { recursive: true, force: true });
+        fs4.rmSync(tmpDir, { recursive: true, force: true });
       } catch {
       }
     }
@@ -39625,7 +39714,7 @@ server.tool(
       );
     } else {
       steps.push("\u{1F4CB} No distribution certificate found \u2014 creating one...");
-      const tmpDir = fs3.mkdtempSync(path3.join(os.tmpdir(), "asc-setup-"));
+      const tmpDir = fs4.mkdtempSync(path3.join(os.tmpdir(), "asc-setup-"));
       const keyPath = path3.join(tmpDir, "private.key");
       const csrPath = path3.join(tmpDir, "request.csr");
       const certPath = path3.join(tmpDir, "certificate.cer");
@@ -39647,10 +39736,10 @@ server.tool(
           ],
           { stdio: "pipe" }
         );
-        if (!fs3.existsSync(csrPath)) {
+        if (!fs4.existsSync(csrPath)) {
           throw new Error("Failed to generate CSR \u2014 is OpenSSL installed?");
         }
-        const csrPem = fs3.readFileSync(csrPath, "utf8");
+        const csrPem = fs4.readFileSync(csrPath, "utf8");
         const certResult = await createCertificate("DISTRIBUTION", csrPem);
         certId = certResult.data?.id;
         const certContent = certResult.data?.attributes?.certificateContent;
@@ -39661,7 +39750,7 @@ server.tool(
             `Apple returned no certificate content: ${JSON.stringify(certResult)}`
           );
         }
-        fs3.writeFileSync(certPath, Buffer.from(certContent, "base64"));
+        fs4.writeFileSync(certPath, Buffer.from(certContent, "base64"));
         spawnSync(
           "security",
           ["import", keyPath, "-k", "login.keychain", "-T", "/usr/bin/codesign"],
@@ -39685,7 +39774,7 @@ server.tool(
         steps.push(`\u2705 Installed certificate + private key in login keychain`);
       } finally {
         try {
-          fs3.rmSync(tmpDir, { recursive: true, force: true });
+          fs4.rmSync(tmpDir, { recursive: true, force: true });
         } catch {
         }
       }
@@ -40154,6 +40243,7 @@ register6(server);
 register7(server);
 register8(server);
 register9(server);
+register10(server);
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
