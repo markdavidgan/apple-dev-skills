@@ -137,10 +137,12 @@ install_claude() {
     symlink_or_copy "$src/commands" "$base/.claude/commands/apple-dev" true
   fi
 
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
+    local mcp_dest="$base/.claude/claude.json"
+    write_json_mcp_config "$mcp_dest" "$REPO_ROOT"
+  fi
+
   log_info "Claude Code installation complete."
-  log_info "To register the MCP servers (build each first — see README), run:"
-  echo "  claude mcp add-json app-store-connect < $REPO_ROOT/src/mcp/asc/mcp.json"
-  echo "  claude mcp add-json apple-docs        < $REPO_ROOT/src/mcp/apple-docs/mcp.json"
 }
 
 install_cursor() {
@@ -162,12 +164,12 @@ install_cursor() {
   log_info "Cursor installation complete."
 }
 
-write_kimi_mcp_json() {
+write_json_mcp_config() {
   local dest="$1"
   local repo_root="$2"
 
   if [[ "$DRY_RUN" == true ]]; then
-    echo "  [dry-run] write: $dest"
+    echo "  [dry-run] write/merge: $dest"
     return
   fi
 
@@ -182,29 +184,37 @@ write_kimi_mcp_json() {
 import json, os, sys
 repo_root = sys.argv[1]
 dest = sys.argv[2]
-cfg = {
-    "mcpServers": {
-        "apple-docs": {
-            "command": "node",
-            "args": [f"{repo_root}/src/mcp/apple-docs/dist/index.js"]
-        },
-        "app-store-connect": {
-            "command": "node",
-            "args": [f"{repo_root}/src/mcp/asc/dist/index.js"],
-            "env": {
-                "ASC_KEY_ID": os.environ.get("ASC_KEY_ID", ""),
-                "ASC_ISSUER_ID": os.environ.get("ASC_ISSUER_ID", ""),
-                "ASC_KEY_PATH": os.environ.get("ASC_KEY_PATH", "")
-            }
-        }
+cfg = {}
+if os.path.exists(dest):
+    try:
+        with open(dest, "r") as f:
+            cfg = json.load(f)
+    except:
+        pass
+
+if "mcpServers" not in cfg:
+    cfg["mcpServers"] = {}
+
+cfg["mcpServers"]["apple-docs"] = {
+    "command": "node",
+    "args": [f"{repo_root}/src/mcp/apple-docs/dist/index.js"]
+}
+cfg["mcpServers"]["app-store-connect"] = {
+    "command": "node",
+    "args": [f"{repo_root}/src/mcp/asc/dist/index.js"],
+    "env": {
+        "ASC_KEY_ID": os.environ.get("ASC_KEY_ID", ""),
+        "ASC_ISSUER_ID": os.environ.get("ASC_ISSUER_ID", ""),
+        "ASC_KEY_PATH": os.environ.get("ASC_KEY_PATH", "")
     }
 }
+
 with open(dest, "w") as f:
     json.dump(cfg, f, indent=2)
     f.write("\n")
 PY
 
-  log_ok "Wrote: $dest"
+  log_ok "Wrote/merged: $dest"
 }
 
 install_kimi() {
@@ -228,7 +238,7 @@ install_kimi() {
       echo "  [dry-run] copy: $src/commands/* -> $cmd_dest/"
     fi
     if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
-      write_kimi_mcp_json "$mcp_dest" "$REPO_ROOT"
+      write_json_mcp_config "$mcp_dest" "$REPO_ROOT"
     fi
     log_info "Kimi installation complete (dry-run)."
     return
@@ -313,8 +323,17 @@ install_antigravity() {
     symlink_or_copy "$src" "$dest" false
   fi
 
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
+    local mcp_dest
+    if [[ "$SCOPE" == "local" ]]; then
+      mcp_dest="$base/.agents/mcp.json"
+    else
+      mcp_dest="${ANTIGRAVITY_HOME:-$HOME/.gemini/antigravity-cli}/mcp.json"
+    fi
+    write_json_mcp_config "$mcp_dest" "$REPO_ROOT"
+  fi
+
   log_info "Antigravity installation complete."
-  log_info "Skills will be discovered on next Antigravity startup."
 }
 
 write_codex_mcp_toml() {
@@ -445,6 +464,16 @@ install_agy() {
 
   if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"skills"* ]]; then
     symlink_or_copy "$src" "$dest" false
+  fi
+
+  if [[ "$COMPONENTS" == "all" || "$COMPONENTS" == *"mcp"* ]]; then
+    local mcp_dest
+    if [[ "$SCOPE" == "local" ]]; then
+      mcp_dest="$base/.agy/mcp.json"
+    else
+      mcp_dest="${AGY_HOME:-$HOME/.agy}/mcp.json"
+    fi
+    write_json_mcp_config "$mcp_dest" "$REPO_ROOT"
   fi
 
   log_info "Agy installation complete."
