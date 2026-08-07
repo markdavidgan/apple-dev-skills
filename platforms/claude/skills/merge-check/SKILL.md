@@ -1,7 +1,7 @@
 ---
 name: merge-check
 category: quality
-description: Automatically verify code quality before merging to main. Triggers when user mentions merging, creating PRs, or asks if code is ready. Spawns parallel subagents for build, test, and lint verification. Use for quality gates before main branch integration.
+description: Xcode-specific pre-merge gate — archive build (catches strict-concurrency/MainActor errors debug builds miss), app-extension Info.plist check, SwiftLint — spawned in parallel. Trigger on Apple/Xcode merge intent specifically ("merge this iOS branch", "archive check before merge", "is this ready for TestFlight"); a non-Apple repo's merge gate should use its own tooling or a generic skill like superpowers:verification-before-completion instead.
 invoke: "/merge-check — Pre-merge quality gate. Runs build, archive, test, and lint checks in parallel."
 ---
 
@@ -209,6 +209,7 @@ Emergency bypass (not recommended):
 | `merge-check` | Before merge | Quality gate with subagents |
 | `apple-patterns-check` | Before commits | Pattern validation |
 | `verify-against-spec` | Spec-driven work | Coverage vs design spec |
+| Generic quality gate (e.g. `superpowers:verification-before-completion`) | Non-Apple repos, or the non-Xcode parts of a mixed repo | Everything here that isn't archive/appex/SwiftLint-specific |
 
 After merging to main, your CI/CD pipeline handles deployment.
 Merge-check prevents broken code in main, which prevents broken releases.

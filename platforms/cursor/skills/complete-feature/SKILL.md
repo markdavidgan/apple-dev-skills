@@ -1,7 +1,7 @@
 ---
 name: complete-feature
 category: workflow
-description: Complete a feature implementation with full validation across build, tests, lint, and Apple patterns before committing. Use when a feature feels "done", before opening a PR, or when you want to confirm nothing was missed. Trigger on "complete this feature", "is this done", "finish the feature", "ready to commit", or "final validation".
+description: Run Apple-platform completion gates — archive build (catches strict-concurrency errors debug builds miss), entitlements/appex audit, accessibility, App Store readiness — once generic implementation and TDD are done. Assumes a process skill (e.g. superpowers:test-driven-development) already covers the code-correctness loop; this adds the Xcode/App Store layer on top. Trigger on "complete this iOS feature", "ready to submit", "final Apple checks", or "App Store readiness check".
 invoke: "/complete-feature [feature-name] — Run full validation and completion workflow"
 ---
 
@@ -167,7 +167,7 @@ grep -r "com.apple.developer" <app-dir> --include="*.entitlements"
 
 After all checks pass:
 
-1. **Stage changes**: `git add -A`
+1. **Stage changes by explicit path**: `git add <file> <file> ...` — never `git add -A`/`git add .`, which can sweep in another agent's in-progress work on a shared checkout.
 2. **Commit**: Follow conventional commits (feat:, fix:, docs:, etc.)
 3. **Push**: Only after all checks pass
 
@@ -216,3 +216,4 @@ This skill coordinates with:
 - `ios-accessibility` — VoiceOver/contrast verification (Phase 4)
 - `verify-against-spec` — if the feature was spec-driven, run this first
 - `merge-check` — run after completing, before merging to main
+- A generic process skill (e.g. `superpowers:test-driven-development`, `superpowers:verification-before-completion`) — run *before* this one for the code-correctness loop; this skill starts from "the code works" and adds only the Apple-specific completion gates.

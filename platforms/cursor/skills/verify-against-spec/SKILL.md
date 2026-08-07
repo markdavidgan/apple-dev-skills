@@ -1,7 +1,7 @@
 ---
 name: verify-against-spec
 category: workflow
-description: Use when finishing a spec-driven feature, when asked to verify nothing was missed, when approaching context limits on a long feature session, or after hearing "make sure everything is implemented". Cross-checks the design spec against the actual implementation, in parallel with build and doc verification.
+description: Cross-checks a design spec against implementation, including SwiftUI visual fidelity against a design-contract's §9 canonical frames and captures/. Apple/design-contract-specific — for a non-visual or non-Apple spec-coverage check, use a generic equivalent instead. Use when finishing a spec-driven Apple UI feature, or after hearing "make sure everything is implemented" on iOS work with a design contract.
 invoke: "/verify-against-spec [spec-path] — Check implementation coverage against design spec"
 ---
 

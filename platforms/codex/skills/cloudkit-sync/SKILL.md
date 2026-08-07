@@ -141,3 +141,21 @@ For genuine collaboration (multiple users co-editing the same records):
 | `CKShare` create fails on a TestFlight/App Store build ("invitation couldn't be created") | Sharing schema never reached Production — a share was never originated in Development before deploy | Originate one share in a Debug build to generate the share schema, then deploy to Production |
 | Can't confirm a deploy actually reached Production (no Console access) | — | `xcrun cktool export-schema --environment production` (works on both envs) and check the `CD_*` list matches Development |
 | Edits clobber each other | Last-writer-wins | Model concurrent data as combinable events |
+
+---
+
+## File Locking and Metadata Gotchas
+
+- **NSPersistentCloudKitContainer is aggressive about file locks:** When you call `loadPersistentStores`, the container spins up background threads and a CloudKit sync engine. It holds a persistent lock on the SQLite file.
+- **Concurrent container migration is dangerous:** Do not attempt to boot a "legacy" container and a "new" container concurrently against the same underlying file inode (even if renamed on APFS) to migrate data. The second container will often fail to load due to lock contention.
+- **Silent in-memory fallbacks are dangerous in production:** Boilerplate that silently falls back to an in-memory store if `loadPersistentStores` fails (to prevent crashes) will present an empty UI to the user. This causes users to panic, believing their data is wiped, when it may just be a transient lock issue or a metadata stamp error. Always make such fallback errors user-facing so the user knows their data is intact but temporarily inaccessible.
+- **Patching CloudKit metadata without locks:** If you need to fix a corrupted `cloudKitContainerOptions` stamp in a SQLite file, do not boot up a full `NSPersistentContainer`. Instead, read and write the raw metadata directly. This is lock-free and avoids booting the sync engine:
+
+```swift
+var meta = try NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: NSSQLiteStoreType, at: storeURL, options: nil)
+if var ckOpts = meta["NSPersistentCloudKitContainerOptionsKey"] as? [String: Any] {
+    ckOpts["containerIdentifier"] = "iCloud.com.new.container"
+    meta["NSPersistentCloudKitContainerOptionsKey"] = ckOpts
+    try NSPersistentStoreCoordinator.setMetadata(meta, forPersistentStoreOfType: NSSQLiteStoreType, at: storeURL, options: nil)
+}
+```

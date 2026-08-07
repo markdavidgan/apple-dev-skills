@@ -1,13 +1,13 @@
 ---
 name: regression-test
 category: quality
-description: Add regression tests when fixing bugs. Use when user says "fix this bug", "this is broken", "fix this issue", or when implementing any bug fix to prevent recurrence.
+description: Classify an iOS/Swift bug into its Apple-specific root-cause class (force unwrap, try!, fatalError, MainActor isolation, App Group mismatch, lifecycle) and sweep for sibling instances of that class. Complements a generic TDD/debugging skill (e.g. superpowers:test-driven-development, superpowers:systematic-debugging) rather than replacing it — use those for the red/green loop itself; use this for the Swift-specific bug taxonomy and codebase sweep once you're fixing an iOS bug.
 invoke: "/regression-test [bug-description] — Write a failing test for the bug, fix it, verify, and check for similar issues."
 ---
 
 # Regression Test Skill
 
-When fixing a bug, always follow this workflow to prevent the bug from recurring.
+When fixing an iOS/Swift bug, always follow this workflow to prevent the bug from recurring. This assumes you're already using a test-first loop (e.g. `superpowers:test-driven-development`); the value this skill adds is Step 0 — classifying the bug into an Apple-specific root-cause class and sweeping for siblings — not the write-test/fix/verify loop itself.
 
 ---
 
